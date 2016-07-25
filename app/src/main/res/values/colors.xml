@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- mainactivity tab的背景颜色-->
+    <color name="color_transparent">#00000000</color>
+    <color name="white40">#40FFFFFF</color>
+    <color name="f0f0f0">#f0f0f0</color>
+    <!-- GlobleTitleLayout-->
+    <color name="title_black">#212121</color>
+    <color name="black333333">#ff333333</color>
+    <color name="black969696">#969696</color>
+    <color name="black_touming">#99000000</color>
+    <color name="black_first">#e6000000</color>
+    <color name="backround_black">#ff010101</color>
+    <color name="nothing">#00ffffff</color>
+    <!-- camerafragment -->
+    <color name="blue">#2196F3</color>
+    <color name="color_f7f7f7">#f7f7f7</color>
+    <color name="color_222">#222</color>
+    <color name="color_333">#333</color>
+    <color name="color_666">#666</color>
+    <color name="color_999">#999</color>
+    <color name="color_ccc">#ccc</color>
+    <color name="color_ddd">#ddd</color>
+    <color name="color_eee">#eee</color>
+    <color name="radio_button_unselected_color">@android:color/transparent</color>
+    <color name="default_background_label">#ff303030</color>
+    <color name="color_7f8fa2">#7f8fa2</color>
+    <color name="color_0c151c">#0c151c</color>
+</resources>

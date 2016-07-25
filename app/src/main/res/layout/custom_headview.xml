@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp45"
+    android:background="@color/colorPrimaryDark">
+
+    <ImageButton
+        android:id="@+id/head_goback"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_50c592_4ec496"
+        android:padding="@dimen/dp16"
+        android:src="@mipmap/go_back" />
+
+    <ImageButton
+        android:id="@+id/iv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_fff_eee"
+        android:padding="@dimen/dp16"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/head_center_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:maxLength="18"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp14"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_center_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_head_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/head_view_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_fff_eee"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:padding="@dimen/dp16"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_tip_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/head_view_shop"
+            android:background="@drawable/cart_num_bg"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text="99+"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp10"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/ib_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_fff_eee"
+        android:padding="@dimen/dp16"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/iv_head_search"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/rl_head_shop"
+        android:layout_toLeftOf="@+id/rl_head_shop"
+        android:layout_toStartOf="@+id/rl_head_shop"
+        android:background="@drawable/selector_fff_eee"
+        android:paddingLeft="@dimen/dp16"
+        android:paddingRight="@dimen/dp16"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/tv_head_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_fff_eee"
+        android:drawablePadding="@dimen/dp5"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp16"
+        android:paddingRight="@dimen/dp16"
+        android:textColor="@color/color_333"
+        android:textSize="@dimen/sp14"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_ddd" />
+</RelativeLayout>

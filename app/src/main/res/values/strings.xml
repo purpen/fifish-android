@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">fifish</string>
+    <string name="home">首页</string>
+    <string name="media">媒体</string>
+    <string name="device">设备</string>
+    <string name="discover">发现</string>
+    <string name="me">我</string>
+</resources>
