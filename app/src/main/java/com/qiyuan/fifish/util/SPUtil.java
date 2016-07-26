@@ -3,7 +3,8 @@ package com.qiyuan.fifish.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.ajyw.application.AppApplication;
+import com.qiyuan.fifish.application.AppApplication;
+
 
 /**
  * @author lilin

@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -18,15 +19,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.ajyw.R;
-import com.ajyw.application.AppApplication;
 import com.orhanobut.logger.Logger;
+import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.application.AppApplication;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
@@ -231,6 +232,20 @@ public class Util {
     public static String formatFloat(float price) throws NumberFormatException {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         return decimalFormat.format(price);
+    }
+
+    //获取手机状态栏高度
+    public static int getStatusBarHeight(){
+        int statusBarHeight = 0;
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Field field = c.getField("status_bar_height");
+            int x= Integer.parseInt(field.get(c.newInstance()).toString());
+            statusBarHeight = AppApplication.getInstance().getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return statusBarHeight;
     }
 
 }

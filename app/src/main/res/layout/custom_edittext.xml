@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp48"
+    android:paddingLeft="@dimen/dp8"
+    android:paddingRight="@dimen/dp8"
+    android:background="@drawable/shape_custom_et">
+
+    <EditText
+        android:id="@+id/custom_et"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:drawablePadding="@dimen/dp8"
+        android:textColor="@color/color_212121"
+        android:maxLength="20"
+        android:textColorHint="@color/color_ccc"
+        android:textSize="@dimen/sp14" />
+
+    <View
+        android:id="@+id/custom_et_line"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/color_ddd"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.qiyuan.fifish.R;
 
-public class FindFragment extends BaseFragment{
+public class DiscoverFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setFragmentLayout(R.layout.fragment_mine);

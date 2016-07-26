@@ -2,9 +2,11 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.qiyuan.fifish.application.AppApplication;
 
@@ -31,6 +33,7 @@ public abstract class BaseActivity<T> extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 //        ShareSDK.initSDK(this);
         application = AppApplication.getInstance();
         application.setCurrentActivity(this);

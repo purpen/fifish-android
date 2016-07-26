@@ -3,18 +3,24 @@
     package="com.qiyuan.fifish">
 
     <application
+        android:name=".application.AppApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ForgetPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CompleteUserInfoActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

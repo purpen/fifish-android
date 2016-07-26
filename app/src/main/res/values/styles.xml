@@ -1,11 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimaryDark">@color/color_fafafa</item>-->
+        <!--<item name="android:windowBackground">@android:color/white</item>-->
     </style>
 
     <!-- MainActivity中最下面RadioGroup的五个Button的样式 -->
@@ -18,6 +17,14 @@
         <item name="android:gravity">center</item>
         <item name="android:drawablePadding">@dimen/dp2</item>
         <item name="android:paddingTop">@dimen/dp5</item>
-        <item name="android:paddingBottom">@dimen/dp5</item>
+    </style>
+
+    <style name="SubmitButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp48</item>
+        <item name="android:layout_marginLeft">@dimen/dp16</item>
+        <item name="android:layout_marginRight">@dimen/dp16</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:stateListAnimator" tools:targetApi="21">@null</item>
     </style>
 </resources>
