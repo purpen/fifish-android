@@ -21,7 +21,7 @@
 
     <style name="SubmitButtonStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp48</item>
+        <item name="android:layout_height">@dimen/dp45</item>
         <item name="android:layout_marginLeft">@dimen/dp16</item>
         <item name="android:layout_marginRight">@dimen/dp16</item>
         <item name="android:textSize">@dimen/sp14</item>

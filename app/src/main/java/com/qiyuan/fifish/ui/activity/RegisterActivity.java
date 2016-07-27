@@ -11,7 +11,7 @@ import com.qiyuan.fifish.R;
  */
 public class RegisterActivity extends BaseActivity{
     public RegisterActivity(){
-        super(R.layout.activity_login);
+        super(R.layout.activity_login_register);
     }
 
     @Override

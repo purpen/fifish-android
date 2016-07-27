@@ -9,7 +9,7 @@ import com.qiyuan.fifish.application.AppApplication;
  * created at 2016/7/25 18:24
  */
 public class ImageLoader {
-    public static void displayImage(String url, ImageView imageView, int placeHolderId) {
+    public static void loadImage(String url, ImageView imageView, int placeHolderId) {
         Glide.with(AppApplication.getInstance()).load(url).placeholder(placeHolderId).diskCacheStrategy(DiskCacheStrategy.ALL).error(placeHolderId).into(imageView);
     }
 }
