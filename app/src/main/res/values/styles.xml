@@ -27,4 +27,40 @@
         <item name="android:textSize">@dimen/sp14</item>
         <item name="android:stateListAnimator" tools:targetApi="21">@null</item>
     </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="custom_progress_dialog" parent="@style/CustomDialog">
+        <!--<item name="android:windowBackground">@drawable/corner_black</item>-->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="LabelTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/label_title_size</item>
+    </style>
+
+    <style name="CrossImageView">
+        <item name="android:paddingLeft">@dimen/padding_icon_cross</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:src">@mipmap/cross</item>
+    </style>
+
+    <style name="Label">
+        <item name="android:padding">@dimen/padding_label_view</item>
+        <item name="android:layout_marginRight">@dimen/dp10</item>
+        <item name="android:layout_marginBottom">@dimen/dp16</item>
+        <item name="android:background">@color/default_background_label</item>
+    </style>
+
 </resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp60"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="@dimen/dp5"
+    android:paddingLeft="@dimen/dp16"
+    android:paddingRight="@dimen/dp16"
+    android:paddingTop="@dimen/dp5">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
+        android:layout_gravity="center_horizontal">
+
+        <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
+            android:id="@+id/riv"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40"
+            android:layout_centerVertical="true"
+            app:riv_border_width="@dimen/dp1"
+            app:riv_border_color="@color/color_eee"
+            android:src="@mipmap/default_focus_head"
+            app:riv_corner_radius="@dimen/dp100" />
+
+        <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
+            android:id="@+id/riv_auth"
+            android:layout_width="@dimen/dp15"
+            android:layout_height="@dimen/dp15"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/v"
+            android:visibility="gone"
+            app:riv_corner_radius="@dimen/dp100" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_toLeftOf="@+id/btn"
+        android:layout_toRightOf="@+id/rl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/sp12" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/sp10" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/dp70"
+        android:layout_height="@dimen/dp30"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_focus"
+        android:text="关注"
+        android:textColor="@color/color_025dc8"
+        android:textSize="@dimen/sp12" />
+</RelativeLayout>

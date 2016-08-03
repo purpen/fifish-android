@@ -7,8 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.ui.view.CustomHeadView;
+
+import butterknife.Bind;
 
 public class MediaFragment extends BaseFragment{
+    @Bind(R.id.custom_head)
+    CustomHeadView customHead;
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -19,6 +24,7 @@ public class MediaFragment extends BaseFragment{
 
     @Override
     protected void initViews() {
-
+        customHead.setHeadCenterTxtShow(true, R.string.media);
+        customHead.setHeadGoBackShow(false);
     }
 }

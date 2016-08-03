@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_f7f7f7"
+    >
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/head_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_user_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_nick_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_signature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        />
+
+   <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_user_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_user_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/custom_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        />
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp150"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp5"
+    >
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp300"
+        android:scaleType="centerCrop"
+        />
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp10">
+
+        <FrameLayout
+            android:id="@+id/item_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp5">
+
+            <ImageView
+                android:id="@+id/title_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="matrix"
+                />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:maxEms="8"
+                android:textColor="@android:color/white"
+                android:includeFontPadding="false"
+                android:text="@string/app_name"
+                android:textSize="@dimen/sp14" />
+        </FrameLayout>
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@null"
+            android:drawablePadding="@dimen/dp5"
+            android:layout_marginBottom="@dimen/dp10"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp12"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="北京市 七星集团" />
+    </LinearLayout>
+</RelativeLayout>

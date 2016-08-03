@@ -6,7 +6,12 @@
     android:orientation="vertical"
     android:background="@color/color_f0f0f0"
     >
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/custom_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/dp16"
@@ -143,4 +148,20 @@
             android:src="@mipmap/more"
             />
     </RelativeLayout>
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        />
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item_support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item_feed_back"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

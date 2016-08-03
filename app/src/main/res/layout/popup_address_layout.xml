@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:background="@color/color_f7f7f7"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingRight="@dimen/dp10"
+        >
+        <TextView
+            android:id="@+id/tv_cancel_select"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_025dc8"
+            android:textSize="@dimen/sp14"
+            android:text="@string/cancel"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/sp14"
+            android:textColor="@color/color_333"
+            android:text="@string/select_a_city"
+            />
+        <TextView
+            android:id="@+id/tv_confirm_select"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_025dc8"
+            android:textSize="@dimen/sp14"
+            android:text="@string/complete"
+            />
+    </RelativeLayout>
+
+    <com.qiyuan.fifish.ui.view.CustomAddressSelectView
+        android:id="@+id/custom_address_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

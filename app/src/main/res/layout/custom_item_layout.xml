@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_item_box"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp45"
@@ -20,7 +19,7 @@
             android:layout_centerVertical="true"
             android:drawablePadding="@dimen/dp10"
             android:text="@string/app_name"
-            android:textSize="@dimen/sp12" />
+            android:textSize="@dimen/sp14" />
         <EditText
             android:id="@+id/et_right"
             android:layout_width="wrap_content"
@@ -112,7 +111,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/iv_more_arrow"
-        android:layout_marginStart="@id/iv_more_arrow"
         android:layout_marginRight="@dimen/dp5"
         android:layout_marginEnd="@dimen/dp5"
         android:layout_centerVertical="true"

@@ -1,5 +1,6 @@
 package com.qiyuan.fifish.ui.activity;
 
+import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -16,13 +17,13 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.util.Util;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author lilin
  *         created at 2016/7/26 13:10
  */
 public class LoginActivity extends BaseActivity {
-
     @Bind(R.id.ll_login)
     LinearLayout llLogin;
     @Bind(R.id.horizontalScrollView)
@@ -37,6 +38,8 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llReg;
     @Bind(R.id.tv_register)
     TextView tvRegister;
+    public boolean flag=false;
+    private ObjectAnimator animator;
 
     public LoginActivity() {
         super(R.layout.activity_login_register);
@@ -55,11 +58,32 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void installListener() {
-//        horizontalScrollView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                return true;
-//            }
-//        });
+        horizontalScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+    }
+
+    @OnClick({R.id.tv_register,R.id.ibtn_close})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.tv_register:
+                if (!flag){
+                    flag=true;
+                    animator = ObjectAnimator.ofFloat(horizontalScrollView, "translationX", horizontalScrollView.getTranslationX(), -Util.getScreenWidth());
+                    animator.setDuration(300);
+                    animator.start();
+                }else {
+                    flag=false;
+                    animator.reverse();
+                }
+                break;
+            case R.id.ibtn_close:
+                finish();
+                break;
+
+        }
     }
 }

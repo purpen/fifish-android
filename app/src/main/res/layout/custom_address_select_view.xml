@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <com.qiyuan.fifish.ui.view.wheelview.WheelView
+        android:id="@+id/wv_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <com.qiyuan.fifish.ui.view.wheelview.WheelView
+        android:id="@+id/wv_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <com.qiyuan.fifish.ui.view.wheelview.WheelView
+        android:id="@+id/wv_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>

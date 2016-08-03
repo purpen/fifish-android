@@ -11,7 +11,6 @@
     <color name="color_bfbfbf">#bfbfbf</color>
 
     <!-- camerafragment -->
-    <color name="blue">#2196F3</color>
     <color name="color_f7f7f7">#f7f7f7</color>
     <color name="color_222">#222</color>
     <color name="color_333">#333</color>
@@ -24,4 +23,12 @@
     <color name="default_background_label">#ff303030</color>
     <color name="color_7f8fa2">#7f8fa2</color>
     <color name="color_0c151c">#0c151c</color>
+    <color name="roundColor_svprogresshuddefault">#e5e5e5</color>
+    <color name="roundProgressColor_svprogresshuddefault">@android:color/black</color>
+    <color name="bgColor_svprogressdefaultview">@android:color/white</color>
+    <color name="textColor_svprogresshuddefault_msg">#000000</color>
+    <!--<color name="bgColor_overlay">#60000000</color>
+    <color name="bgColor_overlay_black">#95000000</color>
+    <color name="bgColor_svprogressdefaultview">@android:color/white</color>
+    -->
 </resources>

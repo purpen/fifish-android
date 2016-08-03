@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/custom_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="您的意见或建议"
+        android:textColor="@color/color_333"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_suggestion"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shap_home_gridview"
+        android:gravity="top"
+        android:hint="您的意见或建议，我们都会认真倾听。"
+        android:lineSpacingMultiplier="1.5"
+        android:maxLength="500"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="联系方式"
+        android:textColor="@color/color_333"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_contact"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shap_home_gridview"
+        android:hint="手机号/QQ/邮箱"
+        android:maxLength="50"
+        android:singleLine="true"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:text="加入太火鸟交流群：226541167"
+        android:textSize="14sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"/>
+    <Button
+        android:id="@+id/bt_commit"
+        style="@style/SubmitButtonStyle"
+        android:text="提交"
+        android:textSize="14sp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_update_password"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

@@ -6,20 +6,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.LoginInfo;
+import com.qiyuan.fifish.bean.LoginUserInfo;
+import com.qiyuan.fifish.ui.fragment.DeviceFragment;
 import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
 import com.qiyuan.fifish.ui.fragment.HomeFragment;
 import com.qiyuan.fifish.ui.fragment.MediaFragment;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
-import com.qiyuan.fifish.ui.view.CustomHeadView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
@@ -27,8 +25,6 @@ import butterknife.OnClick;
  *         created at 2016/7/26 13:12
  */
 public class MainActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
-    CustomHeadView customHead;
     private FragmentManager fm;
     private ArrayList<Fragment> fragments;
     private Fragment showFragment;
@@ -106,7 +102,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        customHead.setHeadGoBackShow(false);
+
     }
 
     private void switchFragmentandImg(Class clazz) {
@@ -180,11 +176,16 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.ll_nav0:
                 switchFragmentandImg(HomeFragment.class);
-                startActivity(new Intent(MainActivity.this, CompleteUserInfoActivity.class));
+//                startActivity(new Intent(MainActivity.this, CompleteUserInfoActivity.class));
+                break;
+            case R.id.ll_nav1:
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                switchFragmentandImg(MediaFragment.class);
                 break;
             case R.id.ll_nav2:
-                startActivity(new Intent(MainActivity.this, ForgetPasswordActivity.class));
-                if (LoginInfo.isUserLogin()) {
+                switchFragmentandImg(DeviceFragment.class);
+//                startActivity(new Intent(MainActivity.this, ForgetPasswordActivity.class));
+                if (LoginUserInfo.isUserLogin()) {
 //                    MainApplication.tag = 1;
 //                    startActivity(new Intent(MainActivity.this, SelectPhotoOrCameraActivity.class));
                 } else {
@@ -192,24 +193,16 @@ public class MainActivity extends BaseActivity {
 //                    startActivity(new Intent(activity, OptRegisterLoginActivity.class));
                 }
                 break;
-            case R.id.ll_nav1:
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                switchFragmentandImg(MediaFragment.class);
-                customHead.setHeadCenterTxtShow(true, R.string.media);
-                break;
             case R.id.ll_nav3:
                 switchFragmentandImg(DiscoverFragment.class);
                 break;
             case R.id.ll_nav4:
-//                if (getVisibleFragment() instanceof MineFragment) return;
-//                if (LoginInfo.isUserLogin()) {
-                switchFragmentandImg(MineFragment.class);
-                customHead.setHeadCenterTxtShow(true, R.string.me);
-//                } else {
-//                    which = MineFragment.class.getSimpleName();
-//                    startActivity(new Intent(activity, OptRegisterLoginActivity.class));
-//                }
-//                startActivity(new Intent(activity,LoginActivity.class));
+                if (LoginUserInfo.isUserLogin()) {
+                    switchFragmentandImg(MineFragment.class);
+                } else {
+                    which = MineFragment.class.getSimpleName();
+                    startActivity(new Intent(activity, LoginActivity.class));
+                }
                 break;
         }
     }

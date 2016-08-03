@@ -1,6 +1,5 @@
 package com.qiyuan.fifish.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import com.qiyuan.fifish.ui.view.CustomEditText;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
