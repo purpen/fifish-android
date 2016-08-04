@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_login"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_marginTop="@dimen/dp48">
+
+        <ImageView
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp8"
+            android:layout_toLeftOf="@+id/et_phone"
+            android:layout_toStartOf="@+id/et_phone"
+            android:src="@mipmap/phone_white" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="@dimen/dp45"
+            android:layout_centerHorizontal="true"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/phone_num"
+            android:inputType="phone"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp14" />
+
+        <View
+            android:layout_width="@dimen/dp250"
+            android:layout_height="@dimen/dp1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_marginTop="@dimen/dp16">
+
+        <ImageView
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp8"
+            android:layout_toLeftOf="@+id/et_password"
+            android:layout_toStartOf="@+id/et_password"
+            android:src="@mipmap/password_white" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="@dimen/dp250"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/sp14" />
+
+        <View
+            android:layout_width="@dimen/dp250"
+            android:layout_height="@dimen/dp1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/white" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_forget_password"
+        android:layout_width="@dimen/dp250"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp24"
+        android:gravity="right"
+        android:text="@string/forget_password"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp14" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/SubmitButtonStyle"
+        android:layout_width="@dimen/dp278"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp24"
+        android:background="@drawable/shape_button_login"
+        android:text="@string/login"
+        android:textColor="@color/color_025dc8"
+        android:textSize="@dimen/sp14" />
+</LinearLayout>

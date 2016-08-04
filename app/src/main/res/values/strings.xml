@@ -23,7 +23,8 @@
     <string name="password">账户密码</string>
     <string name="quick_login">快速登录</string>
     <string name="register_now">立即注册</string>
-    <string name="not_account">还没有账号?</string>
+    <string name="no_account">还没有账号?立即注册</string>
+    <string name="has_account">已有账号?立即登录</string>
     <string name="products">作品</string>
     <string name="focus">关注</string>
     <string name="fans">粉丝</string>
@@ -97,4 +98,7 @@
     <string name="l_album_name_screen_shot">屏幕截图</string>
     <string name="l_confirm_dialog_title">提示</string>
     <string name="l_confirm_dialog_message">您确定要放弃本次选择的图片吗?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

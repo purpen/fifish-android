@@ -1,5 +1,7 @@
 package com.qiyuan.fifish.util;
 
+import com.qiyuan.fifish.bean.City;
+import com.qiyuan.fifish.bean.Province;
 import com.qiyuan.fifish.bean.ProvinceCityData;
 
 import java.util.ArrayList;
@@ -19,9 +21,6 @@ public class ProvinceUtil {
 //        ClientDiscoverAPI.getAllCities(new RequestCallBack<String>() {
 //            @Override
 //            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                if (responseInfo==null){
-//                    return;
-//                }
 //                if (TextUtils.isEmpty(responseInfo.result)){
 //                    return;
 //                }
@@ -51,10 +50,10 @@ public class ProvinceUtil {
         idProvinceMap=new HashMap<>();
         idCitiesMap=new HashMap<>();
         ArrayList<String> cities;
-        for (ProvinceCityData.Province province:data.rows){
+        for (Province province:data.rows){
             idProvinceMap.put(province.city,province._id);
             cities = new ArrayList<>();
-            for (ProvinceCityData.City city :province.cities){
+            for (City city :province.cities){
                 cities.add(city.city);
                 idCitiesMap.put(city.city,city._id);
             }
@@ -76,7 +75,7 @@ public class ProvinceUtil {
             return null;
         }
         ArrayList<String> provinces = new ArrayList<>();
-        for (ProvinceCityData.Province province : data.rows) {
+        for (Province province : data.rows) {
             provinces.add(province.city);
         }
         return provinces;

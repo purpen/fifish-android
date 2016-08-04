@@ -19,6 +19,11 @@ public class DeviceFragment extends BaseFragment{
         return view;
     }
 
+    public static DeviceFragment newInstance() {
+        DeviceFragment fragment = new DeviceFragment();
+        return fragment;
+    }
+
     @Override
     protected void initViews() {
         customHead.setHeadCenterTxtShow(true, R.string.device);

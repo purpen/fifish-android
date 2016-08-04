@@ -11,26 +11,21 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
 
 import butterknife.Bind;
 
-public class HomeFragment extends BaseFragment{
-    @Bind(R.id.custom_head)
-    CustomHeadView customHead;
+public class LoginFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.setFragmentLayout(R.layout.fragment_home);
+        super.setFragmentLayout(R.layout.fragment_login);
         super.onCreateView(inflater, container, savedInstanceState);
         return view;
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static LoginFragment newInstance() {
+        LoginFragment fragment = new LoginFragment();
         return fragment;
     }
 
     @Override
     protected void initViews() {
-        customHead.setHeadCenterTxtShow(true, R.string.home);
-        customHead.setHeadGoBackShow(false);
     }
-
 }
