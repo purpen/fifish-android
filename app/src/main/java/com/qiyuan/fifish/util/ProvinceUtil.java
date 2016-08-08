@@ -1,8 +1,11 @@
 package com.qiyuan.fifish.util;
 
+import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.City;
 import com.qiyuan.fifish.bean.Province;
 import com.qiyuan.fifish.bean.ProvinceCityData;
+
+import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +41,12 @@ public class ProvinceUtil {
 
     private static void dealData(){
         if (data==null){
-            LogUtil.e(TAG,"dealData---->data==null");
+            LogUtil.e(TAG+"data==null");
             return;
         }
 
         if (data.rows==null ||data.rows.size()==0){
-            LogUtil.e(TAG,"dealData---->data.rows==null || data.rows.size()==0");
+            LogUtil.e(TAG+"data.rows==null || data.rows.size()==0");
             return;
         }
         provinceCityMap = new HashMap<>();
@@ -71,7 +74,7 @@ public class ProvinceUtil {
 
     public static ArrayList<String> getProvinces() {
         if (data==null){
-            Util.makeToast("抱歉无法获得地址数据,请先确保网络畅通");
+            ToastUtils.showInfo(R.string.request_error);
             return null;
         }
         ArrayList<String> provinces = new ArrayList<>();
@@ -84,7 +87,7 @@ public class ProvinceUtil {
 
     public static ArrayList<String> getCitiesByProvince(String province) {
         if (data==null){
-            Util.makeToast("抱歉无法获得地址数据,请先开启网络");
+            ToastUtils.showInfo(R.string.request_error);
             return null;
         }
         return provinceCityMap.get(province);

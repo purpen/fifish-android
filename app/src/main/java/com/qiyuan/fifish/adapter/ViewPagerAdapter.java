@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.ui.activity.UserGuideActivity;
-import com.qiyuan.fifish.util.ImageLoader;
 import com.qiyuan.fifish.util.ToastUtils;
 
 import java.util.List;
@@ -75,7 +75,7 @@ public class ViewPagerAdapter<T> extends RecyclingPagerAdapter {
             if (TextUtils.isEmpty((String) content)) {
                 ToastUtils.showError("图片链接为空");
             } else {
-                ImageLoader.loadImage((String) content, holder.imageView);
+                ImageLoader.getInstance().displayImage((String) content, holder.imageView);
             }
         }
 

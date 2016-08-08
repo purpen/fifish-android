@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.LoginUserInfo;
@@ -18,13 +19,16 @@ import com.qiyuan.fifish.ui.fragment.MineFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.OnClick;
+import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/7/26 13:12
  */
 public class MainActivity extends BaseActivity {
+    @Bind(R.id.main_nav)
+    RadioGroup mainNav;
+    private int checkedId = R.id.ll_nav0;
     private FragmentManager fm;
     private ArrayList<Fragment> fragments;
     private Fragment showFragment;
@@ -71,6 +75,48 @@ public class MainActivity extends BaseActivity {
         } else {
             which2Switch();
         }
+    }
+
+    @Override
+    protected void installListener() {
+        mainNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.ll_nav0:
+                        checkedId = i;
+                        radioGroup.check(i);
+                        switchFragmentandImg(HomeFragment.class);
+                        break;
+                    case R.id.ll_nav1:
+                        checkedId = i;
+                        radioGroup.check(i);
+                        switchFragmentandImg(MediaFragment.class);
+                        break;
+                    case R.id.ll_nav2:
+                        checkedId = i;
+                        radioGroup.check(i);
+                        switchFragmentandImg(DeviceFragment.class);
+                        break;
+                    case R.id.ll_nav3:
+                        checkedId = i;
+                        radioGroup.check(i);
+                        switchFragmentandImg(DiscoverFragment.class);
+                        break;
+                    case R.id.ll_nav4:
+                        if (LoginUserInfo.isUserLogin()) {
+                            checkedId = i;
+                            switchFragmentandImg(MineFragment.class);
+                            radioGroup.check(i);
+                        } else {
+                            radioGroup.check(checkedId);
+                            which = MineFragment.class.getSimpleName();
+                            startActivity(new Intent(activity, LoginActivity.class));
+                        }
+                        break;
+                }
+            }
+        });
     }
 
     private void recoverAllState(Bundle savedInstanceState) {
@@ -144,8 +190,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        int size = fragments.size();
-        if (fragments != null && size > 0) {
+        if (fragments != null) {
+            int size = fragments.size();
             for (int i = 0; i < size; i++) {
                 fm.putFragment(outState, fragments.get(i).getTag(), fragments.get(i));
             }
@@ -156,6 +202,19 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (fragments != null) {
+            int size = fragments.size();
+            for (int i = 0; i < size; i++) {
+                fm.putFragment(savedInstanceState, fragments.get(i).getTag(), fragments.get(i));
+            }
+        }
+        if (showFragment != null) {
+            savedInstanceState.putSerializable(MainActivity.class.getSimpleName(), showFragment.getClass());
+        }
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 
     public Fragment getVisibleFragment() {
         List<Fragment> fragments = fm.getFragments();
@@ -168,42 +227,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        fragments=null;
         super.onDestroy();
     }
 
-    @OnClick({R.id.ll_nav0, R.id.ll_nav1, R.id.ll_nav2, R.id.ll_nav3, R.id.ll_nav4})
-    void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_nav0:
-                switchFragmentandImg(HomeFragment.class);
-//                startActivity(new Intent(MainActivity.this, CompleteUserInfoActivity.class));
-                break;
-            case R.id.ll_nav1:
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                switchFragmentandImg(MediaFragment.class);
-                break;
-            case R.id.ll_nav2:
-                switchFragmentandImg(DeviceFragment.class);
-//                startActivity(new Intent(MainActivity.this, ForgetPasswordActivity.class));
-                if (LoginUserInfo.isUserLogin()) {
-//                    MainApplication.tag = 1;
-//                    startActivity(new Intent(MainActivity.this, SelectPhotoOrCameraActivity.class));
-                } else {
-//                    MainApplication.which_activity = 0;
-//                    startActivity(new Intent(activity, OptRegisterLoginActivity.class));
-                }
-                break;
-            case R.id.ll_nav3:
-                switchFragmentandImg(DiscoverFragment.class);
-                break;
-            case R.id.ll_nav4:
-                if (LoginUserInfo.isUserLogin()) {
-                    switchFragmentandImg(MineFragment.class);
-                } else {
-                    which = MineFragment.class.getSimpleName();
-                    startActivity(new Intent(activity, LoginActivity.class));
-                }
-                break;
-        }
-    }
 }

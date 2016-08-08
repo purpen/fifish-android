@@ -16,9 +16,10 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.FocusFans;
 import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
-import com.qiyuan.fifish.util.LogUtil;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.Util;
+
+import org.xutils.common.util.LogUtil;
 
 import java.util.List;
 
@@ -234,7 +235,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
      * @param holder
      */
     private void dealOthersFoucsFansStyle(final FocusFans item, final ViewHolder holder) {
-        LogUtil.e("dealOthersFoucsFansStyle", "is_love===" + item.follows.is_love);
+        LogUtil.e("dealOthersFoucsFansStyle is_love===" + item.follows.is_love);
         if (item.follows.is_love == NOT_LOVE) {
             holder.btn.setText("关注");
             holder.btn.setTextColor(activity.getResources().getColor(R.color.color_333));
@@ -260,7 +261,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
     }
 
     private void dealOthersFocus(final FocusFans item, final View view) {
-        LogUtil.e("dealOthersFocusFans", "is_love===" + item.follows.is_love);
+        LogUtil.e("dealOthersFocusFans is_love===" + item.follows.is_love);
         if (item.follows.is_love == NOT_LOVE) { //别人的关注列表做关注操作
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override

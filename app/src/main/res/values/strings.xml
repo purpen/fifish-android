@@ -6,7 +6,7 @@
     <string name="discover">发现</string>
     <string name="me">我</string>
     <string name="please_input">请输入</string>
-    <string name="phone_num">手机号</string>
+    <string name="phone_num">邮箱</string>
     <string name="input_check_code">输入验证码</string>
     <string name="new_password">新密码</string>
     <string name="confirm_update">确认修改</string>
@@ -98,7 +98,7 @@
     <string name="l_album_name_screen_shot">屏幕截图</string>
     <string name="l_confirm_dialog_title">提示</string>
     <string name="l_confirm_dialog_message">您确定要放弃本次选择的图片吗?</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_email">请输入邮箱</string>
+    <string name="input_right_email">请输入正确邮箱</string>
+    <string name="request_error">网络异常,请确保网络畅通或联系我们</string>
 </resources>

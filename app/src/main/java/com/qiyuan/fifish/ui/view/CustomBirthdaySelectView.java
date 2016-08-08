@@ -11,8 +11,9 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.wheelview.OnWheelChangedListener;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.ui.view.wheelview.WheelView;
-import com.qiyuan.fifish.util.LogUtil;
 import com.qiyuan.fifish.util.TimeUtil;
+
+import org.xutils.common.util.LogUtil;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -77,7 +78,6 @@ public class CustomBirthdaySelectView extends LinearLayout {
         }
         if (months != null && months.size() > 0) {
             wv_center.setAdapter(new StringWheelAdapter(months));
-            LogUtil.e("CurMonth", calendar.get(Calendar.MONTH) + "");
             wv_center.setCurrentItem(months.size() - 1);
             isCurrentMonth = true;
         }
@@ -103,12 +103,10 @@ public class CustomBirthdaySelectView extends LinearLayout {
 
     private void initYears() {
         years = new ArrayList<>();
-        LogUtil.e("initYears", calendar.get(Calendar.YEAR) + "");
         int curYear = calendar.get(Calendar.YEAR);
         for (int i = curYear - DURING_YEAR + 1; i <= curYear; i++) {
             years.add(String.valueOf(i));
         }
-        LogUtil.e("size", years.size() + "");
     }
 
     private void initMonths() {
@@ -122,7 +120,6 @@ public class CustomBirthdaySelectView extends LinearLayout {
         } else {
             monthLen = MONTHS_OF_YEAR;
         }
-        LogUtil.e("monthLen", monthLen + "");
         for (int i = 1; i <= monthLen; i++) {
             if (i<10){
                 months.add(String.format("0%s", String.valueOf(i)));
@@ -137,10 +134,8 @@ public class CustomBirthdaySelectView extends LinearLayout {
         int dayLen = 0;
         if (isCurrentMonth) {
             dayLen = calendar.get(Calendar.DAY_OF_MONTH);
-            LogUtil.e("isCurrentMonthdayLen", dayLen + "");
         } else {
             dayLen = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            LogUtil.e("dayLen", dayLen + "");
         }
 
         for (int i = 1; i <= dayLen; i++) {
@@ -196,7 +191,6 @@ public class CustomBirthdaySelectView extends LinearLayout {
      */
     private void setCalendarCurrentSelected(){
         try {
-            LogUtil.e("getBithday", TimeUtil.getMillonsecond(getBithday(),"yyyy-MM-dd")+"");
             calendar.setTimeInMillis(TimeUtil.getMillonsecond(getBithday(),"yyyy-MM-dd"));
         } catch (ParseException e) {
             e.printStackTrace();

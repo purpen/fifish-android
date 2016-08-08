@@ -89,6 +89,8 @@ public abstract class BaseFragment<T> extends Fragment {
 
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

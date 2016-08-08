@@ -85,8 +85,11 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
         mFoldName.setText("最近图片");
         selectFold.setOnClickListener(mOnClickFoldName);
 
+        //加载相册
         albumCollection.onCreate(ImageSelectActivity.this,this,selectionSpec,mListView);
         albumCollection.loadAlbums();
+
+        //加载所有图片
         mPhotoCollection.onCreate(ImageSelectActivity.this,mGridView,mCollection,selectionSpec);
         mPhotoCollection.loadAllPhoto();
 

@@ -28,9 +28,12 @@ import android.widget.GridView;
 import java.lang.ref.WeakReference;
 
 /**
+ * 负责加载所有图片
  */
 public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> {
+    //加载器的ID
     private static final int LOADER_ID = 2;
+    //com.qiyuan.fifish.album.PictureCollection.ARGS_ALBUM
     private static final String ARGS_ALBUM = BundleUtils.buildKey(PictureCollection.class, "ARGS_ALBUM");
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
@@ -38,7 +41,7 @@ public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> 
     private SelectionSpec selectionSpec;
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {//图片加载器初始化参数这边接收
         Context context = mContext.get();
         if (context == null) {
             return null;

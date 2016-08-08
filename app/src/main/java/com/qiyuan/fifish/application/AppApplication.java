@@ -3,16 +3,14 @@ package com.qiyuan.fifish.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.StrictMode;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.qiyuan.fifish.util.Constants;
-import com.qiyuan.fifish.util.LogUtil;
+
+import org.xutils.BuildConfig;
+import org.xutils.x;
 
 /**
  * @author lilin
@@ -35,6 +33,8 @@ public class AppApplication extends Application {
 //        }
         super.onCreate();
         application = this;
+        x.Ext.init(this);
+        x.Ext.setDebug(true);
         initImageLoader(getApplicationContext());
     }
 

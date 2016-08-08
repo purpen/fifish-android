@@ -8,12 +8,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.ImageCrop.ClipSquareImageView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.FileUtils;
-import com.qiyuan.fifish.util.ImageLoader;
 import com.qiyuan.fifish.util.Util;
+
+import org.xutils.common.util.FileUtil;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -59,9 +61,8 @@ public class ImageCropActivity extends BaseActivity {
     protected void initViews() {
         if (uri == null) return;
         dialog=new WaitingDialog(this);
-//        String path = FileUtils.getRealFilePath(getApplicationContext(), uri);
-//        LogUtil.e("path",path);
-        ImageLoader.loadImage(uri,csiv);
+        String path = FileUtils.getRealFilePath(getApplicationContext(), uri);
+        ImageLoader.getInstance().displayImage("file:///"+path,csiv);
     }
 
 

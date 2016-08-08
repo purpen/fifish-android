@@ -27,7 +27,7 @@
             android:background="@null"
             android:gravity="center"
             android:hint="@string/phone_num"
-            android:inputType="phone"
+            android:inputType="textEmailAddress"
             android:maxLength="30"
             android:singleLine="true"
             android:textColor="@android:color/white"

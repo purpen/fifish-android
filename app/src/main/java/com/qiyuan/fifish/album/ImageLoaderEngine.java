@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.util.ImageLoader;
 
 public class ImageLoaderEngine implements LoadEngine {
     private int img_loading;
@@ -31,12 +31,12 @@ public class ImageLoaderEngine implements LoadEngine {
 
     @Override
     public void displayImage(String path, ImageView imageView) {
-        ImageLoader.loadImage(path, imageView);
+        ImageLoader.getInstance().displayImage(path, imageView);
     }
 
     @Override
     public void displayCameraItem(ImageView imageView) {
-        ImageLoader.loadImage(R.mipmap.ic_launcher, imageView);
+        ImageLoader.getInstance().displayImage("drawable://"+R.mipmap.ic_launcher, imageView);
     }
 
     @Override

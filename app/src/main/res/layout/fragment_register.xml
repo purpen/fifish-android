@@ -35,8 +35,8 @@
                 android:background="@null"
                 android:gravity="center"
                 android:hint="@string/phone_num"
-                android:inputType="phone"
-                android:maxLength="30"
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
                 android:singleLine="true"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
@@ -91,7 +91,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp45"
-            android:layout_marginTop="@dimen/dp16">
+            android:layout_marginTop="@dimen/dp16"
+            android:visibility="gone"
+            >
 
             <ImageView
                 android:layout_width="@dimen/dp20"
@@ -116,6 +118,7 @@
                     android:gravity="center"
                     android:hint="@string/input_check_code"
                     android:inputType="text"
+                    android:maxLength="15"
                     android:singleLine="true"
                     android:textColorHint="@android:color/white"
                     android:textSize="@dimen/sp14" />

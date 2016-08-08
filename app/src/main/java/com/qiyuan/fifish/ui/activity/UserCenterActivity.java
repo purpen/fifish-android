@@ -3,12 +3,9 @@ package com.qiyuan.fifish.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
@@ -24,14 +22,11 @@ import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
-import com.qiyuan.fifish.util.ImageLoader;
-import com.qiyuan.fifish.util.LogUtil;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -283,7 +278,6 @@ public class UserCenterActivity extends BaseActivity implements View.OnClickList
      * 加载情景数据
      */
     private void loadQJData() {
-        LogUtil.e("loadQJData", String.format("curPage==%s;;PAGE_SIZE==%s;;userId==%s", curPage, PAGE_SIZE, userId));
 //        ClientDiscoverAPI.getQJList(String.valueOf(curPage), PAGE_SIZE, String.valueOf(userId), new RequestCallBack<String>() {
 //            @Override
 //            public void onStart() {
@@ -359,7 +353,6 @@ public class UserCenterActivity extends BaseActivity implements View.OnClickList
         if (user == null) {
             return;
         }
-        LogUtil.e(TAG, "refreshUI===" + user._id);
 //        if (user.is_love == FansAdapter.NOT_LOVE) {
 //            bt_focus.setText("关注");
 //        } else {
@@ -369,10 +362,10 @@ public class UserCenterActivity extends BaseActivity implements View.OnClickList
             tv_title.setText(user.nickname);
         }
         if (!TextUtils.isEmpty(user.medium_avatar_url)) {
-            ImageLoader.loadImage(user.medium_avatar_url, riv);
+            ImageLoader.getInstance().displayImage(user.medium_avatar_url, riv);
         }
 //        if (!TextUtils.isEmpty(user.head_pic_url)) {
-        ImageLoader.loadImage(user.head_pic_url, iv_bg);
+        ImageLoader.getInstance().displayImage(user.head_pic_url, iv_bg);
 //        }
 
 //        if (user.identify.is_expert==1){

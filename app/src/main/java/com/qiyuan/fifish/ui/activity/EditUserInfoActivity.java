@@ -3,14 +3,13 @@ package com.qiyuan.fifish.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.JsonSyntaxException;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
@@ -23,7 +22,6 @@ import com.qiyuan.fifish.ui.view.CustomItemLayout;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.ui.view.wheelview.WheelView;
-import com.qiyuan.fifish.util.ImageLoader;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.ProvinceUtil;
 import com.qiyuan.fifish.util.Util;
@@ -387,7 +385,7 @@ public class EditUserInfoActivity extends BaseActivity {
     protected void refreshUI() {
         if (user != null) {
             if (!TextUtils.isEmpty(user.medium_avatar_url)) {
-                ImageLoader.loadImage(user.medium_avatar_url,custom_user_avatar.getAvatarIV());
+                ImageLoader.getInstance().displayImage(user.medium_avatar_url,custom_user_avatar.getAvatarIV());
             }
 //            custom_user_name.setTvArrowLeftStyle(true, userLogin.user_name, R.color.color_333);
 //            custom_user_name.sertTVRightTxt(userLogin.user_name);

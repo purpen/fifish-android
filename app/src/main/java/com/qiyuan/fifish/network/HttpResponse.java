@@ -1,33 +1,27 @@
 package com.qiyuan.fifish.network;
 
+import java.util.ArrayList;
+
 /**
  * @author lilin
- * created at 2016/4/5 17:39
+ *         created at 2016/4/5 17:39
  */
-public class HttpResponse<T> {
-    private boolean success;
-    private boolean is_error;
-    private String status;
-    private String message;
-    private T data;
+public class HttpResponse{
+    public Meta meta;
+    public Data data;
 
-    public boolean isSuccess() {
-        return success;
+    private class Meta {
+        public String message;
+        public int status_code;
+        public Error errors;
     }
 
-    public boolean isError() {
-        return is_error;
+    private class Data {
+        public String token;
     }
 
-    public String getStatus() {
-        return status;
+    private class Error {
+        public ArrayList<String> account;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
-        return data;
-    }
 }
