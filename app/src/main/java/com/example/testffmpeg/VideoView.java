@@ -209,7 +209,7 @@ public class VideoView extends ImageView implements Runnable {
         mDecoder = new DecoderJni();
       
         String videoPath = "rtsp://" + mUser + ":" + mPass + "@" + mIp + ":" + mRtsp + "/channel1/" + "2";
-        Log.e(">>", ">>videoPath>>" + Uri.parse(videoPath));
+        Log.e(">>", ">videoPath>>" + Uri.parse(videoPath));
         if (mDecoder.openSourceJ(videoPath) != 0) {
             mThread = null;
             mStatus = STATUS.STOPPED;
