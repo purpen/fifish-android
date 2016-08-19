@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+
 public class WrapContentHeightViewPager extends ViewPager {
     private boolean isPagingEnabled = true;
     public WrapContentHeightViewPager(Context context) {
@@ -48,4 +50,5 @@ public class WrapContentHeightViewPager extends ViewPager {
     public void setPagingEnabled(boolean b) {
         this.isPagingEnabled = b;
     }
+
 }

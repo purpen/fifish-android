@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author lilin
  *         created at 2016/4/5 17:39
  */
-public class HttpResponse{
+public class HttpResponse<T>{
     public Meta meta;
     public Data data;
 

@@ -29,7 +29,7 @@ public abstract class BaseFragment<T> extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         initParams();
-        loadData();
+        requestNet();
     }
 
     protected void setFragmentLayout(int layoutId) {
@@ -43,7 +43,7 @@ public abstract class BaseFragment<T> extends Fragment {
 
     }
 
-    protected void loadData() {
+    protected void requestNet() {
 
     }
 

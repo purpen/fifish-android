@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity {
                         checkedId = i;
                         radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
+                        startActivity(new Intent(activity,UserCenterActivity.class));
                         break;
                     case R.id.ll_nav1:
                         checkedId = i;
