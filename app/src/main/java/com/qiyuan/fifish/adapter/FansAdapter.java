@@ -112,7 +112,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -130,7 +130,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 ////                    svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -171,7 +171,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //                    ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                        @Override
 //                        public void onSuccess(ResponseInfo<String> responseInfo) {
-//                            view.setEnabled(true);
+//                            view_link_help.setEnabled(true);
 //                            PopupWindowUtil.dismiss();
 //                            if (responseInfo == null) return;
 //                            if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -190,7 +190,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                        @Override
 //                        public void onFailure(HttpException e, String s) {
-//                            view.setEnabled(true);
+//                            view_link_help.setEnabled(true);
 //                            PopupWindowUtil.dismiss();
 //                            ToastUtils.showError("网络异常，请确认网络畅通");
 ////                            svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -242,7 +242,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -260,7 +260,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 ////                    svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -270,7 +270,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //            ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -286,7 +286,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view.setEnabled(true);
+//                    view_link_help.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 //                }

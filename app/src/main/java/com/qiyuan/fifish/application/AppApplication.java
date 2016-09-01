@@ -9,7 +9,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-import org.xutils.BuildConfig;
 import org.xutils.x;
 
 /**
@@ -27,10 +26,6 @@ public class AppApplication extends Application {
 
     @Override
     public void onCreate() {
-//        if (Constants.DEVELOPER_MODE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDialog().build());
-//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
-//        }
         super.onCreate();
         application = this;
         x.Ext.init(this);

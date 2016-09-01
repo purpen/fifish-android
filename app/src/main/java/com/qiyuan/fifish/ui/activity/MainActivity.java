@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.fragment.DeviceFragment;
 import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
 import com.qiyuan.fifish.ui.fragment.HomeFragment;
@@ -105,7 +103,7 @@ public class MainActivity extends BaseActivity {
                         switchFragmentandImg(DiscoverFragment.class);
                         break;
                     case R.id.ll_nav4:
-                        if (LoginUserInfo.isUserLogin()) {
+                        if (true) { //UserProfile.isUserLogin()
                             checkedId = i;
                             switchFragmentandImg(MineFragment.class);
                             radioGroup.check(i);

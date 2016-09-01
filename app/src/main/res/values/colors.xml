@@ -2,7 +2,6 @@
 <resources>
     <!-- mainactivity tab的背景颜色-->
     <color name="color_transparent">#00000000</color>
-    <color name="white40">#40FFFFFF</color>
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_fafafa">#fafafa</color>
     <color name="color_d7d7d7">#d7d7d7</color>
@@ -27,8 +26,6 @@
     <color name="roundProgressColor_svprogresshuddefault">@android:color/black</color>
     <color name="bgColor_svprogressdefaultview">@android:color/white</color>
     <color name="textColor_svprogresshuddefault_msg">#000000</color>
-    <!--<color name="bgColor_overlay">#60000000</color>
-    <color name="bgColor_overlay_black">#95000000</color>
-    <color name="bgColor_svprogressdefaultview">@android:color/white</color>
-    -->
+    <color name="color_ff0000">#ff0000</color>
+    <color name="color_2187ff">#2187ff</color>
 </resources>

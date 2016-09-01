@@ -39,4 +39,14 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.REGISTER_USER_URL),cancelable);
     }
+
+    /**
+     * 获取用户资料
+     * @param callBack
+     */
+    public static void getUserProfile(Callback.CommonCallback<String> callBack) {
+        RequestParams params = new RequestParams(Constants.REGISTER_USER_URL);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.REGISTER_USER_URL),cancelable);
+    }
 }

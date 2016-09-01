@@ -3,7 +3,6 @@ package com.qiyuan.fifish.ui.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.qiyuan.fifish.util.Util;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -108,7 +106,8 @@ public class ProductsFragment extends BaseFragment {
         return data;
 
     }
-    ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void refreshUI(ArrayList list) {
         if (list==null||list.size()==0) return;

@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,14 +10,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.bean.ErrorBean;
+import com.qiyuan.fifish.bean.LoginBean;
+import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.ForgetPasswordActivity;
+import com.qiyuan.fifish.ui.activity.MainActivity;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.SPUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import org.xutils.common.Callback;
-import org.xutils.common.util.LogUtil;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -70,12 +79,58 @@ public class LoginFragment extends BaseFragment {
         RequestService.loginUser(userName, userPsw, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e(result);
+                if (TextUtils.isEmpty(result)) return;
+                LoginBean loginBean = JsonUtil.fromJson(result, LoginBean.class);
+                if (loginBean.code== Constants.HTTP_OK){
+                    getUserProfile();
+                    return;
+                }
+                ToastUtils.showError(loginBean.meta.meta.message);
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void getUserProfile() {
+        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (TextUtils.isEmpty(result)) return;
+                try {
+                    UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
+                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
+                        SPUtil.write(Constants.LOGIN_INFO,result);
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
+                }catch (JsonSyntaxException e){
+                    e.printStackTrace();
+                }finally {
+                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
+                    ToastUtils.showError(errorBean.meta.message);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
             }
 
             @Override

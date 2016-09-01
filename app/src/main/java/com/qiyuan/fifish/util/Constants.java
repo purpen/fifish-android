@@ -9,7 +9,8 @@ public class Constants {
     public static final String BASE_URL = "http://fish.taihuoniao.com/api/";
     public static final String LOGIN_USER_URL= Constants.BASE_URL+"auth/login";
     public static final String REGISTER_USER_URL= Constants.BASE_URL+"auth/register";
-
+    public static final int HTTP_OK = 200;
+    public static final int HTTP_NOT_FOUND = 404;
     public static final String PIC_URI = BASE_URL;
     public static final String SHARE_URI = BASE_URL;
     public static final String MAGZINE_URI = BASE_URL;
