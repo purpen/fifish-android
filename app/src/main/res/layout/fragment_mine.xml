@@ -13,13 +13,15 @@
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp140"
-        android:background="@drawable/selector_fff_eee"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp16"
+        android:paddingTop="@dimen/dp16"
+        android:background="@android:color/white"
         >
         <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
             android:id="@+id/riv"
-            android:layout_width="@dimen/dp85"
-            android:layout_height="@dimen/dp85"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
             android:src="@mipmap/default_head"
             app:riv_border_color="@color/color_ccc"
             app:riv_border_width="@dimen/dp1"
@@ -31,43 +33,38 @@
             android:layout_toRightOf="@+id/riv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp10"
             android:orientation="vertical"
             >
             <TextView
-                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:ellipsize="end"
+                android:text="@string/app_name"
                 android:textSize="@dimen/sp14"
                 android:textColor="@color/color_333"
                 />
             <TextView
-                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/area"
                 android:drawablePadding="@dimen/dp5"
-                android:layout_marginTop="@dimen/dp8"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/sp12"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="@string/app_name"
                 android:textColor="@color/color_666"
                 />
             <TextView
-                android:id="@+id/tv_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp12"
+                android:text="@string/app_name"
+                android:textSize="@dimen/sp14"
                 android:textColor="@color/color_333"
-                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp5"
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp5"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,10 +72,10 @@
                     android:orientation="vertical"
                     >
                     <TextView
-                        android:id="@+id/tv_products_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp12"
+                        android:text="10"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_333"
                         android:layout_gravity="center"
                         />
@@ -87,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp2"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_666"
                         android:text="@string/products"
                         />
@@ -99,11 +96,11 @@
                     android:layout_marginLeft="@dimen/dp32"
                     >
                     <TextView
-                        android:id="@+id/tv_focus_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/sp12"
+                        android:text="10"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_333"
                         />
                     <TextView
@@ -112,7 +109,7 @@
                         android:layout_marginTop="@dimen/dp2"
                         android:layout_gravity="center"
                         android:text="@string/focus"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_666"
                         />
                 </LinearLayout>
@@ -123,10 +120,10 @@
                     android:layout_marginLeft="@dimen/dp32"
                     >
                     <TextView
-                        android:id="@+id/tv_fans_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp12"
+                        android:text="10"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_333"
                         android:layout_gravity="center"
                         />
@@ -135,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp2"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textColor="@color/color_666"
                         android:text="@string/fans"
                         />

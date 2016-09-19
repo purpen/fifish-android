@@ -49,7 +49,7 @@ public class CustomHeadView extends RelativeLayout {
         iv_left = (ImageButton) view.findViewById(R.id.iv_left);
         head_center_tv = (TextView) view.findViewById(R.id.head_center_tv);
         iv_center_logo = (ImageView) view.findViewById(R.id.iv_center_logo);
-//        iv_head_search = (ImageButton) view_link_help.findViewById(R.id.iv_head_search);
+//        iv_head_search = (ImageButton) view.findViewById(R.id.iv_head_search);
         rl_head_shop = (RelativeLayout) view.findViewById(R.id.rl_head_shop);
         head_view_shop = (ImageButton) view.findViewById(R.id.head_view_shop);
         tv_tip_num = (TextView) view.findViewById(R.id.tv_tip_num);

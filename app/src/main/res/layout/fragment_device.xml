@@ -1,93 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="match_parent">
     <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tv_wifi"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp45"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/custom_head"
-        android:textSize="@dimen/sp14"
-        android:textColor="@color/color_ff0000"
-        android:text="WiFi未连接"
-        />
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp05"
-        android:background="@color/color_ddd"
-        android:layout_below="@+id/tv_wifi"
-        />
-    <TextView
-        android:id="@+id/tv_device_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="选择连接你的Fifish设备"
-        android:layout_below="@+id/view_line"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="@dimen/dp15"
-        android:paddingBottom="@dimen/dp15"
-        android:textSize="@dimen/sp14"
-        android:textColor="@color/color_333"
-        />
-    <com.qiyuan.fifish.ui.view.ScrollableView
-        android:id="@+id/scrollableView"
-        android:layout_below="@+id/tv_device_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_box"
-        />
-
-
-    <LinearLayout
-        android:id="@+id/ll_box"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp25"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/ll_dots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            />
-        <Button
-            android:id="@+id/btn_link"
-            android:layout_width="@dimen/dp250"
-            android:layout_height="@dimen/dp45"
-            android:layout_marginTop="@dimen/dp35"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/shape_button_border"
-            android:textColor="@color/color_2187ff"
-            android:text="连接WIFI"
-            android:layout_above="@+id/tv_help"
-            android:textSize="@dimen/sp14"
-            />
-        <Button
-            android:id="@+id/btn_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@null"
-            android:text="连接帮助"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/sp14"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp15"
-            android:layout_marginBottom="@dimen/dp8"
-            />
-    </LinearLayout>
-</RelativeLayout>
+    <Button
+        android:id="@+id/bt_to_device"
+        android:text="连接设备"
+        android:textSize="17sp"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="70dp" />
+    <Button
+        android:id="@+id/bt_to_device2"
+        android:text="连接设备2"
+        android:textSize="17sp"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="70dp" />
+    <Button
+        android:id="@+id/bt_to_device_test_ruler"
+        android:text="连接设备ruler"
+        android:textSize="17sp"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="70dp" />
+</LinearLayout>
