@@ -2,11 +2,9 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.qiyuan.fifish.application.AppApplication;
 
@@ -18,7 +16,7 @@ import butterknife.ButterKnife;
  * @author lilin
  *         created at 2016/6/27 14:56
  */
-public abstract class BaseActivity<T> extends FragmentActivity {
+public abstract class BaseActivity<T> extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();
     private long startTime;
     protected Activity activity;

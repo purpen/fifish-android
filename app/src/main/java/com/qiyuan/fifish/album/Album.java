@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.qiyuan.fifish.album;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;

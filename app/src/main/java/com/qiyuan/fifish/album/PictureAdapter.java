@@ -25,7 +25,6 @@ import android.widget.ImageView;
 
 import com.qiyuan.fifish.R;
 
-
 /**
  */
 public class PictureAdapter extends CursorAdapter {

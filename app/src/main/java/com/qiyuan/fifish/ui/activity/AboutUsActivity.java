@@ -5,12 +5,9 @@ import android.graphics.Bitmap;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
-
 import butterknife.Bind;
 
 public class AboutUsActivity extends BaseActivity {

@@ -10,12 +10,10 @@ import android.widget.Button;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.ui.view.ImageCrop.ClipSquareImageView;
+import com.qiyuan.fifish.ui.view.imageCrop.ClipSquareImageView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.FileUtils;
 import com.qiyuan.fifish.util.Util;
-
-import org.xutils.common.util.FileUtil;
 
 import butterknife.Bind;
 import butterknife.OnClick;

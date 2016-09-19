@@ -28,7 +28,7 @@ import android.widget.ListView;
 import java.lang.ref.WeakReference;
 
 /**
- * 负责加载所有相册
+ * @version 1.0.0
  */
 public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
     private static final int LOADER_ID = 1;

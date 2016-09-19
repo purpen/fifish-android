@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.ErrorBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -137,7 +136,7 @@ public class MineFragment extends BaseFragment {
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e(result);
+                LogUtil.e("个人中心"+result);
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     userInfo = JsonUtil.fromJson(result, UserProfile.class);
@@ -147,10 +146,9 @@ public class MineFragment extends BaseFragment {
                     }
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
-                } finally {
-                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-                    ToastUtils.showError(errorBean.meta.message);
                 }
+//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
+//                    ToastUtils.showError(errorBean.meta.message);
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {

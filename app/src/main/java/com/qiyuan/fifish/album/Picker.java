@@ -18,7 +18,6 @@ package com.qiyuan.fifish.album;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -164,7 +163,7 @@ public final class Picker {
         Intent intent = new Intent(activity, ImageSelectActivity.class);
         intent.putExtra(ImageSelectActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
 //        intent.putExtra(ImageSelectActivity.EXTRA_ENGINE, (Serializable) engine);
-        intent.putParcelableArrayListExtra(ImageSelectActivity.EXTRA_RESUME_LIST, (ArrayList<? extends Parcelable>) mResumeList);
+        intent.putParcelableArrayListExtra(ImageSelectActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
 
         Fragment fragment = getFragment();
         if (fragment != null) {

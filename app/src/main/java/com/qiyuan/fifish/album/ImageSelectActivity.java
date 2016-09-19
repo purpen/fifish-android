@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.album;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.qiyuan.fifish.R;
 
@@ -85,11 +83,8 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
         mFoldName.setText("最近图片");
         selectFold.setOnClickListener(mOnClickFoldName);
 
-        //加载相册
         albumCollection.onCreate(ImageSelectActivity.this,this,selectionSpec,mListView);
         albumCollection.loadAlbums();
-
-        //加载所有图片
         mPhotoCollection.onCreate(ImageSelectActivity.this,mGridView,mCollection,selectionSpec);
         mPhotoCollection.loadAllPhoto();
 
@@ -97,7 +92,7 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
             @Override
             public void onClick(View v) {
                 if (mCollection.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"未选择图片", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"未选择图片",Toast.LENGTH_LONG).show();
                 }else{
                     setResult();
                 }

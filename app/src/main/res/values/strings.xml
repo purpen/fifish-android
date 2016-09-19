@@ -113,7 +113,7 @@
     <string name="l_confirm_dialog_message">您确定要放弃本次选择的图片吗?</string>
     <string name="input_email">请输入邮箱</string>
     <string name="input_right_email">请输入正确邮箱</string>
-    <string name="request_error">网络异常,请确保网络畅通或联系我们</string>
+    <string name="request_error">网络错误</string>
 
     <string name="unit">度量单位</string>
     <string name="foot">英尺</string>

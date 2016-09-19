@@ -6,6 +6,7 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.LogUtil;
 import org.xutils.http.app.RequestInterceptListener;
 import org.xutils.http.request.UriRequest;
 
@@ -23,6 +24,8 @@ public abstract class CustomCallBack implements RequestInterceptListener,Callbac
     public void afterRequest(UriRequest request) throws Throwable {
         String token = request.getResponseHeader("Authorization");
         if (!TextUtils.isEmpty(token)){
+            token=token.split("\\s")[1];
+            LogUtil.e("afterRequest=="+token);
             SPUtil.write(Constants.TOKEN,token);
         }
     }

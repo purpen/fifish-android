@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.ErrorBean;
 import com.qiyuan.fifish.bean.LoginBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
@@ -78,11 +77,10 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void loginUser() {
-
         RequestService.loginUser(userName, userPsw, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e("登录："+result);
+                LogUtil.e("登录"+result);
                 if (TextUtils.isEmpty(result)) return;
                 LoginBean loginBean = JsonUtil.fromJson(result, LoginBean.class);
                 if (loginBean.meta.status_code== Constants.HTTP_OK){
@@ -153,6 +151,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
+                LogUtil.e("获取登录信息"+result);
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
                     if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
@@ -163,10 +162,11 @@ public class LoginFragment extends BaseFragment {
                     }
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
-                }finally {
-                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-                    ToastUtils.showError(errorBean.meta.message);
                 }
+//                finally {
+//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
+//                    ToastUtils.showError(errorBean.meta.message);
+//                }
             }
 
             @Override

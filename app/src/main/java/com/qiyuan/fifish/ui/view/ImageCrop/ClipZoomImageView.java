@@ -1,4 +1,4 @@
-package com.qiyuan.fifish.ui.view.ImageCrop;
+package com.qiyuan.fifish.ui.view.imageCrop;
 
 import android.content.Context;
 import android.graphics.Bitmap;

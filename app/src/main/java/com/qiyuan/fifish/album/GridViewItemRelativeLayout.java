@@ -25,7 +25,6 @@ import android.widget.RelativeLayout;
 
 import com.qiyuan.fifish.R;
 
-
 /**
  * @author KeithYokoma
  * @version 1.0.0

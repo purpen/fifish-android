@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.network;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 import org.xutils.common.util.MD5;
@@ -20,8 +21,8 @@ public class RequestService {
      */
     public static void loginUser(String account, String password, Callback.CommonCallback<String> callBack) {
         RequestParams params = new RequestParams(Constants.LOGIN_USER_URL);
-        params.addBodyParameter("account",account);
-        params.addBodyParameter("password",password);
+        params.addQueryStringParameter("account",account);
+        params.addQueryStringParameter("password",password);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.LOGIN_USER_URL),cancelable);
     }
@@ -34,8 +35,8 @@ public class RequestService {
      */
     public static void registerUser(String account, String password, Callback.CommonCallback<String> callBack) {
         RequestParams params = new RequestParams(Constants.REGISTER_USER_URL);
-        params.addBodyParameter("account",account);
-        params.addBodyParameter("password",password);
+        params.addQueryStringParameter("account",account);
+        params.addQueryStringParameter("password",password);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.REGISTER_USER_URL),cancelable);
     }
@@ -66,8 +67,8 @@ public class RequestService {
      */
     private static void addToken(RequestParams params){
         if (params==null) return;
-        LogUtil.e("tokenshi"+SPUtil.read(Constants.TOKEN));
         params.addQueryStringParameter("token",SPUtil.read(Constants.TOKEN));
+        LogUtil.e("添加token=="+SPUtil.read(Constants.TOKEN));
     }
 
     public static void logout(CustomCallBack callBack) {
