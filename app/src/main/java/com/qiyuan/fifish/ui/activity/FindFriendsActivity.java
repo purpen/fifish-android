@@ -81,13 +81,13 @@ public class FindFriendsActivity extends BaseActivity<Friends> implements View.O
         item_contacts.setSubTitle("关注你认识的好友");
 //        lv = pull_lv.getRefreshableView();
 //        lv.setDividerHeight(getResources().getDimensionPixelSize(R.dimen.dp05));
-//        pull_lv.getRefreshableView().addHeaderView(view);
+//        pull_lv.getRefreshableView().addHeaderView(view_link_help);
 //        pull_lv.setPullToRefreshEnabled(false);
     }
 
     @Override
     protected void installListener() {
-//        pull_lv.setOnLastItemVisibleListener(new com.taihuoniao.fineix.view.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener() {
+//        pull_lv.setOnLastItemVisibleListener(new com.taihuoniao.fineix.view_link_help.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener() {
 //            @Override
 //            public void onLastItemVisible() {
 ////                isLoadMore = true;
@@ -100,7 +100,7 @@ public class FindFriendsActivity extends BaseActivity<Friends> implements View.O
         item_contacts.setOnClickListener(this);
 //        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//            public void onItemClick(AdapterView<?> adapterView, View view_link_help, int i, long l) {
 //                //TODO 跳转个人中心//场景详情
 //                Util.makeToast(i+"");
 //            }

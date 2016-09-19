@@ -90,6 +90,19 @@
         <item>红人</item>
         <item>诗人</item>
     </string-array>
+    <string-array name="help_step_arr">
+        <item>1、打开Rov设备电源</item>
+        <item>2、打开中继设备电源</item>
+        <item>3、连接线缆</item>
+        <item>4、移动设备连接到中继设备的WiFi</item>
+    </string-array>
+
+    <string-array name="link_help_arr">
+        <item>下一步</item>
+        <item>下一步</item>
+        <item>下一步</item>
+        <item>完成</item>
+    </string-array>
 
     <string name="l_album_name_all">最近图片</string>
     <string name="l_album_name_selected">选择图片</string>

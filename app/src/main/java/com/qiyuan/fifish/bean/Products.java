@@ -36,7 +36,7 @@ public class Products implements Parcelable {
         this.cover_url = in.readString();
     }
 
-    public static final Parcelable.Creator<Products> CREATOR = new Parcelable.Creator<Products>() {
+    public static final Creator<Products> CREATOR = new Creator<Products>() {
         @Override
         public Products createFromParcel(Parcel source) {
             return new Products(source);

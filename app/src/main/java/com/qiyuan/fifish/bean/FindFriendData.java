@@ -29,7 +29,7 @@ public class FindFriendData implements Parcelable {
         this.friends = in.createTypedArrayList(Friends.CREATOR);
     }
 
-    public static final Parcelable.Creator<FindFriendData> CREATOR = new Parcelable.Creator<FindFriendData>() {
+    public static final Creator<FindFriendData> CREATOR = new Creator<FindFriendData>() {
         @Override
         public FindFriendData createFromParcel(Parcel source) {
             return new FindFriendData(source);

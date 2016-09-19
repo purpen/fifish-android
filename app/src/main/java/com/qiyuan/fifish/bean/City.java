@@ -33,7 +33,7 @@ public class City implements Parcelable {
         this.parent_id = in.readInt();
     }
 
-    public static final Parcelable.Creator<City> CREATOR = new Parcelable.Creator<City>() {
+    public static final Creator<City> CREATOR = new Creator<City>() {
         @Override
         public City createFromParcel(Parcel source) {
             return new City(source);

@@ -54,7 +54,7 @@ public class Follow implements Parcelable {
         this.expert_info = in.readString();
     }
 
-    public static final Parcelable.Creator<Follow> CREATOR = new Parcelable.Creator<Follow>() {
+    public static final Creator<Follow> CREATOR = new Creator<Follow>() {
         @Override
         public Follow createFromParcel(Parcel source) {
             return new Follow(source);

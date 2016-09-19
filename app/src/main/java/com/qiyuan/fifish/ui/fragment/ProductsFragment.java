@@ -1,46 +1,39 @@
 package com.qiyuan.fifish.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.ui.activity.UserCenterActivity;
-import com.qiyuan.fifish.ui.view.UserCenterViewPager;
+import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.util.Util;
 
-import org.xutils.common.util.LogUtil;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
  */
-public class ProductsFragment extends BaseFragment {
-    @Bind(R.id.pull_refresh_view)
-    PullToRefreshListView pullRefreshView;
-    private UserCenterViewPager viewPager;
-    private ArrayList<String> mlist=new ArrayList<>();
+public class ProductsFragment extends ScrollTabHolderFragment {
+    @Bind(R.id.listView)
+    ListView listView;
+    private CustomViewPager viewPager;
+    private ArrayList<String> mList = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.setFragmentLayout(R.layout.fragment_products);
+        super.setFragmentLayout(R.layout.fragment_list);
         super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -50,85 +43,74 @@ public class ProductsFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        pullRefreshView.setMode(PullToRefreshBase.Mode.BOTH);
+        mList = new ArrayList<>();
+        for (int i = 1; i <= 50; i++) {
+            mList.add(i + ". item - currnet page: " + (0 + 1));
+        }
+        View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
+        listView.addHeaderView(placeHolderView);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        listView.setOnScrollListener(new OnScroll());
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item, android.R.id.text1, mList);
+        listView.setAdapter(adapter);
+    }
+
+    private int lastVisibleItem = 0;
+
+    public class OnScroll implements AbsListView.OnScrollListener {
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            int position = listView.getLastVisiblePosition();
+            if (lastVisibleItem != position && position == (listView.getCount() - 1)) {
+                lastVisibleItem = position;
+                Log.e("mListView.getCount()-1", "底部");
+                mList.addAll(mList);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem,
+                             int visibleItemCount, int totalItemCount) {
+            if (mScrollTabHolder != null)
+                mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount, 0);
+        }
+
     }
 
     @Override
     protected void installListener() {
-        pullRefreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //下拉刷新
-            }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-            }
-        });
-
-        pullRefreshView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-            @Override
-            public void onLastItemVisible() {
-                loadData();
-            }
-        });
-
-        pullRefreshView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                viewPager.getParent().getParent().requestDisallowInterceptTouchEvent(true);
-                int action = motionEvent.getActionMasked();
-                switch (action) {
-                    case MotionEvent.ACTION_UP:
-                        viewPager.getParent().getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
     protected void requestNet() {
-        new MyHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshUI(loadData());
-            }
-        }, 2000);
+
     }
 
-    private ArrayList<String> loadData() {
-        LogUtil.e("加载了数据");
-        ArrayList<String> data = new ArrayList<String>();
-        for (int i = 0; i <10; i++) {
-            data.add("ListView数据的分批加载" + i);
+    @Override
+    public void adjustScroll(int scrollHeight) {
+        if (scrollHeight == 0 && listView.getFirstVisiblePosition() >= 1) {
+            return;
         }
-        return data;
+
+        listView.setSelectionFromTop(1, scrollHeight);
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount, int pagePosition) {
 
     }
-    ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void refreshUI(ArrayList list) {
-        if (list==null||list.size()==0) return;
-        mlist.addAll(list);
-        if (arrayAdapter==null){
-            arrayAdapter = new ArrayAdapter<>(
-                    activity, android.R.layout.simple_list_item_1,
-                    mlist);
-            pullRefreshView.setAdapter(arrayAdapter);
-        }else {
-            arrayAdapter.notifyDataSetChanged();
-        }
-        int height = Util.setListViewHeightBasedOnChildren1(pullRefreshView.getRefreshableView());
-        if (activity instanceof UserCenterActivity) {
-            viewPager = ((UserCenterActivity) activity).getViewPager();
-            if (viewPager!=null){
-                viewPager.setViewPagerHeight(height);
-            }
-        }
+        if (list == null || list.size() == 0) return;
+
     }
 
-    private static class MyHandler extends Handler{}
 }

@@ -24,7 +24,7 @@ import android.support.v4.content.CursorLoader;
 
 
 /**
- * Wrapper for {@link android.support.v4.content.CursorLoader} to merge custom cursors.
+ * Wrapper for {@link CursorLoader} to merge custom cursors.
  *
  * @author KeithYokoma
  * @version 1.0.0

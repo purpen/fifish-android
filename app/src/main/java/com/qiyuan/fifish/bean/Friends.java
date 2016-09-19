@@ -51,7 +51,7 @@ public class Friends implements Parcelable {
         this.areas = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<Friends> CREATOR = new Parcelable.Creator<Friends>() {
+    public static final Creator<Friends> CREATOR = new Creator<Friends>() {
         @Override
         public Friends createFromParcel(Parcel source) {
             return new Friends(source);

@@ -1,23 +1,7 @@
 [
     {
-        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_bottom.xml",
-        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_bottom.xml"
-    },
-    {
         "merged": "C:\\AndroidStudioProjects\\Fifish\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
         "source": "C:\\AndroidStudioProjects\\Fifish\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
-    },
-    {
-        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_bottom.xml",
-        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_bottom.xml"
-    },
-    {
-        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_out_to_top.xml",
-        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_to_top.xml"
-    },
-    {
-        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",
-        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_from_top.xml"
     },
     {
         "merged": "C:\\AndroidStudioProjects\\Fifish\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_top.xml",

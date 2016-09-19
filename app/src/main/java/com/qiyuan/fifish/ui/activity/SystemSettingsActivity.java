@@ -3,14 +3,18 @@ package com.qiyuan.fifish.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.DataCleanUtil;
 import com.qiyuan.fifish.util.FileUtils;
+import com.qiyuan.fifish.util.SPUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 
 import butterknife.Bind;
@@ -84,7 +88,7 @@ public class SystemSettingsActivity extends BaseActivity{
                 startActivity(intent);
                 break;
             case R.id.item_about_us:
-                String url= Constants.BASE_URL+"/view/about";
+                String url= Constants.BASE_URL+"/view_link_help/about";
                 intent = new Intent(activity, AboutUsActivity.class);
                 intent.putExtra(AboutUsActivity.class.getSimpleName(),url);
                 intent.putExtra(AboutUsActivity.class.getName(),"关于我们");
@@ -108,7 +112,7 @@ public class SystemSettingsActivity extends BaseActivity{
     }
 
     private void logout() {
-//        ClientDiscoverAPI.logout(new RequestCallBack<String>() {
+//        RequestService.logout(new RequestCallBack<String>() {
 //            @Override
 //            public void onSuccess(ResponseInfo<String> responseInfo) {
 //                if (responseInfo==null) return;
@@ -117,7 +121,7 @@ public class SystemSettingsActivity extends BaseActivity{
 //                if (response.isSuccess()){//   退出成功跳转首页
 //                    ToastUtils.showSuccess("退出成功");
 //                }
-//                SPUtil.remove(DataConstants.LOGIN_INFO);
+//                SPUtil.remove(Constants.LOGIN_INFO);
 //                Intent intent=new Intent(activity,MainActivity.class);
 //                intent.putExtra(IndexFragment.class.getSimpleName(),IndexFragment.class.getSimpleName());
 //                intent.putExtra("exit", true);
@@ -130,6 +134,19 @@ public class SystemSettingsActivity extends BaseActivity{
 //                LogUtil.e(TAG,s);
 //            }
 //        });
+        RequestService.logout(new CustomCallBack(){
+            @Override
+            public void onSuccess(String result) {
+                if (TextUtils.isEmpty(result)) return;
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+        SPUtil.remove(Constants.LOGIN_INFO);
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {

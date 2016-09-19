@@ -32,7 +32,7 @@ public class ProvinceCityData implements Parcelable {
         this.rows = in.createTypedArrayList(Province.CREATOR);
     }
 
-    public static final Parcelable.Creator<ProvinceCityData> CREATOR = new Parcelable.Creator<ProvinceCityData>() {
+    public static final Creator<ProvinceCityData> CREATOR = new Creator<ProvinceCityData>() {
         @Override
         public ProvinceCityData createFromParcel(Parcel source) {
             return new ProvinceCityData(source);

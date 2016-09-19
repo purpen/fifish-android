@@ -48,7 +48,7 @@ public class FocusFans implements Parcelable {
         this.follows = in.readParcelable(Follow.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<FocusFans> CREATOR = new Parcelable.Creator<FocusFans>() {
+    public static final Creator<FocusFans> CREATOR = new Creator<FocusFans>() {
         @Override
         public FocusFans createFromParcel(Parcel source) {
             return new FocusFans(source);
