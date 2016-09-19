@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.LoginRegsiterViewPagerAdapter;
 import com.qiyuan.fifish.ui.fragment.LoginFragment;
@@ -44,10 +43,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void installListener() {
 
-    }
-
-    public WrapContentHeightViewPager getViewPager(){
-        return viewPager==null?null:viewPager;
     }
 
     @OnClick({R.id.btn_switch,R.id.ibtn_close})

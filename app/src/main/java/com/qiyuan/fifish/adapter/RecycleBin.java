@@ -21,14 +21,14 @@ import android.view.View;
 public class RecycleBin {
     /**
      * Views that were on screen at the start of layout. This array is populated at the start of
-     * layout, and at the end of layout all view_link_help in activeViews are moved to scrapViews.
+     * layout, and at the end of layout all view in activeViews are moved to scrapViews.
      * Views in activeViews represent a contiguous range of Views, with position of the first
-     * view_link_help store in mFirstActivePosition.
+     * view store in mFirstActivePosition.
      */
     private View[] activeViews = new View[0];
     private int[] activeViewTypes = new int[0];
 
-    /** Unsorted views that can be used by the adapter as a convert view_link_help. */
+    /** Unsorted views that can be used by the adapter as a convert view. */
     private SparseArray<View>[] scrapViews;
 
     private int viewTypeCount;
@@ -53,7 +53,7 @@ public class RecycleBin {
         return viewType >= 0;
     }
 
-    /** @return A view_link_help from the ScrapViews collection. These are unordered. */
+    /** @return A view from the ScrapViews collection. These are unordered. */
     View getScrapView(int position, int viewType) {
         if (viewTypeCount == 1) {
             return retrieveFromScrap(currentScrapViews, position);
@@ -64,9 +64,9 @@ public class RecycleBin {
     }
 
     /**
-     * Put a view_link_help into the ScrapViews list. These views are unordered.
+     * Put a view into the ScrapViews list. These views are unordered.
      *
-     * @param scrap The view_link_help to add
+     * @param scrap The view to add
      */
     void addScrapView(View scrap, int position, int viewType) {
         if (viewTypeCount == 1) {
@@ -136,7 +136,7 @@ public class RecycleBin {
     static View retrieveFromScrap(SparseArray<View> scrapViews, int position) {
         int size = scrapViews.size();
         if (size > 0) {
-            // See if we still have a view_link_help for this position.
+            // See if we still have a view for this position.
             for (int i = 0; i < size; i++) {
                 int fromPosition = scrapViews.keyAt(i);
                 View view = scrapViews.get(fromPosition);

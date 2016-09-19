@@ -91,20 +91,6 @@
         <item>诗人</item>
     </string-array>
 
-    <string-array name="help_step_arr">
-        <item>1、打开Rov设备电源</item>
-        <item>2、打开中继设备电源</item>
-        <item>3、连接线缆</item>
-        <item>4、移动设备连接到中继设备的WiFi</item>
-    </string-array>
-
-    <string-array name="link_help_arr">
-        <item>下一步</item>
-        <item>下一步</item>
-        <item>下一步</item>
-        <item>完成</item>
-    </string-array>
-
     <string name="l_album_name_all">最近图片</string>
     <string name="l_album_name_selected">选择图片</string>
     <string name="l_album_name_camera">相机</string>
@@ -114,5 +100,27 @@
     <string name="l_confirm_dialog_message">您确定要放弃本次选择的图片吗?</string>
     <string name="input_email">请输入邮箱</string>
     <string name="input_right_email">请输入正确邮箱</string>
-    <string name="request_error">网络错误</string>
+    <string name="request_error">网络异常,请确保网络畅通或联系我们</string>
+
+    <string name="unit">度量单位</string>
+    <string name="foot">英尺</string>
+    <string name="meter">米</string>
+    <string name="temperature">温度</string>
+    <string name="degree_centigrade">摄氏度（C）</string>
+    <string name="degree_fahrenheit">华氏度（F）</string>
+    <string name="mode">模式</string>
+    <string name="low_light">低照度</string>
+    <string name="common_set">通用设置</string>
+    <string name="image_set">图像设置</string>
+    <string name="encode_set">编码设置</string>
+    <string name="depth_meter">深度：米</string>
+    <string name="depth_foot">深度：英尺</string>
+    <string name="back_light">背光补偿</string>
+    <string name="option_mode">自动（日/夜）</string>
+    <string name="daytime">白天</string>
+    <string name="night">夜晚</string>
+    <string name="auto">自动</string>
+    <string name="connet_failed">网络连接失败，请重试</string>
+    <string name="connet_canceled">网络连接被取消！</string>
+    <string name="size">尺寸</string>
 </resources>

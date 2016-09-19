@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //scale
+    <declare-styleable name="RulerHorizontalView">
+        <attr name="indicateColor" format="color|reference" />
+        <attr name="selectedColor" format="color|reference" />
+        <attr name="textColor" format="color|reference" />
+        <attr name="textSize" format="dimension|reference"></attr>
+        <attr name="begin" format="integer|reference" />
+        <attr name="end" format="integer|reference" />
+        <attr name="indicateWidth" format="dimension|reference" />
+        <attr name="indicatePadding" format="dimension|reference" />
+    </declare-styleable>
+
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+
     <declare-styleable name="RoundedImageView">
         <attr name="riv_corner_radius" format="dimension" />
         <attr name="riv_corner_radius_top_left" format="dimension" />

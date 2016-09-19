@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.UserProfile;
+import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.fragment.DeviceFragment;
 import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
 import com.qiyuan.fifish.ui.fragment.HomeFragment;
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity {
                         checkedId = i;
                         radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
-//                        startActivity(new Intent(activity,UserCenterActivity.class));
+                        startActivity(new Intent(activity,UserCenterActivity.class));
                         break;
                     case R.id.ll_nav1:
                         checkedId = i;
@@ -104,10 +105,10 @@ public class MainActivity extends BaseActivity {
                         switchFragmentandImg(DiscoverFragment.class);
                         break;
                     case R.id.ll_nav4:
-                        if (UserProfile.isUserLogin()) {
+                        if (LoginUserInfo.isUserLogin()) {
                             checkedId = i;
-                            radioGroup.check(i);
                             switchFragmentandImg(MineFragment.class);
+                            radioGroup.check(i);
                         } else {
                             radioGroup.check(checkedId);
                             which = MineFragment.class.getSimpleName();
@@ -165,9 +166,9 @@ public class MainActivity extends BaseActivity {
         Fragment fragment = fm.findFragmentByTag(clazz.getSimpleName());
         if (fragment == null) {
             fragment = (Fragment) clazz.newInstance();
-            fm.beginTransaction().add(R.id.main_content, fragment, clazz.getSimpleName()).commitAllowingStateLoss();
+            fm.beginTransaction().add(R.id.main_content, fragment, clazz.getSimpleName()).commit();
         } else {
-            fm.beginTransaction().show(fragment).commitAllowingStateLoss();
+            fm.beginTransaction().show(fragment).commit();
         }
         addFragment2List(fragment);
         showFragment = fragment;
@@ -183,7 +184,7 @@ public class MainActivity extends BaseActivity {
         }
 
         for (Fragment fragment : fragments) {
-            fm.beginTransaction().hide(fragment).commitAllowingStateLoss();
+            fm.beginTransaction().hide(fragment).commit();
         }
 
     }
