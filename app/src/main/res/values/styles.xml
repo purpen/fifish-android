@@ -7,6 +7,33 @@
         <!--<item name="android:windowBackground">@android:color/white</item>-->
     </style>
 
+    <style name="DayNightStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="SetVideoStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dp10</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">10dp</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:progressDrawable">@drawable/battery_progress_bar</item>
+    </style>
     <!-- MainActivity中最下面RadioGroup的五个Button的样式 -->
     <style name="MainButtonStyle">
         <item name="android:layout_height">match_parent</item>
@@ -41,6 +68,7 @@
         <!--<item name="android:windowBackground">@drawable/corner_black</item>-->
         <item name="android:windowNoTitle">true</item>
     </style>
+
     <style name="LabelTextView" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:singleLine">true</item>

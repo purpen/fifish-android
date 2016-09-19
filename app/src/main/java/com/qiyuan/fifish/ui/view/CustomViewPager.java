@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
 
 /**
  * @author lilin
@@ -33,11 +32,5 @@ public class CustomViewPager extends ViewPager {
 
     public void setPagingEnabled(boolean b) {
         this.isPagingEnabled = b;
-    }
-
-    public void setViewPagerHeight(int height){
-        ViewGroup.LayoutParams params = getLayoutParams();
-        params.height=height;
-        requestLayout();
     }
 }

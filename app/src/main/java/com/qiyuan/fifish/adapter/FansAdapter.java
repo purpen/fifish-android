@@ -32,8 +32,8 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
     private static final int TYPE2 = 2; //互向关注
     public static final int NOT_LOVE = 0; //别人的粉丝列表和LoginInfo.getUserId()的关系
     public static final int LOVE = 1;
-    private String userId;
-    public FansAdapter(List<FocusFans> list, Activity activity, String userId) {
+    private long userId;
+    public FansAdapter(List<FocusFans> list, Activity activity, long userId) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
         this.userId = userId;
@@ -74,7 +74,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
         } else {
             holder.tv_desc.setText(item.follows.summary);
         }
-        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //是自己
+        if (userId == LoginUserInfo.getUserId()) { //是自己
             switch (item.type) {
                 case TYPE1:  //仅当粉丝关注我
                     holder.btn.setText("关注");
@@ -108,11 +108,11 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 
     //关注粉丝操作
     private void doFocus(final FocusFans item, final View view) {
-        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) {
+        if (userId == LoginUserInfo.getUserId()) {
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -130,7 +130,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 ////                    svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -166,12 +166,12 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
             case R.id.tv_album:
                 view.setEnabled(false);
                 final FocusFans item = (FocusFans) view.getTag();
-                if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) {
+                if (userId == LoginUserInfo.getUserId()) {
                     if (item == null) return;
 //                    ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                        @Override
 //                        public void onSuccess(ResponseInfo<String> responseInfo) {
-//                            view_link_help.setEnabled(true);
+//                            view.setEnabled(true);
 //                            PopupWindowUtil.dismiss();
 //                            if (responseInfo == null) return;
 //                            if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -190,7 +190,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                        @Override
 //                        public void onFailure(HttpException e, String s) {
-//                            view_link_help.setEnabled(true);
+//                            view.setEnabled(true);
 //                            PopupWindowUtil.dismiss();
 //                            ToastUtils.showError("网络异常，请确认网络畅通");
 ////                            svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -242,7 +242,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -260,7 +260,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 ////                    svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -270,7 +270,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //            ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -286,7 +286,7 @@ public class FansAdapter extends BaseAdapter<FocusFans> implements View.OnClickL
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 //                }

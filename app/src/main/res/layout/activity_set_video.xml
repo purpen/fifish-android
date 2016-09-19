@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_set_video"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/grey_bg_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_common_set"
+            android:text="@string/common_set"
+            style="@style/SetVideoStyle" />
+        <TextView
+            android:id="@+id/tv_image_set"
+            android:text="@string/image_set"
+            style="@style/SetVideoStyle" />
+        <TextView
+            android:id="@+id/tv_encode_set"
+            android:text="@string/encode_set"
+            style="@style/SetVideoStyle" />
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpaer_video_set"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
