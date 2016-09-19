@@ -67,6 +67,7 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void loginUser() {
+
         RequestService.loginUser(userName, userPsw, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
