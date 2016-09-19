@@ -46,7 +46,7 @@ import java.util.List;
 
 
 /**
- * Numeric wheel view.
+ * Numeric wheel view_link_help.
  * 
  * @author Yuri Kanivets
  */

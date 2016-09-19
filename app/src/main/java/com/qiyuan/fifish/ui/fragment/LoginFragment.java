@@ -27,6 +27,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.LogUtil;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -80,6 +81,7 @@ public class LoginFragment extends BaseFragment {
         RequestService.loginUser(userName, userPsw, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                LogUtil.e("登录："+result);
                 if (TextUtils.isEmpty(result)) return;
                 LoginBean loginBean = JsonUtil.fromJson(result, LoginBean.class);
                 if (loginBean.meta.status_code== Constants.HTTP_OK){

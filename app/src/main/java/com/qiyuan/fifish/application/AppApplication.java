@@ -3,13 +3,15 @@ package com.qiyuan.fifish.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.qiyuan.fifish.R;
 
-import org.xutils.BuildConfig;
 import org.xutils.x;
 
 /**
@@ -17,7 +19,6 @@ import org.xutils.x;
  *         created at 2016/6/27 15:46
  */
 public class AppApplication extends Application {
-    public static boolean isMeter = true, isCentigrade = true;
     private Activity activity;
     private static AppApplication application;
 
@@ -28,10 +29,6 @@ public class AppApplication extends Application {
 
     @Override
     public void onCreate() {
-//        if (Constants.DEVELOPER_MODE && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDialog().build());
-//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
-//        }
         super.onCreate();
         application = this;
         x.Ext.init(this);
@@ -40,7 +37,17 @@ public class AppApplication extends Application {
     }
 
     public static void initImageLoader(Context context) {
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_launcher)
+                .showImageForEmptyUri(R.mipmap.ic_launcher)
+                .showImageOnFail(R.mipmap.ic_launcher)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.defaultDisplayImageOptions(defaultOptions);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());

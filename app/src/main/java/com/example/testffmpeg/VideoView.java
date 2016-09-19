@@ -74,7 +74,7 @@ public class VideoView extends ImageView implements Runnable {
             return;
         if (mStatus == STATUS.STOPPED && mThread == null) {
             mThread = new Thread(this);
-            mStatus = STATUS.CONNECTING;
+//            mStatus = STATUS.CONNECTING;
             mThread.start();
         }
         mConnected = finish;
@@ -83,12 +83,10 @@ public class VideoView extends ImageView implements Runnable {
 
     public void onStartRecord() {
         RemoteCameraManager.getInstance().doManualRecord(false);
-//        RemoteCameraManager.getInstance().setEncodeResolution(6);
     }
 
     public void onStopRecord() {
         RemoteCameraManager.getInstance().doManualRecord(true);
-//        RemoteCameraManager.getInstance().setEncodeResolution(4);
     }
 
     public void onCapture() {
@@ -210,8 +208,7 @@ public class VideoView extends ImageView implements Runnable {
     public void run() {    	
         mDecoder = new DecoderJni();
       
-//        String videoPath = "rtsp://" + mUser + ":" + mPass + "@" + mIp + ":" + mRtsp + "/channel1/" + "2";
-        String videoPath = "rtsp://218.204.223.237:554/live/1/66251FC11353191F/e7ooqwcfbqjoo80j.sdp";
+        String videoPath = "rtsp://" + mUser + ":" + mPass + "@" + mIp + ":" + mRtsp + "/channel1/" + "2";
         Log.e(">>", ">videoPath>>" + Uri.parse(videoPath));
         if (mDecoder.openSourceJ(videoPath) != 0) {
             mThread = null;

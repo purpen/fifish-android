@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiyuan.fifish">
-
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -15,7 +14,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <application
         android:name=".application.AppApplication"
         android:allowBackup="true"
@@ -24,73 +22,34 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.UserGuideActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.RegisterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.ForgetPasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.UpdatePasswordActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.CompleteUserInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.SystemSettingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.FeedbackActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.AboutUsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.UserCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.ImageCropActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.EditUserInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.EditUserNameActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.EditUserSignatureActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".album.ImageSelectActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.FindFriendsActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.UserGuideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ForgetPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UpdatePasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.CompleteUserInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SystemSettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.FeedbackActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AboutUsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UserCenterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ImageCropActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.EditUserInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.EditUserNameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.EditUserSignatureActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".album.ImageSelectActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.FindFriendsActivity" android:screenOrientation="portrait"/>
         <activity
             android:name="com.example.testffmpeg.VideoPlayActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" />
-        <activity android:name="com.tcp.TcpActivity" />
-        <activity android:name="com.tcp.TcpSecActivity" />
-        <activity android:name="com.tcp.RulerActivity" />
-        <activity
-            android:name="com.example.testffmpeg.SetVideoActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>

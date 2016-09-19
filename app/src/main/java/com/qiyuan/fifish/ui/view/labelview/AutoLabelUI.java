@@ -109,7 +109,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
                         getResources().getDimensionPixelSize(R.dimen.padding_label_view));
 
             } catch (Exception e) {
-                Log.e(LOG_TAG, "Error while creating the view AutoLabelUI: ", e);
+                Log.e(LOG_TAG, "Error while creating the view_link_help AutoLabelUI: ", e);
             } finally {
                 typedArray.recycle();
             }
@@ -497,7 +497,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
     /**
      * Interface for a callback when a label is removed.
-     * Container Activity/Fragment must implement this interface
+     * Container Activity/Fragment must implement this interfaces
      */
     public interface OnRemoveLabelListener {
 
@@ -512,7 +512,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
     /**
      * Interface for a callback listener when there are the maximum number of labels.
-     * Container Activity/Fragment must implement this interface
+     * Container Activity/Fragment must implement this interfaces
      */
     public interface OnLabelsCompletedListener {
 
@@ -524,7 +524,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
     /**
      * Interface for a callback listener when there are not labels.
-     * Container Activity/Fragment must implement this interface
+     * Container Activity/Fragment must implement this interfaces
      */
     public interface OnLabelsEmptyListener {
 
@@ -536,7 +536,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
     /**
      * Interface for a callback listener when the {@link Label} is clicked.
-     * Container Activity/Fragment must implement this interface.
+     * Container Activity/Fragment must implement this interfaces.
      */
     public interface OnLabelClickListener {
 

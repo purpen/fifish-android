@@ -17,15 +17,15 @@
 package com.qiyuan.fifish.ui.view.wheelview;
 
 /**
- * Wheel changed listener interface.
+ * Wheel changed listener interfaces.
  * <p>The currentItemChanged() method is called whenever current wheel positions is changed:
  * <li> New Wheel position is set
- * <li> Wheel view is scrolled
+ * <li> Wheel view_link_help is scrolled
  */
 public interface OnWheelChangedListener {
 	/**
 	 * Callback method to be invoked when current item changed
-	 * @param wheel the wheel view whose state has changed
+	 * @param wheel the wheel view_link_help whose state has changed
 	 * @param oldValue the old value of current item
 	 * @param newValue the new value of current item
 	 */
