@@ -1,6 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,16 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.ErrorBean;
 import com.qiyuan.fifish.bean.RegisterInfo;
-import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.RequestService;
-import com.qiyuan.fifish.ui.activity.MainActivity;
+import com.qiyuan.fifish.ui.activity.LoginActivity;
+import com.qiyuan.fifish.ui.view.WrapContentHeightViewPager;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
-import com.qiyuan.fifish.util.SPUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
@@ -74,46 +70,19 @@ public class RegisterFragment extends BaseFragment {
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
                 RegisterInfo registerInfo = JsonUtil.fromJson(result, RegisterInfo.class);
-                if (registerInfo.meta.status_code== Constants.HTTP_OK){
-                    getUserProfile();
+                if (registerInfo.meta.status_code== Constants.HTTP_OK){ //注册成功,让用户登录
+                    ToastUtils.showSuccess(registerInfo.meta.message);
+                    WrapContentHeightViewPager viewPager = ((LoginActivity) getActivity()).getViewPager();
+                    if (viewPager!=null){
+                        viewPager.setCurrentItem(0);
+                    }
+//                    getUserProfile();
                     return;
                 }
-                ToastUtils.showError(registerInfo.meta.errors.account.get(0));
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-                ToastUtils.showError(R.string.request_error);
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-            }
-
-            @Override
-            public void onFinished() {
-            }
-        });
-    }
-
-    private void getUserProfile() {
-        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
-                try {
-                    UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
-                        SPUtil.write(Constants.LOGIN_INFO,result);
-                        startActivity(new Intent(activity, MainActivity.class));
-                        return;
-                    }
-                }catch (JsonSyntaxException e){
-                    e.printStackTrace();
-                }finally {
-                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-                    ToastUtils.showError(errorBean.meta.message);
+                if (registerInfo.meta.status_code==Constants.HTTP_ACCOUNT_ALREADY_EXIST){
+                    ToastUtils.showError(registerInfo.meta.message);
+                    return;
                 }
             }
 
@@ -125,15 +94,51 @@ public class RegisterFragment extends BaseFragment {
 
             @Override
             public void onCancelled(CancelledException cex) {
-
             }
 
             @Override
             public void onFinished() {
-
             }
         });
     }
+
+//    private void getUserProfile() {
+//        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                if (TextUtils.isEmpty(result)) return;
+//                try {
+//                    UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
+//                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
+//                        SPUtil.write(Constants.LOGIN_INFO,result);
+//                        startActivity(new Intent(activity, MainActivity.class));
+//                        return;
+//                    }
+//                }catch (JsonSyntaxException e){
+//                    e.printStackTrace();
+//                }finally {
+//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
+//                    ToastUtils.showError(errorBean.meta.message);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                ex.printStackTrace();
+//                ToastUtils.showError(R.string.request_error);
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
+//    }
 
 
     private boolean checkUserInput() {

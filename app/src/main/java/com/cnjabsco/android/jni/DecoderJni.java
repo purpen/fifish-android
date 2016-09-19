@@ -3,8 +3,7 @@ package com.cnjabsco.android.jni;
 import android.graphics.Bitmap;
 
 /**
- * 视频解码器
- * 
+ *
  * @author fbpang
  * @version 1.0
  * @date 2013-04-12
@@ -34,9 +33,7 @@ public class DecoderJni {
 	}
 
 	/**
-	 * 打开视频资源
-	 * 
-	 * @return 连接状态结果：<br/>
+	 *
 	 *         0 normal; <br/>
 	 *         1 Couldn't open file;<br/>
 	 *         2 Unable to get stream info;<br/>
@@ -49,11 +46,8 @@ public class DecoderJni {
 	}
 
 	/**
-	 * 解码一帧视频图像；<br/>
-	 * 
+	 *
 	 * @param bitmap
-	 *            视频图像
-	 * @return 解码结果：<br/>
 	 *         0 normal<br/>
 	 *         1 AndroidBitmap_getInfo() failed<br/>
 	 *         2 AndroidBitmap_lockPixels() failed<br/>
@@ -63,37 +57,18 @@ public class DecoderJni {
 		return decodeOneFrame(bitmap);
 	}
 
-	/**
-	 * 获取帧视频图像宽度
-	 * 
-	 * @return 帧视频图像宽度
-	 */
 	public int getFrameWidthJ() {
 		return getFrameWidth();
 	}
 
-	/**
-	 * 获取帧视频图像高度
-	 * 
-	 * @return 帧视频图像高度
-	 */
 	public int getFrameHeightJ() {
 		return getFrameHeight();
 	}
 
-	/**
-	 * 关闭视频资源
-	 */
 	public void closeSourceJ() {
 		closeSource();
 	}
 
-	/**
-	 * 检测网络状态
-	 * 
-	 * @return 1 正常<br/>
-	 *         0 异常（可能无视频数据）<br/>
-	 */
 	public int getNetStatusJ() {
 		return getNetStatus();
 	}

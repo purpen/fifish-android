@@ -46,6 +46,10 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    public WrapContentHeightViewPager getViewPager(){
+        return viewPager==null?null:viewPager;
+    }
+
     @OnClick({R.id.btn_switch,R.id.ibtn_close})
     public void onClick(View view){
         switch (view.getId()){

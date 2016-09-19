@@ -6,10 +6,15 @@ package com.qiyuan.fifish.bean;
  */
 public class LoginBean {
 
-    public int code;
-    public String message;
+    public MetaBean meta;
+
     public DataBean data;
-    public ErrorBean meta;
+
+    public static class MetaBean {
+        public String message;
+        public int status_code;
+    }
+
     public static class DataBean {
         public String token;
     }

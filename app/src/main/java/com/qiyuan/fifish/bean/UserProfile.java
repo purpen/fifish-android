@@ -21,7 +21,11 @@ public class UserProfile implements Serializable{
         public String username;
         public String job;
         public String zone;
-
+        public String summary;
+        public String follow_count;
+        public String fans_count;
+        public String stuff_count;
+        public String like_count;
         public AvatarBean avatar;
 
         public static class AvatarBean {
@@ -52,7 +56,7 @@ public class UserProfile implements Serializable{
         if (profile!=null){
             return profile.data.id;
         }
-        return null;
+        return "";
     }
 
     public static boolean isUserLogin() {

@@ -1,7 +1,11 @@
 package com.qiyuan.fifish.adapter;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.util.SparseArrayCompat;
+
+import com.qiyuan.fifish.interfaces.ScrollTabHolder;
 
 /**
  * @author lilin
@@ -9,13 +13,14 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class UserCenterViewPagerAdapter extends FragmentPagerAdapter{
     private Fragment[] fragments;
+    private SparseArrayCompat<ScrollTabHolder> mScrollTabHolders;
     public UserCenterViewPagerAdapter(FragmentManager manager, Fragment[] fragments){
         super(manager);
         this.fragments=fragments;
-        if (fragments==null || fragments.length<=0) throw new IllegalArgumentException("fragments==null || fragments.length<=0");
     }
     @Override
     public int getCount() {
+
         return fragments.length;
     }
 

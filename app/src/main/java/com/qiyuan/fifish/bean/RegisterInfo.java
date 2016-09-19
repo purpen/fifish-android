@@ -14,7 +14,6 @@ public class RegisterInfo {
         public String message;
         public int status_code;
         public ErrorsBean errors;
-
         public static class ErrorsBean {
             public List<String> account;
         }

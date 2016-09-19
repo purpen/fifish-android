@@ -17,7 +17,7 @@
 package com.qiyuan.fifish.ui.view.wheelview;
 
 /**
- * Wheel scrolled listener interface.
+ * Wheel scrolled listener interfaces.
  */
 public interface OnWheelScrollListener {
 	/**
