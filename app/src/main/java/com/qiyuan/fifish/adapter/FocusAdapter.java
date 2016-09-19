@@ -36,8 +36,8 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
     private static final int TYPE2 = 2; //互向关注
     public static final int NOT_LOVE = 0; //别人的粉丝列表和LoginInfo.getUserId()的关系
     public static final int LOVE = 1;
-    private String userId;
-    public FocusAdapter(List<FocusFans> list, Activity activity, String userId) {
+    private long userId;
+    public FocusAdapter(List<FocusFans> list, Activity activity, long userId) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
         this.userId = userId;
@@ -80,7 +80,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
         }
 
         //关注界面
-        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //是自己
+        if (userId == LoginUserInfo.getUserId()) { //是自己
             if (item.focus_flag) {
                 holder.btn.setText("关注");
                 holder.btn.setTextColor(activity.getResources().getColor(R.color.color_333));
@@ -109,13 +109,13 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
     }
 
     private void doFocus(final FocusFans item, final View view) {
-        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //关注列表做关注操作
+        if (userId == LoginUserInfo.getUserId()) { //关注列表做关注操作
             if (item == null) return;
             if (item.focus_flag) {
 //                ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                    @Override
 //                    public void onSuccess(ResponseInfo<String> responseInfo) {
-//                        view_link_help.setEnabled(true);
+//                        view.setEnabled(true);
 //                        PopupWindowUtil.dismiss();
 //                        if (responseInfo == null) return;
 //                        if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -132,7 +132,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //
 //                    @Override
 //                    public void onFailure(HttpException e, String s) {
-//                        view_link_help.setEnabled(true);
+//                        view.setEnabled(true);
 //                        PopupWindowUtil.dismiss();
 //                        ToastUtils.showError("网络异常，请确认网络畅通");
 //                    }
@@ -167,13 +167,13 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
             case R.id.tv_album:
                 view.setEnabled(false);
                 final FocusFans item = (FocusFans) view.getTag();
-                if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //关注列表做取消关注操作
+                if (userId == LoginUserInfo.getUserId()) { //关注列表做取消关注操作
                     if (item == null) return;
                     if (item.focus_flag) {
 //                        ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                            @Override
 //                            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                                view_link_help.setEnabled(true);
+//                                view.setEnabled(true);
 //                                PopupWindowUtil.dismiss();
 //                                if (responseInfo == null) return;
 //                                if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -188,7 +188,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //
 //                            @Override
 //                            public void onFailure(HttpException e, String s) {
-//                                view_link_help.setEnabled(true);
+//                                view.setEnabled(true);
 //                                PopupWindowUtil.dismiss();
 //                                ToastUtils.showError("网络异常，请确认网络畅通");
 ////                                svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
@@ -198,7 +198,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //                        ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                            @Override
 //                            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                                view_link_help.setEnabled(true);
+//                                view.setEnabled(true);
 //                                PopupWindowUtil.dismiss();
 //                                if (responseInfo == null) return;
 //                                if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -215,7 +215,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //
 //                            @Override
 //                            public void onFailure(HttpException e, String s) {
-//                                view_link_help.setEnabled(true);
+//                                view.setEnabled(true);
 //                                PopupWindowUtil.dismiss();
 //                                ToastUtils.showError("网络异常，请确认网络畅通");
 //                            }
@@ -266,7 +266,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -281,7 +281,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 //                }
@@ -290,7 +290,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //            ClientDiscoverAPI.cancelFocusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
 //                @Override
 //                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    if (responseInfo == null) return;
 //                    if (TextUtils.isEmpty(responseInfo.result)) return;
@@ -306,7 +306,7 @@ public class FocusAdapter extends BaseAdapter<FocusFans> implements View.OnClick
 //
 //                @Override
 //                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
+//                    view.setEnabled(true);
 //                    PopupWindowUtil.dismiss();
 //                    ToastUtils.showError("网络异常，请确认网络畅通");
 //                }

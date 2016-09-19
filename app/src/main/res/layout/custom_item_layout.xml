@@ -17,10 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical"
             android:drawablePadding="@dimen/dp10"
             android:text="@string/app_name"
-            android:textSize="@dimen/sp16" />
+            android:textSize="@dimen/sp14" />
         <EditText
             android:id="@+id/et_right"
             android:layout_width="wrap_content"

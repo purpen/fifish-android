@@ -6,5 +6,13 @@
     {
         "merged": "C:\\AndroidStudioProjects\\Fifish\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
         "source": "C:\\AndroidStudioProjects\\Fifish\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    },
+    {
+        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "E:\\studio_latest_workspace\\fifish-android\\pullrefreshlib\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
     }
 ]

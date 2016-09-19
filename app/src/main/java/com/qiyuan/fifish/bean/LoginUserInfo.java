@@ -8,7 +8,7 @@ import com.qiyuan.fifish.util.SPUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 public class LoginUserInfo implements Serializable {
-    public String _id;
+    public long _id;
     public String message;
     public String account;
     public String nickname;
@@ -59,7 +59,7 @@ public class LoginUserInfo implements Serializable {
         return !TextUtils.isEmpty(login_info);
     }
 
-    public static String getUserId(){
-        return null==getLoginInfo()?null:getLoginInfo()._id;
+    public static long getUserId(){
+        return null==getLoginInfo()?0:getLoginInfo()._id;
     }
 }

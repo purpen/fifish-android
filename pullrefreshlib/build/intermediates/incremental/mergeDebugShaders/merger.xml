@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\AndroidStudioProjects\Fifish\pullrefreshlib\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\AndroidStudioProjects\Fifish\pullrefreshlib\build-types\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\studio_latest_workspace\fifish-android\pullrefreshlib\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\studio_latest_workspace\fifish-android\pullrefreshlib\build-types\debug\shaders"/></dataSet></merger>

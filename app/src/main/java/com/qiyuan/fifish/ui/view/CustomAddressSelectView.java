@@ -42,7 +42,7 @@ public class CustomAddressSelectView extends LinearLayout {
         View view = inflater.inflate(R.layout.custom_address_select_view, this);
         wv_left = (WheelView) view.findViewById(R.id.wv_left);
         wv_center = (WheelView) view.findViewById(R.id.wv_center);
-//        wv_right = (WheelView) view_link_help.findViewById(R.id.wv_right);
+//        wv_right = (WheelView) view.findViewById(R.id.wv_right);
         boolean isCyclic = false;
         wv_left.setCyclic(isCyclic);
         wv_center.setCyclic(isCyclic);

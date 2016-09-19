@@ -128,7 +128,7 @@ public class Label extends LinearLayout {
 
     /**
      * Interface for a callback listener when the {@link Label} is clicked.
-     * Container Activity/Fragment must implement this interfaces.
+     * Container Activity/Fragment must implement this interface.
      */
     public interface OnLabelClickListener {
 
