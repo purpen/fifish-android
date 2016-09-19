@@ -54,7 +54,6 @@ public class LoginFragment extends BaseFragment {
     }
 
     public static LoginFragment newInstance() {
-
         LoginFragment fragment = new LoginFragment();
         return fragment;
     }
