@@ -66,7 +66,7 @@ public class RequestService {
      */
     private static void addToken(RequestParams params){
         if (params==null) return;
-        LogUtil.e("token"+SPUtil.read(Constants.TOKEN));
+        LogUtil.e("token是"+SPUtil.read(Constants.TOKEN));
         params.addQueryStringParameter("token",SPUtil.read(Constants.TOKEN));
     }
 
