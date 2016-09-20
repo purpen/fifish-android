@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/custom_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.qiyuan.fifish.ui.view.CustomItemLayout
+        android:id="@+id/item3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

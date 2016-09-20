@@ -102,4 +102,18 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url),cancelable);
     }
+
+    /**
+     * 意见反馈
+     * @param contact
+     * @param content
+     * @param callBack
+     */
+    public static void submitFeedBack(String contact, String content, CustomCallBack callBack) {
+        RequestParams params = new RequestParams(Constants.FEEDBACK_URL);
+        params.addQueryStringParameter("contact",contact);
+        params.addQueryStringParameter("content",content);
+        Callback.Cancelable cancelable = x.http().post(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.FEEDBACK_URL),cancelable);
+    }
 }

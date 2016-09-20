@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiyuan.fifish">
-
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -44,6 +43,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserCommentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FavoriteProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NewFansActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SystemNoticeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.UpdatePasswordActivity"

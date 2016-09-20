@@ -5,7 +5,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.bean.FeedBackBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 
 import butterknife.Bind;
@@ -35,36 +40,23 @@ public class FeedbackActivity extends BaseActivity {
                 if (!isUserInputLegal()) {
                     return;
                 }
-//                ClientDiscoverAPI.commitSuggestion(et_suggestion.getText().toString(), et_contact.getText().toString(), new RequestCallBack<String>() {
-//                    @Override
-//                    public void onSuccess(ResponseInfo<String> responseInfo) {
-//                        if (responseInfo == null) {
-//                            return;
-//                        }
-//
-//                        if (TextUtils.isEmpty(responseInfo.result)) {
-//                            return;
-//                        }
-//
-//                        try {
-//                            JSONObject response = new JSONObject(responseInfo.result);
-//                            if (response.optBoolean("success")){
-//                                Util.makeToast(response.optString("message"));
-//                                activity.finish();
-//                            }else {
-//                                Util.makeToast(response.optString("message"));
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(HttpException e, String s) {
-//                        Util.makeToast(s);
-//                    }
-//                });
+                RequestService.submitFeedBack(et_contact.getText().toString(), et_suggestion.getText().toString(), new CustomCallBack() {
+                    @Override
+                    public void onSuccess(String result) {
+                        if (TextUtils.isEmpty(result)) return;
+                        FeedBackBean feedBackBean = JsonUtil.fromJson(result, FeedBackBean.class);
+                        if (feedBackBean.meta.status_code == Constants.HTTP_OK) {
+                            ToastUtils.showSuccess("感谢您的反馈");
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        ex.printStackTrace();
+                        ToastUtils.showError(R.string.request_error);
+                    }
+                });
                 break;
         }
     }

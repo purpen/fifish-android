@@ -21,7 +21,7 @@ import com.qiyuan.fifish.util.Util;
  */
 public class CustomItemLayout extends RelativeLayout {
     private TextView tv_content;
-    private TextView tv_tip_num;
+    private BadgeView tv_tip_num;
     private TextView tv_right_txt;
     private ImageView iv_more_arrow;
     private EditText et_right;
@@ -47,7 +47,7 @@ public class CustomItemLayout extends RelativeLayout {
         View view = Util.inflateView(R.layout.custom_item_layout, this);
         rl_item_box = (RelativeLayout) view.findViewById(R.id.rl_item_box);
         tv_content = (TextView) view.findViewById(R.id.tv_content);
-        tv_tip_num = (TextView) view.findViewById(R.id.tv_tip_num);
+        tv_tip_num = (BadgeView) view.findViewById(R.id.tv_tip_num);
         iv_more_arrow = (ImageView) view.findViewById(R.id.iv_more_arrow);
         tv_right_txt = (TextView) view.findViewById(R.id.tv_right_txt);
         et_right = (EditText) view.findViewById(R.id.et_right);
@@ -177,16 +177,13 @@ public class CustomItemLayout extends RelativeLayout {
         tv_content.setTextColor(getResources().getColor(txtColor));
     }
 
-    public void setTipsNum(int num){
-        if (num>0){
-            tv_tip_num.setVisibility(VISIBLE);
-            if (num<=99){
-                tv_tip_num.setText(String.valueOf(num));
-            }else {
-                tv_tip_num.setText("+99");
-            }
-        }else {
-            tv_tip_num.setVisibility(GONE);
+    public void setTipsNum(int count){
+        if (count > 0) {
+            tv_tip_num.setVisibility(View.VISIBLE);
+            tv_tip_num.setBackground(15, getResources().getColor(R.color.color_2187ff));
+            tv_tip_num.setBadgeCount(count);
+        } else {
+            tv_tip_num.setVisibility(View.GONE);
         }
     }
 

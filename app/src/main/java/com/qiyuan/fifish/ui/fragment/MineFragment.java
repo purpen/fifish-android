@@ -16,6 +16,7 @@ import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.FeedbackActivity;
+import com.qiyuan.fifish.ui.activity.MessageActivity;
 import com.qiyuan.fifish.ui.activity.SystemSettingsActivity;
 import com.qiyuan.fifish.ui.activity.UserCenterActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -147,7 +148,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(activity, UserCenterActivity.class));
                 break;
             case R.id.item_message:
-
+                startActivity(new Intent(activity, MessageActivity.class));
                 break;
             case R.id.item_support:
 

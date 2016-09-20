@@ -10,6 +10,7 @@ public class Constants {
     public static final String REGISTER_USER_URL= Constants.BASE_URL+"auth/register";
     public static final String USER_PROFILE_URL= Constants.BASE_URL+"user/profile";
     public static final String USER_LOGOUT_URL= Constants.BASE_URL+"auth/logout";
+    public static final String FEEDBACK_URL= Constants.BASE_URL+"feedback/submit";
     public static final int HTTP_OK = 200;
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;
     public static final int HTTP_NOT_FOUND = 404;
