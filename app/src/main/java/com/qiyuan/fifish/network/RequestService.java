@@ -76,4 +76,30 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.USER_LOGOUT_URL),cancelable);
     }
+
+    /**
+     * 获取关注的人
+     * @param id
+     * @param callBack
+     */
+    public static void getFocus(String id,CustomCallBack callBack) {
+        String url=Constants.BASE_URL+"user/"+id+"/followers";
+        RequestParams params = new RequestParams(url);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(url),cancelable);
+    }
+
+    /**
+     * 获取粉丝
+     * @param id
+     * @param callBack
+     */
+    public static void getFans(String id, CustomCallBack callBack) {
+        String url=Constants.BASE_URL+"user/"+id+"/fans";
+        RequestParams params = new RequestParams(url);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(url),cancelable);
+    }
 }

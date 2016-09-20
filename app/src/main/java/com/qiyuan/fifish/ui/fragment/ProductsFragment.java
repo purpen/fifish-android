@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
@@ -25,9 +24,19 @@ import butterknife.Bind;
 public class ProductsFragment extends ScrollTabHolderFragment {
     @Bind(R.id.listView)
     ListView listView;
-    private CustomViewPager viewPager;
-    private ArrayList<String> mList = new ArrayList<>();
+    private ArrayList<String> mList;
     private ArrayAdapter<String> adapter;
+    public static final String POSITION = "position";
+    public static final String ID = "id";
+    private int mPosition;
+    private String id;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        mPosition = bundle.getInt(POSITION);
+        id=bundle.getString(ID);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -37,19 +46,25 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         return view;
     }
 
-    public static ProductsFragment newInstance() {
-        return new ProductsFragment();
+    public static ProductsFragment newInstance(int position,String id) {
+        ProductsFragment f = new ProductsFragment();
+        Bundle b = new Bundle();
+        b.putInt(POSITION,position);
+        b.putString(ID,id);
+        f.setArguments(b);
+        return f;
     }
 
     @Override
     protected void initViews() {
+        View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
+        listView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
         for (int i = 1; i <= 50; i++) {
             mList.add(i + ". item - currnet page: " + (0 + 1));
         }
-        View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
-        listView.addHeaderView(placeHolderView);
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -61,7 +76,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
 
     private int lastVisibleItem = 0;
 
-    public class OnScroll implements AbsListView.OnScrollListener {
+    private class OnScroll implements AbsListView.OnScrollListener {
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -78,7 +93,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         public void onScroll(AbsListView view, int firstVisibleItem,
                              int visibleItemCount, int totalItemCount) {
             if (mScrollTabHolder != null)
-                mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount, 0);
+                mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount,mPosition);
         }
 
     }
@@ -90,6 +105,25 @@ public class ProductsFragment extends ScrollTabHolderFragment {
 
     @Override
     protected void requestNet() {
+        switch (mPosition){
+            case 0:
+                requestProducts();
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 请求作品
+     */
+    private void requestProducts() {
 
     }
 
@@ -98,7 +132,6 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         if (scrollHeight == 0 && listView.getFirstVisiblePosition() >= 1) {
             return;
         }
-
         listView.setSelectionFromTop(1, scrollHeight);
     }
 

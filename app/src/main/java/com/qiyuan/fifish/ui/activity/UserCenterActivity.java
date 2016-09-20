@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -23,16 +21,19 @@ import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
 import com.qiyuan.fifish.album.PicturePickerUtils;
 import com.qiyuan.fifish.bean.LoginUserInfo;
+import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.interfaces.ScrollTabHolder;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.fragment.FansFragment;
 import com.qiyuan.fifish.ui.fragment.FocusFragment;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.fragment.ProductsFragment;
-import com.qiyuan.fifish.ui.fragment.ScrollTabHolderFragment;
 import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
@@ -46,7 +47,7 @@ import butterknife.Bind;
  * @author lilin
  *         created at 2016/4/26 17:43
  */
-public class UserCenterActivity extends BaseActivity implements ScrollTabHolder, View.OnClickListener {
+public class UserCenterActivity extends BaseActivity implements ScrollTabHolder, View.OnClickListener, ViewPager.OnPageChangeListener {
     @Bind(R.id.viewPager)
     CustomViewPager viewPager;
     @Bind(R.id.header)
@@ -77,11 +78,12 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     private WaitingDialog dialog;
     public static final Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "temp.jpg"));
     private String flag;
-    private Fragment[] fragments = {ProductsFragment.newInstance(), FocusFragment.newInstance(), FansFragment.newInstance()};
     private int mMinHeaderHeight;
     private int mHeaderHeight;
     private int mMinHeaderTranslation;
-    private PagerAdapter mPagerAdapter;
+    private UserCenterViewPagerAdapter mPagerAdapter;
+    private Fragment[] fragments = new Fragment[3];
+    private UserProfile userInfo;
 
     public UserCenterActivity() {
         super(R.layout.activity_user_center);
@@ -99,6 +101,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         } else {
             userId = LoginUserInfo.getUserId();
         }
+        userId = "1";
     }
 
     @Override
@@ -117,17 +120,36 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
         mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp280);
         mMinHeaderTranslation = -mMinHeaderHeight;
-        viewPager.setAdapter(new UserCenterViewPagerAdapter(getSupportFragmentManager(), fragments));
-        viewPager.setOffscreenPageLimit(3);
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        fragments[0] = ProductsFragment.newInstance(0, userId);
+        fragments[1] = FocusFragment.newInstance(1, userId);
+        fragments[2] = FansFragment.newInstance(2, userId);
+        mPagerAdapter = new UserCenterViewPagerAdapter(getSupportFragmentManager(), fragments);
         mPagerAdapter.setTabHolderScrollingContent(this);
         viewPager.setAdapter(mPagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.addOnPageChangeListener(this);
         dialog = new WaitingDialog(this);
     }
 
     @Override
     protected void requestNet() {
+        RequestService.getUserProfile(new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                if (TextUtils.isEmpty(result)) return;
+                userInfo = JsonUtil.fromJson(result, UserProfile.class);
+                if (userInfo.meta.status_code == Constants.HTTP_OK) {
+                    refreshUI();
+                    return;
+                }
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
     }
 
     public CustomViewPager getViewPager() {
@@ -168,101 +190,53 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         return -top + firstVisiblePosition * c.getHeight() + headerHeight;
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
-        private SparseArrayCompat<ScrollTabHolder> mScrollTabHolders;
-        private final String[] TITLES = {"", "", ""};
-        private ScrollTabHolder mListener;
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (positionOffsetPixels > 0) {
+            int currentItem = viewPager.getCurrentItem();
 
-        public PagerAdapter(FragmentManager fm) {
-            super(fm);
-            mScrollTabHolders = new SparseArrayCompat<>();
-        }
+            SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
+            ScrollTabHolder currentHolder;
 
-        public void setTabHolderScrollingContent(ScrollTabHolder listener) {
-            mListener = listener;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            ScrollTabHolderFragment fragment = (ScrollTabHolderFragment) fragments[position];
-
-            mScrollTabHolders.put(position, fragment);
-            if (mListener != null) {
-                fragment.setScrollTabHolder(mListener);
+            if (position < currentItem) {
+                currentHolder = scrollTabHolders.valueAt(position);
+            } else {
+                currentHolder = scrollTabHolders.valueAt(position + 1);
             }
-
-            return fragment;
+            currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
         }
+    }
 
-        public SparseArrayCompat<ScrollTabHolder> getScrollTabHolders() {
-            return mScrollTabHolders;
-        }
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 
     @Override
+    public void onPageSelected(int position) {
+        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
+        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
+        currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+    }
+
+    @Override
     protected void refreshUI() {
-        if (user == null) {
-            return;
-        }
-        if (!TextUtils.isEmpty(user.nickname)) {
-            tvName.setText(user.nickname);
-        }
-        if (!TextUtils.isEmpty(user.medium_avatar_url)) {
-            ImageLoader.getInstance().displayImage(user.medium_avatar_url, riv);
-        }
-        ImageLoader.getInstance().displayImage(user.head_pic_url, ivBg);
-
-
-        if (TextUtils.isEmpty(user.summary)) {
-            if (LoginUserInfo.getLoginInfo()._id == userId) {
-                tvSummary.setText(String.format(" | %s", "说说你是什么人，来自哪片山川湖海！"));
-            } else {
-                tvSummary.setText(String.format(" | %s", "这人好神秘，什么都不说"));
+        if (userInfo == null) return;
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small,riv,options);
+        ImageLoader.getInstance().displayImage("bg",ivBg);
+        tvName.setText(userInfo.data.username);
+//        tvAddress.setText(userInfo.data.zone);
+        tvAddress.setText("北京朝阳");
+        tvFocusNum.setText(userInfo.data.follow_count);
+        tvFansNum.setText(userInfo.data.fans_count);
+        tvProductsNum.setText(userInfo.data.stuff_count);
+        if (userInfo.data.summary!=null){
+            if (!TextUtils.isEmpty(userInfo.data.summary.toString())){
+                tvSummary.setText(userInfo.data.summary.toString());
             }
-        } else {
-            tvSummary.setText(String.format(" | %s", user.summary));
+        }else {
+            tvSummary.setText("人生是场大设计!");
         }
-
-//        if (!TextUtils.isEmpty(user.expert_label)){
-//            iv_label.setText(String.format("%s |", user.expert_label));
-//        }else {
-//            iv_label.setVisibility(View.GONE);
-//        }
-
-//        if (!TextUtils.isEmpty(user.expert_info)){
-//            tv_auth.setText(user.expert_info);
-//        }else {
-//            tv_auth.setVisibility(View.GONE);
-//        }
-
-//        if (!TextUtils.isEmpty(user.label)) {
-//            tv_label.setText(String.format(" %s", user.label));
-//        } else {
-//            tv_label.setVisibility(View.GONE);
-//        }
-//
-//        if (!TextUtils.isEmpty(user.expert_info)) {
-//            tv_auth.setText(user.expert_info);
-//        } else {
-//            tv_auth.setVisibility(View.GONE);
-//        }
-
-//        tv_lv.setText(String.format("Lv%s", user.rank_id));
-//        tv_qj.setText(String.valueOf(user.sight_count));
-//        tv_cj.setText(String.valueOf(user.sight_count));
-//        tv_focus.setText(String.valueOf(user.follow_count));
-//        tv_fans.setText(String.valueOf(user.fans_count));
     }
 
     private View initPopView(int layout, String title) {
@@ -279,29 +253,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void installListener() {
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         riv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -32,7 +32,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class LoginFragment extends BaseFragment {
-
     @Bind(R.id.et_phone)
     EditText etPhone;
     @Bind(R.id.et_password)
@@ -154,7 +153,7 @@ public class LoginFragment extends BaseFragment {
                 LogUtil.e("获取登录信息"+result);
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
+                    if (userInfo.meta.status_code== Constants.HTTP_OK){
                         SPUtil.write(Constants.LOGIN_INFO,result);
                         Intent intent = new Intent(activity, MainActivity.class);
                         startActivity(intent);

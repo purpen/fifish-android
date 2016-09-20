@@ -2,10 +2,14 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected Activity activity;
     protected AppApplication application;
     private int layoutResID;
+    protected DisplayImageOptions options;
 
     public BaseActivity(int layoutResID) {
         this.layoutResID = layoutResID;
@@ -31,7 +36,18 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.default_background_750_1334)
+                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
+                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .resetViewBeforeLoading(true)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .delayBeforeLoading(0)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
 //        ShareSDK.initSDK(this);
         application = AppApplication.getInstance();
         application.setCurrentActivity(this);

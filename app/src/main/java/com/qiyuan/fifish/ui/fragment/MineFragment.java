@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
@@ -31,9 +30,7 @@ import org.xutils.common.util.LogUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 public class MineFragment extends BaseFragment {
-
     @Bind(R.id.custom_head)
     CustomHeadView customHead;
     @Bind(R.id.rl)
@@ -99,40 +96,6 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void requestNet() {
-//        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                if (TextUtils.isEmpty(result)) return;
-//                try {
-//                    userInfo = JsonUtil.fromJson(result, UserProfile.class);
-//                    if (userInfo.meta.meta.status_code == Constants.HTTP_OK) {
-//                        refreshUI();
-//                        return;
-//                    }
-//                } catch (JsonSyntaxException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-//                    ToastUtils.showError(errorBean.meta.message);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                ex.printStackTrace();
-//                ToastUtils.showError(R.string.request_error);
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
@@ -140,7 +103,7 @@ public class MineFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.meta.status_code == Constants.HTTP_OK) {
+                    if (userInfo.meta.status_code == Constants.HTTP_OK) {
                         refreshUI();
                         return;
                     }
@@ -161,13 +124,18 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void refreshUI() {
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small,riv);
+        ImageLoader.getInstance().displayImage("url",riv,options);
         userName.setText(userInfo.data.username);
-        tvLocation.setText(userInfo.data.zone);
+//        tvLocation.setText(userInfo.data.zone);
+        tvLocation.setText("北京朝阳");
         tvFocusNum.setText(userInfo.data.follow_count);
         tvFansNum.setText(userInfo.data.fans_count);
-        if (!TextUtils.isEmpty(userInfo.data.summary)){
-            tvSummary.setText(userInfo.data.summary);
+        if (userInfo.data.summary!=null){
+            if (!TextUtils.isEmpty(userInfo.data.summary.toString())){
+                tvSummary.setText(userInfo.data.summary.toString());
+            }
+        }else {
+            tvSummary.setText("人生是场大设计!");
         }
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
