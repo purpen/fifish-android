@@ -98,7 +98,6 @@ public class FansFragment extends ScrollTabHolderFragment {
         public void onScroll(AbsListView view, int firstVisibleItem,
                              int visibleItemCount, int totalItemCount) {
             if (mScrollTabHolder != null)
-                LogUtil.e(TAG + mPosition);
             mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount, mPosition);
         }
 

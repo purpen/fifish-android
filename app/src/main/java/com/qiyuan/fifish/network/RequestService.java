@@ -116,4 +116,20 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.FEEDBACK_URL),cancelable);
     }
+
+    /**
+     * 获取用户作品(图片和视频)
+     * @param callBack
+     */
+    public static void getProducts(String page,String per_page,String kind,String user_id, String sort,CustomCallBack callBack) {
+        RequestParams params = new RequestParams(Constants.USER_PRODUCTS_URL);
+        params.addQueryStringParameter("page",page);
+        params.addQueryStringParameter("per_page",per_page);
+        params.addQueryStringParameter("kind",kind);
+        params.addQueryStringParameter("user_id",user_id);
+        params.addQueryStringParameter("sort",sort);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.USER_PRODUCTS_URL),cancelable);
+    }
 }

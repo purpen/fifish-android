@@ -2,16 +2,17 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,6 +43,7 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -70,6 +72,18 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     TextView tvFocusNum;
     @Bind(R.id.tv_fans_num)
     TextView tvFansNum;
+    @Bind(R.id.ll_products)
+    LinearLayout llProducts;
+    @Bind(R.id.ll_focus)
+    LinearLayout llFocus;
+    @Bind(R.id.ll_fans)
+    LinearLayout llFans;
+    @Bind(R.id.tv_products)
+    TextView tvProducts;
+    @Bind(R.id.tv_focus)
+    TextView tvFocus;
+    @Bind(R.id.tv_fans)
+    TextView tvFans;
     private LoginUserInfo user;
     private List<Uri> mSelected;
     private String userId;
@@ -84,7 +98,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     private UserCenterViewPagerAdapter mPagerAdapter;
     private Fragment[] fragments = new Fragment[3];
     private UserProfile userInfo;
-
+    private int color_2187ff;
     public UserCenterActivity() {
         super(R.layout.activity_user_center);
     }
@@ -117,6 +131,9 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void initViews() {
+        color_2187ff=getResources().getColor(R.color.color_2187ff);
+        tvProductsNum.setTextColor(color_2187ff);
+        tvProducts.setTextColor(color_2187ff);
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
         mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp280);
         mMinHeaderTranslation = -mMinHeaderHeight;
@@ -166,11 +183,11 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount, int pagePosition) {
         if (viewPager.getCurrentItem() == pagePosition) {
             int scrollY = getScrollY(view);
-            Log.e("-scrollY", -scrollY + "");
-            Log.e("mMinHeaderTranslation", "" + mMinHeaderTranslation);
-            Log.e("Math.max()", Math.max(-scrollY, mMinHeaderTranslation) + "");
-            mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
-//				mHeader.setTranslationY(-scrollY);
+//            Log.e("-scrollY", -scrollY + "");
+//            Log.e("mMinHeaderTranslation", "" + mMinHeaderTranslation);
+//            Log.e("Math.max()", Math.max(-scrollY, mMinHeaderTranslation) + "");
+//            mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
+            mHeader.setTranslationY(-scrollY);
         }
     }
 
@@ -214,6 +231,24 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     public void onPageSelected(int position) {
+        switch (position){
+            case 0:
+                resetUI();
+                tvProductsNum.setTextColor(color_2187ff);
+                tvProducts.setTextColor(color_2187ff);
+                viewPager.setCurrentItem(0, true);
+                break;
+            case 1:
+                resetUI();
+                tvFocusNum.setTextColor(color_2187ff);
+                tvFocus.setTextColor(color_2187ff);
+                break;
+            case 2:
+                resetUI();
+                tvFansNum.setTextColor(color_2187ff);
+                tvFans.setTextColor(color_2187ff);
+                break;
+        }
         SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
         ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
         currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
@@ -222,19 +257,19 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     @Override
     protected void refreshUI() {
         if (userInfo == null) return;
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small,riv,options);
-        ImageLoader.getInstance().displayImage("bg",ivBg);
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small, riv, options);
+        ImageLoader.getInstance().displayImage("bg", ivBg);
         tvName.setText(userInfo.data.username);
 //        tvAddress.setText(userInfo.data.zone);
         tvAddress.setText("北京朝阳");
         tvFocusNum.setText(userInfo.data.follow_count);
         tvFansNum.setText(userInfo.data.fans_count);
         tvProductsNum.setText(userInfo.data.stuff_count);
-        if (userInfo.data.summary!=null){
-            if (!TextUtils.isEmpty(userInfo.data.summary.toString())){
+        if (userInfo.data.summary != null) {
+            if (!TextUtils.isEmpty(userInfo.data.summary.toString())) {
                 tvSummary.setText(userInfo.data.summary.toString());
             }
-        }else {
+        } else {
             tvSummary.setText("人生是场大设计!");
         }
     }
@@ -253,6 +288,9 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void installListener() {
+        llProducts.setOnClickListener(this);
+        llFocus.setOnClickListener(this);
+        llFans.setOnClickListener(this);
         riv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,10 +302,39 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     }
 
+    private void resetUI() {
+        int color = getResources().getColor(android.R.color.white);
+        tvProductsNum.setTextColor(color);
+        tvProducts.setTextColor(color);
+        tvFocusNum.setTextColor(color);
+        tvFocus.setTextColor(color);
+        tvFansNum.setTextColor(color);
+        tvFans.setTextColor(color);
+    }
+
     @Override
     public void onClick(View view) {
+        int color = getResources().getColor(R.color.color_2187ff);
         Intent intent;
         switch (view.getId()) {
+            case R.id.ll_products:
+                resetUI();
+                tvProductsNum.setTextColor(color);
+                tvProducts.setTextColor(color);
+                viewPager.setCurrentItem(0, true);
+                break;
+            case R.id.ll_focus:
+                resetUI();
+                tvFocusNum.setTextColor(color);
+                tvFocus.setTextColor(color);
+                viewPager.setCurrentItem(1, true);
+                break;
+            case R.id.ll_fans:
+                resetUI();
+                tvFansNum.setTextColor(color);
+                tvFans.setTextColor(color);
+                viewPager.setCurrentItem(2, true);
+                break;
             case R.id.tv_take_photo:
                 PopupWindowUtil.dismiss();
                 getImageFromCamera();
@@ -433,5 +500,12 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         intent.putExtra(ImageCropActivity.class.getSimpleName(), uri);
         intent.putExtra(ImageCropActivity.class.getName(), flag);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

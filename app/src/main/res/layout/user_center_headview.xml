@@ -81,7 +81,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp35"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/dp10"
             android:layout_marginLeft="@dimen/dp50"
@@ -90,6 +90,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -101,19 +102,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp13" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
+                    android:id="@+id/tv_products"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp5"
                     android:text="@string/products"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp10" />
+                    android:textSize="@dimen/sp12" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -125,19 +128,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp13" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
+                    android:id="@+id/tv_focus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp5"
                     android:text="@string/focus"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp10" />
+                    android:textSize="@dimen/sp12" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_fans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,20 +154,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp13" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
+                    android:id="@+id/tv_fans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp5"
                     android:text="@string/fans"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/sp10" />
+                    android:textSize="@dimen/sp12" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <!-- </LinearLayout>-->
-
 </RelativeLayout>

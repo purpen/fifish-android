@@ -33,6 +33,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.android.support:design:24.0.0'
     compile 'org.xutils:xutils:3.3.36'
+    compile 'fm.jiecao:jiecaovideoplayer:4.6.5'
     compile project(':pullrefreshlib')
 }

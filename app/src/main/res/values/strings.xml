@@ -54,10 +54,17 @@
     <string name="select_a_province">请选择省份</string>
     <string name="cancel">取消</string>
     <string name="title_modify_nickname">修改昵称</string>
+    <string name="look_more">更多</string>
+    <string name="hot_tags">热门标签</string>
+    <string name="hot_user">热门用户</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>
         <item>保密</item>
+    </string-array>
+    <string-array name="support_products">
+        <item>图片</item>
+        <item>视频</item>
     </string-array>
     <string-array name="user_tags">
         <item>创业先锋</item>

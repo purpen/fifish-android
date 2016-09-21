@@ -24,12 +24,10 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
                 .showImageForEmptyUri(R.mipmap.default_background_750_1334)
                 .showImageOnFail(R.mipmap.default_background_750_1334)
-                .resetViewBeforeLoading(true)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(0)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
     }

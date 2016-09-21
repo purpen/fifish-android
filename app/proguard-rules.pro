@@ -180,3 +180,7 @@
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.qiyuan.fifish.bean** { *; }
 ##---------------End: proguard configuration for Gson  ----------
+##video player
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+##

@@ -57,6 +57,9 @@
             android:name=".ui.activity.NewFansActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.SupportProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.SystemNoticeActivity"
             android:screenOrientation="portrait" />
         <activity

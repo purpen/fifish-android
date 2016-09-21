@@ -2,20 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-
     <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pull_lv"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/color_transparent"
-        android:dividerHeight="@dimen/dp10"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        ptr:ptrAnimationStyle="flip" />
+        android:layout_height="@dimen/dp45"
+        style="@style/MyCustomTabLayout"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>
