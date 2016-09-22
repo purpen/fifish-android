@@ -14,6 +14,7 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HotTagRecycleViewAdapter;
 import com.qiyuan.fifish.adapter.HotUserRecycleViewAdapter;
 import com.qiyuan.fifish.adapter.RecommendProductsAdapter;
+import com.qiyuan.fifish.adapter.ViewPagerAdapter;
 import com.qiyuan.fifish.bean.HotUserBean;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.TagsBean;
@@ -62,6 +63,26 @@ public class DiscoverFragment extends BaseFragment {
         recyclerViewUser = ButterKnife.findById(headView, R.id.recycler_view_user);
         mList = new ArrayList<>();
         pullLv.getRefreshableView().addHeaderView(headView);
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(R.mipmap.guide0);
+        list.add(R.mipmap.guide1);
+        list.add(R.mipmap.guide2);
+        list.add(R.mipmap.guide3);
+        scrollableView.setAdapter(new ViewPagerAdapter<>(activity, list).setInfiniteLoop(true));
+        scrollableView.setAutoScrollDurationFactor(8);
+        scrollableView.showIndicators();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (scrollableView!=null) scrollableView.stop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (scrollableView!=null) scrollableView.start();
     }
 
     @Override

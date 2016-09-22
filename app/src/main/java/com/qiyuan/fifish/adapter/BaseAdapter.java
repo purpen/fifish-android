@@ -16,9 +16,11 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     protected List<T> list;
     protected Activity activity;
     protected DisplayImageOptions options;
+    protected int size;
 
     public BaseAdapter(List<T> list, Activity activity) {
         this.list = list;
+        this.size = list.size();
         this.activity = activity;
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
@@ -37,7 +39,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         if (list == null) {
             return 0;
         }
-        return list.size();
+        return size;
     }
 
     @Override

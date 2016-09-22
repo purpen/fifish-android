@@ -14,6 +14,7 @@ public class Constants {
     public static final String USER_PRODUCTS_URL= Constants.BASE_URL+"stuffs";
     public static final String HOT_TAGS_URL= Constants.BASE_URL+"tags/sticks";
     public static final String HOT_USERS_URL= Constants.BASE_URL+"user/hot_users";
+
     public static final int HTTP_OK = 200;
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;
     public static final int HTTP_NOT_FOUND = 404;

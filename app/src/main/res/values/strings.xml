@@ -57,6 +57,7 @@
     <string name="look_more">更多</string>
     <string name="hot_tags">热门标签</string>
     <string name="hot_user">热门用户</string>
+    <string name="hot_recommend">热门推荐</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

@@ -13,9 +13,6 @@
         android:id="@+id/pull_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/color_transparent"
-        android:dividerHeight="@dimen/dp10"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
+        android:divider="@null"
         ptr:ptrAnimationStyle="flip" />
 </LinearLayout>

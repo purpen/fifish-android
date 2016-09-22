@@ -104,7 +104,7 @@
                 android:id="@+id/ibtn_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/icon_favorite"
+                android:src="@mipmap/icon_unsupport"
                 android:background="@null"
                 />
             <ImageButton
@@ -171,4 +171,10 @@
                 />
         </RelativeLayout>
     </LinearLayout>
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:background="@color/color_f7f7f7"
+        />
 </LinearLayout>

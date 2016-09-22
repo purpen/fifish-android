@@ -10,8 +10,16 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.SupportProductsBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
+
+import org.xutils.http.request.UriRequest;
 
 import java.util.List;
 
@@ -79,7 +87,17 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         }else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
+        if (item.is_love){
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
+        }else {
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
+        }
 
+        if (position==size-1){
+            videoHolder.viewLine.setVisibility(View.GONE);
+        }else {
+            videoHolder.viewLine.setVisibility(View.VISIBLE);
+        }
         videoHolder.tvTime.setText(position+"天前");
         setClickListener(videoHolder.ibtnFavorite,item);
         setClickListener(videoHolder.ibtnComment,item);
@@ -99,7 +117,11 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
             public void onClick(View view) {
                 switch (view.getId()){
                     case R.id.ibtn_favorite:
-
+                        if (item.is_love){
+                            cancelSupport(view,item);
+                        }else {
+                            doSupport(view,item);
+                        }
                         break;
                     case R.id.ibtn_comment:
 
@@ -114,6 +136,58 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
                     default:
                         break;
                 }
+            }
+        });
+    }
+
+    private void cancelSupport(final View view, final ProductsBean.DataBean item) {
+        RequestService.cancelSupport(item.id,new CustomCallBack(){
+            @Override
+            public void beforeRequest(UriRequest request) throws Throwable {
+                view.setEnabled(false);
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+                SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
+                if (response.meta.status_code== Constants.HTTP_OK){
+                    item.is_love=false;
+                    notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+    private void doSupport(final View view,final ProductsBean.DataBean item) {
+        RequestService.doSupport(item.id,new CustomCallBack(){
+            @Override
+            public void beforeRequest(UriRequest request) throws Throwable {
+                view.setEnabled(false);
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+                SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
+                if (response.meta.status_code== Constants.HTTP_OK){
+                    item.is_love=true;
+                    notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
             }
         });
     }
@@ -147,6 +221,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         ImageButton ibtnShare;
         @Bind(R.id.ibtn_more)
         ImageButton ibtnMore;
+        @Bind(R.id.view_line)
+        View viewLine;
         public VideoHolder(View view) {
             ButterKnife.bind(this, view);
         }

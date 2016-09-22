@@ -28,7 +28,6 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
     private ImageLoader imageLoader;
     private static final int TYPE_IMAGE = 1;
     private static final int TYPE_VIDEO = 2;
-
     public RecommendProductsAdapter(List<ProductsBean.DataBean> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
@@ -68,6 +67,11 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
             videoHolder.tvDesc.setText(item.user.summary.toString());
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
+        }
+        if (position==size-1){
+            videoHolder.viewLine.setVisibility(View.GONE);
+        }else {
+            videoHolder.viewLine.setVisibility(View.VISIBLE);
         }
         videoHolder.tvCommentNum.setText(String.format("所有%s条赞",position));
         videoHolder.tvTime.setText(position + "小时前");
@@ -138,6 +142,8 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
         TextView tvCommentNum;
         @Bind(R.id.tv_time)
         TextView tvTime;
+        @Bind(R.id.view_line)
+        View viewLine;
         public VideoHolder(View view) {
             ButterKnife.bind(this, view);
         }

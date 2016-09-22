@@ -54,13 +54,14 @@ public class ProductsBean {
     }
 
     public static class DataBean {
-        public int id;
+        public String id;
         public String content;
         public String view_count;
         public String kind;
         public String like_count;
         public String comment_count;
         public String user_id;
+        public boolean is_love;
         /**
          * id : 1
          * username : 董先生
@@ -80,7 +81,7 @@ public class ProductsBean {
         public PhotoBean photo;
 
         public static class UserBean {
-            public int id;
+            public String id;
             public String username;
             public Object summary;
         }

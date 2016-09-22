@@ -50,7 +50,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 .build();
 //        ShareSDK.initSDK(this);
         application = AppApplication.getInstance();
-        application.setCurrentActivity(this);
         this.activity = this;
 //		MobclickAgent.setDebugMode(true);
 //        MobclickAgent.openActivityDurationTrack(false);

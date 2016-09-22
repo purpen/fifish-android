@@ -44,7 +44,7 @@ public class MessageActivity extends BaseActivity {
         custom_head.setHeadCenterTxtShow(true, "消息");
         dialog = new WaitingDialog(this);
         item0.setTVStyle(R.mipmap.icon_new_fans, "新的粉丝", R.color.color_333);
-        item1.setTVStyle(R.mipmap.icon_support, "收到的赞", R.color.color_333);
+        item1.setTVStyle(R.mipmap.icon_unsupport, "收到的赞", R.color.color_333);
         item2.setTVStyle(R.mipmap.icon_comment, "评论", R.color.color_333);
         item3.setTVStyle(R.mipmap.sys_msg, "通知", R.color.color_333);
 //        WindowUtils.chenjin(this);
