@@ -20,9 +20,17 @@
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_tag"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp16"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:background="@color/color_f7f7f7"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,5 +44,24 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp16"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp10"
+        android:background="@color/color_f7f7f7"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp16"
+        android:textSize="@dimen/sp14"
+        android:textColor="@color/color_333"
+        android:text="@string/hot_user"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp8"
+        />
 </LinearLayout>

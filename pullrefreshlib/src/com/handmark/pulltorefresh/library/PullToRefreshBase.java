@@ -1518,7 +1518,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	}
 
 	public enum Orientation {
-		VERTICAL, HORIZONTAL
+		VERTICAL, LinearLayoutManager, HORIZONTAL
 	}
 
 	public enum State {

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.TagsBean;
+import com.qiyuan.fifish.bean.HotUserBean;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * @author lilin
  *         created at 2016/5/8 18:38
  */
-public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycleViewAdapter.ViewHolder> {
+public class HotUserRecycleViewAdapter extends RecyclerView.Adapter<HotUserRecycleViewAdapter.ViewHolder> {
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
 
@@ -37,10 +37,10 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
     }
 
     private Activity activity;
-    private ArrayList<TagsBean.DataBean> list;
+    private ArrayList<HotUserBean.DataBean> list;
     private DisplayImageOptions options;
 
-    public HotTagRecycleViewAdapter(Activity activity, ArrayList<TagsBean.DataBean> list) {
+    public HotUserRecycleViewAdapter(Activity activity, ArrayList<HotUserBean.DataBean> list) {
         this.activity = activity;
         this.list = list;
         options = new DisplayImageOptions.Builder()
@@ -56,13 +56,13 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_hot_tag, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_hot_user, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        TagsBean.DataBean item = list.get(position);
+        HotUserBean.DataBean item = list.get(position);
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,9 +79,8 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
                 }
             });
         }
-        ImageLoader.getInstance().displayImage(item.display_name, holder.iv, options);
-        holder.tvTag.setText(item.display_name);
-        holder.tvNum.setText(String.format("%s人参与",position));
+        ImageLoader.getInstance().displayImage(item.avatar.small, holder.iv, options);
+        holder.tvTag.setText(item.username);
     }
 
     @Override
@@ -94,8 +93,6 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
         RoundedImageView iv;
         @Bind(R.id.tv_tag)
         TextView tvTag;
-        @Bind(R.id.tv_num)
-        TextView tvNum;
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

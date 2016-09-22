@@ -132,4 +132,24 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.USER_PRODUCTS_URL),cancelable);
     }
+
+    /**
+     * 热门标签
+     * @param callBack
+     */
+    public static void getHotTags(CustomCallBack callBack) {
+        RequestParams params = new RequestParams(Constants.HOT_TAGS_URL);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.HOT_TAGS_URL),cancelable);
+    }
+
+    /**
+     * 热门用户
+     * @param callBack
+     */
+    public static void getHotUsers(CustomCallBack callBack) {
+        RequestParams params = new RequestParams(Constants.HOT_USERS_URL);
+        Callback.Cancelable cancelable = x.http().get(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.HOT_USERS_URL),cancelable);
+    }
 }

@@ -1,6 +1,6 @@
 package com.qiyuan.fifish.bean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author lilin
@@ -9,29 +9,27 @@ import java.util.List;
 public class TagsBean {
 
     /**
-     * status : success
-     * code : 200
      * message : Success.
-     * pagination : {"total":2,"count":2,"per_page":20,"current_page":1,"total_pages":1,"links":[]}
+     * status_code : 200
+     * pagination : {"total":5,"count":5,"per_page":10,"current_page":1,"total_pages":1,"links":[]}
      */
 
     public MetaBean meta;
     /**
-     * id : 1
-     * name : 科技2
-     * display_name : 科技范
+     * id : 5
+     * name : 大哭
+     * display_name : 大哭啊
      */
 
-    public List<DataBean> data;
+    public ArrayList<DataBean> data;
 
     public static class MetaBean {
-        public String status;
-        public int code;
         public String message;
+        public int status_code;
         /**
-         * total : 2
-         * count : 2
-         * per_page : 20
+         * total : 5
+         * count : 5
+         * per_page : 10
          * current_page : 1
          * total_pages : 1
          * links : []
