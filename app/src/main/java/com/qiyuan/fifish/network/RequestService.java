@@ -9,6 +9,8 @@ import org.xutils.common.util.MD5;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.File;
+
 /**
  * @author lilin
  *         created at 2016/8/5 15:49
@@ -185,5 +187,19 @@ public class RequestService {
         RequestParams params = new RequestParams(url);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 上传头像
+     * @param avatar
+     * @param callBack
+     */
+    public static void upLoadAvatar(File avatar, CustomCallBack callBack) {
+        if (avatar==null) return;
+        RequestParams params = new RequestParams(Constants.UPLOAD_AVATAR_URL);
+        params.addBodyParameter("avatar",avatar);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.UPLOAD_AVATAR_URL), cancelable);
     }
 }

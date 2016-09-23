@@ -52,7 +52,7 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataBean> implemen
                 case TYPE_VIDEO:
                     convertView = Util.inflateView(R.layout.item_video_view, null);
                     videoholder = new VideoHolder(convertView);
-                    videoholder.videoView.setUp(item.photo.fileurl, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+                    videoholder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
                     convertView.setTag(videoholder);
                     break;
                 case TYPE_IMAGE:
@@ -62,7 +62,7 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataBean> implemen
                     convertView = imageholder.iv = new ImageView(activity);
                     convertView.setLayoutParams(params);
                     imageholder.iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    imageLoader.displayImage(item.photo.fileurl, imageholder.iv, options);
+                    imageLoader.displayImage(item.photo.file.large, imageholder.iv, options);
                     convertView.setTag(imageholder);
                     break;
                 default:
@@ -72,11 +72,11 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataBean> implemen
             switch (type) {
                 case TYPE_VIDEO:
                     videoholder = (VideoHolder) convertView.getTag();
-                    videoholder.videoView.setUp(item.photo.fileurl, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+                    videoholder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
                     break;
                 case TYPE_IMAGE:
                     imageholder = (ImageHolder) convertView.getTag();
-                    imageLoader.displayImage(item.photo.fileurl, imageholder.iv, options);
+                    imageLoader.displayImage(item.photo.file.large, imageholder.iv, options);
                     break;
                 default:
                     break;

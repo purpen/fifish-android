@@ -1,31 +1,35 @@
 package com.qiyuan.fifish.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lilin
  * created at 2016/9/20 21:03
  */
 public class ProductsBean {
-
     /**
      * message : Success.
      * status_code : 200
-     * pagination : {"total":4,"count":4,"per_page":8,"current_page":1,"total_pages":1,"links":[]}
+     * pagination : {"total":5,"count":5,"per_page":10,"current_page":1,"total_pages":1,"links":[]}
      */
 
     public MetaBean meta;
     /**
-     * id : 5
-     * content : 大海,是雄伟的,一朵朵浪花拍打沙滩,发出轰轰的浪花声
+     * id : 11
+     * content : 飞行鱼重新发现海洋
      * view_count : 0
      * kind : 1
+     * city : null
+     * address : null
      * like_count : 0
      * comment_count : 0
      * user_id : 1
-     * user : {"id":1,"username":"董先生","summary":null}
+     * user : {"id":1,"username":"董先生","summary":null,"avatar":{"small":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50","large":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180"}}
      * tags : []
-     * photo : {"id":5,"filepath":"uploads/images/a2081c1fb866ac79e3b8329139e51e8d.jpg","size":"916KB","width":"960","height":"600","fileurl":"http://fish.taihuoniao.com/uploads/images/a2081c1fb866ac79e3b8329139e51e8d.jpg"}
+     * photo : {"id":26,"filepath":"photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2","size":"226KB","width":"750","height":"460","file":{"small":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm","large":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg"}}
+     * created_at : 2016-09-23
+     * is_love : false
      */
 
     public ArrayList<DataBean> data;
@@ -34,9 +38,9 @@ public class ProductsBean {
         public String message;
         public int status_code;
         /**
-         * total : 4
-         * count : 4
-         * per_page : 8
+         * total : 5
+         * count : 5
+         * per_page : 10
          * current_page : 1
          * total_pages : 1
          * links : []
@@ -50,6 +54,7 @@ public class ProductsBean {
             public int per_page;
             public int current_page;
             public int total_pages;
+            public List<?> links;
         }
     }
 
@@ -58,41 +63,67 @@ public class ProductsBean {
         public String content;
         public String view_count;
         public String kind;
+        public Object city;
+        public Object address;
         public String like_count;
         public String comment_count;
         public String user_id;
-        public boolean is_love;
         /**
          * id : 1
          * username : 董先生
          * summary : null
+         * avatar : {"small":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50","large":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180"}
          */
 
         public UserBean user;
         /**
-         * id : 5
-         * filepath : uploads/images/a2081c1fb866ac79e3b8329139e51e8d.jpg
-         * size : 916KB
-         * width : 960
-         * height : 600
-         * fileurl : http://fish.taihuoniao.com/uploads/images/a2081c1fb866ac79e3b8329139e51e8d.jpg
+         * id : 26
+         * filepath : photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2
+         * size : 226KB
+         * width : 750
+         * height : 460
+         * file : {"small":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm","large":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg"}
          */
 
         public PhotoBean photo;
+        public String created_at;
+        public boolean is_love;
+        public List<?> tags;
 
         public static class UserBean {
-            public String id;
+            public int id;
             public String username;
             public Object summary;
+            /**
+             * small : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50
+             * large : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180
+             */
+
+            public AvatarBean avatar;
+
+            public static class AvatarBean {
+                public String small;
+                public String large;
+            }
         }
 
         public static class PhotoBean {
-            public int id;
+            public String id;
             public String filepath;
             public String size;
             public String width;
             public String height;
-            public String fileurl;
+            /**
+             * small : http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm
+             * large : http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg
+             */
+
+            public FileBean file;
+
+            public static class FileBean {
+                public String small;
+                public String large;
+            }
         }
     }
 }

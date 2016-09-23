@@ -49,32 +49,33 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
             case TYPE_VIDEO:
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.fileurl, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+                videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(item.photo.fileurl, videoHolder.ivCover, options);
+                imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
                 break;
             default:
                 break;
         }
-        imageLoader.displayImage(item.photo.fileurl, videoHolder.riv);
+        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
-        videoHolder.tvZanNum.setText(position+"次赞");
+        videoHolder.tvZanNum.setText(item.like_count+"次赞");
         if (item.user.summary != null) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
             videoHolder.tvDesc.setText(item.user.summary.toString());
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
+        videoHolder.tvTxt.setText(item.content);
         if (position==size-1){
             videoHolder.viewLine.setVisibility(View.GONE);
         }else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);
         }
-        videoHolder.tvCommentNum.setText(String.format("所有%s条赞",position));
-        videoHolder.tvTime.setText(position + "小时前");
+        videoHolder.tvCommentNum.setText(String.format("所有%s条评论",item.comment_count));
+        videoHolder.tvTime.setText(item.created_at);
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);

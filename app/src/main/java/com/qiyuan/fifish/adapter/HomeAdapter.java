@@ -69,17 +69,17 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
             case TYPE_VIDEO:
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.fileurl, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+                videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(item.photo.fileurl,videoHolder.ivCover, options);
+                imageLoader.displayImage(item.photo.file.large,videoHolder.ivCover, options);
                 break;
             default:
                 break;
         }
-        imageLoader.displayImage(item.photo.fileurl,videoHolder.riv);
+        imageLoader.displayImage(item.user.avatar.large,videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
         if (item.user.summary!=null){
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
@@ -87,6 +87,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         }else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
+        videoHolder.tvContent.setText(item.content);
         if (item.is_love){
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
         }else {
@@ -98,7 +99,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         }else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);
         }
-        videoHolder.tvTime.setText(position+"天前");
+        videoHolder.tvTime.setText(item.created_at);
         setClickListener(videoHolder.ibtnFavorite,item);
         setClickListener(videoHolder.ibtnComment,item);
         setClickListener(videoHolder.ibtnShare,item);
@@ -209,6 +210,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         TextView tvDesc;
         @Bind(R.id.tv_time)
         TextView tvTime;
+        @Bind(R.id.tv_content)
+        TextView tvContent;
         @Bind(R.id.videoView)
         JCVideoPlayerStandard videoView;
         @Bind(R.id.iv_cover)

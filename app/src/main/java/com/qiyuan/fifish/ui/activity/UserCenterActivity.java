@@ -2,7 +2,6 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -43,7 +42,6 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -115,7 +113,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         } else {
             userId = LoginUserInfo.getUserId();
         }
-        userId = "1";
     }
 
     @Override
@@ -257,7 +254,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     @Override
     protected void refreshUI() {
         if (userInfo == null) return;
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small, riv, options);
+        ImageLoader.getInstance().displayImage("avatar", riv);
         ImageLoader.getInstance().displayImage("bg", ivBg);
         tvName.setText(userInfo.data.username);
 //        tvAddress.setText(userInfo.data.zone);
@@ -294,7 +291,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         riv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (LoginUserInfo.getLoginInfo()._id != userId) return;
+                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
                 flag = EditUserInfoActivity.class.getSimpleName();
                 PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换头像"));
             }
@@ -347,7 +344,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
                 PopupWindowUtil.dismiss();
                 break;
             case R.id.rl:
-//                if (LoginUserInfo.getLoginInfo()._id != userId) return;
+                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
                 flag = UserCenterActivity.class.getSimpleName();
                 PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换背景封面"));
                 break;
@@ -365,11 +362,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 //            case R.id.ll_fans:
 //                intent = new Intent(activity, FansActivity.class);
 //                intent.putExtra(FocusActivity.USER_ID_EXTRA, userId);
-//                startActivity(intent);
-//                break;
-//            case R.id.bt_msg:
-//                intent = new Intent(activity, PrivateMessageActivity.class);
-//                intent.putExtra(UserCenterActivity.class.getSimpleName(), user);
 //                startActivity(intent);
 //                break;
 //            case R.id.bt_focus:
@@ -424,17 +416,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 //                    });
 //                }
 //                break;
-//            case R.id.ibtn:
-//                Util.makeToast("认证");
-//                break;
-//            case R.id.ll_cj:
-//                if (which == MineFragment.REQUEST_CJ) return;
-//                showCj();
-//                break;
-//            case R.id.ll_qj:
-//                if (which == MineFragment.REQUEST_CJ) return;
-//                showCj();
-//                break;
         }
     }
 
@@ -450,9 +431,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         } else {
             ToastUtils.showError("未检测到SD卡");
         }
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType("image/*");//相片类型
-//        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
 
     protected void getImageFromCamera() {
@@ -500,12 +478,5 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         intent.putExtra(ImageCropActivity.class.getSimpleName(), uri);
         intent.putExtra(ImageCropActivity.class.getName(), flag);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

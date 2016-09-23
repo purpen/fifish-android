@@ -55,7 +55,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 //        MobclickAgent.openActivityDurationTrack(false);
 //        AnalyticsConfig.enableEncrypt(true);
         checkUserLogin();
-//        initXGPush();
         setContentView(layoutResID);
         ButterKnife.bind(this);
         getIntentData();
@@ -72,7 +71,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        application.setCurrentActivity(this);
         super.onRestart();
     }
 
@@ -126,11 +124,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
-//        LogUtil.e("TPush", "onResumeXGPushClickedResult:" + click);
-//        if (click != null) { // 判断是否来自信鸽的打开方式
-//            LogUtil.e("click.getContent()", click.getContent());
-//        }
     }
 
     @Override
@@ -150,7 +143,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        XGPushManager.onActivityStoped(this);
     }
 
     @Override

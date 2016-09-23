@@ -16,23 +16,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-/**
- * Created by taihuoniao on 2016/3/14.
- */
-public class FileUtils {
+public class FileUtil {
     /**
-     * 图片写入文件
-     *
-     * @param bitmap   图片
+     * bitmap转文件
+     * @param bitmap
      * @param filePath 文件路径
-     * @return 是否写入成功
+     * @return 文件
      */
-    public static boolean bitmapToFile(Bitmap bitmap, String filePath) {
-        boolean isSuccess = false;
-        if (bitmap == null) {
-            return false;
-        }
+    public static File bitmapToFile(Bitmap bitmap, String filePath) {
         File file = new File(filePath.substring(0,
                 filePath.lastIndexOf(File.separator)));
         if (!file.exists()) {
@@ -43,13 +34,13 @@ public class FileUtils {
         try {
             out = new BufferedOutputStream(new FileOutputStream(filePath),
                     8 * 1024);
-            isSuccess = bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
             closeIO(out);
         }
-        return isSuccess;
+        return file;
     }
 
     /**
@@ -69,7 +60,7 @@ public class FileUtils {
                 cb.close();
             } catch (IOException e) {
                 throw new RuntimeException(
-                        FileUtils.class.getClass().getName(), e);
+                        FileUtil.class.getClass().getName(), e);
             }
         }
     }

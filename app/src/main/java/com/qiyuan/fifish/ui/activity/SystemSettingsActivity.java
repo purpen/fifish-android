@@ -13,7 +13,7 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.DataCleanUtil;
-import com.qiyuan.fifish.util.FileUtils;
+import com.qiyuan.fifish.util.FileUtil;
 import com.qiyuan.fifish.util.SPUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 
@@ -158,7 +158,7 @@ public class SystemSettingsActivity extends BaseActivity{
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                DataCleanUtil.cleanAppData(activity, FileUtils.getSavePath(getPackageName()));
+                DataCleanUtil.cleanAppData(activity, FileUtil.getSavePath(getPackageName()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
