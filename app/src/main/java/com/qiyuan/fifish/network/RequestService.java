@@ -193,15 +193,15 @@ public class RequestService {
 
     /**
      * 上传头像
-     * @param avatar
+     * @param file
      * @param callBack
      */
-    public static void upLoadAvatar(File avatar,String token,String upload_url, CustomCallBack callBack) {
-        if (avatar==null || TextUtils.isEmpty(token)|| TextUtils.isEmpty(upload_url)) return;
+    public static void upLoadFile(File file,String token,String upload_url, CustomCallBack callBack) {
+        if (file==null || TextUtils.isEmpty(token)|| TextUtils.isEmpty(upload_url)) return;
         RequestParams params = new RequestParams(upload_url);
         params.setMultipart(true);
         params.addBodyParameter("token",token);
-        params.addBodyParameter("file",avatar);
+        params.addBodyParameter("file",file);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(upload_url), cancelable);
     }

@@ -150,7 +150,8 @@ public class ImageCropActivity extends BaseActivity {
     }
 
     /**
-     * @param type
+      * @param type
+     * @param file
      */
     private void getQNUrlToken(String type, final File file) {
         if (dialog != null && !activity.isFinishing()) dialog.show();
@@ -160,7 +161,7 @@ public class ImageCropActivity extends BaseActivity {
             public void onSuccess(String result) {
                 QNBean response = JsonUtil.fromJson(result, QNBean.class);
                 if (response.meta.status_code==Constants.HTTP_OK){
-                    RequestService.upLoadAvatar(file,response.data.token,response.data.upload_url, new CustomCallBack() {
+                    RequestService.upLoadFile(file,response.data.token,response.data.upload_url, new CustomCallBack() {
                         @Override
                         public void onSuccess(String result) {
                             LogUtil.e(result);
@@ -168,7 +169,7 @@ public class ImageCropActivity extends BaseActivity {
                             if (dialog != null && !activity.isFinishing()) dialog.dismiss();
                             UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
                             if (TextUtils.equals(response.ret,"success")) {
-                                ToastUtils.showSuccess("上传头像成功");
+                                ToastUtils.showSuccess("上传成功");
 //                                if (listener != null) {
 //                                    listener.onClipComplete(bitmap);
 //                                }
@@ -190,6 +191,7 @@ public class ImageCropActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
             }

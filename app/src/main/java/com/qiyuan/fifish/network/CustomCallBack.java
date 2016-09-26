@@ -14,7 +14,7 @@ import org.xutils.http.request.UriRequest;
  * @author lilin
  * created at 2016/9/5 16:42
  */
-public abstract class CustomCallBack implements RequestInterceptListener,Callback.CommonCallback<String>{
+public abstract class CustomCallBack implements RequestInterceptListener,Callback.CommonCallback<String>,Callback.ProgressCallback<String>{
     @Override
     public void beforeRequest(UriRequest request) throws Throwable {
 
@@ -48,6 +48,21 @@ public abstract class CustomCallBack implements RequestInterceptListener,Callbac
 
     @Override
     public void onFinished() {
+
+    }
+
+    @Override
+    public void onLoading(long total, long current, boolean isDownloading) {
+        LogUtil.e("total=="+total+";;current=="+current);
+    }
+
+    @Override
+    public void onStarted() {
+
+    }
+
+    @Override
+    public void onWaiting() {
 
     }
 }
