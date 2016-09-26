@@ -22,6 +22,7 @@ public abstract class CustomCallBack implements RequestInterceptListener,Callbac
 
     @Override
     public void afterRequest(UriRequest request) throws Throwable {
+        LogUtil.e(request.toString());
         String token = request.getResponseHeader("Authorization");
         if (!TextUtils.isEmpty(token)){
             token=token.split("\\s")[1];

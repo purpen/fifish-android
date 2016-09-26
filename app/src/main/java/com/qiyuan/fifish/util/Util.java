@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.PhoneNumberUtils;
@@ -28,7 +27,7 @@ import android.widget.Toast;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 
-import org.xutils.common.util.*;
+import org.xutils.common.util.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

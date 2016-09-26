@@ -62,7 +62,7 @@ public class DeviceFragment extends BaseFragment {
         customHead.setHeadCenterTxtShow(true, R.string.device);
         customHead.setHeadGoBackShow(false);
         list = new ArrayList<>();
-        list.add(R.mipmap.guide0);
+        list.add(R.mipmap.robot);
         list.add(R.mipmap.guide1);
         list.add(R.mipmap.guide2);
         list.add(R.mipmap.guide3);

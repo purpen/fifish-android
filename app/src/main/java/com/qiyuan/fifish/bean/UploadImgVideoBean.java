@@ -7,23 +7,22 @@ package com.qiyuan.fifish.bean;
 public class UploadImgVideoBean {
 
     /**
-     * message : request ok
-     * status_code : 200
+     * large : http://obbrr76ua.bkt.clouddn.com/photo/160926/075677f8244e5165dfb3f2204d2da93c!cvxlg
+     * small : http://obbrr76ua.bkt.clouddn.com/photo/160926/075677f8244e5165dfb3f2204d2da93c!cvxsm
      */
 
-    public MetaBean meta;
+    public FileBean file;
     /**
-     * imageUrl : http://xxxx.com/uploads/images/ada22917f864829d4ef2a7be17a2fcdb.jpg
+     * file : {"large":"http://obbrr76ua.bkt.clouddn.com/photo/160926/075677f8244e5165dfb3f2204d2da93c!cvxlg","small":"http://obbrr76ua.bkt.clouddn.com/photo/160926/075677f8244e5165dfb3f2204d2da93c!cvxsm"}
+     * id : 38
+     * ret : success
      */
 
-    public DataBean data;
+    public int id;
+    public String ret;
 
-    public static class MetaBean {
-        public String message;
-        public int status_code;
-    }
-
-    public static class DataBean {
-        public String imageUrl;
+    public static class FileBean {
+        public String large;
+        public String small;
     }
 }

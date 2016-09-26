@@ -1,5 +1,7 @@
 package com.qiyuan.fifish.network;
 
+import android.text.TextUtils;
+
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
 
@@ -194,12 +196,25 @@ public class RequestService {
      * @param avatar
      * @param callBack
      */
-    public static void upLoadAvatar(File avatar, CustomCallBack callBack) {
-        if (avatar==null) return;
-        RequestParams params = new RequestParams(Constants.UPLOAD_AVATAR_URL);
-        params.addBodyParameter("avatar",avatar);
-        addToken(params);
+    public static void upLoadAvatar(File avatar,String token,String upload_url, CustomCallBack callBack) {
+        if (avatar==null || TextUtils.isEmpty(token)|| TextUtils.isEmpty(upload_url)) return;
+        RequestParams params = new RequestParams(upload_url);
+        params.setMultipart(true);
+        params.addBodyParameter("token",token);
+        params.addBodyParameter("file",avatar);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
-        RequestManager.getInstance().add(MD5.md5(Constants.UPLOAD_AVATAR_URL), cancelable);
+        RequestManager.getInstance().add(MD5.md5(upload_url), cancelable);
+    }
+
+    /**
+     * @param assetable_type 上传类型
+     * @param customCallBack
+     */
+    public static void getQNUrlToken(String assetable_type, CustomCallBack customCallBack) {
+        RequestParams params = new RequestParams(Constants.QN_PARAM_URL);
+        params.addBodyParameter("assetable_type",assetable_type);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.QN_PARAM_URL), cancelable);
     }
 }

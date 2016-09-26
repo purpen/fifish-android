@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.bean.QNBean;
 import com.qiyuan.fifish.bean.UploadImgVideoBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestManager;
@@ -20,6 +21,8 @@ import com.qiyuan.fifish.util.FileUtil;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
+
+import org.xutils.common.util.LogUtil;
 
 import java.io.File;
 
@@ -45,7 +48,8 @@ public class ImageCropActivity extends BaseActivity {
     Button bt_clip;
     private String page;
     private WaitingDialog dialog;
-
+    private String token;
+    private String upload_url;
     public ImageCropActivity() {
         super(R.layout.activity_image_crop);
     }
@@ -142,26 +146,50 @@ public class ImageCropActivity extends BaseActivity {
     private void uploadUserAvatar(final Bitmap bitmap) {
         if (bitmap == null) return;
         File avatar = Util.saveBitmapToFile(bitmap);
+        getQNUrlToken("User",avatar);
+    }
+
+    /**
+     * @param type
+     */
+    private void getQNUrlToken(String type, final File file) {
         if (dialog != null && !activity.isFinishing()) dialog.show();
         setViewEnable(false);
-        RequestService.upLoadAvatar(avatar, new CustomCallBack() {
+        RequestService.getQNUrlToken(type,new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
-                setViewEnable(true);
-                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
-                UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
-                if (response.meta.status_code == Constants.HTTP_OK) {
-                    if (listener != null) {
-                        listener.onClipComplete(bitmap);
-                    }
-                    finish();
-                    return;
+                QNBean response = JsonUtil.fromJson(result, QNBean.class);
+                if (response.meta.status_code==Constants.HTTP_OK){
+                    RequestService.upLoadAvatar(file,response.data.token,response.data.upload_url, new CustomCallBack() {
+                        @Override
+                        public void onSuccess(String result) {
+                            LogUtil.e(result);
+                            setViewEnable(true);
+                            if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                            UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
+                            if (TextUtils.equals(response.ret,"success")) {
+                                ToastUtils.showSuccess("上传头像成功");
+//                                if (listener != null) {
+//                                    listener.onClipComplete(bitmap);
+//                                }
+                                finish();
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+                            if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                            setViewEnable(true);
+                            ex.printStackTrace();
+                            ToastUtils.showError(R.string.request_error);
+                        }
+                    });
                 }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                setViewEnable(true);
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
             }

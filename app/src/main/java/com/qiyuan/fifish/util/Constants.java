@@ -15,6 +15,7 @@ public class Constants {
     public static final String HOT_TAGS_URL= Constants.BASE_URL+"tags/sticks";
     public static final String HOT_USERS_URL= Constants.BASE_URL+"user/hot_users";
     public static final String UPLOAD_AVATAR_URL= Constants.BASE_URL+"upload/avatar";
+    public static final String QN_PARAM_URL= Constants.BASE_URL+"upload/qiniuToken";
 
     public static final int HTTP_OK = 200;
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;

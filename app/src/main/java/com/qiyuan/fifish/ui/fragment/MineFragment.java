@@ -69,6 +69,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initViews() {
         customHead.setHeadCenterTxtShow(true, R.string.me);
+        customHead.setIvLeft(R.mipmap.icon_add_friend);
         customHead.setHeadGoBackShow(false);
         customHead.setRightImgBtnShow(true);
         customHead.getRightImgBtn().setImageResource(R.mipmap.setting);
@@ -79,6 +80,13 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void installListener() {
+        customHead.getIvLeft().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(activity, SystemSettingsActivity.class));
+            }
+        });
+
         customHead.getRightImgBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +134,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void refreshUI() {
-        ImageLoader.getInstance().displayImage("url",riv,options);
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv,options);
         userName.setText(userInfo.data.username);
 //        tvLocation.setText(userInfo.data.zone);
         tvLocation.setText("北京朝阳");

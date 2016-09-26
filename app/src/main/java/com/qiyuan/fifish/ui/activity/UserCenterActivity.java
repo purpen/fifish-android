@@ -111,7 +111,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         if (intent.hasExtra(Constants.USER_ID)) {
             userId = intent.getStringExtra(Constants.USER_ID);
         } else {
-            userId = LoginUserInfo.getUserId();
+            userId = UserProfile.getUserId();
         }
     }
 
@@ -254,7 +254,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     @Override
     protected void refreshUI() {
         if (userInfo == null) return;
-        ImageLoader.getInstance().displayImage("avatar", riv);
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv);
         ImageLoader.getInstance().displayImage("bg", ivBg);
         tvName.setText(userInfo.data.username);
 //        tvAddress.setText(userInfo.data.zone);
@@ -465,7 +465,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
                 case REQUEST_CODE_CAPTURE_CAMERA:
 //                    Bitmap bitmap =ImageUtils.decodeUriAsBitmap(imageUri);
                     if (imageUri != null) {
-//                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
+                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
                         toCropActivity(imageUri);
                     }
                     break;
