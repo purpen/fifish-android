@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.SparseArrayCompat;
-
 import com.qiyuan.fifish.interfaces.ScrollTabHolder;
 import com.qiyuan.fifish.ui.fragment.ScrollTabHolderFragment;
 

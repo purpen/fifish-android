@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FavoriteProductsAdapter;
 import com.qiyuan.fifish.bean.CommentsBean;
@@ -13,16 +13,14 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author lilin
  *         created at 2016/5/4 19:17
  */
 public class FavoriteProductsActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.lv)
+    @BindView(R.id.lv)
     ListView lv;
     private int curPage = 1;
     private int unread_count;

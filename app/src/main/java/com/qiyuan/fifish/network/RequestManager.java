@@ -1,7 +1,6 @@
 package com.qiyuan.fifish.network;
 
 import android.text.TextUtils;
-
 import org.xutils.common.Callback;
 
 import java.util.HashMap;

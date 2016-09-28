@@ -14,19 +14,13 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
-
 import org.xutils.common.util.LogUtil;
 
 import java.io.ByteArrayOutputStream;

@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/dp5"
                 android:drawableLeft="@mipmap/location"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textSize="@dimen/sp10"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
@@ -70,10 +70,9 @@
             android:layout_height="@dimen/dp30"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp16"
-            android:background="@drawable/shape_focus"
+            android:background="@drawable/shape_unfocus"
             android:text="关注"
-            android:textColor="@color/color_0895f7"
+            android:textColor="@color/color_2187ff"
             android:textSize="@dimen/sp12"
             />
     </RelativeLayout>

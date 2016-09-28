@@ -1,10 +1,8 @@
 package com.tcp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.qiyuan.fifish.R;
 
 public class RulerActivity extends AppCompatActivity {

@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.TabLayoutViewPagerAdapter;
 import com.qiyuan.fifish.ui.fragment.SupportPhotoFragment;
@@ -17,19 +17,17 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
 
 import java.lang.reflect.Field;
 
-import butterknife.Bind;
-
 /**
  * 赞过
  * @author lilin
  *         created at 2016/9/20 17:27
  */
 public class SupportProductsActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.tabLayout)
+    @BindView(R.id.tabLayout)
     TabLayout tabLayout;
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager viewPager;
     private TabLayoutViewPagerAdapter adapter;
 

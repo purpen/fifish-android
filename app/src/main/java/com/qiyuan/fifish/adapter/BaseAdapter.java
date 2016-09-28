@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.qiyuan.fifish.R;
@@ -43,7 +42,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public T getItem(int position) {
         return list.get(position);
     }
 

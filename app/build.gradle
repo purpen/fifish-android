@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion '24.0.1'
@@ -25,16 +25,17 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    compile 'junit:junit:4.12'
     //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.google.code.gson:gson:2.7'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:design:24.0.0'
     compile 'org.xutils:xutils:3.3.36'
     compile 'fm.jiecao:jiecaovideoplayer:4.6.5'
-    compile project(':pullrefreshlib')
+    compile project(':library')
 }

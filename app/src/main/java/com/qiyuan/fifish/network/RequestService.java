@@ -1,10 +1,8 @@
 package com.qiyuan.fifish.network;
 
 import android.text.TextUtils;
-
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
-
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 import org.xutils.common.util.MD5;
@@ -185,7 +183,7 @@ public class RequestService {
      * @param callBack
      */
     public static void cancelSupport(String id, CustomCallBack callBack) {
-        String url = Constants.BASE_URL+"stuffs/"+id+"/cancelLike";
+        String url = Constants.BASE_URL+"stuffs/"+id+"/cancelike";
         RequestParams params = new RequestParams(url);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
@@ -216,5 +214,17 @@ public class RequestService {
 //        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.QN_PARAM_URL), cancelable);
+    }
+
+    /**
+     * 获取作品的评论
+     * @param id
+     * @param customCallBack
+     */
+    public static void getProductsComments(String id, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"stuffs/"+id+"/comments";
+        RequestParams params = new RequestParams(url);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
 }

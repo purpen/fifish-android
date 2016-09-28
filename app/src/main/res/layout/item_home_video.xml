@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/white"
+    android:descendantFocusability="blocksDescendants"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,11 +40,10 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:drawablePadding="@dimen/dp10"
                 android:ellipsize="end"
                 android:textSize="@dimen/sp13"
-                android:text="@string/app_name"
                 android:textColor="@color/color_222"
                 />
             <TextView
@@ -52,14 +52,13 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/dp5"
                 android:drawableLeft="@mipmap/location"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textSize="@dimen/sp10"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp5"
                 android:textColor="@color/color_999"
-                android:text="@string/app_name"
                 android:visibility="invisible"
                 />
         </LinearLayout>
@@ -71,7 +70,6 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/sp12"
             android:textColor="@color/color_666"
-            android:text="@string/app_name"
             />
     </RelativeLayout>
 
@@ -140,6 +138,7 @@
                 android:layout_alignParentBottom="true"
                 />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

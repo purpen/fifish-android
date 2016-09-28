@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FindFriendAdapter;
-import com.qiyuan.fifish.bean.FindFriendData;
 import com.qiyuan.fifish.bean.Friends;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomSubItemLayout;
@@ -20,12 +19,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 //import cn.sharesdk.framework.Platform;
 //import cn.sharesdk.framework.PlatformActionListener;
 //import cn.sharesdk.framework.ShareSDK;
@@ -37,13 +31,13 @@ import butterknife.OnClick;
  *         created at 2016/4/26 16:06
  */
 public class FindFriendsActivity extends BaseActivity<Friends> implements View.OnClickListener {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
     CustomSubItemLayout item_wx;
     CustomSubItemLayout item_sina;
     CustomSubItemLayout item_contacts;
-    @Bind(R.id.recycleView)
-    RecyclerView recycleView;
+//    @BindView(R.id.recycleView)
+//    RecyclerView recycleView;
     private int curPage = 1;
     private static final String PAGE_SIZE = "10";
     private static final String SORT = "1";  //随机排序
@@ -59,9 +53,8 @@ public class FindFriendsActivity extends BaseActivity<Friends> implements View.O
 
     @Override
     protected void initViews() {
-        custom_head.setHeadCenterTxtShow(true, "发现好友");
-        dialog=new WaitingDialog(this);
         custom_head.setHeadCenterTxtShow(true,"发现好友");
+        dialog=new WaitingDialog(this);
 //        custom_head.setHeadShopShow(true);
 //        custom_head.getShopImg().setImageResource(R.mipmap.scan);
         View view = Util.inflateView(R.layout.headview_findfriend, null);

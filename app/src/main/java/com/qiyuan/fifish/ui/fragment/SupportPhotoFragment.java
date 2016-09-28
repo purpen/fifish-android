@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.qiyuan.fifish.R;
@@ -17,16 +18,13 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * @author lilin
  *         created at 2016/8/10 17:24
  */
 public class SupportPhotoFragment extends BaseFragment {
     public int curPage = 1;
-    @Bind(R.id.pull_gv)
+    @BindView(R.id.pull_gv)
     PullToRefreshGridView pullGv;
     private ArrayList<SupportPhotoBean> mList;
     private SupportPhotoAdapter adapter;

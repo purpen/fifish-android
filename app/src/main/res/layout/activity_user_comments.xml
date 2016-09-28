@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
+
     <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <ListView
-        android:id="@+id/lv"
+        android:layout_height="wrap_content" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pull_lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="@dimen/dp05"
-        />
+        android:layout_height="match_parent"
+        android:divider="@null"
+        ptr:ptrAnimationStyle="flip" />
 </LinearLayout>

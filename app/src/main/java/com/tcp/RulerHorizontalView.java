@@ -9,13 +9,8 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.IntegerRes;
 import android.util.AttributeSet;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
-import android.view.View;
-import android.view.ViewConfiguration;
+import android.view.*;
 import android.widget.OverScroller;
-
 import com.qiyuan.fifish.R;
 
 

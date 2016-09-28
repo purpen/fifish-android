@@ -18,6 +18,7 @@
     <string name="confirm">确定</string>
     <string name="complete_user_info">完善个人信息</string>
     <string name="forget_password">忘记密码?</string>
+    <string name="search_user">搜索用户</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="password">账户密码</string>
@@ -27,6 +28,7 @@
     <string name="has_account">已有账号?立即登录</string>
     <string name="products">作品</string>
     <string name="focus">关注</string>
+    <string name="focused">已关注</string>
     <string name="fans">粉丝</string>
     <string name="message">消息</string>
     <string name="support">赞</string>
@@ -58,6 +60,7 @@
     <string name="hot_tags">热门标签</string>
     <string name="hot_user">热门用户</string>
     <string name="hot_recommend">热门推荐</string>
+    <string name="title_comment">评论</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

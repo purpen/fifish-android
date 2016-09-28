@@ -16,22 +16,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-
+import android.widget.*;
 import com.ftp.RemoteCameraManager;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 import com.tcp.ClientThread;
 import com.tcp.RulerHorizontalView;
 import com.tcp.RulerVerticalView;
-
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 

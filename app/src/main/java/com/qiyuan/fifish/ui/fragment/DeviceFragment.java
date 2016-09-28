@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ViewPagerAdapter;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -18,26 +20,22 @@ import com.qiyuan.fifish.ui.view.ScrollableView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class DeviceFragment extends BaseFragment {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView customHead;
-    @Bind(R.id.tv_wifi)
+    @BindView(R.id.tv_wifi)
     TextView tvWifi;
-    @Bind(R.id.view_line)
+    @BindView(R.id.view_line)
     View viewLine;
-    @Bind(R.id.tv_device_name)
+    @BindView(R.id.tv_device_name)
     TextView tvDeviceName;
-    @Bind(R.id.scrollableView)
+    @BindView(R.id.scrollableView)
     ScrollableView scrollableView;
-    @Bind(R.id.btn_link)
+    @BindView(R.id.btn_link)
     Button btnLink;
-    @Bind(R.id.btn_help)
+    @BindView(R.id.btn_help)
     Button btnHelp;
-    @Bind(R.id.ll_dots)
+    @BindView(R.id.ll_dots)
     LinearLayout ll_dots;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private ArrayList<Integer> list;

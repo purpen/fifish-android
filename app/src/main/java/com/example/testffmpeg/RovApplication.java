@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.widget.ImageView;
-
 import org.xutils.x;
 
 import java.io.File;

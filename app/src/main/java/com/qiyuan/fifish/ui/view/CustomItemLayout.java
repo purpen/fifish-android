@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Util;

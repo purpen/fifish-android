@@ -1,31 +1,29 @@
 package com.qiyuan.fifish.ui.fragment;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.AdapterView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HomeAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
-
 import java.util.ArrayList;
-
-import butterknife.Bind;
-
+import butterknife.BindView;
 public class HomeFragment extends BaseFragment {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView customHead;
-    @Bind(R.id.pull_lv)
+    @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private int curPage = 1;
     private ArrayList<ProductsBean.DataBean> mList;
@@ -49,8 +47,20 @@ public class HomeFragment extends BaseFragment {
         customHead.setHeadCenterTxtShow(true, R.string.home);
         customHead.setHeadGoBackShow(false);
         customHead.setIvLeft(R.mipmap.search_head);
-        pullLv.getRefreshableView().setHeaderDividersEnabled(false);
         mList=new ArrayList<>();
+    }
+
+    @Override
+    protected void installListener() {
+        pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ProductsBean.DataBean item = adapter.getItem(i-1);
+                Intent intent=new Intent(activity, CommentsDetailActivity.class);
+                intent.putExtra(CommentsDetailActivity.class.getSimpleName(),item);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

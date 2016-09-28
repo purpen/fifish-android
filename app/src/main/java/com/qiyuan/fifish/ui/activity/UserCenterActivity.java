@@ -13,7 +13,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.UserCenterViewPagerAdapter;
@@ -32,55 +32,49 @@ import com.qiyuan.fifish.ui.fragment.ProductsFragment;
 import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
-import com.qiyuan.fifish.util.Constants;
-import com.qiyuan.fifish.util.JsonUtil;
-import com.qiyuan.fifish.util.PopupWindowUtil;
-import com.qiyuan.fifish.util.ToastUtils;
-import com.qiyuan.fifish.util.Util;
+import com.qiyuan.fifish.util.*;
 
 import java.io.File;
 import java.util.List;
-
-import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/4/26 17:43
  */
 public class UserCenterActivity extends BaseActivity implements ScrollTabHolder, View.OnClickListener, ViewPager.OnPageChangeListener {
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     CustomViewPager viewPager;
-    @Bind(R.id.header)
+    @BindView(R.id.header)
     View mHeader;
-    @Bind(R.id.iv_bg)
+    @BindView(R.id.iv_bg)
     ImageView ivBg;
-    @Bind(R.id.riv)
+    @BindView(R.id.riv)
     RoundedImageView riv;
-    @Bind(R.id.riv_auth)
+    @BindView(R.id.riv_auth)
     RoundedImageView rivAuth;
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView tvName;
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_summary)
+    @BindView(R.id.tv_summary)
     TextView tvSummary;
-    @Bind(R.id.tv_products_num)
+    @BindView(R.id.tv_products_num)
     TextView tvProductsNum;
-    @Bind(R.id.tv_focus_num)
+    @BindView(R.id.tv_focus_num)
     TextView tvFocusNum;
-    @Bind(R.id.tv_fans_num)
+    @BindView(R.id.tv_fans_num)
     TextView tvFansNum;
-    @Bind(R.id.ll_products)
+    @BindView(R.id.ll_products)
     LinearLayout llProducts;
-    @Bind(R.id.ll_focus)
+    @BindView(R.id.ll_focus)
     LinearLayout llFocus;
-    @Bind(R.id.ll_fans)
+    @BindView(R.id.ll_fans)
     LinearLayout llFans;
-    @Bind(R.id.tv_products)
+    @BindView(R.id.tv_products)
     TextView tvProducts;
-    @Bind(R.id.tv_focus)
+    @BindView(R.id.tv_focus)
     TextView tvFocus;
-    @Bind(R.id.tv_fans)
+    @BindView(R.id.tv_fans)
     TextView tvFans;
     private LoginUserInfo user;
     private List<Uri> mSelected;

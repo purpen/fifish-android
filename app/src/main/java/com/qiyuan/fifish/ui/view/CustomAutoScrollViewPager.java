@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.Interpolator;
-
 import com.qiyuan.fifish.util.Constants;
 
 import java.lang.ref.WeakReference;

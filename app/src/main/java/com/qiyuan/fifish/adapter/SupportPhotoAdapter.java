@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.SupportPhotoBean;

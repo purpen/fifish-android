@@ -1,6 +1,5 @@
 package com.example.testffmpeg;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,13 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
-import com.qiyuan.fifish.ui.fragment.BaseFragment;
-import com.qiyuan.fifish.ui.view.CustomHeadView;
-
-import org.xutils.view.annotation.ContentView;
 
 /**
  * Created by android on 2016/9/9.

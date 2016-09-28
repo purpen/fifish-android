@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HotTagRecycleViewAdapter;
@@ -28,13 +30,13 @@ import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DiscoverFragment extends BaseFragment {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView customHead;
-    @Bind(R.id.pull_lv)
+    @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private RecyclerView recyclerViewTag;
     private RecyclerView recyclerViewUser;

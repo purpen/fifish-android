@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.ui.activity.UserGuideActivity;

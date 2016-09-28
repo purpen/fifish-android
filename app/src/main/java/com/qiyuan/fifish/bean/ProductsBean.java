@@ -1,5 +1,6 @@
 package com.qiyuan.fifish.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * @author lilin
  * created at 2016/9/20 21:03
  */
-public class ProductsBean {
+public class ProductsBean implements Serializable{
     /**
      * message : Success.
      * status_code : 200
@@ -58,7 +59,7 @@ public class ProductsBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         public String id;
         public String content;
         public String view_count;
@@ -90,7 +91,7 @@ public class ProductsBean {
         public boolean is_love;
         public List<?> tags;
 
-        public static class UserBean {
+        public static class UserBean implements Serializable{
             public int id;
             public String username;
             public Object summary;
@@ -101,13 +102,13 @@ public class ProductsBean {
 
             public AvatarBean avatar;
 
-            public static class AvatarBean {
+            public static class AvatarBean implements Serializable{
                 public String small;
                 public String large;
             }
         }
 
-        public static class PhotoBean {
+        public static class PhotoBean implements Serializable{
             public String id;
             public String filepath;
             public String size;
@@ -120,7 +121,7 @@ public class ProductsBean {
 
             public FileBean file;
 
-            public static class FileBean {
+            public static class FileBean implements Serializable{
                 public String small;
                 public String large;
             }

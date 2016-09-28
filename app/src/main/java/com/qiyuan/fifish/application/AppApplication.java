@@ -3,12 +3,10 @@ package com.qiyuan.fifish.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-
 import org.xutils.x;
 
 /**

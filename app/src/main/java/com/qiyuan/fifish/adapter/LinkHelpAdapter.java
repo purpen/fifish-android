@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.fragment.LinkHelpFragment;
 import com.qiyuan.fifish.ui.view.CustomViewPager;

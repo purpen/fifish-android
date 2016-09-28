@@ -10,16 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.bean.FindFriendData;
 import com.qiyuan.fifish.bean.Friends;
 import com.qiyuan.fifish.ui.activity.UserCenterActivity;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.List;
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -165,15 +164,15 @@ public class FindFriendAdapter extends BaseAdapter<Friends>{
         });
     }
     static class ViewHolder {
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         ImageView riv;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tv_name;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tv_desc;
-        @Bind(R.id.btn)
+        @BindView(R.id.btn)
         Button btn;
-        @Bind(R.id.recycler_view)
+        @BindView(R.id.recycler_view)
         RecyclerView recycler_view;
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

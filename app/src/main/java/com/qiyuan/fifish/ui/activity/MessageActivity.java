@@ -2,29 +2,27 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.view.View;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author lilin
  *         created at 2016/4/28 19:15
  */
 public class MessageActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.item0)
+    @BindView(R.id.item0)
     CustomItemLayout item0;
-    @Bind(R.id.item1)
+    @BindView(R.id.item1)
     CustomItemLayout item1;
-    @Bind(R.id.item2)
+    @BindView(R.id.item2)
     CustomItemLayout item2;
-    @Bind(R.id.item3)
+    @BindView(R.id.item3)
     CustomItemLayout item3;
     private WaitingDialog dialog;
 //    private User user;

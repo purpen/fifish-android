@@ -1,8 +1,11 @@
 package com.qiyuan.fifish.ui.activity;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -10,18 +13,15 @@ import com.qiyuan.fifish.util.ToastUtils;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * @author lilin
  *         created at 2016/4/27 13:11
  */
 public class EditUserNameActivity extends BaseActivity {
-    @Bind(R.id.head_view)
+    @BindView(R.id.head_view)
     CustomHeadView head_view;
     private HashMap hashMap;
-    @Bind(R.id.et_nickname)
+    @BindView(R.id.et_nickname)
     EditText et_nickname;
     private LoginUserInfo user;
 

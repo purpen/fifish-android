@@ -13,15 +13,15 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class FeedbackActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.et_suggestion)
+    @BindView(R.id.et_suggestion)
     EditText et_suggestion;
-    @Bind(R.id.et_contact)
+    @BindView(R.id.et_contact)
     EditText et_contact;
 
     public FeedbackActivity() {

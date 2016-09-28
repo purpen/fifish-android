@@ -30,4 +30,6 @@ public class Constants {
     public static final  String GUIDE_TAG = "guide";
     public static final  String TOKEN = "TOKEN";
     public static final  String USER_ID = "USER_ID";
+    public static final String TYPE_IMAGE = "1";
+    public static final String TYPE_VIDEO = "2";
 }

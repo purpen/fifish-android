@@ -1,7 +1,6 @@
 package com.qiyuan.fifish.bean;
 
 import android.text.TextUtils;
-
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.SPUtil;

@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
@@ -17,16 +18,13 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * @author lilin
  *         created at 2016/8/10 17:24
  */
 public class SupportVideoFragment extends BaseFragment {
     public int curPage = 1;
-    @Bind(R.id.pull_lv)
+    @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private ArrayList<SupportVideoBean> mList;
     private SupportVideoAdapter adapter;

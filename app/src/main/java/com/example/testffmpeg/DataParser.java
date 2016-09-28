@@ -2,10 +2,7 @@ package com.example.testffmpeg;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-
 import com.ftp.RemoteCameraManager;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

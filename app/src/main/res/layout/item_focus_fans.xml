@@ -72,7 +72,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp16"
-        android:background="@drawable/shape_focus"
+        android:background="@drawable/shape_unfocus"
         android:text="关注"
         android:textColor="@color/color_0895f7"
         android:textSize="@dimen/sp12" />

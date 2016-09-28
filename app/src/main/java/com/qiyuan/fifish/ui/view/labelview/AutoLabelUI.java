@@ -8,8 +8,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
-
-
 import com.qiyuan.fifish.R;
 
 import java.io.Serializable;

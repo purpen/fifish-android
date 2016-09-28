@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.UserCommentsAdapter;
 import com.qiyuan.fifish.bean.CommentsBean;
@@ -13,17 +13,15 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author lilin
  *         created at 2016/5/4 19:17
  */
 public class UserCommentsActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.lv)
-    ListView lv;
+    @BindView(R.id.lv)
+    ListView pullLv;
     private int curPage = 1;
     private int unread_count;
     private List<CommentsBean.CommentItem> list;
@@ -53,7 +51,7 @@ public class UserCommentsActivity extends BaseActivity {
 
     @Override
     protected void installListener() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Intent intent = new Intent(activity, CommentListActivity.class);
@@ -121,7 +119,7 @@ public class UserCommentsActivity extends BaseActivity {
 
         if (adapter == null) {
             adapter = new UserCommentsAdapter(list, activity);
-            lv.setAdapter(adapter);
+            pullLv.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
         }

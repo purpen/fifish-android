@@ -2,7 +2,6 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ViewPagerAdapter;
 import com.qiyuan.fifish.ui.view.ScrollableView;
@@ -20,18 +19,16 @@ import com.qiyuan.fifish.util.SPUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author lilin
  *         created at 2016/4/18 16:10
  */
 public class UserGuideActivity extends BaseActivity {
-    @Bind(R.id.scrollableView)
+    @BindView(R.id.scrollableView)
     ScrollableView scrollableView;
-    @Bind(R.id.iv_welcome)
+    @BindView(R.id.iv_welcome)
     ImageView iv_welcome;
-    @Bind(R.id.activity_video_view)
+    @BindView(R.id.activity_video_view)
     VideoView activityVideoView;
     private Intent intent;
     private boolean isGuide = false;

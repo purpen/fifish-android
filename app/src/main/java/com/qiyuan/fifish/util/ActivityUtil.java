@@ -1,12 +1,13 @@
 package com.qiyuan.fifish.util;
 
-import java.util.List;
-import java.util.Stack;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.util.Log;
+
+import java.util.List;
+import java.util.Stack;
 public class ActivityUtil {
 	private static final String Tag = "ActivityUtil";
 	//activity栈管理

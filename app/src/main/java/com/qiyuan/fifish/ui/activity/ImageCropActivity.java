@@ -6,7 +6,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.QNBean;
@@ -16,18 +17,10 @@ import com.qiyuan.fifish.network.RequestManager;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.imageCrop.ClipSquareImageView;
-import com.qiyuan.fifish.util.Constants;
-import com.qiyuan.fifish.util.FileUtil;
-import com.qiyuan.fifish.util.JsonUtil;
-import com.qiyuan.fifish.util.ToastUtils;
-import com.qiyuan.fifish.util.Util;
-
+import com.qiyuan.fifish.util.*;
 import org.xutils.common.util.LogUtil;
 
 import java.io.File;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -39,12 +32,12 @@ public class ImageCropActivity extends BaseActivity {
     }
 
     private static OnClipCompleteListener listener;
-    @Bind(R.id.csiv)
+    @BindView(R.id.csiv)
     ClipSquareImageView csiv;
     private Uri uri;
-    @Bind(R.id.bt_cancel)
+    @BindView(R.id.bt_cancel)
     Button bt_cancel;
-    @Bind(R.id.bt_clip)
+    @BindView(R.id.bt_clip)
     Button bt_clip;
     private String page;
     private WaitingDialog dialog;

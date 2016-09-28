@@ -1,6 +1,8 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -13,17 +15,18 @@ import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
+import com.qiyuan.fifish.ui.view.BottomSheetView;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
-import org.xutils.http.request.UriRequest;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -31,10 +34,9 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @author lilin
  *         created at 2016/4/22 19:00
  */
-public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements View.OnClickListener {
+public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean>{
     private ImageLoader imageLoader;
-    private static final int TYPE_IMAGE = 1;
-    private static final int TYPE_VIDEO = 2;
+
 
     public HomeAdapter(List<ProductsBean.DataBean> list, Activity activity) {
         super(list, activity);
@@ -55,7 +57,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
     public View getView(int position, View convertView, ViewGroup parent) {
 //        int type = getItemViewType(position);
         final ProductsBean.DataBean item = list.get(position);
-        Integer type = Integer.valueOf(item.kind);
+//        Integer type = Integer.valueOf(item.kind);
 //        ImageHolder imageholder;
         VideoHolder videoHolder;
         if (convertView == null) {
@@ -65,19 +67,14 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        switch (type) {
-            case TYPE_VIDEO:
-                videoHolder.videoView.setVisibility(View.VISIBLE);
-                videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
-                break;
-            case TYPE_IMAGE:
-                videoHolder.videoView.setVisibility(View.GONE);
-                videoHolder.ivCover.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(item.photo.file.large,videoHolder.ivCover, options);
-                break;
-            default:
-                break;
+        if (TextUtils.equals(Constants.TYPE_IMAGE,item.kind)){
+            videoHolder.videoView.setVisibility(View.GONE);
+            videoHolder.ivCover.setVisibility(View.VISIBLE);
+            imageLoader.displayImage(item.photo.file.large,videoHolder.ivCover, options);
+        }else if(TextUtils.equals(Constants.TYPE_VIDEO,item.kind)){
+            videoHolder.videoView.setVisibility(View.VISIBLE);
+            videoHolder.ivCover.setVisibility(View.GONE);
+            videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
         }
         imageLoader.displayImage(item.user.avatar.large,videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
@@ -107,11 +104,6 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
         return convertView;
     }
 
-    @Override
-    public void onClick(final View view) {
-
-    }
-
     private void setClickListener(View v,final ProductsBean.DataBean item){
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,15 +117,21 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
                         }
                         break;
                     case R.id.ibtn_comment:
-
+                        Intent intent=new Intent(activity, CommentsDetailActivity.class);
+                        intent.putExtra(CommentsDetailActivity.class.getSimpleName(),item);
+                        activity.startActivity(intent);
                         break;
                     case R.id.ibtn_share:
-
+                        //分享界面
                         break;
                     case R.id.ibtn_more:
-
+                        ArrayList<String> strings = new ArrayList<>();
+                        strings.add("google");
+                        strings.add("google");
+                        strings.add("google");
+                        strings.add("google");
+                        BottomSheetView.show(activity,new SimpleTextAdapter(activity,strings),BottomSheetView.LINEAR_LAYOUT);
                         break;
-
                     default:
                         break;
                 }
@@ -142,12 +140,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
     }
 
     private void cancelSupport(final View view, final ProductsBean.DataBean item) {
+        view.setEnabled(false);
         RequestService.cancelSupport(item.id,new CustomCallBack(){
-            @Override
-            public void beforeRequest(UriRequest request) throws Throwable {
-                view.setEnabled(false);
-            }
-
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);
@@ -168,12 +162,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
     }
 
     private void doSupport(final View view,final ProductsBean.DataBean item) {
+        view.setEnabled(false);
         RequestService.doSupport(item.id,new CustomCallBack(){
-            @Override
-            public void beforeRequest(UriRequest request) throws Throwable {
-                view.setEnabled(false);
-            }
-
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);
@@ -202,29 +192,29 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> implements V
 //    }
 
     static class VideoHolder {
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         RoundedImageView riv;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tvDesc;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TextView tvContent;
-        @Bind(R.id.videoView)
+        @BindView(R.id.videoView)
         JCVideoPlayerStandard videoView;
-        @Bind(R.id.iv_cover)
+        @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @Bind(R.id.ibtn_favorite)
+        @BindView(R.id.ibtn_favorite)
         ImageButton ibtnFavorite;
-        @Bind(R.id.ibtn_comment)
+        @BindView(R.id.ibtn_comment)
         ImageButton ibtnComment;
-        @Bind(R.id.ibtn_share)
+        @BindView(R.id.ibtn_share)
         ImageButton ibtnShare;
-        @Bind(R.id.ibtn_more)
+        @BindView(R.id.ibtn_more)
         ImageButton ibtnMore;
-        @Bind(R.id.view_line)
+        @BindView(R.id.view_line)
         View viewLine;
         public VideoHolder(View view) {
             ButterKnife.bind(this, view);

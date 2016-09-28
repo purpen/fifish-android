@@ -24,14 +24,14 @@ import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
  */
 public class FocusFragment extends ScrollTabHolderFragment {
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ListView listView;
     private ArrayList<FocusBean.DataBean> mList;
     private FocusAdapter adapter;

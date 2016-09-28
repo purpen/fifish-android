@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
@@ -15,9 +16,6 @@ import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 
 import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -90,11 +88,11 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv)
+        @BindView(R.id.iv)
         RoundedImageView iv;
-        @Bind(R.id.tv_tag)
+        @BindView(R.id.tv_tag)
         TextView tvTag;
-        @Bind(R.id.tv_num)
+        @BindView(R.id.tv_num)
         TextView tvNum;
         public ViewHolder(View view) {
             super(view);

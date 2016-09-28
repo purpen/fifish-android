@@ -1,1 +1,2 @@
-include ':app', ':pullrefreshlib'
+include ':app'
+include ':library'

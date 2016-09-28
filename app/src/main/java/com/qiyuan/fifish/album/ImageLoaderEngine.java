@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.widget.GridView;
 import android.widget.ImageView;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;

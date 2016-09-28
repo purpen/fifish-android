@@ -5,7 +5,8 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.SystemNoticeAdapter;
 import com.qiyuan.fifish.bean.SystemNoticeData;
@@ -15,17 +16,14 @@ import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * @author lilin
  *         created at 2016/5/5 23:23
  */
 public class SystemNoticeActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.lv)
+    @BindView(R.id.lv)
     ListView lv;
     private SystemNoticeAdapter adapter;
     private static final String PAGE_SIZE = "9999";

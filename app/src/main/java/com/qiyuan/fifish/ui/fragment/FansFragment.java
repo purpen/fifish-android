@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FansAdapter;
 import com.qiyuan.fifish.bean.FocusBean;
@@ -20,18 +20,14 @@ import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
-import org.xutils.common.util.LogUtil;
-
 import java.util.ArrayList;
-
-import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/8/8 11:42
  */
 public class FansFragment extends ScrollTabHolderFragment {
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ListView listView;
     private ArrayList<FocusBean.DataBean> mList;
     private FansAdapter adapter;

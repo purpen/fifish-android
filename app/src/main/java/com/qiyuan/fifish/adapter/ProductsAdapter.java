@@ -5,16 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.util.Util;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 import java.util.List;
-
-import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * @author lilin

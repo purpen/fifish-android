@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FansAdapter;
 import com.qiyuan.fifish.bean.FocusBean;
@@ -14,16 +14,14 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author lilin
  * created at 2016/9/20 16:36
  */
 public class NewFansActivity extends BaseActivity {
-    @Bind(R.id.custom_head)
+    @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @Bind(R.id.lv)
+    @BindView(R.id.lv)
     ListView lv;
     private int curPage = 1;
     private int unread_count;

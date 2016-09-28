@@ -5,7 +5,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.SystemNoticeData;
@@ -13,9 +14,6 @@ import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -58,15 +56,15 @@ public class SystemNoticeAdapter extends BaseAdapter<SystemNoticeData.SystemNoti
     }
 
     static class ViewHolder {
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView title;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tv_desc;
-        @Bind(R.id.dot)
+        @BindView(R.id.dot)
         TextView dot;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tv_time;
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         RoundedImageView riv;
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

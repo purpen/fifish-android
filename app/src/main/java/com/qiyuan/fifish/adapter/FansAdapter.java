@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -17,9 +18,6 @@ import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -295,15 +293,15 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
 //    }
 
     static class ViewHolder {
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         RoundedImageView riv;
-        @Bind(R.id.riv_auth)
+        @BindView(R.id.riv_auth)
         RoundedImageView riv_auth;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tv_name;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tv_desc;
-        @Bind(R.id.btn)
+        @BindView(R.id.btn)
         Button btn;
 
         public ViewHolder(View view) {

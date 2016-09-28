@@ -7,14 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.qiyuan.fifish.R;
 
 import java.util.ArrayList;
-
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -104,13 +102,5 @@ public abstract class BaseFragment<T> extends Fragment {
 
     protected void refreshUI(ArrayList<T> list, ArrayList<T> list1, ArrayList<T> list2, ArrayList<T> list3) {
 
-    }
-
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

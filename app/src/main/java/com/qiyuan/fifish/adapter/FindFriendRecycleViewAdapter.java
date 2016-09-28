@@ -8,16 +8,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.Products;
 
 import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -94,15 +92,15 @@ public class FindFriendRecycleViewAdapter extends RecyclerView.Adapter<FindFrien
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_cover)
+        @BindView(R.id.iv_cover)
         ImageView iv_cover;
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView tv_title;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tv_desc;
-        @Bind(R.id.item_frame)
+        @BindView(R.id.item_frame)
         FrameLayout item_frame;
-        @Bind(R.id.title_img)
+        @BindView(R.id.title_img)
         ImageView titleImg;
 
         public ViewHolder(View view) {

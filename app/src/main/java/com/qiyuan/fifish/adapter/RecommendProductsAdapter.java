@@ -11,12 +11,20 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.SupportProductsBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.view.BottomSheetView;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -24,10 +32,11 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @author lilin
  *         created at 2016/9/22 15:58
  */
-public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean> implements View.OnClickListener {
+public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean> {
     private ImageLoader imageLoader;
     private static final int TYPE_IMAGE = 1;
     private static final int TYPE_VIDEO = 2;
+
     public RecommendProductsAdapter(List<ProductsBean.DataBean> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
@@ -61,7 +70,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
-        videoHolder.tvZanNum.setText(item.like_count+"次赞");
+        videoHolder.tvZanNum.setText(item.like_count + "次赞");
         if (item.user.summary != null) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
             videoHolder.tvDesc.setText(item.user.summary.toString());
@@ -69,23 +78,19 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
         videoHolder.tvTxt.setText(item.content);
-        if (position==size-1){
+        if (position == size - 1) {
             videoHolder.viewLine.setVisibility(View.GONE);
-        }else {
+        } else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);
         }
-        videoHolder.tvCommentNum.setText(String.format("所有%s条评论",item.comment_count));
+        videoHolder.tvCommentNum.setText(String.format("所有%s条评论", item.comment_count));
         videoHolder.tvTime.setText(item.created_at);
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);
         setClickListener(videoHolder.ibtnMore, item);
+        setClickListener(videoHolder.btnFocus, item);
         return convertView;
-    }
-
-    @Override
-    public void onClick(final View view) {
-
     }
 
     private void setClickListener(View v, final ProductsBean.DataBean item) {
@@ -94,57 +99,125 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.ibtn_favorite:
-
+                        if (item.is_love) {
+                            cancelSupport(view, item);
+                        } else {
+                            doSupport(view, item);
+                        }
                         break;
                     case R.id.ibtn_comment:
-
                         break;
                     case R.id.ibtn_share:
 
                         break;
                     case R.id.ibtn_more:
-
+                        ArrayList<String> strings = new ArrayList<>();
+                        strings.add("google");
+                        strings.add("google");
+                        strings.add("google");
+                        strings.add("google");
+                        BottomSheetView.show(activity, new SimpleTextAdapter(activity, strings), BottomSheetView.LINEAR_LAYOUT);
                         break;
-
+                    case R.id.btn_focus:
+                        if (true) {
+                            setFocusBtnStyle((Button) view, R.dimen.dp10, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
+                        } else {
+                            setFocusBtnStyle((Button) view, R.dimen.dp10, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
+                        }
+                        break;
                     default:
                         break;
                 }
             }
         });
     }
+
+    private void cancelSupport(final View view, final ProductsBean.DataBean item) {
+        view.setEnabled(false);
+        RequestService.cancelSupport(item.id, new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+                SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    item.is_love = false;
+                    notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+    private void doSupport(final View view, final ProductsBean.DataBean item) {
+        view.setEnabled(false);
+        RequestService.doSupport(item.id, new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+                SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    item.is_love = true;
+                    notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+    private void setFocusBtnStyle(Button bt_focus, int dimensionPixelSize, int focus, int unfocus_pic, int color, int drawable) {
+        bt_focus.setPadding(dimensionPixelSize, 0, dimensionPixelSize, 0);
+        bt_focus.setText(focus);
+        bt_focus.setTextColor(activity.getResources().getColor(color));
+        bt_focus.setBackgroundResource(drawable);
+        bt_focus.setCompoundDrawablesWithIntrinsicBounds(unfocus_pic, 0, 0, 0);
+    }
+
     static class VideoHolder {
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         RoundedImageView riv;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tvDesc;
-        @Bind(R.id.btn_focus)
+        @BindView(R.id.btn_focus)
         Button btnFocus;
-        @Bind(R.id.videoView)
+        @BindView(R.id.videoView)
         JCVideoPlayerStandard videoView;
-        @Bind(R.id.iv_cover)
+        @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @Bind(R.id.ibtn_favorite)
+        @BindView(R.id.ibtn_favorite)
         ImageButton ibtnFavorite;
-        @Bind(R.id.ibtn_comment)
+        @BindView(R.id.ibtn_comment)
         ImageButton ibtnComment;
-        @Bind(R.id.ibtn_share)
+        @BindView(R.id.ibtn_share)
         ImageButton ibtnShare;
-        @Bind(R.id.ibtn_more)
+        @BindView(R.id.ibtn_more)
         ImageButton ibtnMore;
-        @Bind(R.id.tv_zan_num)
+        @BindView(R.id.tv_zan_num)
         TextView tvZanNum;
-        @Bind(R.id.tv_txt)
+        @BindView(R.id.tv_txt)
         TextView tvTxt;
-        @Bind(R.id.btn_more)
+        @BindView(R.id.btn_more)
         TextView btnMore;
-        @Bind(R.id.tv_comment_num)
+        @BindView(R.id.tv_comment_num)
         TextView tvCommentNum;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.view_line)
+        @BindView(R.id.view_line)
         View viewLine;
+
         public VideoHolder(View view) {
             ButterKnife.bind(this, view);
         }

@@ -4,18 +4,12 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
+import android.widget.*;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Util;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -23,21 +17,21 @@ import butterknife.OnClick;
  */
 public class CompleteUserInfoActivity extends BaseActivity {
 
-    @Bind(R.id.ibtn_close)
+    @BindView(R.id.ibtn_close)
     ImageButton ibtnClose;
-    @Bind(R.id.rl_head)
+    @BindView(R.id.rl_head)
     RelativeLayout rlHead;
-    @Bind(R.id.riv)
+    @BindView(R.id.riv)
     RoundedImageView riv;
-    @Bind(R.id.rl)
+    @BindView(R.id.rl)
     RelativeLayout rl;
-    @Bind(R.id.et_user_name)
+    @BindView(R.id.et_user_name)
     EditText etUserName;
-    @Bind(R.id.et_job)
+    @BindView(R.id.et_job)
     EditText etJob;
-    @Bind(R.id.et_area)
+    @BindView(R.id.et_area)
     EditText etArea;
-    @Bind(R.id.btn_update)
+    @BindView(R.id.btn_update)
     Button btnUpdate;
 
     public CompleteUserInfoActivity() {

@@ -2,7 +2,6 @@ package com.qiyuan.fifish.ui.view.labelview;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.qiyuan.fifish.R;
 
 

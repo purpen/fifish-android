@@ -3,17 +3,15 @@ package com.qiyuan.fifish.adapter;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.SupportVideoBean;
 import com.qiyuan.fifish.util.Util;
-
-import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
+import java.util.ArrayList;
 
 /**
  * @author lilin
@@ -42,7 +40,7 @@ public class SupportVideoAdapter extends BaseAdapter<SupportVideoBean> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.videoView)
+        @BindView(R.id.videoView)
         JCVideoPlayerStandard videoView;
 
         public ViewHolder(View view) {

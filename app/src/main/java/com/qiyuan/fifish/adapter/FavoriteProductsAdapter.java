@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.CommentsBean;
@@ -15,9 +16,6 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -65,17 +63,17 @@ public class FavoriteProductsAdapter extends BaseAdapter<CommentsBean.CommentIte
     }
 
     static class ViewHolder {
-        @Bind(R.id.riv)
+        @BindView(R.id.riv)
         ImageView riv;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tv_name;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView tv_desc;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tv_time;
-        @Bind(R.id.iv)
+        @BindView(R.id.iv)
         ImageView iv;
-        @Bind(R.id.dot)
+        @BindView(R.id.dot)
         TextView dot;
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

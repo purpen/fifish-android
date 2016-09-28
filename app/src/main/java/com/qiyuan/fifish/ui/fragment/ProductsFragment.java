@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ProductsAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
@@ -22,14 +22,12 @@ import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
  */
 public class ProductsFragment extends ScrollTabHolderFragment {
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ListView listView;
     private ArrayList<ProductsBean.DataBean> mList;
     private ProductsAdapter adapter;

@@ -7,14 +7,10 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
+import android.view.*;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.OnScaleGestureListener;
-import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 /**

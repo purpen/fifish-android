@@ -6,26 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.widget.RadioGroup;
-
+import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
-import com.qiyuan.fifish.ui.fragment.DeviceFragment;
-import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
-import com.qiyuan.fifish.ui.fragment.HomeFragment;
-import com.qiyuan.fifish.ui.fragment.MediaFragment;
-import com.qiyuan.fifish.ui.fragment.MineFragment;
+import com.qiyuan.fifish.ui.fragment.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/7/26 13:12
  */
 public class MainActivity extends BaseActivity {
-    @Bind(R.id.main_nav)
+    @BindView(R.id.main_nav)
     RadioGroup mainNav;
     private int checkedId = R.id.ll_nav0;
     private FragmentManager fm;
