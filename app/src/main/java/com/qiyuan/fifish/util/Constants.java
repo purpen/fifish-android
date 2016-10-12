@@ -17,6 +17,9 @@ public class Constants {
     public static final String UPLOAD_AVATAR_URL= Constants.BASE_URL+"upload/avatar";
     public static final String QN_PARAM_URL= Constants.BASE_URL+"upload/qiniuToken";
 
+    public static final int REQUEST_LABEL = 10;
+    public static final int REQUEST_ADDRESS = 10;
+
     public static final int HTTP_OK = 200;
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;
     public static final int HTTP_NOT_FOUND = 404;

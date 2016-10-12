@@ -10,10 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.UserCenterViewPagerAdapter;
@@ -32,10 +33,16 @@ import com.qiyuan.fifish.ui.fragment.ProductsFragment;
 import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.PopupWindowUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.util.Util;
 
 import java.io.File;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author lilin
@@ -46,8 +53,12 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     CustomViewPager viewPager;
     @BindView(R.id.header)
     View mHeader;
+    @BindView(R.id.ibtn_back)
+    ImageButton ibtn_back;
     @BindView(R.id.iv_bg)
     ImageView ivBg;
+    @BindView(R.id.ibtn)
+    ImageView ibtn;
     @BindView(R.id.riv)
     RoundedImageView riv;
     @BindView(R.id.riv_auth)
@@ -279,6 +290,8 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void installListener() {
+        ibtn_back.setOnClickListener(this);
+        ibtn.setOnClickListener(this);
         llProducts.setOnClickListener(this);
         llFocus.setOnClickListener(this);
         llFans.setOnClickListener(this);
@@ -308,6 +321,12 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         int color = getResources().getColor(R.color.color_2187ff);
         Intent intent;
         switch (view.getId()) {
+            case R.id.ibtn_back:
+                finish();
+                break;
+            case R.id.ibtn:
+                startActivity(new Intent(activity,EditUserInfoActivity.class));
+                break;
             case R.id.ll_products:
                 resetUI();
                 tvProductsNum.setTextColor(color);

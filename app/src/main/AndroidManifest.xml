@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiyuan.fifish">
+
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -50,6 +51,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.UserCommentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AddLabelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PublishVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PublishPictureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MapSearchAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.FavoriteProductsActivity"
@@ -112,6 +125,9 @@
         <activity
             android:name="com.example.testffmpeg.SetVideoActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

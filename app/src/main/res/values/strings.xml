@@ -18,6 +18,9 @@
     <string name="confirm">确定</string>
     <string name="complete_user_info">完善个人信息</string>
     <string name="forget_password">忘记密码?</string>
+    <string name="add_video_des">添加视频说明</string>
+    <string name="add_pic_des">添加图片说明</string>
+    <string name="search">搜索</string>
     <string name="search_user">搜索用户</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
@@ -31,9 +34,11 @@
     <string name="focused">已关注</string>
     <string name="fans">粉丝</string>
     <string name="message">消息</string>
+    <string name="title_support">赞过</string>
     <string name="support">赞</string>
     <string name="feedback">用户反馈</string>
     <string name="about_us">关于飞行鱼</string>
+    <string name="title_label">添加标签</string>
     <string name="feed_back">意见反馈</string>
     <string name="complete">完成</string>
     <string name="personal_data">个人资料</string>
@@ -46,6 +51,7 @@
     <string name="user_code">我的二维码</string>
     <string name="user_area">地区</string>
     <string name="input_signature">您还没有个性签名</string>
+    <string name="map_no_result">抱歉,没有检索到结果</string>
     <string name="select_birth">请选择出生日期</string>
     <string name="select_gender">请选择性别</string>
     <string name="select_tag">请选择个性标签</string>
@@ -61,14 +67,33 @@
     <string name="hot_user">热门用户</string>
     <string name="hot_recommend">热门推荐</string>
     <string name="title_comment">评论</string>
+    <string name="add_address">添加地址</string>
+    <string name="add_tag"># 添加标签</string>
+    <string name="title_share">分享</string>
+    <string name="share_to">分享到</string>
+    <string name="search_sites">搜索地址</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>
         <item>保密</item>
     </string-array>
+    <string-array name="share_way">
+        <item>微信</item>
+        <item>微博</item>
+        <item>QQ</item>
+        <item>facebook</item>
+        <item>tumblr</item>
+        <item>whatapp</item>
+    </string-array>
     <string-array name="support_products">
         <item>图片</item>
         <item>视频</item>
+    </string-array>
+
+    <string-array name="search_type">
+        <item>视频</item>
+        <item>图片</item>
+        <item>用户</item>
     </string-array>
     <string-array name="user_tags">
         <item>创业先锋</item>
@@ -106,6 +131,18 @@
         <item>2、打开中继设备电源</item>
         <item>3、连接线缆</item>
         <item>4、移动设备连接到中继设备的WiFi</item>
+    </string-array>
+
+    <string-array name="dialog_bottom">
+        <item>举报</item>
+        <item>分享</item>
+        <item>取消</item>
+    </string-array>
+
+    <string-array name="dialog_report">
+        <item>垃圾内容</item>
+        <item>内容不雅</item>
+        <item>取消</item>
     </string-array>
 
     <string-array name="link_help_arr">

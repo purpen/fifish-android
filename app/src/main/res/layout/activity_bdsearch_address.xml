@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/custom_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:layout_below="@id/custom_head"
+        >
+        <EditText
+            android:id="@+id/search_view"
+            android:hint="@string/search_sites"
+            android:textColorHint="@color/color_999"
+            android:textSize="@dimen/sp12"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:background="@drawable/border_radius5"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/dp30"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_height="@dimen/dp40" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/search_head"
+            android:layout_marginLeft="@dimen/dp25"
+            />
+        <ImageButton
+            android:id="@+id/ibtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/x"
+            android:background="@null"
+            android:paddingLeft="@dimen/dp16"
+            android:paddingRight="@dimen/dp25"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/ll"
+        android:background="@color/color_f7f7f7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="@dimen/dp05"
+        android:layout_weight="100"
+        />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100" />
+</LinearLayout>

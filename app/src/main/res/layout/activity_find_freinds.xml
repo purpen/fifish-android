@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:fitsSystemWindows="true">
-    <com.taihuoniao.fineix.view.CustomHeadView
+    <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -39,7 +40,7 @@
         android:layout_height="0.5dp"
         android:background="@color/color_ddd" />
 
-    <com.taihuoniao.fineix.view.pulltorefresh.PullToRefreshListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_lv"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"

@@ -14,5 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        ptr:ptrAnimationStyle="flip" />
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="@color/color_666"
+        />
 </LinearLayout>

@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
@@ -16,6 +15,9 @@ import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -28,10 +30,10 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
         void onItemLongClick(View view, int position);
     }
 
-    private OnItemClickListener mOnItemClickLitener;
+    private OnItemClickListener mOnItemClickListener;
 
-    public void setmOnItemClickLitener(OnItemClickListener itemClickLitener) {
-        this.mOnItemClickLitener = itemClickLitener;
+    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+        this.mOnItemClickListener = itemClickListener;
     }
 
     private Activity activity;
@@ -61,18 +63,18 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         TagsBean.DataBean item = list.get(position);
-        if (mOnItemClickLitener != null) {
+        if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnItemClickLitener.onItemClick(holder.itemView, holder.getAdapterPosition());
+                    mOnItemClickListener.onItemClick(holder.itemView, holder.getAdapterPosition());
                 }
             });
 
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    mOnItemClickLitener.onItemLongClick(holder.itemView, holder.getAdapterPosition());
+                    mOnItemClickListener.onItemLongClick(holder.itemView, holder.getAdapterPosition());
                     return false;
                 }
             });

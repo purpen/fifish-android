@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autolabel="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/white"
-    android:descendantFocusability="blocksDescendants"
-    >
+    android:descendantFocusability="blocksDescendants">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp60"
@@ -166,8 +165,24 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_alignBottom="@+id/tv_txt"
+                android:visibility="gone"
                 />
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp05"
+            android:background="@color/color_ddd"
+            />
+        <com.qiyuan.fifish.ui.view.labelview.AutoLabelUI
+            android:id="@+id/label_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            autolabel:label_background_res="@android:color/transparent"
+            autolabel:label_clickable="true"
+            autolabel:label_padding="0dp"
+            autolabel:show_cross="false"
+            autolabel:text_color="@color/color_666"
+            autolabel:text_size="@dimen/label_title_size" />
     </LinearLayout>
     <View
         android:id="@+id/view_line"

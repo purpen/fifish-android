@@ -14,6 +14,7 @@ import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
+import com.qiyuan.fifish.ui.activity.SearchActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -52,6 +53,13 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void installListener() {
+        customHead.getIvLeft().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(activity, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

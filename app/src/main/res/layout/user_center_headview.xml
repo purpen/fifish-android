@@ -169,4 +169,19 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+    <ImageButton
+        android:id="@+id/ibtn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/back_white"
+        android:background="@null"
+        android:padding="@dimen/dp16"/>
+    <ImageButton
+        android:id="@+id/ibtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/edit_info"
+        android:background="@null"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/dp16"/>
 </RelativeLayout>

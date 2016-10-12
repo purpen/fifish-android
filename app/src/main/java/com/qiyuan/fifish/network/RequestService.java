@@ -146,7 +146,6 @@ public class RequestService {
 
     /**
      * 热门标签
-     *
      * @param callBack
      */
     public static void getHotTags(CustomCallBack callBack) {
@@ -224,6 +223,45 @@ public class RequestService {
     public static void getProductsComments(String id, CustomCallBack customCallBack) {
         String url=Constants.BASE_URL+"stuffs/"+id+"/comments";
         RequestParams params = new RequestParams(url);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 搜索建议
+     * @param q
+     * @param size
+     * @param customCallBack
+     */
+    public static void searchSuggestion(String q, String size, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"search/expanded";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("q",q);
+        params.addQueryStringParameter("size",size);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 站内搜索作品和用户
+     * @param page
+     * @param str   关键字
+     * @param type 类型：1.作品；2.用户；3.－－；
+     * @param tid 子类型(根据父类型判断条件)：作品：0.所有；1.图片；2.视频；
+     * @param evt 搜索方式：1.内容；2.标签；
+     * @param sort 排序：0.关联度；1.最新创建；2.最近更新；
+     * @param customCallBack
+     */
+    public static void searchInSite(String page, String str, String type, String tid, String evt, String sort, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"search/list";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("page",page);
+        params.addQueryStringParameter("per_page",Constants.PAGE_SIZE);
+        params.addQueryStringParameter("str",str);
+        params.addQueryStringParameter("type",type);
+        params.addQueryStringParameter("tid",tid);
+        params.addQueryStringParameter("evt",evt);
+        params.addQueryStringParameter("sort",sort);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }

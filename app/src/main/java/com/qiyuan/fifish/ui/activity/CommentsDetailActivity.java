@@ -1,6 +1,9 @@
 package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +21,6 @@ import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.ProductsCommentBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
-import com.qiyuan.fifish.ui.view.BottomSheetView;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
@@ -28,6 +30,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +41,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @author lilin
  *         created at 2016/5/4 19:17
  */
-public class CommentsDetailActivity extends BaseActivity implements View.OnClickListener{
+public class CommentsDetailActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.custom_head)
     CustomHeadView custom_head;
     @BindView(R.id.pull_lv)
@@ -76,7 +79,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
     protected void initViews() {
         custom_head.setHeadCenterTxtShow(true, R.string.title_comment);
         dialog = new WaitingDialog(this);
-        mList=new ArrayList<>();
+        mList = new ArrayList<>();
         initHeadView();
         pullLv.setMode(PullToRefreshBase.Mode.DISABLED);
         pullLv.setAdapter(adapter);
@@ -97,17 +100,17 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         ibtnMore = ButterKnife.findById(view, R.id.ibtn_more);
         tvContent = ButterKnife.findById(view, R.id.tv_content);
         ButterKnife.findById(view, R.id.view_line).setVisibility(View.GONE);
-        ImageLoader.getInstance().displayImage(products.user.avatar.large,riv,options);
+        ImageLoader.getInstance().displayImage(products.user.avatar.large, riv, options);
         tvName.setText(products.user.username);
-        if (products.user.summary!=null){
+        if (products.user.summary != null) {
             tvDesc.setText(products.user.summary.toString());
         }
         tvTime.setText(products.created_at);
-        if (TextUtils.equals(Constants.TYPE_IMAGE,products.kind)){
+        if (TextUtils.equals(Constants.TYPE_IMAGE, products.kind)) {
             videoView.setVisibility(View.GONE);
             ivCover.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(products.photo.file.large,ivCover, options);
-        }else if(TextUtils.equals(Constants.TYPE_VIDEO,products.kind)){
+            ImageLoader.getInstance().displayImage(products.photo.file.large, ivCover, options);
+        } else if (TextUtils.equals(Constants.TYPE_VIDEO, products.kind)) {
             videoView.setVisibility(View.VISIBLE);
             ivCover.setVisibility(View.GONE);
             videoView.setUp(products.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
@@ -126,8 +129,8 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mList.size()==0) return;
-                ProductsCommentBean.DataBean item = adapter.getItem(i-1);
+                if (mList.size() == 0) return;
+                ProductsCommentBean.DataBean item = adapter.getItem(i - 1);
 
             }
         });
@@ -135,7 +138,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ibtn_favorite:
 
                 break;
@@ -146,12 +149,70 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
 
                 break;
             case R.id.ibtn_more:
-                ArrayList<String> strings = new ArrayList<>();
-                strings.add("google");
-                strings.add("google");
-                strings.add("google");
-                strings.add("google");
-                BottomSheetView.show(activity,new SimpleTextAdapter(activity,strings),BottomSheetView.LINEAR_LAYOUT);
+                final BottomSheetDialog dialog = new BottomSheetDialog(activity);
+                View bottomView = Util.inflateView(R.layout.view_bottom_list, null);
+                bottomView.findViewById(R.id.tv_title).setVisibility(View.GONE);
+                RecyclerView recyclerView = (RecyclerView) bottomView.findViewById(R.id.bottom_sheet_recycler_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                String[] stringArray = getResources().getStringArray(R.array.dialog_bottom);
+                SimpleTextAdapter adapter = new SimpleTextAdapter(activity, Arrays.asList(stringArray));
+                recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        switch (position){
+                            case 0: //举报
+                                final BottomSheetDialog dialogReport = new BottomSheetDialog(activity);
+                                View bottomView = Util.inflateView(R.layout.view_bottom_list, null);
+                                bottomView.findViewById(R.id.tv_title).setVisibility(View.GONE);
+                                RecyclerView recyclerView = (RecyclerView) bottomView.findViewById(R.id.bottom_sheet_recycler_view);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                                String[] stringArray = getResources().getStringArray(R.array.dialog_report);
+                                SimpleTextAdapter textAdapter = new SimpleTextAdapter(activity, Arrays.asList(stringArray));
+                                recyclerView.setAdapter(textAdapter);
+                                textAdapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener(){
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        switch (position){
+                                            case 0:
+
+                                                break;
+                                            case 1:
+                                                break;
+                                            case 2:
+                                                dialogReport.dismiss();
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onItemLongClick(View view, int position) {
+
+                                    }
+                                });
+                                dialogReport.setContentView(bottomView);
+                                dialogReport.show();
+                                break;
+                            case 1:
+
+                                break;
+                            case 2:
+                                dialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+
+                    }
+                });
+                dialog.setContentView(bottomView);
+                dialog.show();
                 break;
             case R.id.tv_content:
 
@@ -194,7 +255,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         if (list == null || list.size() == 0) return;
         mList.addAll(list);
         if (adapter == null) {
-            adapter = new CommentDetailAdapter(mList, activity,products);
+            adapter = new CommentDetailAdapter(mList, activity, products);
             pullLv.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();

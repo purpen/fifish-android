@@ -44,6 +44,10 @@ public class BottomSheetView {
         dialog.show();
     }
 
+    public static void dismiss(){
+
+    }
+
     public static void show(Activity context,RecyclerView.Adapter adapter,int layout) {
         new BottomSheetView(context,adapter,layout,0,null);
     }

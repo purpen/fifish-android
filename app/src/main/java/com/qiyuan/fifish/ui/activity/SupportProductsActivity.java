@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-import butterknife.BindView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.TabLayoutViewPagerAdapter;
 import com.qiyuan.fifish.ui.fragment.SupportPhotoFragment;
@@ -16,6 +16,8 @@ import com.qiyuan.fifish.ui.fragment.SupportVideoFragment;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 
 import java.lang.reflect.Field;
+
+import butterknife.BindView;
 
 /**
  * 赞过
@@ -45,7 +47,7 @@ public class SupportProductsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        custom_head.setHeadCenterTxtShow(true,"赞过");
+        custom_head.setHeadCenterTxtShow(true,R.string.title_support);
         String[] array = getResources().getStringArray(R.array.support_products);
         for (int i = 0; i < array.length; i++) {
             if (i == 0) {

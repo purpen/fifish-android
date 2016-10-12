@@ -9,23 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
-import com.qiyuan.fifish.ui.activity.*;
+import com.qiyuan.fifish.ui.activity.FeedbackActivity;
+import com.qiyuan.fifish.ui.activity.FindFriendsActivity;
+import com.qiyuan.fifish.ui.activity.MessageActivity;
+import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
+import com.qiyuan.fifish.ui.activity.SupportProductsActivity;
+import com.qiyuan.fifish.ui.activity.SystemSettingsActivity;
+import com.qiyuan.fifish.ui.activity.UserCenterActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+
 import org.xutils.common.util.LogUtil;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 public class MineFragment extends BaseFragment {
     @BindView(R.id.custom_head)
     CustomHeadView customHead;
@@ -146,9 +155,12 @@ public class MineFragment extends BaseFragment {
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
 
-    @OnClick({R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.btn,R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn:
+                startActivity(new Intent(activity,PublishVideoActivity.class));
+                break;
             case R.id.rl:
                 startActivity(new Intent(activity, UserCenterActivity.class));
                 break;

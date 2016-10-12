@@ -19,7 +19,7 @@
 
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textColor">@color/color_333</item>
         <item name="textAllCaps">true</item>
     </style>
 
@@ -89,8 +89,10 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:layout_height">@dimen/dp45</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/label_title_size</item>
+        <item name="android:textSize">@dimen/sp12</item>
     </style>
 
     <style name="CrossImageView">
@@ -103,7 +105,7 @@
     <style name="Label">
         <item name="android:padding">@dimen/padding_label_view</item>
         <item name="android:layout_marginRight">@dimen/dp10</item>
-        <item name="android:layout_marginBottom">@dimen/dp16</item>
+        <item name="android:layout_marginBottom">0dp</item>
         <item name="android:background">@color/default_background_label</item>
     </style>
 

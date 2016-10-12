@@ -89,7 +89,7 @@ public class ProductsBean implements Serializable{
         public PhotoBean photo;
         public String created_at;
         public boolean is_love;
-        public List<?> tags;
+        public List<Object> tags;
 
         public static class UserBean implements Serializable{
             public int id;
