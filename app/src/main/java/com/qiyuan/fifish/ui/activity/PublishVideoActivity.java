@@ -185,6 +185,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
             public void onSuccess(String result) {
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
                 if (response.meta.status_code==Constants.HTTP_OK){
+                    LogUtil.e("图片发布成功");
                     ToastUtils.showSuccess(R.string.publish_success);
                     finish();
                 }

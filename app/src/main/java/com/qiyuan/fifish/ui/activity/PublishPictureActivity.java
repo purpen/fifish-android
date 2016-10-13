@@ -13,6 +13,7 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ShareAdapter;
 import com.qiyuan.fifish.adapter.SuggestionAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.PublishProductsBean;
 import com.qiyuan.fifish.bean.QNBean;
 import com.qiyuan.fifish.bean.ShareItem;
 import com.qiyuan.fifish.bean.TagsBean;
@@ -30,6 +31,7 @@ import org.xutils.common.util.LogUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,7 +57,11 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     TextView tvAddAddress;
     @BindView(R.id.label_view)
     AutoLabelUI labelView;
-
+    private String content;
+    private String address;
+    private List<String> tags;
+    private String token;
+    private String uploadUrl;
     private ProductsBean.DataBean item;
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
 
@@ -98,6 +104,26 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     }
 
     @Override
+    protected void requestNet() {
+        RequestService.getPhotoToken(new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                QNBean response = JsonUtil.fromJson(result, QNBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    token = response.data.token;
+                    uploadUrl = response.data.upload_url;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_head_right:
@@ -111,36 +137,46 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     private void upLoadPicture(final View view) {//上传的本地图片
         final File file = new File("");
         view.setEnabled(false);
-        RequestService.getPhotoToken(new CustomCallBack() {
+        RequestService.upLoadFile(file,token,uploadUrl, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                QNBean response = JsonUtil.fromJson(result, QNBean.class);
-                if (response.meta.status_code == Constants.HTTP_OK) {
-                    RequestService.upLoadFile(file, response.data.token, response.data.upload_url, new CustomCallBack() {
-                        @Override
-                        public void onSuccess(String result) {
-                            LogUtil.e(result);
-                            view.setEnabled(true);
-                            UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
-                            if (TextUtils.equals(response.ret, "success")) {
-                                ToastUtils.showSuccess(R.string.publish_success);
-                                finish();
-                                return;
-                            }
-                        }
-                        //上传进度
-                        @Override
-                        public void onLoading(long total, long current, boolean isDownloading) {
-                            super.onLoading(total, current, isDownloading);
-                        }
+                LogUtil.e(result);
+                view.setEnabled(true);
+                UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
+                if (TextUtils.equals(response.ret, "success")) {
+                    addNewProducts(response.id);
+                }
+            }
 
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
-                            view.setEnabled(true);
-                            ex.printStackTrace();
-                            ToastUtils.showError(R.string.request_error);
-                        }
-                    });
+            //上传进度
+            @Override
+            public void onLoading(long total, long current, boolean isDownloading) {
+                super.onLoading(total, current, isDownloading);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+    /**
+     * 上传作品信息
+     * @param asset_id
+     */
+    private void addNewProducts(String asset_id) {
+        LogUtil.e("asset_id==="+asset_id);
+        RequestService.addNewProducts(content,asset_id,"","","2",JsonUtil.list2Json(tags),new CustomCallBack(){
+            @Override
+            public void onSuccess(String result) {
+                PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
+                if (response.meta.status_code==Constants.HTTP_OK){
+                    LogUtil.e("图片发布成功");
+                    ToastUtils.showSuccess(R.string.publish_success);
+                    finish();
                 }
             }
 
