@@ -72,6 +72,10 @@
     <string name="title_share">分享</string>
     <string name="share_to">分享到</string>
     <string name="search_sites">搜索地址</string>
+    <string name="feedback_tips">感谢您的反馈！</string>
+    <string name="feedback_null">反馈内容不能为空！</string>
+    <string name="publish_products">发布</string>
+    <string name="publish_success">发布成功！</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

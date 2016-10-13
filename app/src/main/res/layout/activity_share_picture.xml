@@ -1,101 +1,123 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autolabel="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_f7f7f7"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.qiyuan.fifish.ui.view.CustomHeadView
+        android:id="@+id/custom_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <com.qiyuan.fifish.ui.view.CustomHeadView
-            android:id="@+id/custom_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv_cover"
-                android:layout_width="@dimen/dp80"
-                android:layout_height="@dimen/dp80"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/guide0"
-                android:layout_marginLeft="@dimen/dp16"
-                android:layout_gravity="center_vertical"
-                />
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_share_txt"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp110"
-                android:gravity="left|top"
-                android:hint="@string/app_name"
-                android:maxLines="5"
-                android:minLines="5"
-                android:paddingBottom="@dimen/dp10"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_cover"
+                    android:layout_width="@dimen/dp80"
+                    android:layout_height="@dimen/dp80"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/guide0" />
+
+                <EditText
+                    android:id="@+id/et_share_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp110"
+                    android:background="@null"
+                    android:gravity="left|top"
+                    android:hint="@string/add_pic_des"
+                    android:maxLength="200"
+                    android:minLines="5"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp16"
+                    android:paddingRight="@dimen/dp16"
+                    android:paddingTop="@dimen/dp10"
+                    android:textColorHint="@color/color_999"
+                    android:textSize="@dimen/sp14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp05"
+                android:background="@color/color_ddd" />
+
+            <TextView
+                android:id="@+id/tv_add_tag"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp16"
                 android:paddingRight="@dimen/dp16"
-                android:paddingTop="@dimen/dp10"
-                android:textColorHint="@color/color_999" />
+                android:text="@string/add_tag"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/sp14" />
+
+            <com.qiyuan.fifish.ui.view.labelview.AutoLabelUI
+                android:id="@+id/label_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp16"
+                android:layout_marginRight="@dimen/dp16"
+                autolabel:label_background_res="@android:color/transparent"
+                autolabel:label_clickable="true"
+                autolabel:label_padding="0dp"
+                autolabel:show_cross="false"
+                autolabel:text_color="@color/color_666"
+                autolabel:text_size="@dimen/label_title_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp05"
+                android:background="@color/color_ddd" />
+
+            <TextView
+                android:id="@+id/tv_add_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp45"
+                android:drawableLeft="@mipmap/location"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp16"
+                android:paddingRight="@dimen/dp16"
+                android:text="@string/add_address"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/sp14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp05"
+                android:background="@color/color_ddd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp45"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp16"
+                android:text="@string/share_to"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/sp14" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp05"
-            android:background="@color/color_ddd" />
-
-        <TextView
-            android:id="@+id/tv_add_tag"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dp16"
-            android:paddingRight="@dimen/dp16"
-            android:text="@string/add_tag"
-            android:textColor="@color/color_999"
-            android:textSize="@dimen/sp14" />
-
-        <com.qiyuan.fifish.ui.view.labelview.AutoLabelUI
-            android:id="@+id/label_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp05"
-            android:background="@color/color_ddd" />
-
-        <TextView
-            android:id="@+id/tv_add_address"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dp16"
-            android:paddingRight="@dimen/dp16"
-            android:text="@string/add_address"
-            android:textColor="@color/color_999"
-            android:drawableLeft="@mipmap/location"
-            android:drawablePadding="@dimen/dp5"
-            android:textSize="@dimen/sp14" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp05"
-            android:background="@color/color_ddd" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp45"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp16"
-            android:text="@string/share_to"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/sp14" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

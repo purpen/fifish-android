@@ -19,6 +19,7 @@ import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.FeedbackActivity;
 import com.qiyuan.fifish.ui.activity.FindFriendsActivity;
 import com.qiyuan.fifish.ui.activity.MessageActivity;
+import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
 import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
 import com.qiyuan.fifish.ui.activity.SupportProductsActivity;
 import com.qiyuan.fifish.ui.activity.SystemSettingsActivity;
@@ -155,9 +156,12 @@ public class MineFragment extends BaseFragment {
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
 
-    @OnClick({R.id.btn,R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.btn1,R.id.btn,R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn1:
+                startActivity(new Intent(activity,PublishPictureActivity.class));
+                break;
             case R.id.btn:
                 startActivity(new Intent(activity,PublishVideoActivity.class));
                 break;

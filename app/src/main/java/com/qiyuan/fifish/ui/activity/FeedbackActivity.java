@@ -46,7 +46,7 @@ public class FeedbackActivity extends BaseActivity {
                         if (TextUtils.isEmpty(result)) return;
                         FeedBackBean feedBackBean = JsonUtil.fromJson(result, FeedBackBean.class);
                         if (feedBackBean.meta.status_code == Constants.HTTP_OK) {
-                            ToastUtils.showSuccess("感谢您的反馈");
+                            ToastUtils.showSuccess(R.string.feedback_tips);
                             return;
                         }
                     }
@@ -63,12 +63,7 @@ public class FeedbackActivity extends BaseActivity {
 
     private boolean isUserInputLegal() {
         if (TextUtils.isEmpty(et_suggestion.getText().toString().trim())) {
-            ToastUtils.showInfo("您的建议不能为空，请重新输入！");
-            return false;
-        }
-
-        if (et_suggestion.getText().length() > 500) {
-            ToastUtils.showInfo("反馈内容过长！");
+            ToastUtils.showInfo(R.string.feedback_null);
             return false;
         }
         return true;

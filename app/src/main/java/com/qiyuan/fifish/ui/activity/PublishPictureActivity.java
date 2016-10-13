@@ -9,32 +9,40 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ShareAdapter;
+import com.qiyuan.fifish.adapter.SuggestionAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.QNBean;
 import com.qiyuan.fifish.bean.ShareItem;
 import com.qiyuan.fifish.bean.TagsBean;
+import com.qiyuan.fifish.bean.UploadImgVideoBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
+import com.qiyuan.fifish.ui.view.GridSpacingItemDecoration;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 
+import org.xutils.common.util.LogUtil;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * 发布图片
+ *
  * @author lilin
  *         created at 2016/10/9 9:06
  */
-public class PublishPictureActivity extends BaseActivity implements ShareAdapter.OnItemClickListener {
+public class PublishPictureActivity extends BaseActivity implements ShareAdapter.OnItemClickListener, View.OnClickListener {
     @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @BindView(R.id.videoView)
-    JCVideoPlayerStandard videoView;
     @BindView(R.id.iv_cover)
     ImageView ivCover;
     @BindView(R.id.et_share_txt)
@@ -66,15 +74,9 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     @Override
     protected void initViews() {
         custom_head.setHeadCenterTxtShow(true, R.string.title_share);
-        if (TextUtils.equals(Constants.TYPE_IMAGE, item.kind)) {
-            videoView.setVisibility(View.GONE);
-            ivCover.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(item.photo.file.large, ivCover, options);
-        } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.kind)) {
-            videoView.setVisibility(View.VISIBLE);
-            ivCover.setVisibility(View.GONE);
-            videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
-        }
+        custom_head.setHeadRightTxtShow(true, R.string.publish_products);
+        custom_head.getHeadRightTV().setTextColor(getResources().getColor(R.color.color_2187ff));
+//        ImageLoader.getInstance().displayImage(item.photo.file.large, ivCover, options);
         String[] strings = getResources().getStringArray(R.array.share_way);
         ArrayList<ShareItem> shareList = new ArrayList<>();
         for (int i = 0; i < strings.length; i++) {
@@ -85,18 +87,81 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         }
         ShareAdapter shareAdapter = new ShareAdapter(activity, shareList);
         recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration());
         recyclerView.setAdapter(shareAdapter);
         shareAdapter.setmOnItemClickListener(this);
     }
 
-    @OnClick({R.id.tv_add_tag,R.id.tv_add_address})
-    void onClick(View v) {
-        switch (v.getId()){
+    @Override
+    protected void installListener() {
+        custom_head.getHeadRightTV().setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_head_right:
+                upLoadPicture(view);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void upLoadPicture(final View view) {//上传的本地图片
+        final File file = new File("");
+        view.setEnabled(false);
+        RequestService.getPhotoToken(new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                QNBean response = JsonUtil.fromJson(result, QNBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    RequestService.upLoadFile(file, response.data.token, response.data.upload_url, new CustomCallBack() {
+                        @Override
+                        public void onSuccess(String result) {
+                            LogUtil.e(result);
+                            view.setEnabled(true);
+                            UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
+                            if (TextUtils.equals(response.ret, "success")) {
+                                ToastUtils.showSuccess(R.string.publish_success);
+                                finish();
+                                return;
+                            }
+                        }
+                        //上传进度
+                        @Override
+                        public void onLoading(long total, long current, boolean isDownloading) {
+                            super.onLoading(total, current, isDownloading);
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+                            view.setEnabled(true);
+                            ex.printStackTrace();
+                            ToastUtils.showError(R.string.request_error);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
+    }
+
+
+    @OnClick({R.id.label_view, R.id.tv_add_tag, R.id.tv_add_address})
+    void performClick(View v) {
+        switch (v.getId()) {
+            case R.id.label_view:
             case R.id.tv_add_tag:
-                startActivityForResult(new Intent(activity, AddLabelActivity.class),Constants.REQUEST_LABEL);
+                startActivityForResult(new Intent(activity, AddLabelActivity.class), Constants.REQUEST_LABEL);
                 break;
             case R.id.tv_add_address:
-                startActivityForResult(new Intent(activity,MapSearchAddressActivity.class),Constants.REQUEST_ADDRESS);
+                startActivityForResult(new Intent(activity, MapSearchAddressActivity.class), Constants.REQUEST_ADDRESS);
                 break;
             default:
                 break;
@@ -132,14 +197,32 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode!=RESULT_OK) return;
-        switch (requestCode){
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
             case Constants.REQUEST_LABEL:
-                TagsBean.DataBean item= data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
-                labelView.addLabel(item.display_name);
+                String searchTag = data.getStringExtra(SuggestionAdapter.class.getSimpleName());
+                if (!TextUtils.isEmpty(searchTag)) {
+                    labelView.addLabel("#" + searchTag);
+                }
+
+                String enterTag = data.getStringExtra(AddLabelActivity.class.getSimpleName());
+                if (!TextUtils.isEmpty(enterTag)) {
+                    labelView.addLabel("#" + enterTag);
+                }
+
+                TagsBean.DataBean item = data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
+                if (item != null) {
+                    labelView.addLabel("#" + item.display_name);
+                }
+                if (labelView.getLabels().size() > 0) {
+                    tvAddTag.setVisibility(View.GONE);
+                } else {
+                    tvAddTag.setVisibility(View.VISIBLE);
+                }
                 break;
             default:
                 break;
         }
     }
+
 }

@@ -6,8 +6,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.QNBean;
@@ -17,10 +16,18 @@ import com.qiyuan.fifish.network.RequestManager;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.imageCrop.ClipSquareImageView;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.FileUtil;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.util.Util;
+
 import org.xutils.common.util.LogUtil;
 
 import java.io.File;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -149,7 +156,7 @@ public class ImageCropActivity extends BaseActivity {
     private void getQNUrlToken(String type, final File file) {
         if (dialog != null && !activity.isFinishing()) dialog.show();
         setViewEnable(false);
-        RequestService.getQNUrlToken(type,new CustomCallBack(){
+        RequestService.getAvatarToken(new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 QNBean response = JsonUtil.fromJson(result, QNBean.class);

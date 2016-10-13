@@ -51,7 +51,6 @@ public abstract class CustomCallBack implements RequestInterceptListener/*,Callb
 
     @Override
     public void onLoading(long total, long current, boolean isDownloading) {
-        LogUtil.e("total=="+total+";;current=="+current);
     }
 
     @Override

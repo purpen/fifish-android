@@ -5,7 +5,7 @@ package com.qiyuan.fifish.util;
  *         created at 2016/6/27 15:12
  */
 public class Constants {
-    public static final String BASE_URL = "http://fish.taihuoniao.com/api/";
+    public static final String BASE_URL = "http://api.qysea.com/";
     public static final String LOGIN_USER_URL= Constants.BASE_URL+"auth/login";
     public static final String REGISTER_USER_URL= Constants.BASE_URL+"auth/register";
     public static final String USER_PROFILE_URL= Constants.BASE_URL+"user/profile";
@@ -15,7 +15,10 @@ public class Constants {
     public static final String HOT_TAGS_URL= Constants.BASE_URL+"tags/sticks";
     public static final String HOT_USERS_URL= Constants.BASE_URL+"user/hot_users";
     public static final String UPLOAD_AVATAR_URL= Constants.BASE_URL+"upload/avatar";
-    public static final String QN_PARAM_URL= Constants.BASE_URL+"upload/qiniuToken";
+    public static final String AVATAR_TOKEN_URL= Constants.BASE_URL+"upload/avatarToken";
+    public static final String PHOTO_TOKEN_URL= Constants.BASE_URL+"upload/photoToken";
+    public static final String VIDEO_TOKEN_URL= Constants.BASE_URL+"upload/videoToken";
+    public static final String STUFFS_STORE_URL= Constants.BASE_URL+"stuffs/store";
 
     public static final int REQUEST_LABEL = 10;
     public static final int REQUEST_ADDRESS = 10;

@@ -204,16 +204,37 @@ public class RequestService {
     }
 
     /**
-     * @param assetable_type 上传类型
+     * 上传头像Token
      * @param customCallBack
      */
-    public static void getQNUrlToken(String assetable_type, CustomCallBack customCallBack) {
-        RequestParams params = new RequestParams(Constants.QN_PARAM_URL);
-        params.addBodyParameter("assetable_type",assetable_type);
+    public static void getAvatarToken(CustomCallBack customCallBack) {
+        RequestParams params = new RequestParams(Constants.AVATAR_TOKEN_URL);
 //        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
-        RequestManager.getInstance().add(MD5.md5(Constants.QN_PARAM_URL), cancelable);
+        RequestManager.getInstance().add(MD5.md5(Constants.AVATAR_TOKEN_URL), cancelable);
     }
+    /**
+     * 上传图片Token
+     * @param customCallBack
+     */
+    public static void getPhotoToken(CustomCallBack customCallBack) {
+        RequestParams params = new RequestParams(Constants.PHOTO_TOKEN_URL);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.PHOTO_TOKEN_URL), cancelable);
+    }
+    /**
+     * 上传视频Token
+     * @param customCallBack
+     */
+    public static void getVideoToken(CustomCallBack customCallBack) {
+        RequestParams params = new RequestParams(Constants.VIDEO_TOKEN_URL);
+//        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params, customCallBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.VIDEO_TOKEN_URL), cancelable);
+    }
+
+
 
     /**
      * 获取作品的评论
@@ -264,5 +285,26 @@ public class RequestService {
         params.addQueryStringParameter("sort",sort);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 上传新作品信息
+     * @param content
+     * @param city
+     * @param address
+     * @param kind
+     * @param tags
+     * @param customCallBack
+     */
+    public static void addNewProducts(String content,String asset_id,String city,String address,String kind,String tags,CustomCallBack customCallBack) {
+        RequestParams params = new RequestParams(Constants.STUFFS_STORE_URL);
+        params.addBodyParameter("content",content);
+        params.addBodyParameter("city",city);
+        params.addBodyParameter("asset_id",asset_id);
+        params.addBodyParameter("address",address);
+        params.addBodyParameter("kind",kind);
+        params.addBodyParameter("tags",tags);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(Constants.STUFFS_STORE_URL), cancelable);
     }
 }

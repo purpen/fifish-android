@@ -48,7 +48,7 @@
     <dimen name="sp14">14sp</dimen>
     <dimen name="sp15">15sp</dimen>
     <dimen name="sp16">16sp</dimen>
-    <dimen name="icon_cross">23dp</dimen>
+    <dimen name="icon_cross">16dp</dimen>
     <dimen name="label_title_size">12sp</dimen>
     <dimen name="padding_label_view">10dp</dimen>
     <dimen name="padding_icon_cross">5dp</dimen>

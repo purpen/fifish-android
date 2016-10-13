@@ -13,31 +13,36 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
         android:text="您的意见或建议"
         android:textColor="@color/color_333"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp14" />
 
     <EditText
         android:id="@+id/et_suggestion"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp10"
         android:background="@drawable/shap_home_gridview"
         android:gravity="top"
+        android:textColor="@color/color_333"
+        android:textColorHint="@color/color_999"
         android:hint="您的意见或建议，我们都会认真倾听。"
         android:lineSpacingMultiplier="1.5"
         android:maxLength="500"
         android:padding="5dp"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp14" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
         android:text="联系方式"
         android:textColor="@color/color_333"
         android:textSize="14sp" />
@@ -45,14 +50,19 @@
     <EditText
         android:id="@+id/et_contact"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_margin="10dp"
+        android:layout_height="@dimen/dp45"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp10"
         android:background="@drawable/shap_home_gridview"
+        android:textColor="@color/color_333"
+        android:textColorHint="@color/color_999"
         android:hint="手机号/QQ/邮箱"
         android:maxLength="50"
-        android:singleLine="true"
-        android:padding="5dp"
-        android:textSize="14sp" />
+        android:maxLines="1"
+        android:padding="@dimen/dp5"
+        android:textSize="@dimen/sp14" />
 
     <TextView
         android:layout_width="match_parent"
@@ -61,13 +71,15 @@
         android:textSize="14sp"
         android:paddingLeft="15dp"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        android:textColor="@color/color_333"
+        />
     <Button
         android:id="@+id/bt_commit"
         style="@style/SubmitButtonStyle"
         android:text="提交"
-        android:textSize="14sp"
-        android:layout_margin="10dp"
+        android:textSize="@dimen/sp14"
+        android:layout_marginTop="@dimen/dp10"
         android:background="@drawable/shape_update_password"
         android:textColor="@android:color/white"/>
 

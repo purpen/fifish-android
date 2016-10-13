@@ -18,7 +18,7 @@ public class UploadImgVideoBean {
      * ret : success
      */
 
-    public int id;
+    public String id;
     public String ret;
 
     public static class FileBean {
