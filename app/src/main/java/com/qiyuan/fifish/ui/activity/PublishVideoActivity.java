@@ -23,6 +23,7 @@ import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.GridSpacingItemDecoration;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
+import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.FileUtil;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -61,7 +62,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     AutoLabelUI labelView;
     private String token;
     private String uploadUrl;
-    private ProductsBean.DataBean item;
+    private ProductsBean.DataEntity item;
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
     private String content;
     private String address;
@@ -74,7 +75,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     protected void getIntentData() {
         Intent intent = getIntent();
         if (intent.hasExtra(TAG)) {
-            item = (ProductsBean.DataBean) intent.getSerializableExtra(TAG);
+            item = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
         }
     }
 
@@ -130,6 +131,11 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_head_right:
+                content = et_share_txt.getText().toString();
+                if (TextUtils.isEmpty(content) || content.length()<5) {
+                    ToastUtils.showInfo(R.string.publish_content_length);
+                    return;
+                }
                 upLoadVideo(view);
                 break;
             default:
@@ -179,13 +185,21 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
      * @param asset_id
      */
     private void addNewProducts(String asset_id) {
+        double lat=0;
+        double lng=0;
         LogUtil.e("asset_id==="+asset_id);
-        RequestService.addNewProducts(content,asset_id,"","","2",JsonUtil.list2Json(tags),new CustomCallBack(){
+        List<Label> labels = labelView.getLabels();
+        for (Label label:labels){
+            tags.add(label.getText());
+        }
+        LogUtil.e(JsonUtil.list2Json(tags));
+        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",JsonUtil.list2Json(tags),new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
+                LogUtil.e(result);
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
                 if (response.meta.status_code==Constants.HTTP_OK){
-                    LogUtil.e("图片发布成功");
+                    LogUtil.e("视频发布成功");
                     ToastUtils.showSuccess(R.string.publish_success);
                     finish();
                 }

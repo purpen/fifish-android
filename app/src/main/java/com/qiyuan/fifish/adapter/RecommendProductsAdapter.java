@@ -32,23 +32,23 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @author lilin
  *         created at 2016/9/22 15:58
  */
-public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean> {
+public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> {
     private ImageLoader imageLoader;
     private static final int TYPE_IMAGE = 1;
     private static final int TYPE_VIDEO = 2;
 
-    public RecommendProductsAdapter(List<ProductsBean.DataBean> list, Activity activity) {
+    public RecommendProductsAdapter(List<ProductsBean.DataEntity> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ProductsBean.DataBean item = list.get(position);
+        final ProductsBean.DataEntity item = list.get(position);
         Integer type = Integer.valueOf(item.kind);
         VideoHolder videoHolder;
         if (convertView == null) {
-            convertView = Util.inflateView(R.layout.item_dicover_products, null);
+            convertView = Util.inflateView(activity,R.layout.item_dicover_products, null);
             videoHolder = new VideoHolder(convertView);
             convertView.setTag(videoHolder);
         } else {
@@ -58,7 +58,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
             case TYPE_VIDEO:
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+                videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
@@ -93,7 +93,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
         return convertView;
     }
 
-    private void setClickListener(View v, final ProductsBean.DataBean item) {
+    private void setClickListener(View v, final ProductsBean.DataEntity item) {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,7 +132,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
         });
     }
 
-    private void cancelSupport(final View view, final ProductsBean.DataBean item) {
+    private void cancelSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
         RequestService.cancelSupport(item.id, new CustomCallBack() {
             @Override
@@ -154,7 +154,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataBean>
         });
     }
 
-    private void doSupport(final View view, final ProductsBean.DataBean item) {
+    private void doSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
         RequestService.doSupport(item.id, new CustomCallBack() {
             @Override

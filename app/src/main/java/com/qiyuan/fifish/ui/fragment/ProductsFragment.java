@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import butterknife.BindView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ProductsAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
@@ -22,6 +22,8 @@ import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 public class ProductsFragment extends ScrollTabHolderFragment {
     @BindView(R.id.listView)
     ListView listView;
-    private ArrayList<ProductsBean.DataBean> mList;
+    private ArrayList<ProductsBean.DataEntity> mList;
     private ProductsAdapter adapter;
     public static final String POSITION = "position";
     public static final String ID = "id";
@@ -64,7 +66,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
 
     @Override
     protected void initViews() {
-        View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
+        View placeHolderView = Util.inflateView(activity,R.layout.view_header_placeholder, null);
         listView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
     }
@@ -104,7 +106,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
                 if (TextUtils.isEmpty(result)) return;
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataBean> list = productsBean.data;
+                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }

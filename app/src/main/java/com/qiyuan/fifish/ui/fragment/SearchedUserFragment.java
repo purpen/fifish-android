@@ -33,7 +33,7 @@ public class SearchedUserFragment extends BaseFragment {
     @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private int curPage = 1;
-    private ArrayList<ProductsBean.DataBean> mList;
+    private ArrayList<ProductsBean.DataEntity> mList;
     private HomeAdapter adapter;
     private String keyWord;
     private String evt;

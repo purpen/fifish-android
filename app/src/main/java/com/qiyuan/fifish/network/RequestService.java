@@ -296,14 +296,15 @@ public class RequestService {
      * @param tags
      * @param customCallBack
      */
-    public static void addNewProducts(String content,String asset_id,String city,String address,String kind,String tags,CustomCallBack customCallBack) {
+    public static void addNewProducts(String content,String asset_id,String city,String address,String lat,String lng,String kind,String tags,CustomCallBack customCallBack) {
         RequestParams params = new RequestParams(Constants.STUFFS_STORE_URL);
-        params.addBodyParameter("content",content);
-        params.addBodyParameter("city",city);
-        params.addBodyParameter("asset_id",asset_id);
-        params.addBodyParameter("address",address);
-        params.addBodyParameter("kind",kind);
-        params.addBodyParameter("tags",tags);
+        params.addQueryStringParameter("content",content);
+        params.addQueryStringParameter("city",city);
+        params.addQueryStringParameter("asset_id",asset_id);
+        params.addQueryStringParameter("address",address);
+        params.addQueryStringParameter("lat",lat);
+        params.addQueryStringParameter("lng",lng);
+        params.addQueryStringParameter("tags",tags);
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.STUFFS_STORE_URL), cancelable);
     }

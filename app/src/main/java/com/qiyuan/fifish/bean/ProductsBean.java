@@ -12,116 +12,113 @@ public class ProductsBean implements Serializable{
     /**
      * message : Success.
      * status_code : 200
-     * pagination : {"total":5,"count":5,"per_page":10,"current_page":1,"total_pages":1,"links":[]}
+     * pagination : {"total":22,"count":8,"per_page":8,"current_page":1,"total_pages":3,"links":{"next":"http://api.qysea.com/stuffs?page=2"}}
      */
 
-    public MetaBean meta;
+    public MetaEntity meta;
     /**
-     * id : 11
-     * content : 飞行鱼重新发现海洋
+     * id : 22
+     * content : 1111111
      * view_count : 0
-     * kind : 1
+     * kind : 2
      * city : null
-     * address : null
+     * address : Label
      * like_count : 0
      * comment_count : 0
      * user_id : 1
-     * user : {"id":1,"username":"董先生","summary":null,"avatar":{"small":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50","large":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180"}}
+     * user : {"id":1,"username":"Dev","summary":null,"avatar":{"small":"http://s3.qysea.com/img/avatar!smx50.png","large":"http://s3.qysea.com/img/avatar!lgx180.png"}}
      * tags : []
-     * photo : {"id":26,"filepath":"photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2","size":"226KB","width":"750","height":"460","file":{"small":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm","large":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg"}}
-     * created_at : 2016-09-23
+     * photo : {"id":55,"filepath":"video/161014/d2fb7af62512b682e5c3a758de74f668.MOV","size":"977KB","width":0,"height":0,"duration":9.58,"kind":2,"file":{"srcfile":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV","small":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfrsm","large":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfr"}}
+     * created_at : 2016-10-14
      * is_love : false
+     * is_follow : false
      */
 
-    public ArrayList<DataBean> data;
+    public ArrayList<DataEntity> data;
 
-    public static class MetaBean {
+    public static class MetaEntity {
         public String message;
         public int status_code;
         /**
-         * total : 5
-         * count : 5
-         * per_page : 10
+         * total : 22
+         * count : 8
+         * per_page : 8
          * current_page : 1
-         * total_pages : 1
-         * links : []
+         * total_pages : 3
+         * links : {"next":"http://api.qysea.com/stuffs?page=2"}
          */
-
-        public PaginationBean pagination;
-
-        public static class PaginationBean {
-            public int total;
-            public int count;
-            public int per_page;
-            public int current_page;
-            public int total_pages;
-            public List<?> links;
-        }
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataEntity implements Serializable{
         public String id;
         public String content;
         public String view_count;
         public String kind;
         public Object city;
-        public Object address;
+        public String address;
         public String like_count;
         public String comment_count;
         public String user_id;
         /**
          * id : 1
-         * username : 董先生
+         * username : Dev
          * summary : null
-         * avatar : {"small":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50","large":"http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180"}
+         * avatar : {"small":"http://s3.qysea.com/img/avatar!smx50.png","large":"http://s3.qysea.com/img/avatar!lgx180.png"}
          */
 
-        public UserBean user;
+        public UserEntity user;
         /**
-         * id : 26
-         * filepath : photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2
-         * size : 226KB
-         * width : 750
-         * height : 460
-         * file : {"small":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm","large":"http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg"}
+         * id : 55
+         * filepath : video/161014/d2fb7af62512b682e5c3a758de74f668.MOV
+         * size : 977KB
+         * width : 0
+         * height : 0
+         * duration : 9.58
+         * kind : 2
+         * file : {"srcfile":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV","small":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfrsm","large":"http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfr"}
          */
 
-        public PhotoBean photo;
+        public PhotoEntity photo;
         public String created_at;
         public boolean is_love;
+        public boolean is_follow;
         public List<Object> tags;
 
-        public static class UserBean implements Serializable{
-            public int id;
+        public static class UserEntity implements Serializable{
+            public String id;
             public String username;
             public Object summary;
             /**
-             * small : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50
-             * large : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180
+             * small : http://s3.qysea.com/img/avatar!smx50.png
+             * large : http://s3.qysea.com/img/avatar!lgx180.png
              */
 
-            public AvatarBean avatar;
+            public AvatarEntity avatar;
 
-            public static class AvatarBean implements Serializable{
+            public static class AvatarEntity {
                 public String small;
                 public String large;
             }
         }
 
-        public static class PhotoBean implements Serializable{
+        public static class PhotoEntity {
             public String id;
             public String filepath;
             public String size;
-            public String width;
-            public String height;
+            public int width;
+            public int height;
+            public double duration;
+            public String kind;
             /**
-             * small : http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxsm
-             * large : http://obbrr76ua.bkt.clouddn.com/photo/160923/d25ddc0b2ec76ee8d47c74f7a96c64e2!cvxlg
+             * srcfile : http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV
+             * small : http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfrsm
+             * large : http://oe5tkubcj.bkt.clouddn.com/video/161014/d2fb7af62512b682e5c3a758de74f668.MOV!vfr
              */
 
-            public FileBean file;
+            public FileEntity file;
 
-            public static class FileBean implements Serializable{
+            public static class FileEntity{
+                public String srcfile;
                 public String small;
                 public String large;
             }

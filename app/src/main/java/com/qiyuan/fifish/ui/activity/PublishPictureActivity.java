@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,6 +24,7 @@ import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.GridSpacingItemDecoration;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
+import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
@@ -62,7 +64,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     private List<String> tags;
     private String token;
     private String uploadUrl;
-    private ProductsBean.DataBean item;
+    private ProductsBean.DataEntity item;
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
 
     public PublishPictureActivity() {
@@ -73,7 +75,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     protected void getIntentData() {
         Intent intent = getIntent();
         if (intent.hasExtra(TAG)) {
-            item = (ProductsBean.DataBean) intent.getSerializableExtra(TAG);
+            item = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
         }
     }
 
@@ -169,7 +171,13 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
      */
     private void addNewProducts(String asset_id) {
         LogUtil.e("asset_id==="+asset_id);
-        RequestService.addNewProducts(content,asset_id,"","","2",JsonUtil.list2Json(tags),new CustomCallBack(){
+        double lat=0;
+        double lng=0;
+        List<Label> labels = labelView.getLabels();
+        for (Label label:labels){
+            tags.add(label.getText());
+        }
+        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"1",JsonUtil.list2Json(tags),new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
@@ -261,4 +269,13 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         }
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

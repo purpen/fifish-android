@@ -27,7 +27,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private int curPage = 1;
-    private ArrayList<ProductsBean.DataBean> mList;
+    private ArrayList<ProductsBean.DataEntity> mList;
     private HomeAdapter adapter;
 
     @Override
@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment {
         pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ProductsBean.DataBean item = adapter.getItem(i-1);
+                ProductsBean.DataEntity item = adapter.getItem(i-1);
                 Intent intent=new Intent(activity, CommentsDetailActivity.class);
                 intent.putExtra(CommentsDetailActivity.class.getSimpleName(),item);
                 startActivity(intent);
@@ -79,7 +79,7 @@ public class HomeFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataBean> list = productsBean.data;
+                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }

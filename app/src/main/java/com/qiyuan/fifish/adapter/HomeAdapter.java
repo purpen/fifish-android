@@ -19,8 +19,8 @@ import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
-import com.qiyuan.fifish.ui.activity.SearchActivity;
 import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
+import com.qiyuan.fifish.ui.activity.SearchActivity;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
@@ -29,7 +29,6 @@ import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,34 +40,34 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * @author lilin
  *         created at 2016/4/22 19:00
  */
-public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
+public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
     private ImageLoader imageLoader;
 
 
-    public HomeAdapter(List<ProductsBean.DataBean> list, Activity activity) {
+    public HomeAdapter(List<ProductsBean.DataEntity> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ProductsBean.DataBean item = list.get(position);
+        final ProductsBean.DataEntity item = list.get(position);
         VideoHolder videoHolder;
         if (convertView == null) {
-            convertView = Util.inflateView(R.layout.item_home_video, null);
+            convertView = Util.inflateView(activity,R.layout.item_home_video, null);
             videoHolder = new VideoHolder(convertView);
             convertView.setTag(videoHolder);
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        if (TextUtils.equals(Constants.TYPE_IMAGE, item.kind)) {
+        if (TextUtils.equals(Constants.TYPE_IMAGE, item.photo.kind)) {
             videoHolder.videoView.setVisibility(View.GONE);
             videoHolder.ivCover.setVisibility(View.VISIBLE);
             imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
-        } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.kind)) {
+        } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.photo.kind)) {
             videoHolder.videoView.setVisibility(View.VISIBLE);
             videoHolder.ivCover.setVisibility(View.GONE);
-            videoHolder.videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+            videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
@@ -79,22 +78,22 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
         videoHolder.labelView.clear();
-//        for (Object obj : item.tags) {
-//            if (obj instanceof String){
-//                String txt=obj.toString();
-//                if (!TextUtils.isEmpty(txt)){
-//                    videoHolder.labelView.addLabel("#" + obj.toString());
-//                }
-//            }
-//        }
-
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("北京");
-        strings.add("北京摄影");
-        strings.add("水下");
-        for (String obj : strings) {
-            videoHolder.labelView.addLabel("#" + obj.toString());
+        for (Object obj : item.tags) {
+            if (obj instanceof String){
+                String txt=obj.toString();
+                if (!TextUtils.isEmpty(txt)){
+                    videoHolder.labelView.addLabel("#" + obj.toString());
+                }
+            }
         }
+
+//        ArrayList<String> strings = new ArrayList<>();
+//        strings.add("北京");
+//        strings.add("北京摄影");
+//        strings.add("水下");
+//        for (String obj : strings) {
+//            videoHolder.labelView.addLabel("#" + obj.toString());
+//        }
         videoHolder.tvContent.setText(item.content);
         if (item.is_love) {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
@@ -107,7 +106,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
         } else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);
         }
-        videoHolder.tvTime.setText(item.created_at);
+//        videoHolder.tvTime.setText(item.created_at);
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);
@@ -126,7 +125,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
         return convertView;
     }
 
-    private void setClickListener(View v, final ProductsBean.DataBean item) {
+    private void setClickListener(View v, final ProductsBean.DataEntity item) {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,7 +220,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
         });
     }
 
-    private void cancelSupport(final View view, final ProductsBean.DataBean item) {
+    private void cancelSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
         RequestService.cancelSupport(item.id, new CustomCallBack() {
             @Override
@@ -243,7 +242,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataBean> {
         });
     }
 
-    private void doSupport(final View view, final ProductsBean.DataBean item) {
+    private void doSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
         RequestService.doSupport(item.id, new CustomCallBack() {
             @Override

@@ -76,6 +76,7 @@
     <string name="feedback_null">反馈内容不能为空！</string>
     <string name="publish_products">发布</string>
     <string name="publish_success">发布成功！</string>
+    <string name="publish_content_length">发布内容需大于5个长度</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

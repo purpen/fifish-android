@@ -49,7 +49,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
     private int curPage = 1;
     private ArrayList<ProductsCommentBean.DataBean> mList;
     private WaitingDialog dialog;
-    private ProductsBean.DataBean products;
+    private ProductsBean.DataEntity products;
     private CommentDetailAdapter adapter;
     private RoundedImageView riv;
     private TextView tvName;
@@ -71,7 +71,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
     protected void getIntentData() {
         Intent intent = getIntent();
         if (intent.hasExtra(TAG)) {
-            products = (ProductsBean.DataBean) intent.getSerializableExtra(TAG);
+            products = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
         }
     }
 

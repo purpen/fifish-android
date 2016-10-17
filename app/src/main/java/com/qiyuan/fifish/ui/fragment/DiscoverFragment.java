@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HotTagRecycleViewAdapter;
@@ -25,7 +27,9 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,7 +42,7 @@ public class DiscoverFragment extends BaseFragment {
     private RecyclerView recyclerViewUser;
     private ScrollableView scrollableView;
     private int curPage = 1;
-    private ArrayList<ProductsBean.DataBean> mList;
+    private ArrayList<ProductsBean.DataEntity> mList;
     private RecommendProductsAdapter adapter;
     private View headView;
     @Override
@@ -74,6 +78,7 @@ public class DiscoverFragment extends BaseFragment {
         super.onPause();
         if (scrollableView!=null) scrollableView.stop();
     }
+
 
     @Override
     public void onResume() {
@@ -139,7 +144,7 @@ public class DiscoverFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataBean> list = productsBean.data;
+                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }

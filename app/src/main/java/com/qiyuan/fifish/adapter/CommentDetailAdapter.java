@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
  */
 public class CommentDetailAdapter extends BaseAdapter<ProductsCommentBean.DataBean> {
     private ImageLoader imageLoader;
-    private ProductsBean.DataBean products;
+    private ProductsBean.DataEntity products;
 
-    public CommentDetailAdapter(List list, Activity activity, ProductsBean.DataBean products) {
+    public CommentDetailAdapter(List list, Activity activity, ProductsBean.DataEntity products) {
         super(list, activity);
         this.products = products;
         this.imageLoader = ImageLoader.getInstance();
