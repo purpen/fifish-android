@@ -61,7 +61,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     AutoLabelUI labelView;
     private String content;
     private String address;
-    private List<String> tags;
+    private String[] tags;
     private String token;
     private String uploadUrl;
     private ProductsBean.DataEntity item;
@@ -174,10 +174,11 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         double lat=0;
         double lng=0;
         List<Label> labels = labelView.getLabels();
-        for (Label label:labels){
-            tags.add(label.getText());
+        tags=new String[]{};
+        for (int i=0;i<labels.size();i++){
+            tags[i]=labels.get(i).getText();
         }
-        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"1",JsonUtil.list2Json(tags),new CustomCallBack(){
+        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"1",tags,new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);

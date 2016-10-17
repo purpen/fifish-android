@@ -1,8 +1,11 @@
 package com.qiyuan.fifish.network;
 
 import android.text.TextUtils;
+
+import com.qiyuan.fifish.network.params.AddNewProductsParams;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 import org.xutils.common.util.MD5;
@@ -296,15 +299,26 @@ public class RequestService {
      * @param tags
      * @param customCallBack
      */
-    public static void addNewProducts(String content,String asset_id,String city,String address,String lat,String lng,String kind,String tags,CustomCallBack customCallBack) {
-        RequestParams params = new RequestParams(Constants.STUFFS_STORE_URL);
-        params.addQueryStringParameter("content",content);
-        params.addQueryStringParameter("city",city);
-        params.addQueryStringParameter("asset_id",asset_id);
-        params.addQueryStringParameter("address",address);
-        params.addQueryStringParameter("lat",lat);
-        params.addQueryStringParameter("lng",lng);
-        params.addQueryStringParameter("tags",tags);
+    public static void addNewProducts(String content,String asset_id,String city,String address,String lat,String lng,String kind,String[] tags,CustomCallBack customCallBack) {
+//        RequestParams params = new RequestParams(Constants.STUFFS_STORE_URL);
+//        params.addQueryStringParameter("content",content);
+//        params.addQueryStringParameter("city",city);
+//        params.addQueryStringParameter("asset_id",asset_id);
+//        params.addQueryStringParameter("address",address);
+//        params.addQueryStringParameter("kind",kind);
+//        params.addQueryStringParameter("lat",lat);
+//        params.addQueryStringParameter("lng",lng);
+//        params.addQueryStringParameter("tags",tags);
+        AddNewProductsParams params = new AddNewProductsParams();
+        params.content=content;
+        params.city=city;
+        params.asset_id=asset_id;
+        params.address=address;
+        params.kind=kind;
+        params.lat=lat;
+        params.lng=lng;
+        params.tags=tags;
+        LogUtil.e(""+tags);
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.STUFFS_STORE_URL), cancelable);
     }

@@ -66,7 +66,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
     private String content;
     private String address;
-    private List<String> tags;
+    private String[] tags;
     public PublishVideoActivity() {
         super(R.layout.activity_share_video);
     }
@@ -189,11 +189,11 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         double lng=0;
         LogUtil.e("asset_id==="+asset_id);
         List<Label> labels = labelView.getLabels();
-        for (Label label:labels){
-            tags.add(label.getText());
+        tags=new String[]{};
+        for (int i=0;i<labels.size();i++){
+            tags[i]=labels.get(i).getText();
         }
-        LogUtil.e(JsonUtil.list2Json(tags));
-        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",JsonUtil.list2Json(tags),new CustomCallBack(){
+        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",tags,new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
