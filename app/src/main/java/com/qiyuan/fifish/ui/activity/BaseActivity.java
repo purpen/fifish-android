@@ -6,13 +6,16 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-import butterknife.ButterKnife;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -38,12 +41,12 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
                 .showImageForEmptyUri(R.mipmap.default_background_750_1334)
                 .showImageOnFail(R.mipmap.default_background_750_1334)
-                .resetViewBeforeLoading(true)
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(0)
+                .delayBeforeLoading(200)
+                .displayer(new FadeInBitmapDisplayer(200))
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
 //        ShareSDK.initSDK(this);

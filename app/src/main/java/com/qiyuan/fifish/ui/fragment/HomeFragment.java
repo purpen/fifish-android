@@ -23,9 +23,7 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.custom_head)

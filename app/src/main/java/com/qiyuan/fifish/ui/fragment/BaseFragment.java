@@ -43,8 +43,8 @@ public abstract class BaseFragment<T> extends Fragment {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(500)
-                .displayer(new FadeInBitmapDisplayer(500))
+                .delayBeforeLoading(200)
+                .displayer(new FadeInBitmapDisplayer(200))
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
         initParams();
