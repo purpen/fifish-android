@@ -50,6 +50,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initViews() {
         customHead.setHeadCenterTxtShow(true, R.string.home);
+
         customHead.setHeadGoBackShow(false);
         customHead.setIvLeft(R.mipmap.search_head);
         mList=new ArrayList<>();
@@ -82,7 +83,6 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
-                
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     ArrayList<ProductsBean.DataEntity> list = productsBean.data;
