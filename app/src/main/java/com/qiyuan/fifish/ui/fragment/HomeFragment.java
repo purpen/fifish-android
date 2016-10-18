@@ -83,7 +83,6 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
-                
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     ArrayList<ProductsBean.DataEntity> list = productsBean.data;
