@@ -54,7 +54,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         final ProductsBean.DataEntity item = list.get(position);
         VideoHolder videoHolder;
         if (convertView == null) {
-            convertView = Util.inflateView(activity,R.layout.item_home_video, null);
+            convertView = Util.inflateView(activity, R.layout.item_home_video, null);
             videoHolder = new VideoHolder(convertView);
             convertView.setTag(videoHolder);
         } else {
@@ -67,9 +67,9 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.photo.kind)) {
             videoHolder.videoView.setVisibility(View.VISIBLE);
             videoHolder.ivCover.setVisibility(View.GONE);
-            videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
+            videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
             videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
+            ImageLoader.getInstance().displayImage(item.photo.file.large, videoHolder.videoView.thumbImageView, options);
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);
@@ -81,9 +81,9 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         }
         videoHolder.labelView.clear();
         for (Object obj : item.tags) {
-            if (obj instanceof String){
-                String txt=obj.toString();
-                if (!TextUtils.isEmpty(txt)){
+            if (obj instanceof String) {
+                String txt = obj.toString();
+                if (!TextUtils.isEmpty(txt)) {
                     videoHolder.labelView.addLabel("#" + obj.toString());
                 }
             }
@@ -116,10 +116,10 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         videoHolder.labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
             @Override
             public void onClickLabel(Label labelClicked) {
-                Intent intent=new Intent(activity, SearchActivity.class);
-                String txt=labelClicked.getText().substring(1);
-                if (!TextUtils.isEmpty(txt)){
-                    intent.putExtra(SearchActivity.class.getSimpleName(),txt);
+                Intent intent = new Intent(activity, SearchActivity.class);
+                String txt = labelClicked.getText().substring(1);
+                if (!TextUtils.isEmpty(txt)) {
+                    intent.putExtra(SearchActivity.class.getSimpleName(), txt);
                     activity.startActivity(intent);
                 }
             }
@@ -159,7 +159,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                         adapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                switch (position){
+                                switch (position) {
                                     case 0: //举报
                                         final BottomSheetDialog dialogReport = new BottomSheetDialog(activity);
                                         View bottomView = Util.inflateView(R.layout.view_bottom_list, null);
@@ -169,10 +169,10 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                                         String[] stringArray = activity.getResources().getStringArray(R.array.dialog_report);
                                         SimpleTextAdapter textAdapter = new SimpleTextAdapter(activity, Arrays.asList(stringArray));
                                         recyclerView.setAdapter(textAdapter);
-                                        textAdapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener(){
+                                        textAdapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(View view, int position) {
-                                                switch (position){
+                                                switch (position) {
                                                     case 0:
 
                                                         break;
@@ -195,8 +195,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                                         dialogReport.show();
                                         break;
                                     case 1: //分享
-                                        Intent intent=new Intent(activity,PublishVideoActivity.class);
-                                        intent.putExtra(PublishVideoActivity.class.getSimpleName(),item);
+                                        Intent intent = new Intent(activity, PublishVideoActivity.class);
+                                        intent.putExtra(PublishVideoActivity.class.getSimpleName(), item);
                                         activity.startActivity(intent);
                                         break;
                                     case 2:
