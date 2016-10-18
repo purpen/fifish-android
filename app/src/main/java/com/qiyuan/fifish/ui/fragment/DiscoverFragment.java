@@ -183,7 +183,6 @@ public class DiscoverFragment extends BaseFragment {
                     return;
                 }
             }
-
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 ex.printStackTrace();
