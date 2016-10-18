@@ -36,6 +36,7 @@ public abstract class BaseFragment<T> extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         options = new DisplayImageOptions.Builder()
+
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
                 .showImageForEmptyUri(R.mipmap.default_background_750_1334)
                 .showImageOnFail(R.mipmap.default_background_750_1334)
