@@ -68,6 +68,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
             videoHolder.videoView.setVisibility(View.VISIBLE);
             videoHolder.ivCover.setVisibility(View.GONE);
             videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
+            videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.user.username);

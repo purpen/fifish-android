@@ -322,4 +322,21 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.STUFFS_STORE_URL), cancelable);
     }
+
+    /**
+     * 获取轮换图
+     * @param page
+     * @param per_page
+     * @param name
+     * @param customCallBack
+     */
+    public static void getBanners(String page,String per_page,String name,CustomCallBack customCallBack){
+        String url=Constants.BASE_URL+"gateway/columns";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("page",page);
+        params.addQueryStringParameter("per_page",per_page);
+        params.addQueryStringParameter("name",name);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

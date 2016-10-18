@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.ButterKnife;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.qiyuan.fifish.R;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -24,6 +27,7 @@ public abstract class BaseFragment<T> extends Fragment {
     protected Activity activity;
     private int layoutId;
     protected DisplayImageOptions options;
+
     public BaseFragment() {
     }
 
@@ -35,12 +39,12 @@ public abstract class BaseFragment<T> extends Fragment {
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
                 .showImageForEmptyUri(R.mipmap.default_background_750_1334)
                 .showImageOnFail(R.mipmap.default_background_750_1334)
-                .resetViewBeforeLoading(true)
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(0)
+                .delayBeforeLoading(500)
+                .displayer(new FadeInBitmapDisplayer(500))
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
         initParams();

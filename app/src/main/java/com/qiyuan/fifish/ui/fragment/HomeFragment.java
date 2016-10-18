@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HomeAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
@@ -19,7 +23,9 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.custom_head)
@@ -69,6 +75,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
     }
 
     @Override
@@ -77,6 +84,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
+                
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     ArrayList<ProductsBean.DataEntity> list = productsBean.data;

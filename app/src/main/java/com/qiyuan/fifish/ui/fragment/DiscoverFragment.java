@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HotTagRecycleViewAdapter;
 import com.qiyuan.fifish.adapter.HotUserRecycleViewAdapter;
 import com.qiyuan.fifish.adapter.RecommendProductsAdapter;
 import com.qiyuan.fifish.adapter.ViewPagerAdapter;
+import com.qiyuan.fifish.bean.BannersBean;
 import com.qiyuan.fifish.bean.HotUserBean;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.TagsBean;
@@ -45,6 +48,10 @@ public class DiscoverFragment extends BaseFragment {
     private ArrayList<ProductsBean.DataEntity> mList;
     private RecommendProductsAdapter adapter;
     private View headView;
+    private ArrayList<String> bannerList;
+    private ArrayList<TagsBean.DataBean> tagList;
+    private ArrayList<HotUserBean.DataBean> userList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setFragmentLayout(R.layout.fragment_discover);
@@ -62,47 +69,73 @@ public class DiscoverFragment extends BaseFragment {
         recyclerViewTag = ButterKnife.findById(headView, R.id.recycler_view_tag);
         recyclerViewUser = ButterKnife.findById(headView, R.id.recycler_view_user);
         mList = new ArrayList<>();
+        bannerList = new ArrayList<>();
+        tagList = new ArrayList<>();
+        userList = new ArrayList<>();
         pullLv.getRefreshableView().addHeaderView(headView);
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(R.mipmap.guide0);
-        list.add(R.mipmap.guide1);
-        list.add(R.mipmap.guide2);
-        list.add(R.mipmap.guide3);
-        scrollableView.setAdapter(new ViewPagerAdapter<>(activity, list).setInfiniteLoop(true));
-        scrollableView.setAutoScrollDurationFactor(8);
-        scrollableView.showIndicators();
+//        ArrayList<Integer> list = new ArrayList<>();
+//        list.add(R.mipmap.guide0);
+//        list.add(R.mipmap.guide1);
+//        list.add(R.mipmap.guide2);
+//        list.add(R.mipmap.guide3);
+//        scrollableView.setAdapter(new ViewPagerAdapter<>(activity, list).setInfiniteLoop(true));
+//        scrollableView.setAutoScrollDurationFactor(8);
+//        scrollableView.showIndicators();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (scrollableView!=null) scrollableView.stop();
+        if (scrollableView != null) scrollableView.stop();
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        if (scrollableView!=null) scrollableView.start();
+        if (scrollableView != null) scrollableView.start();
+    }
+
+    @Override
+    protected void installListener() {
+        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
     }
 
     @Override
     protected void requestNet() {
-//        RequestService.getBanner(){
-//
-//        }
+        RequestService.getBanners("1", "6", "app_discover_slide", new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                bannerList.clear();
+                BannersBean bannersBean = JsonUtil.fromJson(result, BannersBean.class);
+                if (bannersBean.meta.status_code == Constants.HTTP_OK) {
+                    for (BannersBean.DataEntity dataEntity : bannersBean.data) {
+                        bannerList.add(dataEntity.cover.file.large);
+                    }
+                    scrollableView.setAdapter(new ViewPagerAdapter<>(activity, bannerList).setInfiniteLoop(true));
+                    scrollableView.setAutoScrollDurationFactor(8);
+                    scrollableView.showIndicators();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
         RequestService.getHotTags(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
                 TagsBean tagsBean = JsonUtil.fromJson(result, TagsBean.class);
                 if (tagsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<TagsBean.DataBean> list = tagsBean.data;
+                    tagList.clear();
+                    tagList = tagsBean.data;
                     LinearLayoutManager manager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     recyclerViewTag.setHasFixedSize(true);
                     recyclerViewTag.setLayoutManager(manager);
-                    recyclerViewTag.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST,R.drawable.divider_10dp));
-                    recyclerViewTag.setAdapter(new HotTagRecycleViewAdapter(activity,list));
+                    recyclerViewTag.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST, R.drawable.divider_10dp));
+                    recyclerViewTag.setAdapter(new HotTagRecycleViewAdapter(activity, tagList));
                     return;
                 }
             }
@@ -121,12 +154,13 @@ public class DiscoverFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 HotUserBean hotUserBean = JsonUtil.fromJson(result, HotUserBean.class);
                 if (hotUserBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<HotUserBean.DataBean> list = hotUserBean.data;
+                    userList.clear();
+                    userList = hotUserBean.data;
                     LinearLayoutManager manager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                     recyclerViewUser.setHasFixedSize(true);
                     recyclerViewUser.setLayoutManager(manager);
-                    recyclerViewUser.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST,R.drawable.divider_10dp));
-                    recyclerViewUser.setAdapter(new HotUserRecycleViewAdapter(activity,list));
+                    recyclerViewUser.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST, R.drawable.divider_10dp));
+                    recyclerViewUser.setAdapter(new HotUserRecycleViewAdapter(activity, userList));
                     return;
                 }
             }
@@ -138,7 +172,7 @@ public class DiscoverFragment extends BaseFragment {
             }
         });
 
-        RequestService.getProducts(String.valueOf(curPage), Constants.PAGE_SIZE, null, null,"0",new CustomCallBack() {
+        RequestService.getProducts(String.valueOf(curPage), Constants.PAGE_SIZE, null, null, "0", new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;

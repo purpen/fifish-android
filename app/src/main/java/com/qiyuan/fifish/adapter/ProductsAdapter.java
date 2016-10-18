@@ -108,6 +108,8 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> implem
                     videoHolder = (VideoHolder) convertView.getTag();
                 }
                 videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+                videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
                 break;
             default:
                 break;
