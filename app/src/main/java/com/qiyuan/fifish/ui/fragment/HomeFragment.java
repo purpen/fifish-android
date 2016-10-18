@@ -50,6 +50,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initViews() {
         customHead.setHeadCenterTxtShow(true, R.string.home);
+
         customHead.setHeadGoBackShow(false);
         customHead.setIvLeft(R.mipmap.search_head);
         mList=new ArrayList<>();
