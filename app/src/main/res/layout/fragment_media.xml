@@ -1,11 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.qiyuan.fifish.ui.view.CustomHeadView
-        android:id="@+id/custom_head"
+    <RelativeLayout
+        android:id="@+id/layout_blue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/green_black_theme">
+
+        <TextView
+            android:id="@+id/tv_cancel_media_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="@string/cancel"
+            android:textColor="@color/white_theme" />
+
+        <TextView
+            android:id="@+id/tv_show_pic_count_media_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/please_choose"
+            android:textColor="@color/white_theme" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/image_import"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp5"
+            android:paddingRight="@dimen/dp5"
+            android:src="@mipmap/option_local" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_media"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:background="@color/white_theme"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/blue_theme"
+            app:tabSelectedTextColor="@color/blue_theme"
+            app:tabTextColor="@color/black_theme" />
+
+        <TextView
+            android:id="@+id/tv_choice_media"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:text="@string/choose"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_black_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tab_media"
+            android:background="@color/grey_bg_theme" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager_media"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_title" />
+</RelativeLayout>

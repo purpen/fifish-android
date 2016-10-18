@@ -193,7 +193,7 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
         df2 = new DecimalFormat("######0.00");
         clientThread = new ClientThread(handler);
         // 客户端启动ClientThread线程创建网络连接、读取来自服务器的数据
-//        new Thread(clientThread).start();
+        new Thread(clientThread).start();
 
     }
 
@@ -296,14 +296,13 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
             @Override
             public void run() {
 
-               /* try {
+                try {
                     Message msg = new Message();
                     msg.what = 0x345;
                     clientThread.revHandler.sendMessage(msg);
                 } catch (Exception e) {
                     Log.e(">>", ">>>VVV>>7777" + e.toString());
-                }*/
-
+                }
             }
         });
         mStarted = true;

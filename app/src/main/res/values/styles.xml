@@ -21,24 +21,45 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_333</item>
         <item name="textAllCaps">true</item>
+    <!--底部对话框(backgroundDimEnabled控制背景是否变暗)-->
+    <style name="BottomDialog" parent="@style/AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
-
-    <style name="DayNightStyle">
+    <!--背光补偿及低照度的布局-->
+    <style name="StyleImageSetLayout">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:button">@null</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
         <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="StyleCommonSetLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:background">@drawable/selector_main_bg</item>
     </style>
 
     <style name="SetVideoStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/dp10</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_text_color</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
     </style>
 
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal">
@@ -50,6 +71,16 @@
         </item>
         <item name="android:progressDrawable">@drawable/battery_progress_bar</item>
     </style>
+
+    <style name="AppTheme" parent="@style/AppBaseTheme"/>
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:screenOrientation">portrait</item>
+        <!--<item name="colorPrimaryDark">@color/color_fafafa</item>
+        <item name="android:windowBackground">@android:color/white</item>-->
+    </style>
+
     <!-- MainActivity中最下面RadioGroup的五个Button的样式 -->
     <style name="MainButtonStyle">
         <item name="android:layout_height">match_parent</item>

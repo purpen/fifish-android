@@ -16,7 +16,7 @@ import com.qiyuan.fifish.application.AppApplication;
 
 public class CommonFragment extends BaseStyleFragment implements View.OnClickListener {
     private View view;
-    private ImageView mImageClose;
+    private ImageView mImageClose,mImageFoot,mImageMeter,mImageFahrenheit,mImageCentigrade;
     private RelativeLayout mLayoutFoot, mLayoutMeter, mLayoutCentigrade, mLayoutFahrenheit;
 
     @Nullable
@@ -29,6 +29,10 @@ public class CommonFragment extends BaseStyleFragment implements View.OnClickLis
 
     private void initView(View view) {
         mImageClose = (ImageView) view.findViewById(R.id.image_close);
+        mImageFoot = (ImageView) view.findViewById(R.id.image_choosed_foot);
+        mImageMeter = (ImageView) view.findViewById(R.id.image_choosed_meter);
+        mImageCentigrade = (ImageView) view.findViewById(R.id.image_degree_centigrade);
+        mImageFahrenheit = (ImageView) view.findViewById(R.id.image_degree_fahrenheit);
         mLayoutFoot = (RelativeLayout) view.findViewById(R.id.layout_foot);
         mLayoutMeter = (RelativeLayout) view.findViewById(R.id.layout_meter);
         mLayoutCentigrade = (RelativeLayout) view.findViewById(R.id.layout_degree_centigrade);
@@ -38,7 +42,20 @@ public class CommonFragment extends BaseStyleFragment implements View.OnClickLis
         mLayoutMeter.setOnClickListener(this);
         mLayoutFoot.setOnClickListener(this);
         mImageClose.setOnClickListener(this);
-
+        if (AppApplication.isMeter) {
+            mImageFoot.setVisibility(View.INVISIBLE);
+            mImageMeter.setVisibility(View.VISIBLE);
+        }else {
+            mImageFoot.setVisibility(View.VISIBLE);
+            mImageMeter.setVisibility(View.INVISIBLE);
+        }
+        if (AppApplication.isCentigrade) {
+            mImageCentigrade.setVisibility(View.VISIBLE);
+            mImageFahrenheit.setVisibility(View.INVISIBLE);
+        }else {
+            mImageCentigrade.setVisibility(View.INVISIBLE);
+            mImageFahrenheit.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -49,15 +66,23 @@ public class CommonFragment extends BaseStyleFragment implements View.OnClickLis
                 break;
             case R.id.layout_foot:
                 AppApplication.isMeter = false;
+                mImageFoot.setVisibility(View.VISIBLE);
+                mImageMeter.setVisibility(View.INVISIBLE);
                 break;
             case R.id.layout_meter:
                 AppApplication.isMeter = true;
+                mImageFoot.setVisibility(View.INVISIBLE);
+                mImageMeter.setVisibility(View.VISIBLE);
                 break;
             case R.id.layout_degree_centigrade:
                 AppApplication.isCentigrade = true;
+                mImageCentigrade.setVisibility(View.VISIBLE);
+                mImageFahrenheit.setVisibility(View.INVISIBLE);
                 break;
             case R.id.layout_degree_fahrenheit:
                 AppApplication.isCentigrade = false;
+                mImageCentigrade.setVisibility(View.INVISIBLE);
+                mImageFahrenheit.setVisibility(View.VISIBLE);
                 break;
         }
 

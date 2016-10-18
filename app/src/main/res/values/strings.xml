@@ -189,4 +189,17 @@
     <string name="connet_failed">网络连接失败，请重试</string>
     <string name="connet_canceled">网络连接被取消！</string>
     <string name="size">尺寸</string>
+    <string name="import_content">选择导入内容</string>
+    <string name="local_photo">本地照片</string>
+    <string name="local_video">本地视频</string>
+    <string name="shot">张</string>
+    <string name="option_album">选择相册</string>
+    <string name="option_photo">选择图片</string>
+    <string name="import_photo">导入</string>
+    <string name="choose">选择</string>
+    <string name="share">分享</string>
+    <string name="please_choose">请选择</string>
+    <string name="local">本地</string>
+    <string name="all">全部</string>
+    <string name="least_chose_one">请至少勾选一项</string>
 </resources>

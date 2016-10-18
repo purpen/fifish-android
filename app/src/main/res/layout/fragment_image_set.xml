@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_theme"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,90 +13,89 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/image_set" />
+            android:paddingTop="10dp"
+            android:text="@string/image_set"
+            android:textColor="@color/black_theme"
+            android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/image_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:padding="10dp"
+            android:src="@mipmap/close_black" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_backlight_compensation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleImageSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_alignParentLeft="true"
             android:text="@string/back_light" />
 
         <ImageView
             android:id="@+id/image_backlight_compensation"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/switch_off" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_low_light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleImageSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_alignParentLeft="true"
             android:text="@string/low_light" />
 
         <ImageView
             android:id="@+id/image_low_light"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/switch_off" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/layout_mode"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+         style="@style/StyleCommonSetLayout"
+            android:textStyle="bold"
             android:text="@string/mode" />
 
-        <TextView
-            android:id="@+id/tv_option_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/option_mode" />
-    </RelativeLayout>
-
-
-
-
+        <!--<TextView-->
+            <!--android:id="@+id/tv_option_mode"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="@string/option_mode" />-->
+    <!--</RelativeLayout>-->
 
         <TextView
             android:id="@+id/tv_daytime"
-            style="@style/DayNightStyle"
+            style="@style/StyleCommonSetLayout"
             android:text="@string/daytime" />
 
         <TextView
             android:id="@+id/tv_night"
-            style="@style/DayNightStyle"
+            style="@style/StyleCommonSetLayout"
             android:text="@string/night"/>
 
         <TextView
             android:id="@+id/tv_auto"
-            style="@style/DayNightStyle"
+            style="@style/StyleCommonSetLayout"
             android:text="@string/auto"/>
 
 </LinearLayout>

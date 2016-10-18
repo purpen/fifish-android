@@ -2,6 +2,7 @@ package com.qiyuan.fifish.ui.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -205,7 +206,13 @@ public class CustomHeadView extends RelativeLayout {
 
     }
 
+    public void setRightTxtOnClickListener(OnClickListener onRightTxtClickListener) {
+        if (onRightTxtClickListener != null) {
+            tv_head_right.setOnClickListener(onRightTxtClickListener);
+        }
+    }
     public TextView getHeadRightTV() {
         return tv_head_right;
     }
+
 }

@@ -29,10 +29,6 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * @author lilin
- *         created at 2016/5/18 18:01
- */
 public class ImageCropActivity extends BaseActivity {
     interface OnClipCompleteListener {
         void onClipComplete(Bitmap bitmap);

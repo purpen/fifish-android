@@ -45,4 +45,7 @@ dependencies {
     compile files('src/main/libs/baidumapapi_search_v3_7_1.jar')
     compile files('src/main/libs/baidumapapi_util_v3_7_1.jar')
     compile files('src/main/libs/locSDK_6.23.jar')
+    compile project(':pullrefreshlib')
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.squareup.picasso:picasso:2.4.0'
 }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.ftp.RemoteCameraManager;
 import com.qiyuan.fifish.R;
@@ -22,6 +23,7 @@ import org.xutils.common.Callback;
 
 public class EncodeFragment extends BaseStyleFragment implements View.OnClickListener {
     private View view;
+    private ImageView mImageClose;
     private TextView mTv720, mTv1080;
     private GetVideoEncode encodeBean = null;
     private Handler mHandler = new Handler() {
@@ -61,6 +63,8 @@ public class EncodeFragment extends BaseStyleFragment implements View.OnClickLis
     private void initView() {
         mTv720 = (TextView) view.findViewById(R.id.tv_720);
         mTv1080 = (TextView) view.findViewById(R.id.tv_1080);
+        mImageClose = (ImageView) view.findViewById(R.id.image_close);
+        mImageClose.setOnClickListener(this);
         mTv1080.setOnClickListener(this);
         mTv720.setOnClickListener(this);
     }
@@ -76,6 +80,9 @@ public class EncodeFragment extends BaseStyleFragment implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.image_close:
+                getActivity().finish();
+                break;
             case R.id.tv_720:
            /*     StringBuilder builder = new StringBuilder();
                 builder.append("[");

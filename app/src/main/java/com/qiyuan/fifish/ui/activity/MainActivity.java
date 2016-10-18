@@ -1,26 +1,38 @@
 package com.qiyuan.fifish.ui.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.ui.fragment.*;
+import com.qiyuan.fifish.ui.fragment.DeviceFragment;
+import com.qiyuan.fifish.ui.fragment.DeviceFragment2;
+import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
+import com.qiyuan.fifish.ui.fragment.HomeFragment;
+import com.qiyuan.fifish.ui.fragment.MediaFragment;
+import com.qiyuan.fifish.ui.fragment.MineFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/7/26 13:12
  */
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.main_nav)
+    @Bind(R.id.main_content)
+    FrameLayout mContentLayout;
+    @Bind(R.id.main_nav)
     RadioGroup mainNav;
     private int checkedId = R.id.ll_nav0;
     private FragmentManager fm;
@@ -92,6 +104,7 @@ public class MainActivity extends BaseActivity {
                         checkedId = i;
                         radioGroup.check(i);
                         switchFragmentandImg(DeviceFragment.class);
+//                        switchFragmentandImg(DeviceFragment2.class);
                         break;
                     case R.id.ll_nav3:
                         checkedId = i;
@@ -225,5 +238,22 @@ public class MainActivity extends BaseActivity {
         fragments=null;
         super.onDestroy();
     }
-
+    //隐藏底部的radioGroup
+    public void hideAnim() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WindowUtils.hide(this);
+//        }
+        ObjectAnimator.ofFloat(mainNav, "translationY", mainNav.getMeasuredHeight())
+                .setDuration(300)
+                .start();
+    }
+    //显示底部的radioGroup
+    public void showAnim() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WindowUtils.show(this);
+//        }
+        ObjectAnimator.ofFloat(mainNav, "translationY", 0)
+                .setDuration(300)
+                .start();
+    }
 }
