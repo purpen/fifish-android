@@ -2,17 +2,17 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/color_2187ff" />
+            <solid android:color="@color/color_999" />
             <corners android:radius="@dimen/dp30" />
 
         </shape>
     </item>
     <!-- 主体背景颜色值 -->
     <item
-        android:bottom="@dimen/dp1"
-        android:right="@dimen/dp1"
-        android:top="@dimen/dp1"
-        android:left="@dimen/dp1">
+        android:bottom="@dimen/dp05"
+        android:right="@dimen/dp05"
+        android:top="@dimen/dp05"
+        android:left="@dimen/dp05">
         <shape>
             <!--<gradient android:startColor="#eb6b00" android:centerColor="#ef8000"
                 android:endColor="#f49500" android:type="linear" android:angle="90"

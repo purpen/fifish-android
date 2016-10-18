@@ -15,7 +15,7 @@ public class DataCleanUtil {
     public static String getTotalCacheSize(Context context) throws Exception {
         long cacheSize = getFolderSize(context.getCacheDir());
         cacheSize += getFolderSize(context.getFilesDir());
-        cacheSize += getFolderSize(FileUtil.getSaveFolder(context.getPackageName()));
+        cacheSize += getFolderSize(FileUtils.getSaveFolder(context.getPackageName()));
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(context.getExternalCacheDir());
         }

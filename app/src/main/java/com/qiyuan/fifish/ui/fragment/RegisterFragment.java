@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.RegisterInfo;
 import com.qiyuan.fifish.network.RequestService;
@@ -20,14 +18,19 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
+
 import org.xutils.common.Callback;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class RegisterFragment extends BaseFragment {
-    @BindView(R.id.et_phone_reg)
+    @Bind(R.id.et_phone_reg)
     EditText etPhoneReg;
-    @BindView(R.id.et_password_reg)
+    @Bind(R.id.et_password_reg)
     EditText etPasswordReg;
-    @BindView(R.id.btn_register)
+    @Bind(R.id.btn_register)
     Button btnRegister;
     private String account;
     private String userPsw;

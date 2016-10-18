@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.album;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +10,15 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.qiyuan.fifish.R;
 
 import java.util.ArrayList;

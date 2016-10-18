@@ -4,6 +4,7 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.City;
 import com.qiyuan.fifish.bean.Province;
 import com.qiyuan.fifish.bean.ProvinceCityData;
+
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;

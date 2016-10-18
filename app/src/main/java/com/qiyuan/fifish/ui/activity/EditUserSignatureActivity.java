@@ -1,36 +1,40 @@
 package com.qiyuan.fifish.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.OnClick;
+
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author lilin
  * created at 2016/4/28 16:36
  */
 public class EditUserSignatureActivity extends BaseActivity{
-    @BindView(R.id.head_view)
+    @Bind(R.id.head_view)
     CustomHeadView head_view;
-    @BindView(R.id.et_nickname)
+    @Bind(R.id.et_nickname)
     EditText et_nickname;
     private LoginUserInfo user;
-    @BindView(R.id.label_view)
+    @Bind(R.id.label_view)
     AutoLabelUI label_view;
-    @BindView(R.id.tv_tag)
+    @Bind(R.id.tv_tag)
     TextView tv_tag;
-    @BindView(R.id.tv_hint)
+    @Bind(R.id.tv_hint)
     TextView tv_hint;
-    @BindView(R.id.iv_clear)
+    @Bind(R.id.iv_clear)
     ImageButton iv_clear;
     public EditUserSignatureActivity() {
         super(R.layout.activity_edit_signatrue);

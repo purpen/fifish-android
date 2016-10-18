@@ -1,17 +1,11 @@
 package com.qiyuan.fifish.ui.fragment;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.qiyuan.fifish.R;
 
 import java.util.ArrayList;
 
@@ -26,7 +20,6 @@ public abstract class BaseFragment<T> extends Fragment {
     protected final String TAG = getClass().getSimpleName();
     protected Activity activity;
     private int layoutId;
-    protected DisplayImageOptions options;
 
     public BaseFragment() {
     }
@@ -35,18 +28,6 @@ public abstract class BaseFragment<T> extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .delayBeforeLoading(200)
-                .displayer(new FadeInBitmapDisplayer(200))
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
         initParams();
         requestNet();
     }
@@ -106,5 +87,13 @@ public abstract class BaseFragment<T> extends Fragment {
 
     protected void refreshUI(ArrayList<T> list, ArrayList<T> list1, ArrayList<T> list2, ArrayList<T> list3) {
 
+    }
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

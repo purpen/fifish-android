@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.util.Util;
 

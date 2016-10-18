@@ -17,11 +17,6 @@ import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.FeedbackActivity;
-import com.qiyuan.fifish.ui.activity.FindFriendsActivity;
-import com.qiyuan.fifish.ui.activity.MessageActivity;
-import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
-import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
-import com.qiyuan.fifish.ui.activity.SupportProductsActivity;
 import com.qiyuan.fifish.ui.activity.SystemSettingsActivity;
 import com.qiyuan.fifish.ui.activity.UserCenterActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -33,33 +28,35 @@ import com.qiyuan.fifish.util.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 public class MineFragment extends BaseFragment {
-    @BindView(R.id.custom_head)
+
+    @Bind(R.id.custom_head)
     CustomHeadView customHead;
-    @BindView(R.id.rl)
+    @Bind(R.id.rl)
     RelativeLayout rl;
-    @BindView(R.id.riv)
+    @Bind(R.id.riv)
     RoundedImageView riv;
-    @BindView(R.id.item_message)
+    @Bind(R.id.item_message)
     CustomItemLayout itemMessage;
-    @BindView(R.id.item_support)
+    @Bind(R.id.item_support)
     CustomItemLayout itemSupport;
-    @BindView(R.id.item_feed_back)
+    @Bind(R.id.item_feed_back)
     CustomItemLayout itemFeedBack;
-    @BindView(R.id.user_name)
+    @Bind(R.id.user_name)
     TextView userName;
-    @BindView(R.id.tv_location)
+    @Bind(R.id.tv_location)
     TextView tvLocation;
-    @BindView(R.id.tv_summary)
+    @Bind(R.id.tv_summary)
     TextView tvSummary;
-    @BindView(R.id.tv_products_num)
+    @Bind(R.id.tv_products_num)
     TextView tvProductsNum;
-    @BindView(R.id.tv_focus_num)
+    @Bind(R.id.tv_focus_num)
     TextView tvFocusNum;
-    @BindView(R.id.tv_fans_num)
+    @Bind(R.id.tv_fans_num)
     TextView tvFansNum;
     private UserProfile userInfo;
     @Override
@@ -73,7 +70,6 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initViews() {
         customHead.setHeadCenterTxtShow(true, R.string.me);
-        customHead.setIvLeft(R.mipmap.icon_add_friend);
         customHead.setHeadGoBackShow(false);
         customHead.setRightImgBtnShow(true);
         customHead.getRightImgBtn().setImageResource(R.mipmap.setting);
@@ -84,21 +80,12 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void installListener() {
-        customHead.getIvLeft().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(activity, FindFriendsActivity.class));
-            }
-        });
-
         customHead.getRightImgBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(activity, SystemSettingsActivity.class));
             }
         });
-
-
     }
 
     @Override
@@ -112,6 +99,40 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void requestNet() {
+//        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                if (TextUtils.isEmpty(result)) return;
+//                try {
+//                    userInfo = JsonUtil.fromJson(result, UserProfile.class);
+//                    if (userInfo.meta.meta.status_code == Constants.HTTP_OK) {
+//                        refreshUI();
+//                        return;
+//                    }
+//                } catch (JsonSyntaxException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
+//                    ToastUtils.showError(errorBean.meta.message);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                ex.printStackTrace();
+//                ToastUtils.showError(R.string.request_error);
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
@@ -119,7 +140,7 @@ public class MineFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.status_code == Constants.HTTP_OK) {
+                    if (userInfo.meta.meta.status_code == Constants.HTTP_OK) {
                         refreshUI();
                         return;
                     }
@@ -140,43 +161,38 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void refreshUI() {
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv,options);
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.small,riv);
         userName.setText(userInfo.data.username);
-//        tvLocation.setText(userInfo.data.zone);
-        tvLocation.setText("北京朝阳");
+        tvLocation.setText(userInfo.data.zone);
         tvFocusNum.setText(userInfo.data.follow_count);
         tvFansNum.setText(userInfo.data.fans_count);
-        if (userInfo.data.summary!=null){
-            if (!TextUtils.isEmpty(userInfo.data.summary.toString())){
-                tvSummary.setText(userInfo.data.summary.toString());
-            }
-        }else {
-            tvSummary.setText("人生是场大设计!");
+        if (!TextUtils.isEmpty(userInfo.data.summary)){
+            tvSummary.setText(userInfo.data.summary);
         }
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
 
-    @OnClick({R.id.btn1,R.id.btn,R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn1:
-                startActivity(new Intent(activity,PublishPictureActivity.class));
-                break;
-            case R.id.btn:
-                startActivity(new Intent(activity,PublishVideoActivity.class));
-                break;
             case R.id.rl:
                 startActivity(new Intent(activity, UserCenterActivity.class));
                 break;
             case R.id.item_message:
-                startActivity(new Intent(activity, MessageActivity.class));
+
                 break;
             case R.id.item_support:
-                startActivity(new Intent(activity, SupportProductsActivity.class));
+
                 break;
             case R.id.item_feed_back:
                 startActivity(new Intent(activity, FeedbackActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

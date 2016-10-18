@@ -1,12 +1,14 @@
 package com.example.testffmpeg;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.util.ActivityUtil;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 

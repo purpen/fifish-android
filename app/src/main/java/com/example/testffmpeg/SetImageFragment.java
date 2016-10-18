@@ -9,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ftp.RemoteCameraManager;
 import com.qiyuan.fifish.R;
+
 import org.xutils.common.Callback;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * Created by android on 2016/9/9.

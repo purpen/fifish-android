@@ -2,50 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
     <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:id="@+id/rl_search_user"
-        android:layout_below="@+id/custom_head"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp8"
-        android:layout_marginLeft="@dimen/dp16"
-        android:layout_marginRight="@dimen/dp16"
-        android:layout_marginTop="@dimen/dp8"
-        android:layout_marginBottom="@dimen/dp8"
-        android:gravity="center"
-        android:background="@drawable/search_radius_border">
-
-        <TextView
-            android:layout_toRightOf="@+id/iv"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_user"
-            android:drawablePadding="@dimen/dp5"
-            android:textSize="@dimen/sp12"
-            android:textColor="@color/color_999"
-            android:drawableLeft="@mipmap/search_head" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_ddd" />
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/pull_lv"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/dp10"
-        />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:showDividers="none"
+            android:divider="@null"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

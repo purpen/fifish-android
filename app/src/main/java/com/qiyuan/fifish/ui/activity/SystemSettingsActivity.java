@@ -5,37 +5,43 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.DataCleanUtil;
+import com.qiyuan.fifish.util.FileUtils;
+import com.qiyuan.fifish.util.SPUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author lilin
  * created at 2016/4/25 13:33
  */
 public class SystemSettingsActivity extends BaseActivity{
-    @BindView(R.id.custom_head)
+    @Bind(R.id.custom_head)
     CustomHeadView custom_head;
-    @BindView(R.id.item_push_setting)
+    @Bind(R.id.item_push_setting)
     CustomItemLayout item_push_setting;
-    @BindView(R.id.item_update_psd)
+    @Bind(R.id.item_update_psd)
     CustomItemLayout item_update_psd;
-    @BindView(R.id.item_clear_cache)
+    @Bind(R.id.item_clear_cache)
     CustomItemLayout item_clear_cache;
-    @BindView(R.id.item_to_comment)
+    @Bind(R.id.item_to_comment)
     CustomItemLayout item_to_comment;
-    @BindView(R.id.item_welcome_page)
+    @Bind(R.id.item_welcome_page)
     CustomItemLayout item_welcome_page;
-    @BindView(R.id.item_feedback)
+    @Bind(R.id.item_feedback)
     CustomItemLayout item_feedback;
-    @BindView(R.id.item_about_us)
+    @Bind(R.id.item_about_us)
     CustomItemLayout item_about_us;
-    @BindView(R.id.item_share)
+    @Bind(R.id.item_share)
     CustomItemLayout item_share;
     public SystemSettingsActivity(){
         super(R.layout.activity_system_settings);
@@ -152,7 +158,7 @@ public class SystemSettingsActivity extends BaseActivity{
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                DataCleanUtil.cleanAppData(activity, FileUtil.getSavePath(getPackageName()));
+                DataCleanUtil.cleanAppData(activity, FileUtils.getSavePath(getPackageName()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -2,50 +2,32 @@ package com.qiyuan.fifish.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.adapter.ProductsAdapter;
-import com.qiyuan.fifish.bean.ProductsBean;
-import com.qiyuan.fifish.bean.UserProfile;
-import com.qiyuan.fifish.network.CustomCallBack;
-import com.qiyuan.fifish.network.RequestService;
-import com.qiyuan.fifish.util.Constants;
-import com.qiyuan.fifish.util.JsonUtil;
-import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
+import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
  */
 public class ProductsFragment extends ScrollTabHolderFragment {
-    @BindView(R.id.listView)
+    @Bind(R.id.listView)
     ListView listView;
-    private ArrayList<ProductsBean.DataEntity> mList;
-    private ProductsAdapter adapter;
-    public static final String POSITION = "position";
-    public static final String ID = "id";
-    private int mPosition;
-    private String id;
-    private int curPage = 1;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        mPosition = bundle.getInt(POSITION);
-        id = bundle.getString(ID);
-        super.onCreate(savedInstanceState);
-    }
+    private CustomViewPager viewPager;
+    private ArrayList<String> mList = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -55,31 +37,40 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         return view;
     }
 
-    public static ProductsFragment newInstance(int position, String id) {
-        ProductsFragment f = new ProductsFragment();
-        Bundle b = new Bundle();
-        b.putInt(POSITION, position);
-        b.putString(ID, id);
-        f.setArguments(b);
-        return f;
+    public static ProductsFragment newInstance() {
+        return new ProductsFragment();
     }
 
     @Override
     protected void initViews() {
-        View placeHolderView = Util.inflateView(activity,R.layout.view_header_placeholder, null);
-        listView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
+        for (int i = 1; i <= 50; i++) {
+            mList.add(i + ". item - currnet page: " + (0 + 1));
+        }
+        View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
+        listView.addHeaderView(placeHolderView);
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        listView.setOnScrollListener(new OnScroll());
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item, android.R.id.text1, mList);
+        listView.setAdapter(adapter);
+    }
+
     private int lastVisibleItem = 0;
 
-    private class OnScroll implements AbsListView.OnScrollListener {
+    public class OnScroll implements AbsListView.OnScrollListener {
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             int position = listView.getLastVisiblePosition();
             if (lastVisibleItem != position && position == (listView.getCount() - 1)) {
                 lastVisibleItem = position;
-               requestNet();
+                Log.e("mListView.getCount()-1", "底部");
+                mList.addAll(mList);
+                adapter.notifyDataSetChanged();
             }
         }
 
@@ -87,37 +78,19 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         public void onScroll(AbsListView view, int firstVisibleItem,
                              int visibleItemCount, int totalItemCount) {
             if (mScrollTabHolder != null)
-                mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount, mPosition);
+                mScrollTabHolder.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount, 0);
         }
 
     }
 
     @Override
     protected void installListener() {
-        listView.setOnScrollListener(new OnScroll());
+
     }
 
     @Override
     protected void requestNet() {
-        if (TextUtils.isEmpty(id)) return;
-        RequestService.getProducts(String.valueOf(curPage), Constants.PAGE_SIZE, null, id,null, new CustomCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
-                ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
-                if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
-                    refreshUI(list);
-                    return;
-                }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-                ToastUtils.showError(R.string.request_error);
-            }
-        });
     }
 
     @Override
@@ -125,6 +98,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         if (scrollHeight == 0 && listView.getFirstVisiblePosition() >= 1) {
             return;
         }
+
         listView.setSelectionFromTop(1, scrollHeight);
     }
 
@@ -136,14 +110,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
     @Override
     protected void refreshUI(ArrayList list) {
         if (list == null || list.size() == 0) return;
-        curPage++;
-        mList.addAll(list);
-        if (adapter == null) {
-            adapter = new ProductsAdapter(mList,activity, UserProfile.getUserId());
-            listView.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
 }

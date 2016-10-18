@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ViewPagerAdapter;
 import com.qiyuan.fifish.util.Util;

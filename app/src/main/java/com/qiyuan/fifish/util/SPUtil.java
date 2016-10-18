@@ -2,6 +2,7 @@ package com.qiyuan.fifish.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.qiyuan.fifish.application.AppApplication;
 
 

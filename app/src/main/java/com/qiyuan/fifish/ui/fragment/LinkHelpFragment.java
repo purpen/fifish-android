@@ -9,23 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.LinkHelpAdapter;
 import com.qiyuan.fifish.ui.view.CustomViewPager;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * @author lilin
  *         created at 2016/8/18 17:26
  */
 public class LinkHelpFragment extends DialogFragment {
-    @BindView(R.id.viewPager)
+    @Bind(R.id.viewPager)
     CustomViewPager viewPager;
-    @BindView(R.id.ll_dots)
+    @Bind(R.id.ll_dots)
     LinearLayout ll_dots;
     private ArrayList<ImageView> imageViews;
     private static final int SIZE = 4;
@@ -113,4 +115,9 @@ public class LinkHelpFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

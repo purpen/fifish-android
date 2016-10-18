@@ -5,13 +5,13 @@ import android.graphics.Bitmap;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import butterknife.BindView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import butterknife.Bind;
 
 public class AboutUsActivity extends BaseActivity {
-    @BindView(R.id.custom_head)
+    @Bind(R.id.custom_head)
     CustomHeadView custom_head;
     private WaitingDialog dialog;
     private String url;

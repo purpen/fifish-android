@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp60"
     android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="@dimen/dp5"
     android:paddingLeft="@dimen/dp16"
-    >
+    android:paddingRight="@dimen/dp16"
+    android:paddingTop="@dimen/dp5">
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="@dimen/dp40"
         android:layout_height="@dimen/dp40"
-        android:layout_centerVertical="true"
-        >
+        android:layout_gravity="center_horizontal">
 
         <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
             android:id="@+id/riv"
             android:layout_width="@dimen/dp40"
             android:layout_height="@dimen/dp40"
+            android:layout_centerVertical="true"
             app:riv_border_width="@dimen/dp1"
             app:riv_border_color="@color/color_eee"
             android:src="@mipmap/default_focus_head"
@@ -71,14 +73,8 @@
         android:layout_height="@dimen/dp30"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dp16"
-        android:background="@drawable/shape_unfocus"
+        android:background="@drawable/shape_focus"
         android:text="关注"
-        android:textColor="@color/color_0895f7"
+        android:textColor="@color/color_025dc8"
         android:textSize="@dimen/sp12" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp05"
-        android:background="@color/color_ddd"
-        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

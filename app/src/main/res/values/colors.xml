@@ -10,14 +10,13 @@
     <!-- mainactivity tab的背景颜色-->
     <color name="white40">#40FFFFFF</color>
     <color name="color_transparent">#00000000</color>
-    <color name="transparent30">#77000000</color>
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_fafafa">#fafafa</color>
     <color name="color_d7d7d7">#d7d7d7</color>
     <color name="color_025dc8">#025dc8</color>
     <color name="color_212121">#212121</color>
     <color name="color_bfbfbf">#bfbfbf</color>
-    <color name="color_0895f7">#0895f7</color>
+
     <!-- camerafragment -->
     <color name="color_f7f7f7">#f7f7f7</color>
     <color name="color_222">#222</color>

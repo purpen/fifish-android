@@ -1,26 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="@style/AppBaseTheme"/>
-    <!-- Base application theme. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:screenOrientation">portrait</item>
-        <item name="colorPrimaryDark">@color/color_333</item>
-        <item name="android:windowBackground">@null</item>
-    </style>
-
-    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/color_2187ff</item>
-        <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabBackground">@android:color/white</item>
-        <item name="android:background">@android:color/white</item>
-        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/color_2187ff</item>
-    </style>
-
-    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/color_333</item>
-        <item name="textAllCaps">true</item>
     <!--底部对话框(backgroundDimEnabled控制背景是否变暗)-->
     <style name="BottomDialog" parent="@style/AppTheme">
         <item name="android:layout_width">match_parent</item>
@@ -120,10 +98,8 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:layout_height">@dimen/dp45</item>
-        <item name="android:layout_width">0dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/sp12</item>
+        <item name="android:textSize">@dimen/label_title_size</item>
     </style>
 
     <style name="CrossImageView">
@@ -136,7 +112,7 @@
     <style name="Label">
         <item name="android:padding">@dimen/padding_label_view</item>
         <item name="android:layout_marginRight">@dimen/dp10</item>
-        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginBottom">@dimen/dp16</item>
         <item name="android:background">@color/default_background_label</item>
     </style>
 

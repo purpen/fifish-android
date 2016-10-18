@@ -2,6 +2,7 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.os.Build;
 import android.view.WindowManager;
+
 import com.qiyuan.fifish.R;
 
 /**

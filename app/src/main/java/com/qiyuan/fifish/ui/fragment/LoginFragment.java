@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.LoginBean;
@@ -20,18 +19,27 @@ import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.ForgetPasswordActivity;
 import com.qiyuan.fifish.ui.activity.MainActivity;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.SPUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.util.Util;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 public class LoginFragment extends BaseFragment {
-    @BindView(R.id.et_phone)
+
+    @Bind(R.id.et_phone)
     EditText etPhone;
-    @BindView(R.id.et_password)
+    @Bind(R.id.et_password)
     EditText etPassword;
-    @BindView(R.id.tv_forget_password)
+    @Bind(R.id.tv_forget_password)
     TextView tvForgetPassword;
-    @BindView(R.id.btn_login)
+    @Bind(R.id.btn_login)
     Button btnLogin;
     private String userName;
     private String userPsw;
@@ -146,7 +154,7 @@ public class LoginFragment extends BaseFragment {
                 LogUtil.e("获取登录信息"+result);
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.status_code== Constants.HTTP_OK){
+                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
                         SPUtil.write(Constants.LOGIN_INFO,result);
                         Intent intent = new Intent(activity, MainActivity.class);
                         startActivity(intent);

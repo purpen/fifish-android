@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.wheelview.OnWheelChangedListener;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.ui.view.wheelview.WheelView;
 import com.qiyuan.fifish.util.TimeUtil;
+
+import org.xutils.common.util.LogUtil;
 
 import java.text.ParseException;
 import java.util.ArrayList;

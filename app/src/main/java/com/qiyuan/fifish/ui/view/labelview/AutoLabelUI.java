@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 
+
 import com.qiyuan.fifish.R;
 
 import java.io.Serializable;
@@ -132,6 +133,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             label.setTag(position);
             label.setOnClickCrossListener(this);
             label.setOnLabelClickListener(this);
+
             increaseLabelsCounter();
             addView(label);
             requestLayout();

@@ -8,15 +8,18 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
 import com.qiyuan.fifish.album.PicturePickerUtils;
 import com.qiyuan.fifish.bean.LoginUserInfo;
-import com.qiyuan.fifish.ui.view.*;
+import com.qiyuan.fifish.ui.view.CustomAddressSelectView;
+import com.qiyuan.fifish.ui.view.CustomBirthdaySelectView;
+import com.qiyuan.fifish.ui.view.CustomHeadView;
+import com.qiyuan.fifish.ui.view.CustomItemLayout;
+import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.ui.view.wheelview.WheelView;
 import com.qiyuan.fifish.util.PopupWindowUtil;
@@ -27,32 +30,35 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author lilin
  *         created at 2016/4/26 18:50
  */
 public class EditUserInfoActivity extends BaseActivity {
-    @BindView(R.id.head_view)
+    @Bind(R.id.head_view)
     CustomHeadView head_view;
-    @BindView(R.id.custom_user_avatar)
+    @Bind(R.id.custom_user_avatar)
     CustomItemLayout custom_user_avatar;
-    @BindView(R.id.custom_nick_name)
+    @Bind(R.id.custom_nick_name)
     CustomItemLayout custom_nick_name;
-    @BindView(R.id.custom_signature)
+    @Bind(R.id.custom_signature)
 
     CustomItemLayout custom_signature;
-    @BindView(R.id.custom_area)
+    @Bind(R.id.custom_area)
     CustomItemLayout custom_area;
 
-    @BindView(R.id.custom_user_sex)
+    @Bind(R.id.custom_user_sex)
     CustomItemLayout custom_user_sex;
-    @BindView(R.id.custom_user_birthday)
+    @Bind(R.id.custom_user_birthday)
     CustomItemLayout custom_user_birthday;
 
-    @BindView(R.id.custom_code)
+    @Bind(R.id.custom_code)
     CustomItemLayout custom_code;
 
-    @BindView(R.id.custom_auth)
+    @Bind(R.id.custom_auth)
     CustomItemLayout custom_auth;
     private LoginUserInfo user;
 

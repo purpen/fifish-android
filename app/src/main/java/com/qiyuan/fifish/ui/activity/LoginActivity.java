@@ -5,22 +5,24 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.LoginRegsiterViewPagerAdapter;
 import com.qiyuan.fifish.ui.fragment.LoginFragment;
 import com.qiyuan.fifish.ui.fragment.RegisterFragment;
 import com.qiyuan.fifish.ui.view.WrapContentHeightViewPager;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author lilin
  *         created at 2016/7/26 13:10
  */
 public class LoginActivity extends BaseActivity {
-    @BindView(R.id.viewPager)
+    @Bind(R.id.viewPager)
     WrapContentHeightViewPager viewPager;
-    @BindView(R.id.btn_switch)
+    @Bind(R.id.btn_switch)
     Button btnSwitch;
 
     public LoginActivity() {

@@ -37,6 +37,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+
 import com.qiyuan.fifish.R;
 
 import java.util.LinkedList;

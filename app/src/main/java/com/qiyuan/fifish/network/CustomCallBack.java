@@ -1,8 +1,10 @@
 package com.qiyuan.fifish.network;
 
 import android.text.TextUtils;
+
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.SPUtil;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 import org.xutils.http.app.RequestInterceptListener;
@@ -12,7 +14,7 @@ import org.xutils.http.request.UriRequest;
  * @author lilin
  * created at 2016/9/5 16:42
  */
-public abstract class CustomCallBack implements RequestInterceptListener/*,Callback.CommonCallback<String>,*/,Callback.ProgressCallback<String>{
+public abstract class CustomCallBack implements RequestInterceptListener,Callback.CommonCallback<String>{
     @Override
     public void beforeRequest(UriRequest request) throws Throwable {
 
@@ -20,7 +22,6 @@ public abstract class CustomCallBack implements RequestInterceptListener/*,Callb
 
     @Override
     public void afterRequest(UriRequest request) throws Throwable {
-        LogUtil.e(request.toString());
         String token = request.getResponseHeader("Authorization");
         if (!TextUtils.isEmpty(token)){
             token=token.split("\\s")[1];
@@ -46,20 +47,6 @@ public abstract class CustomCallBack implements RequestInterceptListener/*,Callb
 
     @Override
     public void onFinished() {
-
-    }
-
-    @Override
-    public void onLoading(long total, long current, boolean isDownloading) {
-    }
-
-    @Override
-    public void onStarted() {
-
-    }
-
-    @Override
-    public void onWaiting() {
 
     }
 }

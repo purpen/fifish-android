@@ -4,23 +4,25 @@ package com.qiyuan.fifish.ui.activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.ToastUtils;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author lilin
  *         created at 2016/5/9 10:36
  */
 public class UpdatePasswordActivity extends BaseActivity {
-    @BindView(R.id.custom_head)
+    @Bind(R.id.custom_head)
     CustomHeadView custom_head;
-    @BindView(R.id.et_old)
+    @Bind(R.id.et_old)
     EditText et_old;
-    @BindView(R.id.et_new)
+    @Bind(R.id.et_new)
     EditText et_new;
     private WaitingDialog dialog;
 

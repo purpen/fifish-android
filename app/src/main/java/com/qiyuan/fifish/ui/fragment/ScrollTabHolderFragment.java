@@ -9,6 +9,6 @@ import com.qiyuan.fifish.interfaces.ScrollTabHolder;
 public abstract class ScrollTabHolderFragment extends BaseFragment implements ScrollTabHolder{
     protected ScrollTabHolder mScrollTabHolder;
     public void setScrollTabHolder(ScrollTabHolder scrollTabHolder) {
-        this.mScrollTabHolder = scrollTabHolder;
+        mScrollTabHolder = scrollTabHolder;
     }
 }

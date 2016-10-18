@@ -73,7 +73,7 @@
         android:text="退出当前账户"
         android:gravity="center"
         android:background="@android:color/white"
-        android:textSize="@dimen/sp14"
+        android:textSize="@dimen/sp12"
         android:textColor="@color/color_025dc8" />
 
     <Button
@@ -85,7 +85,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_margin="@dimen/dp16"
         android:text="退出当前账户"
-        android:textSize="@dimen/sp14"
+        android:textSize="@dimen/sp12"
         android:textColor="@color/color_333"
         android:visibility="gone" />
 </LinearLayout>

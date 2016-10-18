@@ -1,7 +1,5 @@
 package com.ftp;
 
-import android.util.Log;
-import com.example.testffmpeg.VideoPlayActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,12 +12,19 @@ import org.xutils.http.app.ResponseParser;
 import org.xutils.http.request.UriRequest;
 import org.xutils.x;
 
-import javax.net.ssl.SSLSocketFactory;
+import com.example.testffmpeg.MyTimeZone;
+import com.example.testffmpeg.VideoPlayActivity;
+
+import android.util.Log;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
+import javax.net.ssl.SSLSocketFactory;
 
 import static com.example.testffmpeg.MyTimeZone.getCurTimeZoneNumber;
 

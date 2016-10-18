@@ -3,11 +3,13 @@ package com.qiyuan.fifish.ui.activity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomEditText;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -15,15 +17,15 @@ import com.qiyuan.fifish.ui.view.CustomHeadView;
  */
 public class ForgetPasswordActivity extends BaseActivity {
 
-    @BindView(R.id.custom_head)
+    @Bind(R.id.custom_head)
     CustomHeadView customHead;
-    @BindView(R.id.et_code)
+    @Bind(R.id.et_code)
     CustomEditText etCode;
-    @BindView(R.id.btn_code)
+    @Bind(R.id.btn_code)
     Button btnCode;
-    @BindView(R.id.et_password)
+    @Bind(R.id.et_password)
     CustomEditText etPassword;
-    @BindView(R.id.et_phone)
+    @Bind(R.id.et_phone)
     CustomEditText etPhone;
 
     public ForgetPasswordActivity() {

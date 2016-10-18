@@ -5,14 +5,15 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,19 +23,16 @@ import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
 import com.qiyuan.fifish.album.PicturePickerUtils;
 import com.qiyuan.fifish.bean.LoginUserInfo;
-import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.interfaces.ScrollTabHolder;
-import com.qiyuan.fifish.network.CustomCallBack;
-import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.fragment.FansFragment;
 import com.qiyuan.fifish.ui.fragment.FocusFragment;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.fragment.ProductsFragment;
+import com.qiyuan.fifish.ui.fragment.ScrollTabHolderFragment;
 import com.qiyuan.fifish.ui.view.CustomViewPager;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
-import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
@@ -42,51 +40,35 @@ import com.qiyuan.fifish.util.Util;
 import java.io.File;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 
 /**
  * @author lilin
  *         created at 2016/4/26 17:43
  */
-public class UserCenterActivity extends BaseActivity implements ScrollTabHolder, View.OnClickListener, ViewPager.OnPageChangeListener {
-    @BindView(R.id.viewPager)
+public class UserCenterActivity extends BaseActivity implements ScrollTabHolder, View.OnClickListener {
+    @Bind(R.id.viewPager)
     CustomViewPager viewPager;
-    @BindView(R.id.header)
+    @Bind(R.id.header)
     View mHeader;
-    @BindView(R.id.ibtn_back)
-    ImageButton ibtn_back;
-    @BindView(R.id.iv_bg)
+    @Bind(R.id.iv_bg)
     ImageView ivBg;
-    @BindView(R.id.ibtn)
-    ImageView ibtn;
-    @BindView(R.id.riv)
+    @Bind(R.id.riv)
     RoundedImageView riv;
-    @BindView(R.id.riv_auth)
+    @Bind(R.id.riv_auth)
     RoundedImageView rivAuth;
-    @BindView(R.id.tv_name)
+    @Bind(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.tv_address)
+    @Bind(R.id.tv_address)
     TextView tvAddress;
-    @BindView(R.id.tv_summary)
+    @Bind(R.id.tv_summary)
     TextView tvSummary;
-    @BindView(R.id.tv_products_num)
+    @Bind(R.id.tv_products_num)
     TextView tvProductsNum;
-    @BindView(R.id.tv_focus_num)
+    @Bind(R.id.tv_focus_num)
     TextView tvFocusNum;
-    @BindView(R.id.tv_fans_num)
+    @Bind(R.id.tv_fans_num)
     TextView tvFansNum;
-    @BindView(R.id.ll_products)
-    LinearLayout llProducts;
-    @BindView(R.id.ll_focus)
-    LinearLayout llFocus;
-    @BindView(R.id.ll_fans)
-    LinearLayout llFans;
-    @BindView(R.id.tv_products)
-    TextView tvProducts;
-    @BindView(R.id.tv_focus)
-    TextView tvFocus;
-    @BindView(R.id.tv_fans)
-    TextView tvFans;
     private LoginUserInfo user;
     private List<Uri> mSelected;
     private String userId;
@@ -95,13 +77,12 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     private WaitingDialog dialog;
     public static final Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "temp.jpg"));
     private String flag;
+    private Fragment[] fragments = {ProductsFragment.newInstance(), FocusFragment.newInstance(), FansFragment.newInstance()};
     private int mMinHeaderHeight;
     private int mHeaderHeight;
     private int mMinHeaderTranslation;
-    private UserCenterViewPagerAdapter mPagerAdapter;
-    private Fragment[] fragments = new Fragment[3];
-    private UserProfile userInfo;
-    private int color_2187ff;
+    private PagerAdapter mPagerAdapter;
+
     public UserCenterActivity() {
         super(R.layout.activity_user_center);
     }
@@ -116,7 +97,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         if (intent.hasExtra(Constants.USER_ID)) {
             userId = intent.getStringExtra(Constants.USER_ID);
         } else {
-            userId = UserProfile.getUserId();
+            userId = LoginUserInfo.getUserId();
         }
     }
 
@@ -133,42 +114,20 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void initViews() {
-        color_2187ff=getResources().getColor(R.color.color_2187ff);
-        tvProductsNum.setTextColor(color_2187ff);
-        tvProducts.setTextColor(color_2187ff);
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
         mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp280);
         mMinHeaderTranslation = -mMinHeaderHeight;
-        fragments[0] = ProductsFragment.newInstance(0, userId);
-        fragments[1] = FocusFragment.newInstance(1, userId);
-        fragments[2] = FansFragment.newInstance(2, userId);
-        mPagerAdapter = new UserCenterViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(new UserCenterViewPagerAdapter(getSupportFragmentManager(), fragments));
+        viewPager.setOffscreenPageLimit(3);
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setTabHolderScrollingContent(this);
         viewPager.setAdapter(mPagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
-        viewPager.addOnPageChangeListener(this);
         dialog = new WaitingDialog(this);
     }
 
     @Override
     protected void requestNet() {
-        RequestService.getUserProfile(new CustomCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
-                userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                if (userInfo.meta.status_code == Constants.HTTP_OK) {
-                    refreshUI();
-                    return;
-                }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-                ToastUtils.showError(R.string.request_error);
-            }
-        });
     }
 
     public CustomViewPager getViewPager() {
@@ -185,11 +144,11 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount, int pagePosition) {
         if (viewPager.getCurrentItem() == pagePosition) {
             int scrollY = getScrollY(view);
-//            Log.e("-scrollY", -scrollY + "");
-//            Log.e("mMinHeaderTranslation", "" + mMinHeaderTranslation);
-//            Log.e("Math.max()", Math.max(-scrollY, mMinHeaderTranslation) + "");
-//            mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
-            mHeader.setTranslationY(-scrollY);
+            Log.e("-scrollY", -scrollY + "");
+            Log.e("mMinHeaderTranslation", "" + mMinHeaderTranslation);
+            Log.e("Math.max()", Math.max(-scrollY, mMinHeaderTranslation) + "");
+            mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
+//				mHeader.setTranslationY(-scrollY);
         }
     }
 
@@ -209,71 +168,101 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         return -top + firstVisiblePosition * c.getHeight() + headerHeight;
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffsetPixels > 0) {
-            int currentItem = viewPager.getCurrentItem();
+    public class PagerAdapter extends FragmentPagerAdapter {
+        private SparseArrayCompat<ScrollTabHolder> mScrollTabHolders;
+        private final String[] TITLES = {"", "", ""};
+        private ScrollTabHolder mListener;
 
-            SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-            ScrollTabHolder currentHolder;
+        public PagerAdapter(FragmentManager fm) {
+            super(fm);
+            mScrollTabHolders = new SparseArrayCompat<>();
+        }
 
-            if (position < currentItem) {
-                currentHolder = scrollTabHolders.valueAt(position);
-            } else {
-                currentHolder = scrollTabHolders.valueAt(position + 1);
+        public void setTabHolderScrollingContent(ScrollTabHolder listener) {
+            mListener = listener;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLES.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            ScrollTabHolderFragment fragment = (ScrollTabHolderFragment) fragments[position];
+
+            mScrollTabHolders.put(position, fragment);
+            if (mListener != null) {
+                fragment.setScrollTabHolder(mListener);
             }
-            currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+
+            return fragment;
         }
-    }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        switch (position){
-            case 0:
-                resetUI();
-                tvProductsNum.setTextColor(color_2187ff);
-                tvProducts.setTextColor(color_2187ff);
-                viewPager.setCurrentItem(0, true);
-                break;
-            case 1:
-                resetUI();
-                tvFocusNum.setTextColor(color_2187ff);
-                tvFocus.setTextColor(color_2187ff);
-                break;
-            case 2:
-                resetUI();
-                tvFansNum.setTextColor(color_2187ff);
-                tvFans.setTextColor(color_2187ff);
-                break;
+        public SparseArrayCompat<ScrollTabHolder> getScrollTabHolders() {
+            return mScrollTabHolders;
         }
-        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
-        currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+
     }
 
     @Override
     protected void refreshUI() {
-        if (userInfo == null) return;
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv);
-        ImageLoader.getInstance().displayImage("bg", ivBg);
-        tvName.setText(userInfo.data.username);
-//        tvAddress.setText(userInfo.data.zone);
-        tvAddress.setText("北京朝阳");
-        tvFocusNum.setText(userInfo.data.follow_count);
-        tvFansNum.setText(userInfo.data.fans_count);
-        tvProductsNum.setText(userInfo.data.stuff_count);
-        if (userInfo.data.summary != null) {
-            if (!TextUtils.isEmpty(userInfo.data.summary.toString())) {
-                tvSummary.setText(userInfo.data.summary.toString());
+        if (user == null) {
+            return;
+        }
+        if (!TextUtils.isEmpty(user.nickname)) {
+            tvName.setText(user.nickname);
+        }
+        if (!TextUtils.isEmpty(user.medium_avatar_url)) {
+            ImageLoader.getInstance().displayImage(user.medium_avatar_url, riv);
+        }
+        ImageLoader.getInstance().displayImage(user.head_pic_url, ivBg);
+
+
+        if (TextUtils.isEmpty(user.summary)) {
+            if (LoginUserInfo.getLoginInfo()._id == userId) {
+                tvSummary.setText(String.format(" | %s", "说说你是什么人，来自哪片山川湖海！"));
+            } else {
+                tvSummary.setText(String.format(" | %s", "这人好神秘，什么都不说"));
             }
         } else {
-            tvSummary.setText("人生是场大设计!");
+            tvSummary.setText(String.format(" | %s", user.summary));
         }
+
+//        if (!TextUtils.isEmpty(user.expert_label)){
+//            iv_label.setText(String.format("%s |", user.expert_label));
+//        }else {
+//            iv_label.setVisibility(View.GONE);
+//        }
+
+//        if (!TextUtils.isEmpty(user.expert_info)){
+//            tv_auth.setText(user.expert_info);
+//        }else {
+//            tv_auth.setVisibility(View.GONE);
+//        }
+
+//        if (!TextUtils.isEmpty(user.label)) {
+//            tv_label.setText(String.format(" %s", user.label));
+//        } else {
+//            tv_label.setVisibility(View.GONE);
+//        }
+//
+//        if (!TextUtils.isEmpty(user.expert_info)) {
+//            tv_auth.setText(user.expert_info);
+//        } else {
+//            tv_auth.setVisibility(View.GONE);
+//        }
+
+//        tv_lv.setText(String.format("Lv%s", user.rank_id));
+//        tv_qj.setText(String.valueOf(user.sight_count));
+//        tv_cj.setText(String.valueOf(user.sight_count));
+//        tv_focus.setText(String.valueOf(user.follow_count));
+//        tv_fans.setText(String.valueOf(user.fans_count));
     }
 
     private View initPopView(int layout, String title) {
@@ -290,15 +279,33 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void installListener() {
-        ibtn_back.setOnClickListener(this);
-        ibtn.setOnClickListener(this);
-        llProducts.setOnClickListener(this);
-        llFocus.setOnClickListener(this);
-        llFans.setOnClickListener(this);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         riv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
+                if (LoginUserInfo.getLoginInfo()._id != userId) return;
                 flag = EditUserInfoActivity.class.getSimpleName();
                 PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换头像"));
             }
@@ -306,45 +313,10 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     }
 
-    private void resetUI() {
-        int color = getResources().getColor(android.R.color.white);
-        tvProductsNum.setTextColor(color);
-        tvProducts.setTextColor(color);
-        tvFocusNum.setTextColor(color);
-        tvFocus.setTextColor(color);
-        tvFansNum.setTextColor(color);
-        tvFans.setTextColor(color);
-    }
-
     @Override
     public void onClick(View view) {
-        int color = getResources().getColor(R.color.color_2187ff);
         Intent intent;
         switch (view.getId()) {
-            case R.id.ibtn_back:
-                finish();
-                break;
-            case R.id.ibtn:
-                startActivity(new Intent(activity,EditUserInfoActivity.class));
-                break;
-            case R.id.ll_products:
-                resetUI();
-                tvProductsNum.setTextColor(color);
-                tvProducts.setTextColor(color);
-                viewPager.setCurrentItem(0, true);
-                break;
-            case R.id.ll_focus:
-                resetUI();
-                tvFocusNum.setTextColor(color);
-                tvFocus.setTextColor(color);
-                viewPager.setCurrentItem(1, true);
-                break;
-            case R.id.ll_fans:
-                resetUI();
-                tvFansNum.setTextColor(color);
-                tvFans.setTextColor(color);
-                viewPager.setCurrentItem(2, true);
-                break;
             case R.id.tv_take_photo:
                 PopupWindowUtil.dismiss();
                 getImageFromCamera();
@@ -357,7 +329,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
                 PopupWindowUtil.dismiss();
                 break;
             case R.id.rl:
-                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
+//                if (LoginUserInfo.getLoginInfo()._id != userId) return;
                 flag = UserCenterActivity.class.getSimpleName();
                 PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换背景封面"));
                 break;
@@ -375,6 +347,11 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 //            case R.id.ll_fans:
 //                intent = new Intent(activity, FansActivity.class);
 //                intent.putExtra(FocusActivity.USER_ID_EXTRA, userId);
+//                startActivity(intent);
+//                break;
+//            case R.id.bt_msg:
+//                intent = new Intent(activity, PrivateMessageActivity.class);
+//                intent.putExtra(UserCenterActivity.class.getSimpleName(), user);
 //                startActivity(intent);
 //                break;
 //            case R.id.bt_focus:
@@ -429,6 +406,17 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 //                    });
 //                }
 //                break;
+//            case R.id.ibtn:
+//                Util.makeToast("认证");
+//                break;
+//            case R.id.ll_cj:
+//                if (which == MineFragment.REQUEST_CJ) return;
+//                showCj();
+//                break;
+//            case R.id.ll_qj:
+//                if (which == MineFragment.REQUEST_CJ) return;
+//                showCj();
+//                break;
         }
     }
 
@@ -444,6 +432,9 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         } else {
             ToastUtils.showError("未检测到SD卡");
         }
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");//相片类型
+//        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
 
     protected void getImageFromCamera() {
@@ -478,7 +469,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
                 case REQUEST_CODE_CAPTURE_CAMERA:
 //                    Bitmap bitmap =ImageUtils.decodeUriAsBitmap(imageUri);
                     if (imageUri != null) {
-                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
+//                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
                         toCropActivity(imageUri);
                     }
                     break;

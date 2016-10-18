@@ -1,7 +1,10 @@
 package com.qiyuan.fifish.util;
-
 import android.app.Activity;
-import android.view.*;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 

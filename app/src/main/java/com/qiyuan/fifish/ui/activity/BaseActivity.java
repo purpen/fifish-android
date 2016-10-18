@@ -2,15 +2,10 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 
 import java.util.ArrayList;
@@ -27,7 +22,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected Activity activity;
     protected AppApplication application;
     private int layoutResID;
-    protected DisplayImageOptions options;
 
     public BaseActivity(int layoutResID) {
         this.layoutResID = layoutResID;
@@ -37,25 +31,16 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .delayBeforeLoading(200)
-                .displayer(new FadeInBitmapDisplayer(200))
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
+
 //        ShareSDK.initSDK(this);
         application = AppApplication.getInstance();
+        application.setCurrentActivity(this);
         this.activity = this;
 //		MobclickAgent.setDebugMode(true);
 //        MobclickAgent.openActivityDurationTrack(false);
 //        AnalyticsConfig.enableEncrypt(true);
         checkUserLogin();
+//        initXGPush();
         setContentView(layoutResID);
         ButterKnife.bind(this);
         getIntentData();
@@ -72,6 +57,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        application.setCurrentActivity(this);
         super.onRestart();
     }
 
@@ -125,6 +111,11 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+//        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
+//        LogUtil.e("TPush", "onResumeXGPushClickedResult:" + click);
+//        if (click != null) { // 判断是否来自信鸽的打开方式
+//            LogUtil.e("click.getContent()", click.getContent());
+//        }
     }
 
     @Override
@@ -144,6 +135,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+//        XGPushManager.onActivityStoped(this);
     }
 
     @Override

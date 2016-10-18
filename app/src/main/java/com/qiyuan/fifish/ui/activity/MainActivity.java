@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import butterknife.BindView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
-import com.qiyuan.fifish.ui.fragment.*;
 import com.qiyuan.fifish.ui.fragment.DeviceFragment;
 import com.qiyuan.fifish.ui.fragment.DeviceFragment2;
 import com.qiyuan.fifish.ui.fragment.DiscoverFragment;

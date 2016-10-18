@@ -106,7 +106,7 @@
         android:textSize="@dimen/sp12"
         android:visibility="gone"
         />
-    <com.qiyuan.fifish.ui.view.BadgeView
+    <TextView
         android:id="@+id/tv_tip_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp10"
+        android:textSize="@dimen/sp8"
         android:visibility="gone"
         />
     <TextView
