@@ -122,7 +122,7 @@ public class AddLabelActivity extends BaseActivity implements View.OnClickListen
                 if (TextUtils.isEmpty(result)) return;
                 TagsBean tagsBean = JsonUtil.fromJson(result, TagsBean.class);
                 if (tagsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<TagsBean.DataBean> list = tagsBean.data;
+                    ArrayList<TagsBean.DataEntity> list = tagsBean.data;
                     if (list == null || list.size() == 0) return;
                     adapter = new RecentUsedLabelAdapter(list, activity);
                     listView.setAdapter(adapter);

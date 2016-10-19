@@ -37,10 +37,10 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
     }
 
     private Activity activity;
-    private ArrayList<TagsBean.DataBean> list;
+    private ArrayList<TagsBean.DataEntity> list;
     private DisplayImageOptions options;
 
-    public HotTagRecycleViewAdapter(Activity activity, ArrayList<TagsBean.DataBean> list) {
+    public HotTagRecycleViewAdapter(Activity activity, ArrayList<TagsBean.DataEntity> list) {
         this.activity = activity;
         this.list = list;
         options = new DisplayImageOptions.Builder()
@@ -62,7 +62,7 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        TagsBean.DataBean item = list.get(position);
+        TagsBean.DataEntity item = list.get(position);
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +79,7 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
                 }
             });
         }
-        ImageLoader.getInstance().displayImage(item.display_name, holder.iv, options);
+        ImageLoader.getInstance().displayImage(item.cover.file.thumb, holder.iv, options);
         holder.tvTag.setText(item.display_name);
         holder.tvNum.setText(String.format("%s人参与",position));
     }

@@ -95,13 +95,13 @@ public class ProductsBean implements Serializable{
 
             public AvatarEntity avatar;
 
-            public static class AvatarEntity {
+            public static class AvatarEntity implements Serializable{
                 public String small;
                 public String large;
             }
         }
 
-        public static class PhotoEntity {
+        public static class PhotoEntity implements Serializable{
             public String id;
             public String filepath;
             public String size;
@@ -117,7 +117,7 @@ public class ProductsBean implements Serializable{
 
             public FileEntity file;
 
-            public static class FileEntity{
+            public static class FileEntity implements Serializable{
                 public String srcfile;
                 public String small;
                 public String large;

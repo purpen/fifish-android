@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-public class RecentUsedLabelAdapter extends BaseAdapter<TagsBean.DataBean> {
-    public RecentUsedLabelAdapter(ArrayList<TagsBean.DataBean> list,Activity activity) {
+public class RecentUsedLabelAdapter extends BaseAdapter<TagsBean.DataEntity> {
+    public RecentUsedLabelAdapter(ArrayList<TagsBean.DataEntity> list,Activity activity) {
         super(list,activity);
     }
 
@@ -37,7 +37,7 @@ public class RecentUsedLabelAdapter extends BaseAdapter<TagsBean.DataBean> {
             holder.name.setTextColor(parent.getResources().getColor(R.color.color_999));
             holder.name.setText("推荐标签");
         }else {
-            TagsBean.DataBean item =list.get(position-1);
+            TagsBean.DataEntity item =list.get(position-1);
             holder.name.setTextColor(parent.getResources().getColor(R.color.color_333));
             holder.name.setText("#" + item.display_name + " ");
         }

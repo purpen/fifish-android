@@ -74,15 +74,18 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/video_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp210"
-            android:visibility="gone"
             />
         <TextView
+            android:id="@+id/tv_video_time"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp15"
             android:layout_alignParentRight="true"
@@ -90,9 +93,10 @@
             android:drawableLeft="@mipmap/video_time"
             android:drawablePadding="@dimen/dp5"
             android:background="@drawable/shap_video_time"
+            android:paddingLeft="@dimen/dp5"
+            android:paddingRight="@dimen/dp5"
             android:layout_marginRight="@dimen/dp16"
             android:layout_marginTop="@dimen/dp10"
-            android:layout_margin="@dimen/dp5"
             android:textSize="@dimen/sp10"
             />
     </RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,6 +30,8 @@ import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
+import org.xutils.common.util.LogUtil;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,8 +45,6 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
     private ImageLoader imageLoader;
-
-
     public HomeAdapter(List<ProductsBean.DataEntity> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
@@ -51,6 +52,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        LogUtil.e("position=="+position);
         final ProductsBean.DataEntity item = list.get(position);
         VideoHolder videoHolder;
         if (convertView == null) {
@@ -60,18 +62,20 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        if (TextUtils.equals(Constants.TYPE_IMAGE, item.photo.kind)) {
-            videoHolder.videoView.setVisibility(View.GONE);
-            videoHolder.ivCover.setVisibility(View.VISIBLE);
-            imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
-        } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.photo.kind)) {
-            videoHolder.videoView.setVisibility(View.VISIBLE);
-            videoHolder.ivCover.setVisibility(View.GONE);
-            videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
-            videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            ImageLoader.getInstance().displayImage(item.photo.file.large, videoHolder.videoView.thumbImageView, options);
+        if (item.photo!=null){
+            if (TextUtils.equals(Constants.TYPE_IMAGE, item.photo.kind)) {
+                videoHolder.videoContainer.setVisibility(View.GONE);
+                videoHolder.ivCover.setVisibility(View.VISIBLE);
+                imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
+            } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.photo.kind)) {
+                videoHolder.videoContainer.setVisibility(View.VISIBLE);
+                videoHolder.ivCover.setVisibility(View.GONE);
+                videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+                videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ImageLoader.getInstance().displayImage(item.photo.file.large, videoHolder.videoView.thumbImageView, options);
+            }
         }
-        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
+        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv,options);
         videoHolder.tvName.setText(item.user.username);
         if (item.user.summary != null) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
@@ -103,7 +107,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
         }
 
-        if (position == size - 1) {
+        if (position == list.size() - 1) {
             videoHolder.viewLine.setVisibility(View.GONE);
         } else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);
@@ -285,6 +289,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         TextView tvTime;
         @BindView(R.id.tv_content)
         TextView tvContent;
+        @BindView(R.id.video_container)
+        RelativeLayout videoContainer;
         @BindView(R.id.videoView)
         JCVideoPlayerStandard videoView;
         @BindView(R.id.iv_cover)

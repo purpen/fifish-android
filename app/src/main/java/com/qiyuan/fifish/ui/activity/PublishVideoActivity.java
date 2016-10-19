@@ -66,7 +66,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
     private String content;
     private String address;
-    private String[] tags;
+    private ArrayList<String> tags;
     public PublishVideoActivity() {
         super(R.layout.activity_share_video);
     }
@@ -189,11 +189,12 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         double lng=0;
         LogUtil.e("asset_id==="+asset_id);
         List<Label> labels = labelView.getLabels();
-        tags=new String[]{};
-        for (int i=0;i<labels.size();i++){
-            tags[i]=labels.get(i).getText();
+        tags=new ArrayList<>();
+        for (Label label:labels){
+            tags.add(label.getText().substring(1));
         }
-        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",tags,new CustomCallBack(){
+        LogUtil.e("Tags=="+tags.toArray(new String[tags.size()])[0]);
+        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",tags.toArray(new String[tags.size()]),new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
@@ -261,7 +262,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
                     labelView.addLabel("#" + enterTag);
                 }
 
-                TagsBean.DataBean item = data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
+                TagsBean.DataEntity item = data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
                 if (item != null) {
                     labelView.addLabel("#" + item.display_name);
                 }

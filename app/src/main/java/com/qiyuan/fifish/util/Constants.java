@@ -27,7 +27,7 @@ public class Constants {
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;
     public static final int HTTP_NOT_FOUND = 404;
 
-    public static final int BANNER_INTERVAL = 3000;
+    public static final int BANNER_INTERVAL = 4000;
     public static final int GUIDE_INTERVAL = 2000;
     public static final String CHARSET = "UTF-8";
     public static  final String PAGE_SIZE = "8";

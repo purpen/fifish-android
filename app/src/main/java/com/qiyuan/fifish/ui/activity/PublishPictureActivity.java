@@ -255,7 +255,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
                     labelView.addLabel("#" + enterTag);
                 }
 
-                TagsBean.DataBean item = data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
+                TagsBean.DataEntity item = data.getParcelableExtra(AddLabelActivity.class.getSimpleName());
                 if (item != null) {
                     labelView.addLabel("#" + item.display_name);
                 }

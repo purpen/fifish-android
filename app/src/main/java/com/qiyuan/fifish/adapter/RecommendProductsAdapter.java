@@ -58,15 +58,16 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             case TYPE_VIDEO:
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
-
+                if (item.photo!=null){
+                    videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
+                    ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
+                }
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
+                if (item.photo!=null) imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
                 break;
             default:
                 break;
@@ -81,7 +82,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
         videoHolder.tvTxt.setText(item.content);
-        if (position == size - 1) {
+        if (position == list.size() - 1) {
             videoHolder.viewLine.setVisibility(View.GONE);
         } else {
             videoHolder.viewLine.setVisibility(View.VISIBLE);

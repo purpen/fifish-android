@@ -17,11 +17,9 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
     protected List<T> list;
     protected Activity activity;
     protected DisplayImageOptions options;
-    protected int size;
 
     public BaseAdapter(List<T> list, Activity activity) {
         this.list = list;
-        this.size = list.size();
         this.activity = activity;
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.default_background_750_1334)
@@ -32,8 +30,8 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(200)
-                .displayer(new FadeInBitmapDisplayer(200))
+                .delayBeforeLoading(150)
+                .displayer(new FadeInBitmapDisplayer(150))
                 .build();
     }
 
@@ -42,7 +40,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         if (list == null) {
             return 0;
         }
-        return size;
+        return list.size();
     }
 
     @Override
