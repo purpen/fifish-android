@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 
