@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green_black_theme">#0f252a</color>
+    <color name="blue_theme">#008ef8</color>
     <color name="black_theme">#000000</color>
     <color name="white_theme">#ffffff</color>
     <color name="grey_bg_theme">#f4f4f4</color>
     <color name="grey_text_color">#a4a4a4</color>
+    <color name="dense_grey_text">#797771</color>
     <!-- mainactivity tab的背景颜色-->
     <color name="white40">#40FFFFFF</color>
     <color name="color_transparent">#00000000</color>

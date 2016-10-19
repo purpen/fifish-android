@@ -1,12 +1,14 @@
 package com.example.testffmpeg;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.util.ActivityUtil;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -34,6 +36,7 @@ public class SetVideoActivity extends BaseStyleActivity implements ViewPager.OnP
     private void initView() {
         ActivityUtil.getInstance().addActivity(this);
         mCommonSet.setOnClickListener(this);
+        mCommonSet.setTextColor(getResources().getColor(R.color.blue_theme));
         mImageSet.setOnClickListener(this);
         mEncodeSet.setOnClickListener(this);
         List<Fragment> mFragments = new ArrayList<>();
@@ -50,12 +53,21 @@ public class SetVideoActivity extends BaseStyleActivity implements ViewPager.OnP
         switch (view.getId()) {
             case R.id.tv_common_set:
                 mPager.setCurrentItem(0);
+                mCommonSet.setTextColor(getResources().getColor(R.color.blue_theme));
+                mEncodeSet.setTextColor(getResources().getColor(R.color.grey_text_color));
+                mImageSet.setTextColor(getResources().getColor(R.color.grey_text_color));
                 break;
             case R.id.tv_image_set:
                 mPager.setCurrentItem(1);
+                mCommonSet.setTextColor(getResources().getColor(R.color.grey_text_color));
+                mEncodeSet.setTextColor(getResources().getColor(R.color.grey_text_color));
+                mImageSet.setTextColor(getResources().getColor(R.color.blue_theme));
                 break;
             case R.id.tv_encode_set:
                 mPager.setCurrentItem(2);
+                mCommonSet.setTextColor(getResources().getColor(R.color.grey_text_color));
+                mEncodeSet.setTextColor(getResources().getColor(R.color.blue_theme));
+                mImageSet.setTextColor(getResources().getColor(R.color.grey_text_color));
                 break;
 
         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -12,6 +13,8 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.cnjabsco.android.jni.DecoderJni;
 import com.cnjabsco.android.jni.RecordVideoJni;
 import com.ftp.RemoteCameraManager;
@@ -207,8 +210,8 @@ public class VideoView extends ImageView implements Runnable {
     public void run() {    	
         mDecoder = new DecoderJni();
       
-//        String videoPath = "rtsp://" + mUser + ":" + mPass + "@" + mIp + ":" + mRtsp + "/channel1/" + "2";
-        String videoPath = "rtsp://218.204.223.237:554/live/1/66251FC11353191F/e7ooqwcfbqjoo80j.sdp";
+        String videoPath = "rtsp://" + mUser + ":" + mPass + "@" + mIp + ":" + mRtsp + "/channel1/" + "2";
+//        String videoPath = "rtsp://218.204.223.237:554/live/1/66251FC11353191F/e7ooqwcfbqjoo80j.sdp";
         Log.e(">>", ">videoPath>>" + Uri.parse(videoPath));
         if (mDecoder.openSourceJ(videoPath) != 0) {
             mThread = null;

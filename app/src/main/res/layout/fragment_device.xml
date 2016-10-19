@@ -50,7 +50,7 @@
 
     <LinearLayout
         android:id="@+id/ll_box"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/tv_empty_device_framgent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -64,7 +64,7 @@
             android:orientation="horizontal"
             />
         <Button
-            android:id="@+id/btn_link"
+            android:id="@+id/btn_link_wifi"
             android:layout_width="@dimen/dp250"
             android:layout_height="@dimen/dp45"
             android:layout_marginTop="@dimen/dp15"
@@ -91,4 +91,9 @@
             android:layout_marginBottom="@dimen/dp8"
             />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_empty_device_framgent"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48" />
 </RelativeLayout>

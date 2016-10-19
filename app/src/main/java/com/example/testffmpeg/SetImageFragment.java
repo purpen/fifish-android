@@ -9,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ftp.RemoteCameraManager;
 import com.qiyuan.fifish.R;
+
 import org.xutils.common.Callback;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * Created by android on 2016/9/9.
@@ -21,8 +25,8 @@ import org.xutils.common.Callback;
 
 public class SetImageFragment extends BaseStyleFragment implements View.OnClickListener {
     private View view;
-    private ImageView mBackLight, mLowLight;
-    private TextView mMode,mDaytime,mNight,mAuto;
+    private ImageView mBackLight, mLowLight,mImageClose;
+    private TextView mDaytime,mNight,mAuto;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -84,18 +88,18 @@ public class SetImageFragment extends BaseStyleFragment implements View.OnClickL
     }
 
     private void initView(View view) {
+        mImageClose = (ImageView) view.findViewById(R.id.image_close);
         mAuto = (TextView) view.findViewById(R.id.tv_auto);
         mNight = (TextView) view.findViewById(R.id.tv_night);
         mDaytime = (TextView) view.findViewById(R.id.tv_daytime);
         mBackLight = (ImageView) view.findViewById(R.id.image_backlight_compensation);
         mLowLight = (ImageView) view.findViewById(R.id.image_low_light);
-        mMode = (TextView) view.findViewById(R.id.tv_option_mode);
         mBackLight.setOnClickListener(this);
         mLowLight.setOnClickListener(this);
-        mMode.setOnClickListener(this);
         mAuto.setOnClickListener(this);
         mDaytime.setOnClickListener(this);
         mNight.setOnClickListener(this);
+        mImageClose.setOnClickListener(this);
     }
 
     private boolean isOpenBackLight = false;
@@ -104,6 +108,9 @@ public class SetImageFragment extends BaseStyleFragment implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.image_close:
+                getActivity().finish();
+                break;
             // 0---关闭  1---打开
             case R.id.image_backlight_compensation:
                 if (!isOpenBackLight) {
@@ -206,9 +213,6 @@ public class SetImageFragment extends BaseStyleFragment implements View.OnClickL
                     });
 
                 }
-                break;
-            case R.id.tv_option_mode:
-
                 break;
             //"DayToNightModel": 2黑白，1彩色，0自动
             case R.id.tv_auto:

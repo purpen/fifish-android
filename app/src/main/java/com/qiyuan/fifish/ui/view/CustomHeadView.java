@@ -108,7 +108,11 @@ public class CustomHeadView extends RelativeLayout {
             }
         }
     };
-
+    public void setRightTxtOnClickListener(OnClickListener onRightTxtClickListener) {
+        if (onRightTxtClickListener != null) {
+            tv_head_right.setOnClickListener(onRightTxtClickListener);
+        }
+    }
     public void setTipsNum(int num) {
         if (num > 0) {
             tv_tip_num.setVisibility(VISIBLE);

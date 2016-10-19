@@ -16,13 +16,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import com.ftp.RemoteCameraManager;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 import com.tcp.ClientThread;
 import com.tcp.RulerHorizontalView;
 import com.tcp.RulerVerticalView;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -193,7 +202,7 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
         df2 = new DecimalFormat("######0.00");
         clientThread = new ClientThread(handler);
         // 客户端启动ClientThread线程创建网络连接、读取来自服务器的数据
-//        new Thread(clientThread).start();
+        new Thread(clientThread).start();
 
     }
 
@@ -296,14 +305,13 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
             @Override
             public void run() {
 
-               /* try {
+                try {
                     Message msg = new Message();
                     msg.what = 0x345;
                     clientThread.revHandler.sendMessage(msg);
                 } catch (Exception e) {
                     Log.e(">>", ">>>VVV>>7777" + e.toString());
-                }*/
-
+                }
             }
         });
         mStarted = true;
