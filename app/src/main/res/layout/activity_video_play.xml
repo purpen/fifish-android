@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:layout_weight="1"
-        android:background="#000000"
+        android:background="@color/white_theme"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true" />

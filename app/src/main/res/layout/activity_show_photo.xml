@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_theme"
+    android:fitsSystemWindows="true">
+    <com.customview.GlobalTitleLayout
+        android:id="@+id/title_show_photo_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <!--用此控件时,切记要在其父控件上加 android:background="",否则缩小时会出现重影-->
+    <com.customview.ClipZoomImageView
+        android:id="@+id/image_show_photo_activity"
+        android:layout_below="@+id/title_show_photo_activity"
+        android:layout_above="@+id/layout_bottom_show_photo_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:wTh="1"/>
+    <RelativeLayout
+        android:id="@+id/layout_bottom_show_photo_activity"
+        android:background="@color/green_black_theme"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48">
+        <TextView
+            android:id="@+id/tv_edit_share_show_photo_activity"
+            android:text="@string/edit_share"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/white_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/image_dustbin_show_photo_activity"
+            android:src="@mipmap/dustbin"
+            android:paddingRight="@dimen/dp10"
+            android:paddingLeft="@dimen/dp10"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</RelativeLayout>

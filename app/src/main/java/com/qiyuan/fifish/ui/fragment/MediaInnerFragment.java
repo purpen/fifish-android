@@ -18,12 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.album.ShowPhotoActivity;
 import com.bean.Image;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.MediaLocalGridAdapter;
 import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.util.MySQLiteOpenHelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -88,6 +90,7 @@ public class MediaInnerFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        hasChoosed=false;
         imageGridAdapter.showSelectIndicator(false);
         if(!selectedList.isEmpty()) selectedList.clear();
         dbHelper = new MySQLiteOpenHelper(getActivity());
@@ -134,6 +137,9 @@ public class MediaInnerFragment extends BaseFragment {
                     }
                 }else {
                     Intent intent = new Intent();
+                    intent.setClass(getActivity(), ShowPhotoActivity.class);
+                    intent.putExtra("ImageBean",image);
+                    getActivity().startActivity(intent);
                 }
 
             }
@@ -204,7 +210,7 @@ public class MediaInnerFragment extends BaseFragment {
                 break;
             case R.id.image_delete_media_inner_fragment:
                 if (!selectedList.isEmpty()) {
-                    Toast toast = Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity(), R.string.delete_ok, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     for (Image image : selectedList) {
@@ -218,7 +224,7 @@ public class MediaInnerFragment extends BaseFragment {
                     imageGridAdapter.setData(importedList,dbHelper);
                     if(importedList.isEmpty()) hideAnim();
                 }else {
-                    Toast toast = Toast.makeText(getActivity(), "无可删项", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getActivity(), R.string.cant_delete, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }

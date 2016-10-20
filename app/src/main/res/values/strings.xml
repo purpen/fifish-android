@@ -202,4 +202,7 @@
     <string name="local">本地</string>
     <string name="all">全部</string>
     <string name="least_chose_one">请至少勾选一项</string>
+    <string name="edit_share">编缉/分享</string>
+    <string name="delete_ok">删除成功</string>
+    <string name="cant_delete">无可删项</string>
 </resources>

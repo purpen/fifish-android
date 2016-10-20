@@ -200,9 +200,9 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
         rulerRight.setWithText(false);
         df = new DecimalFormat("######0.0");
         df2 = new DecimalFormat("######0.00");
-        clientThread = new ClientThread(handler);
-        // 客户端启动ClientThread线程创建网络连接、读取来自服务器的数据
-        new Thread(clientThread).start();
+//        clientThread = new ClientThread(handler);
+//        // 客户端启动ClientThread线程创建网络连接、读取来自服务器的数据
+//        new Thread(clientThread).start();
 
     }
 
@@ -305,13 +305,13 @@ public class VideoPlayActivity extends BaseStyleActivity implements MediaScanner
             @Override
             public void run() {
 
-                try {
-                    Message msg = new Message();
-                    msg.what = 0x345;
-                    clientThread.revHandler.sendMessage(msg);
-                } catch (Exception e) {
-                    Log.e(">>", ">>>VVV>>7777" + e.toString());
-                }
+//                try {
+//                    Message msg = new Message();
+//                    msg.what = 0x345;
+//                    clientThread.revHandler.sendMessage(msg);
+//                } catch (Exception e) {
+//                    Log.e(">>", ">>>VVV>>7777" + e.toString());
+//                }
             }
         });
         mStarted = true;

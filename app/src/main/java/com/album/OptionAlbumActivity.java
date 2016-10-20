@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.bean.Folder;
 import com.bean.Image;
+import com.customview.GlobalTitleLayout;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FolderAdapter;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -40,14 +41,13 @@ public class OptionAlbumActivity extends AppCompatActivity {
     private boolean hasFolderGened = false;
     private List<Image> imagesLists = new ArrayList<>();
     private boolean isVideo = false;
-
+GlobalTitleLayout title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_album);
 
         ActivityUtil.getInstance().addActivity(this);
-
         mHeadView = (CustomHeadView) findViewById(R.id.head_album_all);
         mHeadView.setHeadCenterTxtShow(true, getString(R.string.option_album));
         mHeadView.setHeadGoBackShow(true);
