@@ -129,6 +129,9 @@
             android:name=".ui.activity.SearchActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.album.OptionAlbumActivity" />
-        <activity android:name="com.album.OptionPhotoActivity"></activity>
+        <activity android:name="com.album.OptionPhotoActivity" />
+        <activity android:name="com.album.ShowPhotoActivity" />
+        <activity android:name="com.album.FilterMirrorActivity"></activity>
     </application>
+
 </manifest>
