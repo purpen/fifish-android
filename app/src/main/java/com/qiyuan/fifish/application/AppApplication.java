@@ -46,4 +46,6 @@ public class AppApplication extends Application {
 //        config.writeDebugLogs();
         ImageLoader.getInstance().init(config.build());
     }
+
+    
 }
