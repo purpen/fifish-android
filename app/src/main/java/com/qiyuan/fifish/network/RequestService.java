@@ -83,6 +83,7 @@ public class RequestService {
 
     public static void logout(CustomCallBack callBack) {
         RequestParams params = new RequestParams(Constants.USER_LOGOUT_URL);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.USER_LOGOUT_URL), cancelable);
     }
@@ -96,7 +97,7 @@ public class RequestService {
     public static void getFocus(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL + "user/" + id + "/followers";
         RequestParams params = new RequestParams(url);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -110,7 +111,7 @@ public class RequestService {
     public static void getFans(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL + "user/" + id + "/fans";
         RequestParams params = new RequestParams(url);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -126,6 +127,7 @@ public class RequestService {
         RequestParams params = new RequestParams(Constants.FEEDBACK_URL);
         params.addQueryStringParameter("contact", contact);
         params.addQueryStringParameter("content", content);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.FEEDBACK_URL), cancelable);
     }
@@ -142,7 +144,7 @@ public class RequestService {
         params.addQueryStringParameter("kind", kind);
         params.addQueryStringParameter("user_id", user_id);
         params.addQueryStringParameter("sort", sort);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.USER_PRODUCTS_URL), cancelable);
     }
@@ -153,6 +155,7 @@ public class RequestService {
      */
     public static void getHotTags(CustomCallBack callBack) {
         RequestParams params = new RequestParams(Constants.HOT_TAGS_URL);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.HOT_TAGS_URL), cancelable);
     }
@@ -164,6 +167,7 @@ public class RequestService {
      */
     public static void getHotUsers(CustomCallBack callBack) {
         RequestParams params = new RequestParams(Constants.HOT_USERS_URL);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, callBack);
         RequestManager.getInstance().add(MD5.md5(Constants.HOT_USERS_URL), cancelable);
     }
@@ -176,6 +180,7 @@ public class RequestService {
     public static void doSupport(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL+"stuffs/"+id+"/dolike";
         RequestParams params = new RequestParams(url);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -187,6 +192,7 @@ public class RequestService {
     public static void cancelSupport(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL+"stuffs/"+id+"/cancelike";
         RequestParams params = new RequestParams(url);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -202,6 +208,7 @@ public class RequestService {
         params.setMultipart(true);
         params.addBodyParameter("token",token);
         params.addBodyParameter("file",file);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(upload_url), cancelable);
     }
@@ -212,7 +219,7 @@ public class RequestService {
      */
     public static void getAvatarToken(CustomCallBack customCallBack) {
         RequestParams params = new RequestParams(Constants.AVATAR_TOKEN_URL);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.AVATAR_TOKEN_URL), cancelable);
     }
@@ -222,7 +229,7 @@ public class RequestService {
      */
     public static void getPhotoToken(CustomCallBack customCallBack) {
         RequestParams params = new RequestParams(Constants.PHOTO_TOKEN_URL);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.PHOTO_TOKEN_URL), cancelable);
     }
@@ -232,7 +239,7 @@ public class RequestService {
      */
     public static void getVideoToken(CustomCallBack customCallBack) {
         RequestParams params = new RequestParams(Constants.VIDEO_TOKEN_URL);
-//        addToken(params);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.VIDEO_TOKEN_URL), cancelable);
     }
@@ -247,6 +254,7 @@ public class RequestService {
     public static void getProductsComments(String id, CustomCallBack customCallBack) {
         String url=Constants.BASE_URL+"stuffs/"+id+"/comments";
         RequestParams params = new RequestParams(url);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -262,6 +270,7 @@ public class RequestService {
         RequestParams params = new RequestParams(url);
         params.addQueryStringParameter("q",q);
         params.addQueryStringParameter("size",size);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -286,6 +295,7 @@ public class RequestService {
         params.addQueryStringParameter("tid",tid);
         params.addQueryStringParameter("evt",evt);
         params.addQueryStringParameter("sort",sort);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params, customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -319,6 +329,7 @@ public class RequestService {
         params.lng=lng;
         params.tags=tags;
         LogUtil.e(""+tags);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(Constants.STUFFS_STORE_URL), cancelable);
     }
@@ -336,6 +347,7 @@ public class RequestService {
         params.addQueryStringParameter("page",page);
         params.addQueryStringParameter("per_page",per_page);
         params.addQueryStringParameter("name",name);
+        addToken(params);
         Callback.Cancelable cancelable = x.http().get(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }

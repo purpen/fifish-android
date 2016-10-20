@@ -22,7 +22,9 @@ import com.bean.Image;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.MediaLocalGridAdapter;
 import com.qiyuan.fifish.ui.activity.MainActivity;
+import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
 import com.qiyuan.fifish.util.MySQLiteOpenHelper;
+import com.qiyuan.fifish.util.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -200,7 +202,18 @@ public class MediaInnerFragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_media_inner_fragment:
-                Toast.makeText(getActivity(), "分享待做……", Toast.LENGTH_LONG).show();
+                if (selectedList.size()==0){
+                    ToastUtils.showInfo(R.string.least_chose_one);
+                    return;
+                }
+                Image image0 = selectedList.get(0);
+//                if (image0.isVideo){
+//                    intent = new Intent(activity, PublishVideoActivity.class);
+//                }else {
+                Intent intent = new Intent(activity, PublishPictureActivity.class);
+//                }
+                intent.putExtra(MediaInnerFragment.class.getSimpleName(),image0);
+                startActivity(intent);
                 break;
             case R.id.image_delete_media_inner_fragment:
                 if (!selectedList.isEmpty()) {

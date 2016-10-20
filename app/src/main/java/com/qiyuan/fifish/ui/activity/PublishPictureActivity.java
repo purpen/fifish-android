@@ -1,6 +1,8 @@
 package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bean.Image;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ShareAdapter;
 import com.qiyuan.fifish.adapter.SuggestionAdapter;
@@ -21,6 +25,7 @@ import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.bean.UploadImgVideoBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.fragment.MediaInnerFragment;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.GridSpacingItemDecoration;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
@@ -49,6 +54,8 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     CustomHeadView custom_head;
     @BindView(R.id.iv_cover)
     ImageView ivCover;
+    @BindView(R.id.iv_play)
+    ImageView ivPlay;
     @BindView(R.id.et_share_txt)
     EditText et_share_txt;
     @BindView(R.id.recycler_view)
@@ -61,10 +68,11 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     AutoLabelUI labelView;
     private String content;
     private String address;
-    private String[] tags;
+    private ArrayList<String> tags;
     private String token;
     private String uploadUrl;
     private ProductsBean.DataEntity item;
+    private Image selectImg;
     private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
 
     public PublishPictureActivity() {
@@ -77,6 +85,10 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         if (intent.hasExtra(TAG)) {
             item = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
         }
+
+        if (intent.hasExtra(MediaInnerFragment.class.getSimpleName())) {
+            selectImg = (Image) intent.getSerializableExtra(MediaInnerFragment.class.getSimpleName());
+        }
     }
 
     @Override
@@ -84,7 +96,22 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         custom_head.setHeadCenterTxtShow(true, R.string.title_share);
         custom_head.setHeadRightTxtShow(true, R.string.publish_products);
         custom_head.getHeadRightTV().setTextColor(getResources().getColor(R.color.color_2187ff));
-//        ImageLoader.getInstance().displayImage(item.photo.file.large, ivCover, options);
+        if (selectImg != null) {
+            if (selectImg.isVideo) {
+                ivPlay.setVisibility(View.VISIBLE);
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                mmr.setDataSource(selectImg.path);
+                Bitmap bitmap = mmr.getFrameAtTime(0);
+                ivCover.setImageBitmap(bitmap);
+                mmr.release();
+                et_share_txt.setHint(R.string.add_video_des);
+            } else {
+                ivPlay.setVisibility(View.GONE);
+                ImageLoader.getInstance().displayImage("file:///" + selectImg.path, ivCover, options);
+                et_share_txt.setHint(R.string.add_pic_des);
+            }
+        }
+
         String[] strings = getResources().getStringArray(R.array.share_way);
         ArrayList<ShareItem> shareList = new ArrayList<>();
         for (int i = 0; i < strings.length; i++) {
@@ -107,45 +134,84 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
 
     @Override
     protected void requestNet() {
-        RequestService.getPhotoToken(new CustomCallBack() {
-            @Override
-            public void onSuccess(String result) {
-                QNBean response = JsonUtil.fromJson(result, QNBean.class);
-                if (response.meta.status_code == Constants.HTTP_OK) {
-                    token = response.data.token;
-                    uploadUrl = response.data.upload_url;
+        if (selectImg.isVideo) {
+            RequestService.getVideoToken(new CustomCallBack() {
+                @Override
+                public void onSuccess(String result) {
+                    QNBean response = JsonUtil.fromJson(result, QNBean.class);
+                    if (response.meta.status_code == Constants.HTTP_OK) {
+                        token = response.data.token;
+                        uploadUrl = response.data.upload_url;
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-                ToastUtils.showError(R.string.request_error);
-            }
-        });
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    ex.printStackTrace();
+                    ToastUtils.showError(R.string.request_error);
+                }
+            });
+        } else {
+            RequestService.getPhotoToken(new CustomCallBack() {
+                @Override
+                public void onSuccess(String result) {
+                    QNBean response = JsonUtil.fromJson(result, QNBean.class);
+                    if (response.meta.status_code == Constants.HTTP_OK) {
+                        token = response.data.token;
+                        uploadUrl = response.data.upload_url;
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    ex.printStackTrace();
+                    ToastUtils.showError(R.string.request_error);
+                }
+            });
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_head_right:
-                upLoadPicture(view);
+                content = et_share_txt.getText().toString();
+                if (TextUtils.isEmpty(content) || content.length() < 5) {
+                    ToastUtils.showInfo(R.string.publish_content_length);
+                    return;
+                }
+                upLoadProducts(view);
                 break;
             default:
                 break;
         }
     }
 
-    private void upLoadPicture(final View view) {//上传的本地图片
-        final File file = new File("");
+    /**
+     * 上传作品
+     *
+     * @param view
+     */
+    private void upLoadProducts(final View view) {//上传的本地视频
+        LogUtil.e("token==" + token + "uploadUrl===" + uploadUrl);
+        if (TextUtils.isEmpty(token) || TextUtils.isEmpty(uploadUrl)) return;
+//        final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/app_tmp.mp4");
+//        try {
+//            FileUtil.inputStreamToFile(getResources().openRawResource(R.raw.video), file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        LogUtil.e(selectImg.path);
+        File file = new File(selectImg.path);
+        LogUtil.e("" + file.exists());
         view.setEnabled(false);
-        RequestService.upLoadFile(file,token,uploadUrl, new CustomCallBack() {
+        RequestService.upLoadFile(file, token, uploadUrl, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e(result);
                 view.setEnabled(true);
                 UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
                 if (TextUtils.equals(response.ret, "success")) {
+                    LogUtil.e("视频上传成功");
                     addNewProducts(response.id);
                 }
             }
@@ -153,7 +219,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
             //上传进度
             @Override
             public void onLoading(long total, long current, boolean isDownloading) {
-                super.onLoading(total, current, isDownloading);
+                LogUtil.e("total==" + total + ";;current==" + current);
             }
 
             @Override
@@ -165,25 +231,57 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         });
     }
 
+//    private void upLoadPicture(final View view) {//上传的本地图片
+//        final File file = new File("");
+//        view.setEnabled(false);
+//        RequestService.upLoadFile(file, token, uploadUrl, new CustomCallBack() {
+//            @Override
+//            public void onSuccess(String result) {
+//                LogUtil.e(result);
+//                view.setEnabled(true);
+//                UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
+//                if (TextUtils.equals(response.ret, "success")) {
+//                    addNewProducts(response.id);
+//                }
+//            }
+//
+//            //上传进度
+//            @Override
+//            public void onLoading(long total, long current, boolean isDownloading) {
+//                super.onLoading(total, current, isDownloading);
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                view.setEnabled(true);
+//                ex.printStackTrace();
+//                ToastUtils.showError(R.string.request_error);
+//            }
+//        });
+//    }
+
     /**
      * 上传作品信息
+     *
      * @param asset_id
      */
     private void addNewProducts(String asset_id) {
-        LogUtil.e("asset_id==="+asset_id);
-        double lat=0;
-        double lng=0;
+        double lat = 0;
+        double lng = 0;
+        LogUtil.e("asset_id===" + asset_id);
         List<Label> labels = labelView.getLabels();
-        tags=new String[]{};
-        for (int i=0;i<labels.size();i++){
-            tags[i]=labels.get(i).getText();
+        tags = new ArrayList<>();
+        for (Label label : labels) {
+            tags.add(label.getText().substring(1));
         }
-        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"1",tags,new CustomCallBack(){
+        LogUtil.e("Tags==" + tags.toArray(new String[tags.size()])[0]);
+        RequestService.addNewProducts(content, asset_id, "", "", String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
+                LogUtil.e(result);
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
-                if (response.meta.status_code==Constants.HTTP_OK){
-                    LogUtil.e("图片发布成功");
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    LogUtil.e("作品发布成功");
                     ToastUtils.showSuccess(R.string.publish_success);
                     finish();
                 }
