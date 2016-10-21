@@ -5,10 +5,56 @@
     android:background="@color/white_theme"
     android:fitsSystemWindows="true">
 
-    <TextView
+
+    <com.customview.GlobalTitleLayout
+        android:id="@+id/title_filter_mirror_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <jp.co.cyberagent.android.gpuimage.GPUImageView
+        android:id="@+id/gpuimage_filter_mirror_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_filter_mirror_act"
+        android:visibility="visible"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_filter_mirror_act"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello word!!!"
-        android:textColor="@color/black_theme"
-        android:textSize="17sp" />
+        android:layout_above="@+id/layout_filter_adjust"
+        android:layout_below="@+id/gpuimage_filter_mirror_act"
+        android:background="@color/black_theme"
+        android:visibility="gone"/>
+    <SeekBar
+        android:id="@+id/seekBar_filter_mirror_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="80"
+        android:layout_above="@+id/layout_filter_adjust"
+        android:layout_below="@+id/gpuimage_filter_mirror_act"
+        android:max="100" />
+    <LinearLayout
+        android:id="@+id/layout_filter_adjust"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green_black_theme">
+
+        <TextView
+            android:id="@+id/tv_filter_filter_mirror_act"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/filter_mirror" />
+
+        <TextView
+            android:id="@+id/tv_adjust_filter_mirror_act"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/adjust" />
+    </LinearLayout>
 </RelativeLayout>

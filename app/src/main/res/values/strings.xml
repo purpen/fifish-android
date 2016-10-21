@@ -205,4 +205,7 @@
     <string name="edit_share">编缉/分享</string>
     <string name="delete_ok">删除成功</string>
     <string name="cant_delete">无可删项</string>
+    <string name="filter_mirror">滤镜</string>
+    <string name="adjust">调整</string>
+    <string name="go_on">继续</string>
 </resources>

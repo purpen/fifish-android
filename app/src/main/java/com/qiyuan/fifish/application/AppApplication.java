@@ -3,10 +3,14 @@ package com.qiyuan.fifish.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.DisplayMetrics;
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import org.xutils.BuildConfig;
 import org.xutils.x;
 
 /**
@@ -17,6 +21,7 @@ public class AppApplication extends Application {
     public static boolean isMeter = true, isCentigrade = true;
     private Activity activity;
     private static AppApplication application;
+    private DisplayMetrics displayMetrics = null;
 
     public static AppApplication getInstance() {
         return application;
@@ -34,6 +39,25 @@ public class AppApplication extends Application {
         x.Ext.init(this);
         x.Ext.setDebug(true);
         initImageLoader(getApplicationContext());
+    }
+    public int getScreenHeight() {
+        if (this.displayMetrics == null) {
+            setDisplayMetrics(getResources().getDisplayMetrics());
+        }
+//        Log.e("<<<", "屏幕高度=" + this.displayMetrics.heightPixels);
+        return this.displayMetrics.heightPixels;
+    }
+
+    public int getScreenWidth() {
+        if (this.displayMetrics == null) {
+            setDisplayMetrics(getResources().getDisplayMetrics());
+        }
+//        Log.e("<<<", "屏幕宽度=" + this.displayMetrics.widthPixels);
+        return this.displayMetrics.widthPixels;
+    }
+
+    private void setDisplayMetrics(DisplayMetrics DisplayMetrics) {
+        this.displayMetrics = DisplayMetrics;
     }
 
     public static void initImageLoader(Context context) {
