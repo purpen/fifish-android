@@ -1,14 +1,18 @@
 package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bean.Image;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ShareAdapter;
 import com.qiyuan.fifish.adapter.SuggestionAdapter;
@@ -20,6 +24,7 @@ import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.bean.UploadImgVideoBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.fragment.MediaInnerFragment;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.GridSpacingItemDecoration;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
@@ -58,6 +63,8 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     RecyclerView recyclerView;
     @BindView(R.id.tv_add_tag)
     TextView tvAddTag;
+    @BindView(R.id.iv_first)
+    ImageView ivFirst;
     @BindView(R.id.label_view)
     AutoLabelUI labelView;
     private String token;
@@ -67,6 +74,8 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     private String content;
     private String address;
     private ArrayList<String> tags;
+    private Image selectImg;
+
     public PublishVideoActivity() {
         super(R.layout.activity_share_video);
     }
@@ -77,6 +86,10 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         if (intent.hasExtra(TAG)) {
             item = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
         }
+
+        if (intent.hasExtra(MediaInnerFragment.class.getSimpleName())) {
+            selectImg = (Image) intent.getSerializableExtra(MediaInnerFragment.class.getSimpleName());
+        }
     }
 
     @Override
@@ -85,7 +98,18 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         custom_head.setHeadRightTxtShow(true, R.string.publish_products);
         custom_head.getHeadRightTV().setTextColor(getResources().getColor(R.color.color_2187ff));
 //            videoView.setUp(item.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
-        videoView.setUp("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+        if (selectImg != null) {
+            LogUtil.e(selectImg.path);
+            File file = new File(selectImg.path);
+            LogUtil.e("" + file.exists());
+        }
+//        videoView.setUp("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4", JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(selectImg.path);
+        Bitmap bitmap = mmr.getFrameAtTime(0);
+        ivFirst.setImageBitmap(bitmap);
+        mmr.release();
+        videoView.setUp(selectImg.path, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
 //        }
         String[] strings = getResources().getStringArray(R.array.share_way);
         ArrayList<ShareItem> shareList = new ArrayList<>();
@@ -132,7 +156,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         switch (view.getId()) {
             case R.id.tv_head_right:
                 content = et_share_txt.getText().toString();
-                if (TextUtils.isEmpty(content) || content.length()<5) {
+                if (TextUtils.isEmpty(content) || content.length() < 5) {
                     ToastUtils.showInfo(R.string.publish_content_length);
                     return;
                 }
@@ -144,11 +168,11 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
     }
 
     private void upLoadVideo(final View view) {//上传的本地视频
-        LogUtil.e("token=="+token+";;;;uploadUrl==="+uploadUrl);
-        if (TextUtils.isEmpty(token)||TextUtils.isEmpty(uploadUrl)) return;
-        final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/app_tmp.mp4");
+        LogUtil.e("token==" + token + ";;;;uploadUrl===" + uploadUrl);
+        if (TextUtils.isEmpty(token) || TextUtils.isEmpty(uploadUrl)) return;
+        final File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/app_tmp.mp4");
         try {
-            FileUtil.inputStreamToFile(getResources().openRawResource(R.raw.video),file);
+            FileUtil.inputStreamToFile(getResources().openRawResource(R.raw.video), file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,7 +180,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
         RequestService.upLoadFile(file, token, uploadUrl, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e("=========================="+result);
+                LogUtil.e("==========================" + result);
                 view.setEnabled(true);
                 UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
                 if (TextUtils.equals(response.ret, "success")) {
@@ -168,7 +192,7 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
             //上传进度
             @Override
             public void onLoading(long total, long current, boolean isDownloading) {
-                LogUtil.e("total=="+total+";;current=="+current);
+                LogUtil.e("total==" + total + ";;current==" + current);
             }
 
             @Override
@@ -182,24 +206,25 @@ public class PublishVideoActivity extends BaseActivity implements ShareAdapter.O
 
     /**
      * 上传作品信息
+     *
      * @param asset_id
      */
     private void addNewProducts(String asset_id) {
-        double lat=0;
-        double lng=0;
-        LogUtil.e("asset_id==="+asset_id);
+        double lat = 0;
+        double lng = 0;
+        LogUtil.e("asset_id===" + asset_id);
         List<Label> labels = labelView.getLabels();
-        tags=new ArrayList<>();
-        for (Label label:labels){
+        tags = new ArrayList<>();
+        for (Label label : labels) {
             tags.add(label.getText().substring(1));
         }
-        LogUtil.e("Tags=="+tags.toArray(new String[tags.size()])[0]);
-        RequestService.addNewProducts(content,asset_id,"","",String.valueOf(lat),String.valueOf(lng),"2",tags.toArray(new String[tags.size()]),new CustomCallBack(){
+        LogUtil.e("Tags==" + tags.toArray(new String[tags.size()])[0]);
+        RequestService.addNewProducts(content, asset_id, "", "", String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
                 PublishProductsBean response = JsonUtil.fromJson(result, PublishProductsBean.class);
-                if (response.meta.status_code==Constants.HTTP_OK){
+                if (response.meta.status_code == Constants.HTTP_OK) {
                     LogUtil.e("视频发布成功");
                     ToastUtils.showSuccess(R.string.publish_success);
                     finish();
