@@ -3,6 +3,7 @@ package com.qiyuan.fifish.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -22,7 +23,8 @@ public class AppApplication extends Application {
     private Activity activity;
     private static AppApplication application;
     private DisplayMetrics displayMetrics = null;
-
+    public static Bitmap originalBitmap = null;//原图
+    public static Bitmap editBitmap = null;//编辑好的图片
     public static AppApplication getInstance() {
         return application;
 

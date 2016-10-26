@@ -13,27 +13,35 @@
 
     <jp.co.cyberagent.android.gpuimage.GPUImageView
         android:id="@+id/gpuimage_filter_mirror_act"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_filter_mirror_act"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_filter_mirror_act"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
+        android:paddingTop="@dimen/dp10"
         android:layout_above="@+id/layout_filter_adjust"
         android:layout_below="@+id/gpuimage_filter_mirror_act"
-        android:background="@color/black_theme"
-        android:visibility="gone"/>
+        android:background="#091e23"
+        android:visibility="visible" />
+
+    <!--style="@style/Widget.SeekBar.Normal"-->
     <SeekBar
         android:id="@+id/seekBar_filter_mirror_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:progress="80"
         android:layout_above="@+id/layout_filter_adjust"
         android:layout_below="@+id/gpuimage_filter_mirror_act"
-        android:max="100" />
+        android:background="#273037"
+        android:foregroundGravity="center_vertical"
+        android:max="100"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/dp40"
+        android:paddingTop="@dimen/dp40" />
+
     <LinearLayout
         android:id="@+id/layout_filter_adjust"
         android:layout_width="match_parent"

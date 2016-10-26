@@ -24,6 +24,7 @@ import com.qiyuan.fifish.R;
 /**
  * http://blog.csdn.net/lmj623565791/article/details/39761281
  * 用此控件时,切记要在其父控件上加 android:background="",否则缩小时会出现重影
+ * 另:此控件不具备完全展示功能,即如果图片大于屏幕,则超出部分只能手动滑过去查看,如果事先用了centerinside,控件又会丧失缩放能力,时间关系,后面再行研究
  * @author zhy
  */
 public class ClipZoomImageView extends ImageView implements OnTouchListener {
