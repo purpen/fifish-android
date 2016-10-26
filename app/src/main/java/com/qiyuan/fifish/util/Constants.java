@@ -5,7 +5,7 @@ package com.qiyuan.fifish.util;
  *         created at 2016/6/27 15:12
  */
 public class Constants {
-    public static final String BASE_URL = "http://api.qysea.com/";
+    public static final String BASE_URL = "https://api.qysea.com/";
     public static final String LOGIN_USER_URL= Constants.BASE_URL+"auth/login";
     public static final String REGISTER_USER_URL= Constants.BASE_URL+"auth/register";
     public static final String USER_PROFILE_URL= Constants.BASE_URL+"user/profile";

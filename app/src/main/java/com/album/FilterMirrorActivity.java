@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -29,6 +30,7 @@ import com.qiyuan.fifish.adapter.FilterRecyclerAdapter;
 import com.qiyuan.fifish.application.AppApplication;
 import com.qiyuan.fifish.ui.activity.BaseActivity;
 import com.qiyuan.fifish.ui.activity.MainActivity;
+import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.util.GPUImageFilterTools;
 import com.qiyuan.fifish.util.ToastUtils;
@@ -100,14 +102,11 @@ private Bitmap rawBitmap=null;
         mTitle.setRightButton(getString(R.string.go_on), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                compoundPicture();
+//                setNewBitmap();
 //                Intent intent = new Intent();
-//                intent.setClass(this,FilterMirrorActivity.class);
-//                intent.putExtra("ImageBean",imageBean);
+//                intent.setClass(FilterMirrorActivity.this,PublishPictureActivity.class);
 //                startActivity(intent);
             }
-
-
         });
 
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mGpuImage.getLayoutParams();
@@ -399,9 +398,6 @@ private Bitmap rawBitmap=null;
 //        hideAnimator.start();
     }
 
-    private void compoundPicture() {
-
-    }
 
     //保存图片文件
     public static String saveToFile(String fileFolderStr, boolean isDir, Bitmap croppedImage) throws IOException {

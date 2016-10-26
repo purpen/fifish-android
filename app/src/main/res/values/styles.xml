@@ -56,6 +56,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
         <item name="android:background">@drawable/selector_main_bg</item>
+        <item name="android:textColor">@color/grey_text_color</item>
     </style>
     <style name="DayNightStyle">
         <item name="android:layout_height">wrap_content</item>
