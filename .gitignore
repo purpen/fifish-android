@@ -4,4 +4,6 @@
 /.idea
 .DS_Store
 /build
+/library/build
+/Gpu_Image/build
 /captures

@@ -1,2 +1,2 @@
-include ':app', ':Gpu-Image', ':Gpu_Image'
+include ':app', ':Gpu_Image'
 include ':library'
