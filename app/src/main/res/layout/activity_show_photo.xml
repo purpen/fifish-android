@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_theme"
+    android:fitsSystemWindows="true">
+
+    <com.customview.GlobalTitleLayout
+        android:id="@+id/title_show_photo_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--用此控件时,切记要在其父控件上加 android:background="",否则缩小时会出现重影-->
+    <com.customview.ClipZoomImageView
+    android:id="@+id/image_show_photo_activity"
+    android:layout_below="@+id/title_show_photo_activity"
+    android:layout_above="@+id/layout_bottom_show_photo_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:wTh="1"/>
+
+    <!--<com.qiyuan.fifish.ui.view.imageCrop.ClipImageLayout-->
+        <!--android:id="@+id/image_show_photo_activity"-->
+        <!--android:layout_below="@+id/title_show_photo_activity"-->
+        <!--android:layout_above="@+id/layout_bottom_show_photo_activity"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--<com.album.MatrixImageView-->
+        <!--android:id="@+id/image"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_above="@+id/layout_bottom_show_photo_activity"-->
+        <!--android:layout_below="@+id/title_show_photo_activity"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:visibility="visible" />-->
+    <!--<ImageView-->
+        <!--android:id="@+id/imageview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/layout_bottom_show_photo_activity"-->
+        <!--android:layout_below="@+id/title_show_photo_activity"-->
+<!--android:scaleType="centerInside"-->
+<!--/>-->
+    <RelativeLayout
+        android:id="@+id/layout_bottom_show_photo_activity"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp48"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green_black_theme">
+
+        <TextView
+            android:id="@+id/tv_edit_share_show_photo_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="@string/edit_share"
+            android:textColor="@color/white_theme" />
+
+        <ImageView
+            android:id="@+id/image_dustbin_show_photo_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:src="@mipmap/dustbin" />
+    </RelativeLayout>
+</RelativeLayout>

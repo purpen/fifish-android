@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--宽高比-->
+    <declare-styleable name="ClipZoomImageView">
+        <attr name="wTh" format="float"/>
+    </declare-styleable>
+    <!--自定义全局标题栏-->
+    <declare-styleable name="GlobalTitleLayout">
+        <attr name="global_title_layout_title" format="reference|string"/>
+        <attr name="global_title_layout_show_back" format="boolean"/>
+    </declare-styleable>
     //scale
     <declare-styleable name="RulerHorizontalView">
         <attr name="indicateColor" format="color|reference" />

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="7.5dp"
+                android:paddingRight="7.5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="@dimen/dp70"
+            android:layout_height="@dimen/dp70"
+            >
+
+            <ImageView
+                android:id="@+id/item_edit_recycler_filterimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <TextView
+                android:id="@+id/item_edit_recycler_red"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/item_edit_recycler_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="滤镜"
+            android:textColor="@color/green_black_theme"
+            android:textSize="@dimen/sp12"/>
+    </LinearLayout>
+
+</RelativeLayout>

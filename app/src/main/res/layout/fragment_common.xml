@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_theme"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,56 +13,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/common_set" />
+            android:paddingTop="10dp"
+            android:text="@string/common_set"
+            android:textColor="@color/black_theme"
+            android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/image_close"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:padding="10dp"
+            android:src="@mipmap/close_black" />
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="14sp"
-        android:text="@string/unit" />
+        style="@style/StyleCommonSetLayout"
+        android:text="@string/unit"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/layout_foot"
-        android:layout_marginTop="10dp"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleCommonSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textSize="14sp"
-            android:text="@string/foot" />
+            android:text="@string/foot"
+            android:textColor="@color/grey_text_color"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/image_choosed_foot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:src="@mipmap/choosed"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_meter"
-        android:layout_marginTop="10dp"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleCommonSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="@color/grey_text_color"
             android:text="@string/meter" />
 
         <ImageView
@@ -69,27 +69,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:src="@mipmap/choosed"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:text="@string/temperature" />
+        style="@style/StyleCommonSetLayout"
+        android:text="@string/temperature"
+        android:textStyle="bold"/>
 
     <RelativeLayout
         android:id="@+id/layout_degree_centigrade"
-        android:layout_marginTop="10dp"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleCommonSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="@color/grey_text_color"
             android:text="@string/degree_centigrade" />
 
         <ImageView
@@ -97,27 +94,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:src="@mipmap/choosed"
+            android:visibility="invisible" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/layout_degree_fahrenheit"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/StyleCommonSetLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textSize="14sp"
-            android:text="@string/degree_fahrenheit" />
+            android:textColor="@color/grey_text_color"
+            android:text="@string/degree_fahrenheit"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/image_degree_fahrenheit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/back_3x" />
+            android:src="@mipmap/choosed"
+            android:visibility="invisible" />
     </RelativeLayout>
 </LinearLayout>

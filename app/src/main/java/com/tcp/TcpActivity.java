@@ -106,7 +106,7 @@ public class TcpActivity extends Activity {
             Bundle bundle = new Bundle();
             bundle.clear();
             try {
-                //连接服务器 并设置连接超时为5秒
+                //连接服务器 并设置连接超时为2秒
                 socket = new Socket();
                 socket.connect(new InetSocketAddress("192.168.2.222", 4321), 2000);
                 Log.e(">>>", ">>>988connect success>>>");

@@ -1,4 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!--SeekBar样式-->
+    <style name="Widget.SeekBar.Normal" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">8.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/seekbar_horizontal</item>
+        <item name="android:minHeight">8.0dip</item>
+        <item name="android:thumb">@drawable/seek_thumb</item>
+        <item name="android:thumbOffset">10.0dip</item>
+    </style>
+
     <style name="AppTheme" parent="@style/AppBaseTheme"/>
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
@@ -14,6 +25,15 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <!--背光补偿及低照度的布局-->
+    <style name="StyleImageSetLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/color_2187ff</item>
         <item name="tabIndicatorHeight">2dp</item>
@@ -22,13 +42,22 @@
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="tabSelectedTextColor">@color/color_2187ff</item>
     </style>
-
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_333</item>
         <item name="textAllCaps">true</item>
     </style>
-
+    <style name="StyleCommonSetLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:background">@drawable/selector_main_bg</item>
+        <item name="android:textColor">@color/grey_text_color</item>
+    </style>
     <style name="DayNightStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -37,14 +66,17 @@
         <item name="android:gravity">left</item>
         <item name="android:paddingTop">10dp</item>
     </style>
-
     <style name="SetVideoStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/dp10</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_text_color</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
     </style>
 
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal">
