@@ -23,6 +23,7 @@ import com.qiyuan.fifish.util.Util;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -150,7 +151,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
     }
 
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);

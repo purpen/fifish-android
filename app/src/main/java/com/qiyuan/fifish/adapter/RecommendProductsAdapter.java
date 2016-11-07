@@ -59,15 +59,15 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                if (item.photo!=null){
-                    videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
-                    ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
+                if (item.cover!=null){
+                    videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
+                    ImageLoader.getInstance().displayImage(item.cover.file.large,videoHolder.videoView.thumbImageView,options);
                 }
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                if (item.photo!=null) imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
+                if (item.cover!=null) imageLoader.displayImage(item.cover.file.large, videoHolder.ivCover, options);
                 break;
             default:
                 break;

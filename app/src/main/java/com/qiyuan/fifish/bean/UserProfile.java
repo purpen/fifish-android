@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.bean;
 
 import android.text.TextUtils;
+
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.SPUtil;
@@ -14,55 +15,30 @@ import java.io.Serializable;
 public class UserProfile implements Serializable {
 
     /**
-     * id : 1
-     * account : 215141271@qq.com
-     * username : 董先生
+     * id : 2
+     * account : 1059232202@qq.com
+     * username : 1059232202@qq.com
      * job :
-     * zone : <UITextField: 0x1309eeaa0; frame = (55 138.5; 263 44); text = ''; clipsToBounds = YES; opaque = NO;
+     * sex : 0
+     * zone :
      * summary : null
      * follow_count : 0
-     * fans_count : 0
+     * fans_count : 1
      * stuff_count : 0
      * like_count : 0
-     * avatar : {"small":"","large":""}
+     * alert_total_count : 2
+     * avatar : {"small":"http://s3.qysea.com/img/avatar!smx50.png","large":"http://s3.qysea.com/img/avatar!lgx180.png"}
+     * first_login : true
+     * following : false
      */
 
-    public DataBean data;
+    public DataEntity data;
     /**
      * message : Success.
      * status_code : 200
      */
 
-    public MetaBean meta;
-
-    public static class DataBean {
-        public String id;
-        public String account;
-        public String username;
-        public String job;
-        public String zone;
-        public Object summary;
-        public String follow_count;
-        public String fans_count;
-        public String stuff_count;
-        public String like_count;
-        /**
-         * small :
-         * large :
-         */
-
-        public AvatarBean avatar;
-
-        public static class AvatarBean {
-            public String small;
-            public String large;
-        }
-    }
-
-    public static class MetaBean {
-        public String message;
-        public int status_code;
-    }
+    public MetaEntity meta;
 
     public static UserProfile getUserProfile() {
         if (isUserLogin()) {
@@ -92,5 +68,39 @@ public class UserProfile implements Serializable {
 
     public static UserProfile getInstance() {
         return UserProfileHolder.instance;
+    }
+
+
+    public static class DataEntity {
+        public String id;
+        public String account;
+        public String username;
+        public String job;
+        public String sex;
+        public String zone;
+        public String summary;
+        public String follow_count;
+        public String fans_count;
+        public String stuff_count;
+        public String like_count;
+        public String alert_total_count;
+        /**
+         * small : http://s3.qysea.com/img/avatar!smx50.png
+         * large : http://s3.qysea.com/img/avatar!lgx180.png
+         */
+
+        public AvatarEntity avatar;
+        public boolean first_login;
+        public boolean following;
+
+        public static class AvatarEntity {
+            public String small;
+            public String large;
+        }
+    }
+
+    public static class MetaEntity {
+        public String message;
+        public int status_code;
     }
 }

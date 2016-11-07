@@ -36,6 +36,7 @@ import org.xutils.common.util.LogUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 public class MineFragment extends BaseFragment {
     @BindView(R.id.custom_head)
     CustomHeadView customHead;
@@ -62,6 +63,7 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.tv_fans_num)
     TextView tvFansNum;
     private UserProfile userInfo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setFragmentLayout(R.layout.fragment_mine);
@@ -115,7 +117,7 @@ public class MineFragment extends BaseFragment {
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e("个人中心"+result);
+                LogUtil.e("个人中心" + result);
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     userInfo = JsonUtil.fromJson(result, UserProfile.class);
@@ -126,9 +128,8 @@ public class MineFragment extends BaseFragment {
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
                 }
-//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-//                    ToastUtils.showError(errorBean.meta.message);
             }
+
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 ex.printStackTrace();
@@ -140,30 +141,33 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void refreshUI() {
-        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv,options);
+        if (userInfo == null || userInfo.data == null) return;
+        ImageLoader.getInstance().displayImage(userInfo.data.avatar.large, riv, options);
         userName.setText(userInfo.data.username);
-//        tvLocation.setText(userInfo.data.zone);
-        tvLocation.setText("北京朝阳");
+        if (TextUtils.isEmpty(userInfo.data.zone)){
+            tvLocation.setVisibility(View.GONE);
+        }else {
+            tvLocation.setVisibility(View.VISIBLE);
+            tvLocation.setText(userInfo.data.zone);
+        }
         tvFocusNum.setText(userInfo.data.follow_count);
         tvFansNum.setText(userInfo.data.fans_count);
-        if (userInfo.data.summary!=null){
-            if (!TextUtils.isEmpty(userInfo.data.summary.toString())){
-                tvSummary.setText(userInfo.data.summary.toString());
-            }
-        }else {
-            tvSummary.setText("人生是场大设计!");
+        if (TextUtils.isEmpty(userInfo.data.summary) || TextUtils.equals("null", userInfo.data.summary)) {
+            tvSummary.setText("");
+        } else {
+            tvSummary.setText(userInfo.data.summary);
         }
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
 
-    @OnClick({R.id.btn1,R.id.btn,R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.btn1, R.id.btn, R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn1:
-                startActivity(new Intent(activity,PublishPictureActivity.class));
+                startActivity(new Intent(activity, PublishPictureActivity.class));
                 break;
             case R.id.btn:
-                startActivity(new Intent(activity,PublishVideoActivity.class));
+                startActivity(new Intent(activity, PublishVideoActivity.class));
                 break;
             case R.id.rl:
                 startActivity(new Intent(activity, UserCenterActivity.class));

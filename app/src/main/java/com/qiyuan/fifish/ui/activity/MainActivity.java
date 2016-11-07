@@ -17,6 +17,8 @@ import com.qiyuan.fifish.ui.fragment.HomeFragment;
 import com.qiyuan.fifish.ui.fragment.MediaFragment;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
 
+import org.xutils.common.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        if (intent.hasExtra(HomeFragment.class.getSimpleName())) {
+            which = HomeFragment.class.getSimpleName();
+        }
         which2Switch();
         super.onNewIntent(intent);
     }
@@ -88,6 +93,7 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.ll_nav0:
+                        LogUtil.e((R.id.ll_nav0==i)+"");
                         checkedId = i;
                         radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
@@ -233,7 +239,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        fragments=null;
+        fragments = null;
         super.onDestroy();
     }
 
@@ -246,6 +252,7 @@ public class MainActivity extends BaseActivity {
                 .setDuration(300)
                 .start();
     }
+
     //显示底部的radioGroup
     public void showAnim() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

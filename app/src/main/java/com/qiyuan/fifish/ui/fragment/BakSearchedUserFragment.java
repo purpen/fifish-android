@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -93,7 +95,7 @@ public class BakSearchedUserFragment extends BaseFragment {
 
     }
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);

@@ -89,7 +89,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp15"
             android:layout_alignParentRight="true"
-            android:text="1:20"
             android:drawableLeft="@mipmap/video_time"
             android:drawablePadding="@dimen/dp5"
             android:background="@drawable/shap_video_time"
@@ -126,15 +125,7 @@
                 android:src="@mipmap/icon_unsupport"
                 android:background="@null"
                 />
-            <ImageButton
-                android:id="@+id/ibtn_comment"
-                android:layout_toRightOf="@+id/ibtn_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_comment"
-                android:layout_marginLeft="@dimen/dp25"
-                android:background="@null"
-                />
+
             <ImageButton
                 android:id="@+id/ibtn_share"
                 android:layout_toRightOf="@+id/ibtn_comment"
@@ -157,7 +148,19 @@
                 android:layout_height="@dimen/dp05"
                 android:background="@color/color_ddd"
                 android:layout_alignParentBottom="true"
-                />
+                android:id="@+id/view2" />
+
+            <ImageButton
+                android:id="@+id/ibtn_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_comment"
+                android:layout_marginLeft="25dp"
+                android:background="@null"
+                android:layout_above="@+id/view2"
+                android:layout_toRightOf="@+id/ibtn_favorite"
+                android:layout_toEndOf="@+id/ibtn_favorite"
+                android:layout_marginStart="25dp" />
         </RelativeLayout>
 
         <RelativeLayout

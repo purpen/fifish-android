@@ -22,6 +22,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -135,7 +136,7 @@ public class SearchedVideoFragment extends BaseFragment {
     }
 
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);

@@ -56,6 +56,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textColor="@color/color_666"
+                android:visibility="gone"
                 />
             <TextView
                 android:id="@+id/tv_summary"

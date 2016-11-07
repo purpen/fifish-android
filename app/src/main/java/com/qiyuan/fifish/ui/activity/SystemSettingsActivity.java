@@ -5,14 +5,21 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.fragment.HomeFragment;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.CustomItemLayout;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.DataCleanUtil;
+import com.qiyuan.fifish.util.FileUtil;
+import com.qiyuan.fifish.util.SPUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -106,32 +113,11 @@ public class SystemSettingsActivity extends BaseActivity{
     }
 
     private void logout() {
-//        RequestService.logout(new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                if (responseInfo==null) return;
-//                if (TextUtils.isEmpty(responseInfo.result)) return;
-//                HttpResponse response = JsonUtil.fromJson(responseInfo.result, HttpResponse.class);
-//                if (response.isSuccess()){//   退出成功跳转首页
-//                    ToastUtils.showSuccess("退出成功");
-//                }
-//                SPUtil.remove(Constants.LOGIN_INFO);
-//                Intent intent=new Intent(activity,MainActivity.class);
-//                intent.putExtra(IndexFragment.class.getSimpleName(),IndexFragment.class.getSimpleName());
-//                intent.putExtra("exit", true);
-//                startActivity(intent);
-//                finish();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                LogUtil.e(TAG,s);
-//            }
-//        });
         RequestService.logout(new CustomCallBack(){
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
+                ToastUtils.showSuccess(R.string.exit_success);
             }
 
             @Override
@@ -141,6 +127,10 @@ public class SystemSettingsActivity extends BaseActivity{
             }
         });
         SPUtil.remove(Constants.LOGIN_INFO);
+        Intent intent=new Intent(activity,MainActivity.class);
+        intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
+        startActivity(intent);
+        finish();
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, Void> {

@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
@@ -16,6 +15,9 @@ import com.qiyuan.fifish.bean.HotUserBean;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -42,12 +44,13 @@ public class HotUserRecycleViewAdapter extends RecyclerView.Adapter<HotUserRecyc
         this.activity = activity;
         this.list = list;
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .showImageOnLoading(R.mipmap.default_cover)
+                .showImageForEmptyUri(R.mipmap.default_cover)
+                .showImageOnFail(R.mipmap.default_cover)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
+                .delayBeforeLoading(100)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
     }

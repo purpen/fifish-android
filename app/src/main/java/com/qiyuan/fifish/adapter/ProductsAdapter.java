@@ -97,8 +97,8 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> implem
                 params.height = activity.getResources().getDimensionPixelSize(R.dimen.dp210);
                 convertView.setLayoutParams(params);
                 imageHolder.iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                if (item.photo!=null){
-                    imageLoader.displayImage(item.photo.file.large, imageHolder.iv, options);
+                if (item.cover!=null){
+                    imageLoader.displayImage(item.cover.file.large, imageHolder.iv, options);
                 }
                 break;
             case TYPE_VIDEO:
@@ -110,9 +110,9 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> implem
                     videoHolder = (VideoHolder) convertView.getTag();
                 }
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                if (item.photo!=null){
-                    videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
-                    ImageLoader.getInstance().displayImage(item.photo.file.large,videoHolder.videoView.thumbImageView,options);
+                if (item.cover!=null){
+                    videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+                    ImageLoader.getInstance().displayImage(item.cover.file.large,videoHolder.videoView.thumbImageView,options);
                 }
                 break;
             default:

@@ -62,44 +62,32 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        if (item.photo!=null){
-            if (TextUtils.equals(Constants.TYPE_IMAGE, item.photo.kind)) {
+        if (item.cover!=null){
+            if (TextUtils.equals(Constants.TYPE_IMAGE, item.cover.kind)) {
                 videoHolder.videoContainer.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                imageLoader.displayImage(item.photo.file.large, videoHolder.ivCover, options);
-            } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.photo.kind)) {
+                imageLoader.displayImage(item.cover.file.large, videoHolder.ivCover, options);
+            } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.cover.kind)) {
                 videoHolder.videoContainer.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
-                videoHolder.videoView.setUp(item.photo.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+                videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                ImageLoader.getInstance().displayImage(item.photo.file.large, videoHolder.videoView.thumbImageView, options);
+                videoHolder.tvTime.setText(item.cover.duration+"11");
+                ImageLoader.getInstance().displayImage(item.cover.file.large, videoHolder.videoView.thumbImageView, options);
             }
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv,options);
         videoHolder.tvName.setText(item.user.username);
         if (item.user.summary != null) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
-            videoHolder.tvDesc.setText(item.user.summary.toString());
+            videoHolder.tvDesc.setText(item.user.summary);
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
         videoHolder.labelView.clear();
-        for (Object obj : item.tags) {
-            if (obj instanceof String) {
-                String txt = obj.toString();
-                if (!TextUtils.isEmpty(txt)) {
-                    videoHolder.labelView.addLabel("#" + obj.toString());
-                }
-            }
+        for (ProductsBean.DataEntity.TagsEntity tag : item.tags) {
+            videoHolder.labelView.addLabel("#" + tag.name);
         }
-
-//        ArrayList<String> strings = new ArrayList<>();
-//        strings.add("北京");
-//        strings.add("北京摄影");
-//        strings.add("水下");
-//        for (String obj : strings) {
-//            videoHolder.labelView.addLabel("#" + obj.toString());
-//        }
         videoHolder.tvContent.setText(item.content);
         if (item.is_love) {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
@@ -178,9 +166,10 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                                             public void onItemClick(View view, int position) {
                                                 switch (position) {
                                                     case 0:
-
+                                                        //TODO
                                                         break;
                                                     case 1:
+
                                                         break;
                                                     case 2:
                                                         dialogReport.dismiss();
@@ -258,6 +247,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
                     notifyDataSetChanged();
+                }else {
+                    ToastUtils.showError(response.meta.message);
                 }
             }
 

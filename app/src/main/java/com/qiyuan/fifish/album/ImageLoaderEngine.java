@@ -28,7 +28,7 @@ public class ImageLoaderEngine implements LoadEngine {
             throw new ExceptionInInitializerError(INITIALIZE_ENGINE_ERROR);
         }
         if (img_loading == 0)
-            this.img_loading = R.mipmap.default_background_750_1334;
+            this.img_loading = R.mipmap.default_cover;
         else
             this.img_loading = img_loading;
         if (img_camera == 0)

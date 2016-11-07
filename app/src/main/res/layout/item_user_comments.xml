@@ -12,7 +12,7 @@
         android:id="@+id/riv"
         android:layout_width="@dimen/dp40"
         android:layout_height="@dimen/dp40"
-        android:src="@mipmap/default_background_750_1334"
+        android:src="@mipmap/default_cover"
         app:riv_corner_radius="@dimen/dp100"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"

@@ -10,10 +10,9 @@ import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.qiyuan.fifish.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -36,15 +35,14 @@ public abstract class BaseFragment<T> extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .showImageOnLoading(R.mipmap.default_cover)
+                .showImageForEmptyUri(R.mipmap.default_cover)
+                .showImageOnFail(R.mipmap.default_cover)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(150)
-                .displayer(new FadeInBitmapDisplayer(150))
+                .delayBeforeLoading(100)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
         initParams();
@@ -100,11 +98,9 @@ public abstract class BaseFragment<T> extends Fragment {
 
     }
 
-    protected void refreshUI(ArrayList<T> list) {
+    protected void refreshUI(List<T> list) {
 
     }
 
-    protected void refreshUI(ArrayList<T> list, ArrayList<T> list1, ArrayList<T> list2, ArrayList<T> list3) {
 
-    }
 }

@@ -109,11 +109,11 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         if (TextUtils.equals(Constants.TYPE_IMAGE, products.kind)) {
             videoView.setVisibility(View.GONE);
             ivCover.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(products.photo.file.large, ivCover, options);
+            ImageLoader.getInstance().displayImage(products.cover.file.large, ivCover, options);
         } else if (TextUtils.equals(Constants.TYPE_VIDEO, products.kind)) {
             videoView.setVisibility(View.VISIBLE);
             ivCover.setVisibility(View.GONE);
-            videoView.setUp(products.photo.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST);
+            videoView.setUp(products.cover.file.large, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
         }
         tvContent.setText(products.content);
     }
@@ -131,7 +131,6 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (mList.size() == 0) return;
                 ProductsCommentBean.DataBean item = adapter.getItem(i - 1);
-
             }
         });
     }

@@ -180,7 +180,7 @@ public class RequestService {
     public static void doSupport(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL+"stuffs/"+id+"/dolike";
         RequestParams params = new RequestParams(url);
-        addToken(params);
+        params.addBodyParameter("token", SPUtil.read(Constants.TOKEN));
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -198,7 +198,6 @@ public class RequestService {
     }
 
     /**
-     * 上传头像
      * @param file
      * @param callBack
      */
@@ -208,7 +207,6 @@ public class RequestService {
         params.setMultipart(true);
         params.addBodyParameter("token",token);
         params.addBodyParameter("file",file);
-        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(upload_url), cancelable);
     }

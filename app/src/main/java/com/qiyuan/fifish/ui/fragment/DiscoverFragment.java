@@ -36,6 +36,7 @@ import com.qiyuan.fifish.util.Util;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -227,7 +228,7 @@ public class DiscoverFragment extends BaseFragment {
                 if (!activity.isFinishing()&&dialog.isShowing()) dialog.dismiss();
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
+                    List<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }
@@ -243,7 +244,7 @@ public class DiscoverFragment extends BaseFragment {
     }
 
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (pullLv!=null) pullLv.onRefreshComplete();
         if (list == null || list.size() == 0) return;
         curPage++;

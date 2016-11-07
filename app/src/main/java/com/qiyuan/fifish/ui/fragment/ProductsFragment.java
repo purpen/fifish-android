@@ -21,6 +21,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -106,7 +107,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
                 if (TextUtils.isEmpty(result)) return;
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
+                    List<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }
@@ -134,7 +135,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
     }
 
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);

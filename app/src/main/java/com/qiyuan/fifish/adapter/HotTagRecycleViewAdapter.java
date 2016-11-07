@@ -44,9 +44,9 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
         this.activity = activity;
         this.list = list;
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .showImageOnLoading(R.mipmap.default_cover)
+                .showImageForEmptyUri(R.mipmap.default_cover)
+                .showImageOnFail(R.mipmap.default_cover)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

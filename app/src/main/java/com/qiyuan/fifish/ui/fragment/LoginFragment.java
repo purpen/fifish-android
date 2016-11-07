@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.LoginBean;
@@ -20,9 +19,17 @@ import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.ForgetPasswordActivity;
 import com.qiyuan.fifish.ui.activity.MainActivity;
-import com.qiyuan.fifish.util.*;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.SPUtil;
+import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.util.Util;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class LoginFragment extends BaseFragment {
     @BindView(R.id.et_phone)
@@ -102,43 +109,6 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void getUserProfile() {
-//        RequestService.getUserProfile(new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                LogUtil.e("个人信息："+result);
-//                if (TextUtils.isEmpty(result)) return;
-//                try {
-//                    UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-//                    if (userInfo.meta.meta.status_code== Constants.HTTP_OK){
-//                        SPUtil.write(Constants.LOGIN_INFO,result);
-//                        Intent intent = new Intent(activity, MainActivity.class);
-//                        startActivity(intent);
-//                        return;
-//                    }
-//                }catch (JsonSyntaxException e){
-//                    e.printStackTrace();
-//                }finally {
-//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-//                    ToastUtils.showError(errorBean.meta.message);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                ex.printStackTrace();
-//                ToastUtils.showError(R.string.request_error);
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
@@ -155,10 +125,6 @@ public class LoginFragment extends BaseFragment {
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }
-//                finally {
-//                    ErrorBean errorBean = JsonUtil.fromJson(result, ErrorBean.class);
-//                    ToastUtils.showError(errorBean.meta.message);
-//                }
             }
 
             @Override
@@ -182,7 +148,7 @@ public class LoginFragment extends BaseFragment {
         }
 
         if (TextUtils.isEmpty(userPsw)) {
-            ToastUtils.showInfo("请输入密码");
+            ToastUtils.showInfo(R.string.password_null);
             return false;
         }
 

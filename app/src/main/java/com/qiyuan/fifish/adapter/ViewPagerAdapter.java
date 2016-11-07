@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.ui.activity.UserGuideActivity;
@@ -35,16 +34,15 @@ public class ViewPagerAdapter<T> extends RecyclingPagerAdapter {
         this.size = list.size();
         isInfiniteLoop = false;
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .showImageOnLoading(R.mipmap.default_cover)
+                .showImageForEmptyUri(R.mipmap.default_cover)
+                .showImageOnFail(R.mipmap.default_cover)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(500)
-                .displayer(new FadeInBitmapDisplayer(500))
+                .delayBeforeLoading(100)
                 .build();
     }
 

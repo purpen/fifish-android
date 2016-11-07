@@ -29,6 +29,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 public class HomeFragment extends BaseFragment {
@@ -120,7 +121,7 @@ public class HomeFragment extends BaseFragment {
                 if (pullLv!=null) pullLv.onRefreshComplete();
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsBean.DataEntity> list = productsBean.data;
+                    List<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
                     return;
                 }
@@ -135,7 +136,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         LogUtil.e("refreshUI==="+list.size());
         curPage++;

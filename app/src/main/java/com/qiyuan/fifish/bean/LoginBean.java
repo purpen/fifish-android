@@ -17,5 +17,6 @@ public class LoginBean {
 
     public static class DataBean {
         public String token;
+        public int first_login;
     }
 }

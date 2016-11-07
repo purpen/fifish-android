@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.qiyuan.fifish.R;
 
 import java.util.List;
@@ -22,16 +21,15 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
         this.list = list;
         this.activity = activity;
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.default_background_750_1334)
-                .showImageForEmptyUri(R.mipmap.default_background_750_1334)
-                .showImageOnFail(R.mipmap.default_background_750_1334)
+                .showImageOnLoading(R.mipmap.default_cover)
+                .showImageForEmptyUri(R.mipmap.default_cover)
+                .showImageOnFail(R.mipmap.default_cover)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(150)
-                .displayer(new FadeInBitmapDisplayer(150))
+                .delayBeforeLoading(100)
                 .build();
     }
 
