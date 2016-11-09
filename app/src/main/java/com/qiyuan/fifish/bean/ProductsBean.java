@@ -100,7 +100,7 @@ public class ProductsBean implements Serializable{
 
             public AvatarEntity avatar;
 
-            public static class AvatarEntity {
+            public static class AvatarEntity implements Serializable{
                 public String small;
                 public String large;
             }
@@ -124,7 +124,7 @@ public class ProductsBean implements Serializable{
 
             public FileEntity file;
 
-            public static class FileEntity {
+            public static class FileEntity implements Serializable{
                 public String srcfile;
                 public String small;
                 public String large;

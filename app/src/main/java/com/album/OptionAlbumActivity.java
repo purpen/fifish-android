@@ -1,9 +1,12 @@
 package com.album;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -16,7 +19,6 @@ import android.widget.ListView;
 
 import com.bean.Folder;
 import com.bean.Image;
-import com.customview.GlobalTitleLayout;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FolderAdapter;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
@@ -29,7 +31,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+
 public class OptionAlbumActivity extends AppCompatActivity {
+    public static final int REQUEST_READ_EXTERNAL_STORAGE = 100;
     public static final String TAG = "OptionAlbumActivity";
     private CustomHeadView mHeadView;
     // loaders
@@ -41,7 +46,7 @@ public class OptionAlbumActivity extends AppCompatActivity {
     private boolean hasFolderGened = false;
     private List<Image> imagesLists = new ArrayList<>();
     private boolean isVideo = false;
-GlobalTitleLayout title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,18 +56,9 @@ GlobalTitleLayout title;
         mHeadView = (CustomHeadView) findViewById(R.id.head_album_all);
         mHeadView.setHeadCenterTxtShow(true, getString(R.string.option_album));
         mHeadView.setHeadGoBackShow(true);
-
-        switch ((int) getIntent().getExtras().get("album")) {
-            case 0:
-                this.getSupportLoaderManager().initLoader(LOADER_ALL_PHOTO, null, mLoaderCallback);
-                isVideo = false;
-                break;
-            case 2:
-                this.getSupportLoaderManager().initLoader(LOADER_ALL_VIDEO, null, mLoaderCallback);
-                isVideo = true;
-                break;
+        if (mayRedExternalStorage()) {
+            loadMediaResource();
         }
-
         mListView = (ListView) findViewById(R.id.list_album);
         mFolderAdapter = new FolderAdapter(this, isVideo);
         mListView.setAdapter(mFolderAdapter);
@@ -91,6 +87,31 @@ GlobalTitleLayout title;
             }
         });
 
+    }
+
+
+    private void loadMediaResource() {
+        switch ((int) getIntent().getExtras().get("album")) {
+            case 0:
+                isVideo = false;
+                this.getSupportLoaderManager().initLoader(LOADER_ALL_PHOTO, null, mLoaderCallback);
+                break;
+            case 2:
+                isVideo = true;
+                this.getSupportLoaderManager().initLoader(LOADER_ALL_VIDEO, null, mLoaderCallback);
+                break;
+        }
+    }
+
+    private boolean mayRedExternalStorage() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
+        return false;
     }
 
     private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -252,5 +273,17 @@ GlobalTitleLayout title;
         SimpleDateFormat format = new SimpleDateFormat(dataFormat);
         result = format.format(new Date(timeStamp));
         return result;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted , Access contacts here or do whatever you need.
+                loadMediaResource();
+            }
+        }
     }
 }

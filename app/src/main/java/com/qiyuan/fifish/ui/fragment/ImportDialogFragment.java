@@ -77,7 +77,6 @@ public class ImportDialogFragment extends DialogFragment implements
                 in.putExtra("album",0);
                 getActivity().startActivity(in);
                 dismiss();
-
                 break;
             case R.id.tv_local_video:
                 Intent intent = new Intent();
