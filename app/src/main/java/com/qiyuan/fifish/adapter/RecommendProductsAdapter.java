@@ -89,6 +89,11 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         }
         videoHolder.tvCommentNum.setText(String.format("所有%s条评论", item.comment_count));
         videoHolder.tvTime.setText(item.created_at);
+        if (item.is_follow){
+            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp10, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
+        }else {
+            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
+        }
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);
@@ -123,10 +128,12 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                         BottomSheetView.show(activity, new SimpleTextAdapter(activity, strings), BottomSheetView.LINEAR_LAYOUT);
                         break;
                     case R.id.btn_focus:
-                        if (true) {
-                            setFocusBtnStyle((Button) view, R.dimen.dp10, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
+                        if (item.is_follow) { //做取消关注
+                            setFocusBtnStyle((Button) view, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
+                            cancelFocus(view,item);
                         } else {
-                            setFocusBtnStyle((Button) view, R.dimen.dp10, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
+                            setFocusBtnStyle((Button) view, R.dimen.dp10, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
+                            doFocus(view,item);
                         }
                         break;
                     default:
@@ -135,6 +142,38 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             }
         });
     }
+
+    private void doFocus(final View view, ProductsBean.DataEntity item) {
+        view.setEnabled(false);
+        RequestService.doFocus(item.id, new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+            }
+        });
+    }
+
+    private void cancelFocus(final View view, ProductsBean.DataEntity item) {
+        view.setEnabled(false);
+        RequestService.cancelFocus(item.id, new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                view.setEnabled(true);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                view.setEnabled(true);
+            }
+        });
+    }
+
+    
 
     private void cancelSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
@@ -181,6 +220,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
     }
 
     private void setFocusBtnStyle(Button bt_focus, int dimensionPixelSize, int focus, int unfocus_pic, int color, int drawable) {
+        dimensionPixelSize=activity.getResources().getDimensionPixelSize(dimensionPixelSize);
         bt_focus.setPadding(dimensionPixelSize, 0, dimensionPixelSize, 0);
         bt_focus.setText(focus);
         bt_focus.setTextColor(activity.getResources().getColor(color));

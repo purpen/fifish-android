@@ -3,15 +3,24 @@ package com.qiyuan.fifish.ui.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import butterknife.BindView;
+import android.widget.LinearLayout;
+
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FavoriteProductsAdapter;
 import com.qiyuan.fifish.bean.CommentsBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import com.qiyuan.fifish.util.ToastUtils;
 
+import org.xutils.common.util.LogUtil;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author lilin
@@ -20,8 +29,10 @@ import java.util.List;
 public class FavoriteProductsActivity extends BaseActivity {
     @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @BindView(R.id.lv)
-    ListView lv;
+    @BindView(R.id.pull_lv)
+    PullToRefreshListView pullLv;
+    @BindView(R.id.ll_empty_view)
+    LinearLayout llEmptyView;
     private int curPage = 1;
     private int unread_count;
     private List<CommentsBean.CommentItem> list;
@@ -31,7 +42,12 @@ public class FavoriteProductsActivity extends BaseActivity {
     private FavoriteProductsAdapter adapter;
 
     public FavoriteProductsActivity() {
-        super(R.layout.activity_user_comments);
+        super(R.layout.activity_list);
+    }
+
+    @Override
+    protected void initParams() {
+        list = new ArrayList<>();
     }
 
     @Override
@@ -44,14 +60,15 @@ public class FavoriteProductsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        custom_head.setHeadCenterTxtShow(true, "喜欢");
+        custom_head.setHeadCenterTxtShow(true, R.string.title_favorite);
         dialog = new WaitingDialog(this);
-//        WindowUtils.chenjin(this);
+        pullLv.setEmptyView(llEmptyView);
+        adapter = new FavoriteProductsAdapter(list, activity);
     }
 
     @Override
     protected void installListener() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Intent intent = new Intent(activity, CommentListActivity.class);
@@ -68,48 +85,31 @@ public class FavoriteProductsActivity extends BaseActivity {
 
     @Override
     protected void requestNet() {
-//        ClientDiscoverAPI.mycommentsList(String.valueOf(curPage), pageSize, null, LoginInfo.getUserId() + "", COMMENT_TYPE, new RequestCallBack<String>() {
-//            @Override
-//            public void onStart() {
-//                if (!activity.isFinishing() && dialog != null) dialog.show();
-//            }
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (!activity.isFinishing() && dialog != null) dialog.dismiss();
-//                    }
-//                }, DataConstants.DIALOG_DELAY);
-//                if (responseInfo == null) return;
-//                if (TextUtils.isEmpty(responseInfo.result)) return;
-//                LogUtil.e(TAG, responseInfo.result);
-//                CommentsBean commentsBean = JsonUtil.fromJson(responseInfo.result, CommentsBean.class);
-//                if (commentsBean.isSuccess()) {
-//                    if (commentsBean.getData() == null) return;
-//                    list = commentsBean.getData().getRows();
-//                    refreshUI();
-//                } else {
-//                    ToastUtils.showError(commentsBean.getMessage());
-////                    dialog.showErrorWithStatus(commentsBean.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                dialog.dismiss();
-//                ToastUtils.showError("网络异常，请确认网络畅通");
-////                dialog.showErrorWithStatus("网络异常，请确认网络畅通");
-//            }
-//        });
+        RequestService.getMyComments(new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog != null && !activity.isFinishing()) dialog.show();
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                LogUtil.e(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
     }
+
 
     @Override
     protected void refreshUI() {
         if (list == null) return;
         if (list.size() == 0) {
-//            Util.makeToast("暂无评论");
             return;
         }
 
@@ -119,7 +119,7 @@ public class FavoriteProductsActivity extends BaseActivity {
 
         if (adapter == null) {
             adapter = new FavoriteProductsAdapter(list, activity);
-            lv.setAdapter(adapter);
+            pullLv.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
         }

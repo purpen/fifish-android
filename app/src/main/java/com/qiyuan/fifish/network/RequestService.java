@@ -198,6 +198,31 @@ public class RequestService {
     }
 
     /**
+     * 关注
+     * @param id
+     * @param callBack
+     */
+    public static void doFocus(String id, CustomCallBack callBack) {
+        String url = Constants.BASE_URL+"user/"+id+"/follow";
+        RequestParams params = new RequestParams(url);
+        params.addBodyParameter("token", SPUtil.read(Constants.TOKEN));
+        Callback.Cancelable cancelable = x.http().post(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+    /**
+     * 取消关注
+     * @param id
+     * @param callBack
+     */
+    public static void cancelFocus(String id, CustomCallBack callBack) {
+        String url = Constants.BASE_URL+"user/"+id+"/cancelFollow";
+        RequestParams params = new RequestParams(url);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params, callBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
      * @param file
      * @param callBack
      */
@@ -345,6 +370,18 @@ public class RequestService {
         params.addQueryStringParameter("page",page);
         params.addQueryStringParameter("per_page",per_page);
         params.addQueryStringParameter("name",name);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 获取我的评论列表
+     * @param customCallBack
+     */
+    public static void getMyComments(CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/gotComment";
+        RequestParams params = new RequestParams(url);
         addToken(params);
         Callback.Cancelable cancelable = x.http().get(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);

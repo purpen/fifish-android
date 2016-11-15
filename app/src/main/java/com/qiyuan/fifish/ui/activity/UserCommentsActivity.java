@@ -31,7 +31,7 @@ public class UserCommentsActivity extends BaseActivity {
     private UserCommentsAdapter adapter;
 
     public UserCommentsActivity() {
-        super(R.layout.activity_user_comments);
+        super(R.layout.activity_list);
     }
 
     @Override
