@@ -119,6 +119,7 @@ public class LoginFragment extends BaseFragment {
                     if (userInfo.meta.status_code== Constants.HTTP_OK){
                         SPUtil.write(Constants.LOGIN_INFO,result);
                         Intent intent = new Intent(activity, MainActivity.class);
+                        intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
                         startActivity(intent);
                         return;
                     }

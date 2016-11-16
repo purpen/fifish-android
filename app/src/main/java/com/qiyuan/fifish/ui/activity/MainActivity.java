@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
     FrameLayout mContentLayout;
     @BindView(R.id.main_nav)
     RadioGroup mainNav;
-    private int checkedId = R.id.ll_nav0;
+//    private int checkedId = R.id.ll_nav0;
     private FragmentManager fm;
     private ArrayList<Fragment> fragments;
     private Fragment showFragment;
@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        LogUtil.e("onNewIntent====");
         if (intent.hasExtra(HomeFragment.class.getSimpleName())) {
             which = HomeFragment.class.getSimpleName();
         }
@@ -56,10 +57,19 @@ public class MainActivity extends BaseActivity {
     private void which2Switch() {
         if (TextUtils.equals(HomeFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(HomeFragment.class);
-        } else if (TextUtils.equals(MineFragment.class.getSimpleName(), which)) {
-            switchFragmentandImg(MineFragment.class);
+            mainNav.check(R.id.ll_nav0);
+        } else if(TextUtils.equals(MediaFragment.class.getSimpleName(), which)){
+            switchFragmentandImg(MediaFragment.class);
+            mainNav.check(R.id.ll_nav1);
+        }else if (TextUtils.equals(DeviceFragment.class.getSimpleName(), which)) {
+            switchFragmentandImg(DeviceFragment.class);
+            mainNav.check(R.id.ll_nav2);
         } else if (TextUtils.equals(DiscoverFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(DiscoverFragment.class);
+            mainNav.check(R.id.ll_nav3);
+        }else {
+            switchFragmentandImg(MineFragment.class);
+            mainNav.check(R.id.ll_nav4);
         }
     }
 
@@ -94,35 +104,37 @@ public class MainActivity extends BaseActivity {
                 switch (i) {
                     case R.id.ll_nav0:
                         LogUtil.e((R.id.ll_nav0==i)+"");
-                        checkedId = i;
-                        radioGroup.check(i);
+                        which = HomeFragment.class.getSimpleName();
+//                        radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
 //                        startActivity(new Intent(activity,UserCenterActivity.class));
                         break;
                     case R.id.ll_nav1:
-                        checkedId = i;
-                        radioGroup.check(i);
+//                        radioGroup.check(i);
+                        which = MediaFragment.class.getSimpleName();
                         switchFragmentandImg(MediaFragment.class);
 //                        switchFragmentandImg(DeviceFragment2.class);
                         break;
                     case R.id.ll_nav2:
-                        checkedId = i;
-                        radioGroup.check(i);
+                        which = DeviceFragment.class.getSimpleName();
+//                        radioGroup.check(i);
                         switchFragmentandImg(DeviceFragment.class);
                         break;
                     case R.id.ll_nav3:
-                        checkedId = i;
-                        radioGroup.check(i);
+                        which = DiscoverFragment.class.getSimpleName();
+//                        radioGroup.check(i);
                         switchFragmentandImg(DiscoverFragment.class);
                         break;
                     case R.id.ll_nav4:
                         if (UserProfile.isUserLogin()) {
-                            checkedId = i;
-                            radioGroup.check(i);
+                            which = MineFragment.class.getSimpleName();
+//                            radioGroup.check(i);
                             switchFragmentandImg(MineFragment.class);
                         } else {
-                            radioGroup.check(checkedId);
-                            which = MineFragment.class.getSimpleName();
+//                            radioGroup.check(checkedId);
+//                            which = MineFragment.class.getSimpleName();
+                            Intent intent = new Intent(activity, LoginActivity.class);
+                            intent.putExtra(MineFragment.class.getSimpleName(),MineFragment.class.getSimpleName());
                             startActivity(new Intent(activity, LoginActivity.class));
                         }
                         break;

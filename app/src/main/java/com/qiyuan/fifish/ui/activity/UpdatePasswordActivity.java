@@ -1,15 +1,24 @@
 package com.qiyuan.fifish.ui.activity;
 
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.HttpResponse;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.SPUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -22,6 +31,8 @@ public class UpdatePasswordActivity extends BaseActivity {
     EditText et_old;
     @BindView(R.id.et_new)
     EditText et_new;
+    @BindView(R.id.et_confirm_new)
+    EditText et_confirm_new;
     private WaitingDialog dialog;
 
     public UpdatePasswordActivity() {
@@ -47,49 +58,57 @@ public class UpdatePasswordActivity extends BaseActivity {
     private void submitData(final View v) {
         String originPsd = et_old.getText().toString().trim();
         String newPsd = et_new.getText().toString().trim();
+        String confirmNewPsd = et_confirm_new.getText().toString().trim();
         if (TextUtils.isEmpty(originPsd)) {
-            ToastUtils.showInfo("请填写原密码");
+            ToastUtils.showInfo(R.string.input_init_password);
             return;
         }
 
         if (TextUtils.isEmpty(newPsd)) {
-            ToastUtils.showInfo("请填写新密码");
+            ToastUtils.showInfo(R.string.input_new_password);
+            return;
+        }
+
+        if (TextUtils.isEmpty(confirmNewPsd)) {
+            ToastUtils.showInfo(R.string.input_confirm_password);
             return;
         }
 
         if (TextUtils.equals(originPsd, newPsd)) {
-            ToastUtils.showInfo("原密码不能和新密码相同");
+            ToastUtils.showInfo(R.string.init_equals_new_password);
             return;
         }
-//        ClientDiscoverAPI.updatePassword(originPsd, newPsd, new RequestCallBack<String>() {
-//            @Override
-//            public void onStart() {
-//                v.setEnabled(false);
-//                if (dialog != null) dialog.show();
-//            }
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                v.setEnabled(true);
-//                dialog.dismiss();
-//                if (responseInfo == null) return;
-//                if (TextUtils.isEmpty(responseInfo.result)) return;
-//                HttpResponse response = JsonUtil.fromJson(responseInfo.result, HttpResponse.class);
-//                if (response.isSuccess()) {
-//                    Util.makeToast(response.getMessage());
-//                    return;
-//                }
-//                Util.makeToast(response.getMessage());
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                v.setEnabled(true);
-//                dialog.dismiss();
-//               if (!TextUtils.isEmpty(s)) Util.makeToast("请先检查网络连接");
-//
-//            }
-//        });
 
+        if (!TextUtils.equals(newPsd, confirmNewPsd)) {
+            ToastUtils.showInfo(R.string.confirm_not_equal_new_password);
+            return;
+        }
+
+        RequestService.updatePassword(originPsd, newPsd, confirmNewPsd, new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog != null && !activity.isFinishing()) dialog.show();
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                HttpResponse response = JsonUtil.fromJson(result, HttpResponse.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    ToastUtils.showSuccess(R.string.update_password_success);
+                    SPUtil.remove(Constants.LOGIN_INFO);
+                    startActivity(new Intent(activity, LoginActivity.class));
+                } else {
+                    ToastUtils.showError(R.string.request_error);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+        });
     }
 }

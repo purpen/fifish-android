@@ -1,17 +1,21 @@
 package com.qiyuan.fifish.ui.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.LoginRegsiterViewPagerAdapter;
 import com.qiyuan.fifish.ui.fragment.LoginFragment;
+import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.fragment.RegisterFragment;
 import com.qiyuan.fifish.ui.view.WrapContentHeightViewPager;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author lilin
@@ -22,9 +26,17 @@ public class LoginActivity extends BaseActivity {
     WrapContentHeightViewPager viewPager;
     @BindView(R.id.btn_switch)
     Button btnSwitch;
-
+    private String page;
     public LoginActivity() {
         super(R.layout.activity_login_register);
+    }
+
+    @Override
+    protected void getIntentData() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(MineFragment.class.getSimpleName())){
+            page = MineFragment.class.getSimpleName();
+        }
     }
 
     @Override

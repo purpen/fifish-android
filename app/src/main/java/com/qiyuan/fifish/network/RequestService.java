@@ -386,4 +386,22 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().get(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 更新密码
+     * @param originPsd
+     * @param newPsd
+     * @param confirmNewPsd
+     * @param customCallBack
+     */
+    public static void updatePassword(String originPsd, String newPsd, String confirmNewPsd, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/updatePassword";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("old_password",originPsd);
+        params.addQueryStringParameter("new_password",newPsd);
+        params.addQueryStringParameter("confrim_password",confirmNewPsd);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

@@ -10,17 +10,17 @@ public class HttpResponse<T>{
     public Meta meta;
     public Data data;
 
-    private class Meta {
+    public static class Meta {
         public String message;
         public int status_code;
         public Error errors;
     }
 
-    private class Data {
+    public static class Data {
         public String token;
     }
 
-    private class Error {
+    public static class Error {
         public ArrayList<String> account;
     }
 
