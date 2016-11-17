@@ -8,13 +8,12 @@
         android:id="@+id/pull_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/dp8"
-        android:paddingRight="@dimen/dp8"
+        android:paddingLeft="@dimen/dp5"
+        android:paddingRight="@dimen/dp5"
         android:horizontalSpacing="@dimen/dp8"
         android:background="@android:color/white"
         android:numColumns="3"
         ptr:ptrAnimationStyle="flip"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        ptr:ptrHeaderTextColor="@color/color_666"
+        />
 </RelativeLayout>

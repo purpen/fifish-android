@@ -46,7 +46,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        LogUtil.e("onNewIntent====");
         if (intent.hasExtra(HomeFragment.class.getSimpleName())) {
             which = HomeFragment.class.getSimpleName();
         }

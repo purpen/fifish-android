@@ -404,4 +404,18 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 获得赞过的作品
+     * @param kind
+     * @param customCallBack
+     */
+    public static void getSupportProducts(String kind, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/likeStuffs";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("kind",kind);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

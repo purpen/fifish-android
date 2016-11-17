@@ -66,7 +66,7 @@ public class SupportProductsActivity extends BaseActivity {
     }
 
     private void setIndicatorWidth() throws NoSuchFieldException, IllegalAccessException {
-        int margin = activity.getResources().getDimensionPixelSize(R.dimen.dp80);
+        int margin = activity.getResources().getDimensionPixelSize(R.dimen.dp70);
         Class<?> tablayout = tabLayout.getClass();
         Field tabStrip = tablayout.getDeclaredField("mTabStrip");
         tabStrip.setAccessible(true);

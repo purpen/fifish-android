@@ -120,7 +120,7 @@ public class SearchedUserFragment extends BaseFragment {
         RequestService.searchInSite(String.valueOf(curPage), keyWord, "2", null, evt, "1", new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
+                LogUtil.e(result);
 //                ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
 //                if (productsBean.meta.status_code == Constants.HTTP_OK) {
 //                    ArrayList<ProductsBean.DataBean> list = productsBean.data;

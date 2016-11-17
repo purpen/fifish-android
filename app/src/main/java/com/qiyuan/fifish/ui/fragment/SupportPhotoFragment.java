@@ -10,16 +10,22 @@ import android.widget.GridView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.SupportPhotoAdapter;
 import com.qiyuan.fifish.bean.SupportPhotoBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author lilin
@@ -29,7 +35,7 @@ public class SupportPhotoFragment extends BaseFragment {
     public int curPage = 1;
     @BindView(R.id.pull_gv)
     PullToRefreshGridView pullGv;
-    private ArrayList<SupportPhotoBean> mList;
+    private ArrayList<SupportPhotoBean.DataEntity> mList;
     private SupportPhotoAdapter adapter;
     private WaitingDialog dialog;
     private boolean isLoadMore = false;
@@ -42,15 +48,16 @@ public class SupportPhotoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setFragmentLayout(R.layout.fragment_support_photo);
         super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     protected void initViews() {
+        dialog = new WaitingDialog(activity);
         pullGv.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         mList = new ArrayList<>();
-        dialog = new WaitingDialog(activity);
+        adapter=new SupportPhotoAdapter(mList,activity);
+        pullGv.setAdapter(adapter);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class SupportPhotoFragment extends BaseFragment {
 
             }
         });
-
+        pullGv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
         pullGv.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
@@ -97,20 +104,35 @@ public class SupportPhotoFragment extends BaseFragment {
 
     @Override
     protected void requestNet() {
+        RequestService.getSupportProducts("1", new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog != null && !activity.isFinishing()) dialog.show();
+            }
 
+            @Override
+            public void onSuccess(String result) {
+                if (pullGv!=null) pullGv.onRefreshComplete();
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                SupportPhotoBean response = JsonUtil.fromJson(result, SupportPhotoBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    List<SupportPhotoBean.DataEntity> data = response.data;
+                    refreshUI(data);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                ToastUtils.showError(R.string.request_error);
+                ex.printStackTrace();
+            }
+        });
     }
 
     @Override
     protected void refreshUI(List list) {
-        if (list == null) return;
-        if (list.size() == 0) {
-            if (mList.size() > 0) {
-//                ToastUtils.showInfo("没有更多数据哦");
-            } else {
-//                ToastUtils.showInfo("您还没有订阅的情境");
-            }
-            return;
-        }
+        if (list.size() == 0) return;
         curPage++;
         mList.addAll(list);
         if (adapter == null) {

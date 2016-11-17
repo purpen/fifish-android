@@ -145,7 +145,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
 
     private void doFocus(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
-        RequestService.doFocus(item.id, new CustomCallBack() {
+        RequestService.doFocus(item.user_id, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);
@@ -164,7 +164,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
 
     private void cancelFocus(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
-        RequestService.cancelFocus(item.id, new CustomCallBack() {
+        RequestService.cancelFocus(item.user_id, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);

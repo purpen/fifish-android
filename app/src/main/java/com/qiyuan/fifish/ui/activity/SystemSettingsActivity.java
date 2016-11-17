@@ -89,7 +89,7 @@ public class SystemSettingsActivity extends BaseActivity{
                 startActivity(intent);
                 break;
             case R.id.item_about_us:
-                String url= Constants.BASE_URL+"/view_link_help/about";
+                String url= Constants.BASE_URL+"h5/about";
                 intent = new Intent(activity, AboutUsActivity.class);
                 intent.putExtra(AboutUsActivity.class.getSimpleName(),url);
                 intent.putExtra(AboutUsActivity.class.getName(),"关于我们");
