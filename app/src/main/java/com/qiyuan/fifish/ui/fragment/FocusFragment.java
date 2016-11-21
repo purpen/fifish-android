@@ -88,10 +88,9 @@ public class FocusFragment extends ScrollTabHolderFragment {
         RequestService.getFocus(id, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<FocusBean.DataBean> list = focusBean.data;
+                    List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
                     return;
                 }
@@ -118,7 +117,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
                 Log.e("mListView.getCount()-1", "底部");
 //                mList.addAll(mList);
 //                adapter.notifyDataSetChanged();
-                refreshUI(mList);
+//                refreshUI(mList);
             }
         }
 

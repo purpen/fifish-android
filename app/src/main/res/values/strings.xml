@@ -31,6 +31,7 @@
     <string name="has_account">已有账号?立即登录</string>
     <string name="input_init_password">请填写原密码</string>
     <string name="init_password">原密码</string>
+    <string name="system_settings">设置</string>
     <string name="conform_new_password">确认新密码</string>
     <string name="input_new_password">请填写新密码</string>
     <string name="update_password_success">密码已修改</string>

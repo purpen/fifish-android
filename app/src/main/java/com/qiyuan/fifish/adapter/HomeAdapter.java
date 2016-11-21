@@ -45,6 +45,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
     private ImageLoader imageLoader;
+
     public HomeAdapter(List<ProductsBean.DataEntity> list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
@@ -52,7 +53,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LogUtil.e("position=="+position);
+        LogUtil.e("position==" + position);
         final ProductsBean.DataEntity item = list.get(position);
         VideoHolder videoHolder;
         if (convertView == null) {
@@ -62,7 +63,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        if (item.cover!=null){
+        if (item.cover != null) {
             if (TextUtils.equals(Constants.TYPE_IMAGE, item.cover.kind)) {
                 videoHolder.videoContainer.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
@@ -72,11 +73,11 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 videoHolder.ivCover.setVisibility(View.GONE);
                 videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                videoHolder.tvTime.setText(item.cover.duration+"11");
+                videoHolder.tvTime.setText(item.cover.duration + "11");
                 ImageLoader.getInstance().displayImage(item.cover.file.large, videoHolder.videoView.thumbImageView, options);
             }
         }
-        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv,options);
+        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv, options);
         videoHolder.tvName.setText(item.user.username);
         if (item.user.summary != null) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
@@ -247,7 +248,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
                     notifyDataSetChanged();
-                }else {
+                } else {
                     ToastUtils.showError(response.meta.message);
                 }
             }

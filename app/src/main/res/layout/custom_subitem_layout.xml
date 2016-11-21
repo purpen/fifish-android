@@ -53,7 +53,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp16"
-        android:src="@mipmap/more" />
+        android:src="@mipmap/icon_more" />
 
     <TextView
         android:id="@+id/tv_arrow_left"

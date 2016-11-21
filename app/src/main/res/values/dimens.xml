@@ -35,6 +35,7 @@
     <dimen name="dp120">120dp</dimen>
     <dimen name="dp140">140dp</dimen>
     <dimen name="dp150">150dp</dimen>
+    <dimen name="dp160">160dp</dimen>
     <dimen name="dp180">180dp</dimen>
     <dimen name="dp200">200dp</dimen>
     <dimen name="dp210">210dp</dimen>
@@ -51,6 +52,7 @@
     <dimen name="sp14">14sp</dimen>
     <dimen name="sp15">15sp</dimen>
     <dimen name="sp16">16sp</dimen>
+    <dimen name="sp17">17sp</dimen>
     <dimen name="icon_cross">16dp</dimen>
     <dimen name="label_title_size">12sp</dimen>
     <dimen name="padding_label_view">10dp</dimen>

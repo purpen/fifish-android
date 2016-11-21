@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -48,17 +49,19 @@ public class FocusAdapter extends BaseAdapter<FocusBean.DataBean> implements Vie
             holder = (ViewHolder) convertView.getTag();
         }
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, activity.getResources().getDimensionPixelSize(R.dimen.dp55)));
-        imageLoader.displayImage("url", holder.riv);
-        holder.tv_name.setText(item.follower.username);
+        if (item.follower!=null){
+            imageLoader.displayImage(item.follower.avatar.small, holder.riv);
+            holder.tv_name.setText(item.follower.username);
+            if (!TextUtils.isEmpty(item.follower.summary)&&!TextUtils.equals(item.follower.summary,"null")){
+                holder.tv_desc.setText(item.follower.summary);
+            }
+        }
 //        if (!TextUtils.isEmpty(item.follows.expert_label) && !TextUtils.isEmpty(item.follows.expert_info)) {
 //            holder.tv_desc.setText(String.format("%s | %s", item.follows.expert_label, item.follows.expert_info));
 //        } else {
 //            holder.tv_desc.setText(item.follows.summary);
 //        }
 
-        if (item.follower.summary!=null){
-            holder.tv_desc.setText(item.follower.summary.toString());
-        }
 
         //关注界面
 //        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //是自己

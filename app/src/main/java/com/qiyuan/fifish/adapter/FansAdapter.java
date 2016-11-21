@@ -2,6 +2,7 @@ package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -59,21 +60,21 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
             holder = (ViewHolder) convertView.getTag();
         }
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, activity.getResources().getDimensionPixelSize(R.dimen.dp55)));
-        imageLoader.displayImage("url", holder.riv, options);
+        imageLoader.displayImage(item.user.avatar.small, holder.riv,options);
+        holder.tv_name.setText(item.user.username);
+        if (!TextUtils.isEmpty(item.user.summary)&&!TextUtils.equals(item.follower.summary,"null")){
+            holder.tv_desc.setText(item.follower.summary);
+        }
 //        if (item.follows.is_expert == 1) {
 //            holder.riv_auth.setVisibility(View.VISIBLE);
 //        } else {
 //            holder.riv_auth.setVisibility(View.GONE);
 //        }
-        holder.tv_name.setText(item.follower.username);
 //        if (!TextUtils.isEmpty(item.follows.expert_label) && !TextUtils.isEmpty(item.follows.expert_info)) {
 //            holder.tv_desc.setText(String.format("%s | %s", item.follows.expert_label, item.follows.expert_info));
 //        } else {
 //            holder.tv_desc.setText(item.follows.summary);
 //        }
-        if (item.follower.summary!=null){
-            holder.tv_desc.setText(item.follower.summary.toString());
-        }
 //        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //是自己
 //            switch (item.type) {
 //                case TYPE1:  //仅当粉丝关注我

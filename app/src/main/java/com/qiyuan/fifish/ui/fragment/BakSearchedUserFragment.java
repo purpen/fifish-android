@@ -75,7 +75,7 @@ public class BakSearchedUserFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<FocusBean.DataBean> list = focusBean.data;
+                    List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
                     return;
                 }

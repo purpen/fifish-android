@@ -113,10 +113,9 @@ public class FansFragment extends ScrollTabHolderFragment {
         RequestService.getFans(id, new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                if (TextUtils.isEmpty(result)) return;
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<FocusBean.DataBean> list = focusBean.data;
+                    List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
                     return;
                 }

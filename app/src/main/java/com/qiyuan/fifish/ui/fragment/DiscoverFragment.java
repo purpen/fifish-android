@@ -137,6 +137,7 @@ public class DiscoverFragment extends BaseFragment {
     protected void requestNet() {
         if (!isLoadMore&&!activity.isFinishing()&& dialog != null) dialog.show();
         RequestService.getBanners("1", "6", "app_discover_slide", new CustomCallBack() {
+
             @Override
             public void onSuccess(String result) {
                 BannersBean bannersBean = JsonUtil.fromJson(result, BannersBean.class);
@@ -236,7 +237,7 @@ public class DiscoverFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                if (!isLoadMore&&!activity.isFinishing()&& dialog.isShowing()) dialog.dismiss();
+                if (activity.isFinishing()&& dialog.isShowing()) dialog.dismiss();
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
             }

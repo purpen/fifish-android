@@ -38,8 +38,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineFragment extends BaseFragment {
-    @BindView(R.id.custom_head)
-    CustomHeadView customHead;
+//    @BindView(R.id.custom_head)
+//    CustomHeadView customHead;
     @BindView(R.id.rl)
     RelativeLayout rl;
     @BindView(R.id.riv)
@@ -50,6 +50,8 @@ public class MineFragment extends BaseFragment {
     CustomItemLayout itemSupport;
     @BindView(R.id.item_feed_back)
     CustomItemLayout itemFeedBack;
+    @BindView(R.id.item_settings)
+    CustomItemLayout itemSettings;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.tv_location)
@@ -74,31 +76,32 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        customHead.setHeadCenterTxtShow(true, R.string.me);
-        customHead.setIvLeft(R.mipmap.icon_add_friend);
-        customHead.setHeadGoBackShow(false);
-        customHead.setRightImgBtnShow(true);
-        customHead.getRightImgBtn().setImageResource(R.mipmap.setting);
+//        customHead.setHeadCenterTxtShow(true, R.string.me);
+//        customHead.setIvLeft(R.mipmap.icon_add_friend);
+//        customHead.setHeadGoBackShow(false);
+//        customHead.setRightImgBtnShow(true);
+//        customHead.getRightImgBtn().setImageResource(R.mipmap.setting);
         itemMessage.setTVStyle(R.mipmap.message, R.string.message, R.color.color_333);
         itemSupport.setTVStyle(R.mipmap.support, R.string.support, R.color.color_333);
         itemFeedBack.setTVStyle(R.mipmap.feedback, R.string.feedback, R.color.color_333);
+        itemSettings.setTVStyle(R.mipmap.setting, R.string.system_settings, R.color.color_333);
     }
 
     @Override
     protected void installListener() {
-        customHead.getIvLeft().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(activity, FindFriendsActivity.class));
-            }
-        });
-
-        customHead.getRightImgBtn().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(activity, SystemSettingsActivity.class));
-            }
-        });
+//        customHead.getIvLeft().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(activity, FindFriendsActivity.class));
+//            }
+//        });
+//
+//        customHead.getRightImgBtn().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(activity, SystemSettingsActivity.class));
+//            }
+//        });
 
 
     }
@@ -145,7 +148,7 @@ public class MineFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(userInfo.data.avatar.large, riv, options);
         userName.setText(userInfo.data.username);
         if (TextUtils.isEmpty(userInfo.data.zone)){
-            tvLocation.setVisibility(View.GONE);
+            tvLocation.setVisibility(View.INVISIBLE);
         }else {
             tvLocation.setVisibility(View.VISIBLE);
             tvLocation.setText(userInfo.data.zone);
@@ -160,7 +163,7 @@ public class MineFragment extends BaseFragment {
         tvProductsNum.setText(userInfo.data.stuff_count);
     }
 
-    @OnClick({R.id.btn1, R.id.btn, R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.btn1, R.id.btn,R.id.item_settings, R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn1:
@@ -180,6 +183,11 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.item_feed_back:
                 startActivity(new Intent(activity, FeedbackActivity.class));
+                break;
+            case R.id.item_settings:
+                startActivity(new Intent(activity, SystemSettingsActivity.class));
+                break;
+            default:
                 break;
         }
     }
