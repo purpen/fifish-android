@@ -22,6 +22,7 @@ import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
 import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
 import com.qiyuan.fifish.ui.activity.SearchActivity;
+import com.qiyuan.fifish.ui.fragment.ShareDialogFragment;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
@@ -73,7 +74,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 videoHolder.ivCover.setVisibility(View.GONE);
                 videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                videoHolder.tvTime.setText(item.cover.duration + "11");
+                videoHolder.tvVideoTime.setText(Util.second2Hour((int) item.cover.duration));
                 ImageLoader.getInstance().displayImage(item.cover.file.large, videoHolder.videoView.thumbImageView, options);
             }
         }
@@ -138,7 +139,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                         activity.startActivity(intent);
                         break;
                     case R.id.ibtn_share:
-                        //分享界面
+                        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance();
+                        dialogFragment.show(activity.getFragmentManager(), ShareDialogFragment.class.getSimpleName());
                         break;
                     case R.id.ibtn_more:
                         final BottomSheetDialog dialog = new BottomSheetDialog(activity);
@@ -279,6 +281,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         TextView tvDesc;
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.tv_video_time)
+        TextView tvVideoTime;
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.video_container)

@@ -11,4 +11,9 @@
         android:background="@drawable/selector_fff_eee"
         android:textColor="@color/color_333"
         android:textSize="@dimen/sp14" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp05"
+        android:background="@color/color_d7d7d7"
+        />
 </RelativeLayout>

@@ -90,13 +90,15 @@
             android:layout_height="@dimen/dp15"
             android:layout_alignParentRight="true"
             android:drawableLeft="@mipmap/video_time"
-            android:drawablePadding="@dimen/dp5"
+            android:drawablePadding="@dimen/dp4"
             android:background="@drawable/shap_video_time"
             android:paddingLeft="@dimen/dp5"
             android:paddingRight="@dimen/dp5"
             android:layout_marginRight="@dimen/dp16"
             android:layout_marginTop="@dimen/dp10"
             android:textSize="@dimen/sp10"
+            android:textColor="@android:color/white"
+            android:text="11:00"
             />
     </RelativeLayout>
 
@@ -131,18 +133,11 @@
                 android:layout_toRightOf="@+id/ibtn_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp25"
+                android:layout_marginLeft="@dimen/dp30"
                 android:background="@null"
                 android:src="@mipmap/icon_share"
                 />
-            <ImageButton
-                android:id="@+id/ibtn_more"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:src="@mipmap/icon_more"
-                android:layout_alignParentRight="true"
-                />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp05"
@@ -155,12 +150,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_comment"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="@dimen/dp30"
                 android:background="@null"
                 android:layout_above="@+id/view2"
                 android:layout_toRightOf="@+id/ibtn_favorite"
                 android:layout_toEndOf="@+id/ibtn_favorite"
                 android:layout_marginStart="25dp" />
+
+            <ImageButton
+                android:id="@+id/ibtn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:src="@mipmap/icon_bt_more"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <RelativeLayout
