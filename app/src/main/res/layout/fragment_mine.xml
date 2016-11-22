@@ -173,7 +173,6 @@
         android:id="@+id/item_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp10"
         />
     <com.qiyuan.fifish.ui.view.CustomItemLayout
         android:id="@+id/item_support"
