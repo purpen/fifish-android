@@ -42,15 +42,16 @@ public class ShareDialogFragment extends DialogFragment {
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
         ButterKnife.bind(this,dialog);
+        initData();
         return dialog;
     }
     public static ShareDialogFragment newInstance() {
         ShareDialogFragment f = new ShareDialogFragment();
         return f;
     }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
+
+    private void initData(){
         int[] image = {R.mipmap.share_wechat, R.mipmap.share_qq, R.mipmap.share_sina, R.mipmap.share_facebook,R.mipmap.share_instgram};
         String[] name = {"微信", "QQ","微博","facebook", "instagram",};
         List<ShareItem> shareList = new ArrayList<>();
