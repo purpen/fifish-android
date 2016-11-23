@@ -17,11 +17,11 @@ import com.qiyuan.fifish.adapter.ShareDialogAdapter;
 import com.qiyuan.fifish.bean.ShareItem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by lilin on 2016/11/22.
@@ -41,30 +41,37 @@ public class ShareDialogFragment extends DialogFragment {
         wlp.gravity = Gravity.BOTTOM;
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
-        ButterKnife.bind(this,dialog);
+        ButterKnife.bind(this, dialog);
         initData();
         return dialog;
     }
+
     public static ShareDialogFragment newInstance() {
         ShareDialogFragment f = new ShareDialogFragment();
         return f;
     }
 
 
-    private void initData(){
-        int[] image = {R.mipmap.share_wechat, R.mipmap.share_qq, R.mipmap.share_sina, R.mipmap.share_facebook,R.mipmap.share_instgram};
-        String[] name = {"微信", "QQ","微博","facebook", "instagram",};
+    private void initData() {
+        int[] image = {R.mipmap.share_wechat, R.mipmap.share_qq, R.mipmap.share_sina, R.mipmap.share_facebook, R.mipmap.share_instgram};
+        String[] name = {"微信", "QQ", "微博", "facebook", "instagram",};
         List<ShareItem> shareList = new ArrayList<>();
         ShareItem shareItem;
         for (int i = 0; i < image.length; i++) {
             shareItem = new ShareItem();
-            shareItem.txt=name[i];
-            shareItem.pic=image[i];
+            shareItem.txt = name[i];
+            shareItem.pic = image[i];
             shareList.add(shareItem);
         }
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new ShareDialogAdapter(getActivity(),shareList));
+        recyclerView.setAdapter(new ShareDialogAdapter(getActivity(), shareList));
+    }
+
+
+    @OnClick(R.id.btn)
+    public void onClick() {
+        dismiss();
     }
 }

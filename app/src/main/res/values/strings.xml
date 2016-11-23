@@ -153,7 +153,6 @@
 
     <string-array name="dialog_bottom">
         <item>举报</item>
-        <item>分享</item>
         <item>取消</item>
     </string-array>
 

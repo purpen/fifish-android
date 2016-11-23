@@ -24,18 +24,30 @@
             android:text="@string/share_to"
             android:textColor="@color/color_666"
             android:layout_centerInParent="true"
+            android:background="@android:color/white"
             android:paddingLeft="@dimen/dp10"
             android:paddingRight="@dimen/dp10"
-            android:background="@android:color/white"
             />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <Button
+        android:id="@+id/btn"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp40" />
+        android:layout_height="@dimen/dp40"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:background="@drawable/shape_cancel"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_marginLeft="@dimen/dp45"
+        android:layout_marginRight="@dimen/dp45"
+        android:text="@string/cancel"
+        android:textColor="@color/color_2187ff"
+        android:textSize="@dimen/sp17"
+        />
 </LinearLayout>

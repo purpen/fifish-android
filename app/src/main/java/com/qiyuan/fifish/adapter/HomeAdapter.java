@@ -190,12 +190,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                                         dialogReport.setContentView(bottomView);
                                         dialogReport.show();
                                         break;
-                                    case 1: //分享
-                                        Intent intent = new Intent(activity, PublishVideoActivity.class);
-                                        intent.putExtra(PublishVideoActivity.class.getSimpleName(), item);
-                                        activity.startActivity(intent);
-                                        break;
-                                    case 2:
+                                    case 1: //取消
                                         dialog.dismiss();
                                         break;
                                     default:
