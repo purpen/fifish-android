@@ -38,6 +38,7 @@
     <string name="input_confirm_password">请确认新密码</string>
     <string name="confirm_not_equal_new_password">新密码和确认密码不相同</string>
     <string name="init_equals_new_password">原密码和新密码不能相同</string>
+    <string name="input_reply_content">请输入回复内容</string>
     <string name="products">作品</string>
     <string name="focus">关注</string>
     <string name="focused">已关注</string>
@@ -77,6 +78,7 @@
     <string name="hot_tags">热门标签</string>
     <string name="hot_user">热门用户</string>
     <string name="hot_recommend">热门推荐</string>
+    <string name="reply_to">回复</string>
     <string name="title_comment">评论</string>
     <string name="add_address">添加地址</string>
     <string name="add_tag"># 添加标签</string>
@@ -100,8 +102,7 @@
         <item>微博</item>
         <item>QQ</item>
         <item>facebook</item>
-        <item>tumblr</item>
-        <item>whatapp</item>
+        <item>instagram</item>
     </string-array>
     <string-array name="support_products">
         <item>图片</item>

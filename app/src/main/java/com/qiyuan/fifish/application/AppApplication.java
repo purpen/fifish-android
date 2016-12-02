@@ -11,6 +11,9 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -42,6 +45,11 @@ public class AppApplication extends Application {
         x.Ext.init(this);
         x.Ext.setDebug(true);
         initImageLoader(getApplicationContext());
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
+        UMShareAPI.get(this);
+        Config.REDIRECT_URL = "您新浪后台的回调地址";
+        Config.DEBUG=true;
     }
     public int getScreenHeight() {
         if (this.displayMetrics == null) {

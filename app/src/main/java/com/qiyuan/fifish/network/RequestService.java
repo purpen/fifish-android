@@ -9,6 +9,7 @@ import com.qiyuan.fifish.util.SPUtil;
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 import org.xutils.common.util.MD5;
+import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -218,7 +219,7 @@ public class RequestService {
         String url = Constants.BASE_URL+"user/"+id+"/cancelFollow";
         RequestParams params = new RequestParams(url);
         addToken(params);
-        Callback.Cancelable cancelable = x.http().post(params, callBack);
+        Callback.Cancelable cancelable = x.http().request(HttpMethod.DELETE,params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
 
@@ -416,6 +417,24 @@ public class RequestService {
         params.addQueryStringParameter("kind",kind);
         addToken(params);
         Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+    /**
+     * 评论列表
+     * @param content
+     * @param reply_user_id
+     * @param parent_id
+     * @param customCallBack
+     */
+    public static void postComment(String content,String id,String reply_user_id, String parent_id, CustomCallBack customCallBack){
+        String url=Constants.BASE_URL+"stuffs/"+id+"/postComment";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("content",content);
+        params.addQueryStringParameter("reply_user_id",reply_user_id);
+        params.addQueryStringParameter("parent_id",parent_id);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
 }

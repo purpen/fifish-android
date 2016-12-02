@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bean.Image;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,6 +35,9 @@ import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.xutils.common.util.LogUtil;
 
@@ -73,7 +78,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     private String uploadUrl;
     private ProductsBean.DataEntity item;
     private Image selectImg;
-    private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_tumblr, R.mipmap.share_whatapp};
+    private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_instgram};
 
     public PublishPictureActivity() {
         super(R.layout.activity_share_picture);
@@ -315,13 +320,16 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     public void onItemClick(View view, int position) {
         switch (position) {
             case 0://wechat
-
+                share(SHARE_MEDIA.WEIXIN,"测试");
                 break;
             case 1: //sina
+                share(SHARE_MEDIA.SINA,"测试");
                 break;
             case 2: //qq
+                share(SHARE_MEDIA.QQ,"测试");
                 break;
             case 3: //facebook
+                share(SHARE_MEDIA.FACEBOOK,"测试");
                 break;
             case 4: //tumblr
                 break;
@@ -336,6 +344,34 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     public void onItemLongClick(View view, int position) {
 
     }
+
+    private void share(SHARE_MEDIA platform,String content){
+        new ShareAction(activity).setPlatform(platform)
+                .withText(content)
+                .setCallback(umShareListener)
+                .share();
+    }
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Log.d("plat","platform"+platform);
+            Toast.makeText(activity, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(activity,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            if(t!=null){
+                Log.d("throw","throw:"+t.getMessage());
+            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(activity,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

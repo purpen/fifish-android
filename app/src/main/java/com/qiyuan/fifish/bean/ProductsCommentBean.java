@@ -82,9 +82,9 @@ public class ProductsCommentBean implements Serializable {
         public String created_at;
 
         public static class UserBean {
-            public int id;
+            public String id;
             public String username;
-            public Object summary;
+            public String summary;
             /**
              * small : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!smx50
              * large : http://obbrr76ua.bkt.clouddn.com/avatar/160923/03ee0bb62f6d6fb57231c004c1cd4fe1!lgx180

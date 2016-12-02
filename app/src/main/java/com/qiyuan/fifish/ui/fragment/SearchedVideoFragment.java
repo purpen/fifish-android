@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.ui.fragment;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,19 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
-import com.qiyuan.fifish.adapter.HomeAdapter;
+import com.qiyuan.fifish.adapter.SearchProductsAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.SearchProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.SearchActivity;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
-
 import org.xutils.common.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class SearchedVideoFragment extends BaseFragment {
     @BindView(R.id.pull_lv)
     PullToRefreshListView pullLv;
     private int curPage = 1;
-    private ArrayList<ProductsBean.DataEntity> mList;
-    private HomeAdapter adapter;
+    private ArrayList<SearchProductsBean.DataBean> mList;
+    private SearchProductsAdapter adapter;
     private String keyWord;
     private String evt;
     @Override
@@ -119,12 +118,12 @@ public class SearchedVideoFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
-//                ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
-//                if (productsBean.meta.status_code == Constants.HTTP_OK) {
-//                    ArrayList<ProductsBean.DataBean> list = productsBean.data;
-//                    refreshUI(list);
-//                    return;
-//                }
+                SearchProductsBean searchProductsBean = JsonUtil.fromJson(result, SearchProductsBean.class);
+                if (searchProductsBean.meta.status_code == Constants.HTTP_OK) {
+                    List<SearchProductsBean.DataBean> list = searchProductsBean.data;
+                    refreshUI(list);
+                    return;
+                }
             }
 
             @Override
@@ -141,7 +140,7 @@ public class SearchedVideoFragment extends BaseFragment {
         curPage++;
         mList.addAll(list);
         if (adapter == null) {
-            adapter = new HomeAdapter(mList, activity);
+            adapter = new SearchProductsAdapter(mList, activity);
             pullLv.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();

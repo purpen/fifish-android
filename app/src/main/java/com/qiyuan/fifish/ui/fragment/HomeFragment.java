@@ -26,6 +26,9 @@ import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
@@ -138,10 +141,8 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
-        LogUtil.e("refreshUI==="+list.size());
         curPage++;
         mList.addAll(list);
-        LogUtil.e("mList==="+mList.size());
         if (adapter == null) {
             adapter = new HomeAdapter(mList,activity);
             pullLv.setAdapter(adapter);

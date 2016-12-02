@@ -47,4 +47,12 @@ dependencies {
     compile files('src/main/libs/baidumapapi_util_v3_7_1.jar')
     compile files('src/main/libs/locSDK_6.23.jar')
     compile project(':Gpu_Image')
+    compile files('src/main/libs/SocialSDK_facebook.jar')
+    compile files('src/main/libs/SocialSDK_instagram.jar')
+    compile files('src/main/libs/SocialSDK_QQ_Simplify.jar')
+    compile files('src/main/libs/SocialSDK_Sina_Simplify.jar')
+    compile files('src/main/libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('src/main/libs/umeng_social_api.jar')
+    compile files('src/main/libs/umeng_social_net.jar')
+    compile files('src/main/libs/umeng_social_shareview.jar')
 }

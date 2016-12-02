@@ -2,6 +2,7 @@ package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,9 +49,7 @@ public class CommentDetailAdapter extends BaseAdapter<ProductsCommentBean.DataBe
         imageLoader.displayImage(item.user.avatar.large, holder.riv, options);
         holder.tv_name.setText(item.user.username);
         holder.tv_name.setTextColor(activity.getResources().getColor(R.color.color_2187ff));
-        if (item.user.summary != null) {
-            holder.tv_desc.setText(item.user.summary.toString());
-        }
+        holder.tv_desc.setText(item.content);
         holder.tv_time.setText(item.created_at);
         holder.riv.setOnClickListener(new View.OnClickListener() {
             @Override

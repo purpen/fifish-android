@@ -45,7 +45,7 @@
             android:textSize="@dimen/sp12" />
 
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/btn_send"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/dp60"
             android:layout_height="@dimen/dp32"
