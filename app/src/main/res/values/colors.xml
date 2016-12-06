@@ -10,7 +10,8 @@
     <!-- mainactivity tab的背景颜色-->
     <color name="white40">#40FFFFFF</color>
     <color name="color_transparent">#00000000</color>
-    <color name="transparent30">#77000000</color>
+    <color name="transparent30">#4d000000</color>
+    <color name="transparent80">#cc000000</color>
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_fafafa">#fafafa</color>
     <color name="color_d7d7d7">#d7d7d7</color>

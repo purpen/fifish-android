@@ -10,8 +10,12 @@
         android:layout_height="@dimen/dp70"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
-        app:riv_border_color="@color/color_eee"
-        app:riv_border_width="@dimen/dp05"
+        app:riv_corner_radius="@dimen/dp5"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent20_bg_radius"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp5"
             android:layout_marginRight="@dimen/dp5"
-            android:singleLine="true"
+            android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp12"
@@ -38,7 +42,8 @@
             android:textSize="@dimen/sp10"
             android:layout_marginLeft="@dimen/dp5"
             android:layout_marginRight="@dimen/dp5"
-            android:singleLine="true"
+            android:maxLines="1"
+            android:visibility="gone"
             android:ellipsize="end"
             android:textColor="@android:color/white"
             />
