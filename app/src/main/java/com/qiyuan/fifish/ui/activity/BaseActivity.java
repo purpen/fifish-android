@@ -44,7 +44,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                .delayBeforeLoading(100)
+                .delayBeforeLoading(50)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
 //        ShareSDK.initSDK(this);

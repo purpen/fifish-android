@@ -79,6 +79,7 @@ public class RequestService {
     private static void addToken(RequestParams params) {
         if (params == null) return;
         params.addQueryStringParameter("token", SPUtil.read(Constants.TOKEN));
+        params.setConnectTimeout(30000);
         LogUtil.e("添加token==" + SPUtil.read(Constants.TOKEN));
     }
 
@@ -181,7 +182,7 @@ public class RequestService {
     public static void doSupport(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL+"stuffs/"+id+"/dolike";
         RequestParams params = new RequestParams(url);
-        params.addBodyParameter("token", SPUtil.read(Constants.TOKEN));
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }

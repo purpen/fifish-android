@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.ui.fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.HomeAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
@@ -25,15 +21,8 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.common.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.custom_head)
@@ -85,7 +74,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
+//        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
         pullLv.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {

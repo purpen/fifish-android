@@ -120,7 +120,14 @@ public class SearchActivity extends BaseActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
+            }
+        });
+        ibtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.getText().clear();
             }
         });
         searchView.addTextChangedListener(tw);
