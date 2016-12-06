@@ -120,13 +120,31 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp45"
             >
-            <ImageButton
-                android:id="@+id/ibtn_favorite"
+            <LinearLayout
+                android:id="@+id/ll_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/icon_unsupport"
-                android:background="@null"
-                />
+                android:orientation="horizontal"
+                >
+                <ImageButton
+                    android:id="@+id/ibtn_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/icon_unsupport"
+                    android:background="@null"
+                    />
+                <TextView
+                    android:id="@+id/tv_zan_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp10"
+                    android:layout_marginLeft="@dimen/dp2"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:textColor="@color/color_999"
+                    android:text="0"
+                    />
+            </LinearLayout>
+
 
             <ImageButton
                 android:id="@+id/ibtn_share"
@@ -153,8 +171,8 @@
                 android:layout_marginLeft="@dimen/dp30"
                 android:background="@null"
                 android:layout_above="@+id/view2"
-                android:layout_toRightOf="@+id/ibtn_favorite"
-                android:layout_toEndOf="@+id/ibtn_favorite"
+                android:layout_toRightOf="@+id/ll_favorite"
+                android:layout_toEndOf="@+id/ll_favorite"
                 android:layout_marginStart="25dp" />
 
             <ImageButton

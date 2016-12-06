@@ -63,6 +63,8 @@ public class SearchedVideoFragment extends BaseFragment {
     @Override
     protected void initViews() {
         mList = new ArrayList<>();
+        adapter = new SearchProductsAdapter(mList, activity);
+        pullLv.setAdapter(adapter);
         if (!TextUtils.isEmpty(keyWord)) { //为标签时直接搜索
             LogUtil.e(TAG+"标签"+keyWord);
             evt = "2";

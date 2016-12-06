@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,10 +12,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
+import com.qiyuan.fifish.bean.SearchProductsBean;
 import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.BottomSheetView;
+import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -72,16 +75,31 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             default:
                 break;
         }
-        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv);
+        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv,options);
         videoHolder.tvName.setText(item.user.username);
-        videoHolder.tvZanNum.setText(item.like_count + "次赞");
-        if (item.user.summary != null) {
+        if (item.like_count>0){
+            videoHolder.tvZanNum.setVisibility(View.VISIBLE);
+            videoHolder.tvZanNum.setText(String.valueOf(item.like_count));
+        }else {
+            videoHolder.tvZanNum.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(item.address)&&!TextUtils.equals("null",item.address)) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
-            videoHolder.tvDesc.setText(item.user.summary.toString());
+            videoHolder.tvDesc.setText(item.address);
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
+
+        videoHolder.labelView.clear();
+        for (ProductsBean.DataEntity.TagsEntity tag:item.tags) {
+            videoHolder.labelView.addLabel("#" + tag.name);
+        }
         videoHolder.tvTxt.setText(item.content);
+        if (item.is_love) {
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
+        } else {
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
+        }
         if (position == list.size() - 1) {
             videoHolder.viewLine.setVisibility(View.GONE);
         } else {
@@ -194,6 +212,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = false;
+                    item.like_count-=1;
                     notifyDataSetChanged();
                 }
             }
@@ -216,6 +235,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
+                    item.like_count+=1;
                     notifyDataSetChanged();
                 }
             }
@@ -269,6 +289,8 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         TextView tvCommentNum;
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.label_view)
+        AutoLabelUI labelView;
         @BindView(R.id.view_line)
         View viewLine;
 

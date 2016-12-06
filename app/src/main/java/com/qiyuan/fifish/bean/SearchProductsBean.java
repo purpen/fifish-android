@@ -80,7 +80,7 @@ public class SearchProductsBean {
             public String id;
             public String content;
             public int view_count;
-            public int kind;
+            public String kind;
             public String city;
             public String address;
             public int like_count;
@@ -91,7 +91,12 @@ public class SearchProductsBean {
             public String created_at;
             public boolean is_love;
             public boolean is_follow;
-
+            public List<TagBean> tags;
+            public static class TagBean{
+                public String id;
+                public String name;
+                public String display_name;
+            }
             public static class UserBean {
                 /**
                  * id : 1

@@ -48,7 +48,7 @@ public class ProductsBean implements Serializable{
         public String kind;
         public String city;
         public String address;
-        public String like_count;
+        public int like_count;
         public String comment_count;
         public String user_id;
         /**

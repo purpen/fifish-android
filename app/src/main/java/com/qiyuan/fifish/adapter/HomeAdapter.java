@@ -80,9 +80,9 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv, options);
         videoHolder.tvName.setText(item.user.username);
-        if (item.user.summary != null) {
+        if (!TextUtils.isEmpty(item.address)&&!TextUtils.equals("null",item.address)) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
-            videoHolder.tvDesc.setText(item.user.summary);
+            videoHolder.tvDesc.setText(item.address);
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
         }
@@ -95,6 +95,13 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
         } else {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
+        }
+
+        if (item.like_count>0){
+            videoHolder.tvZanNum.setVisibility(View.VISIBLE);
+            videoHolder.tvZanNum.setText(String.valueOf(item.like_count));
+        }else {
+            videoHolder.tvZanNum.setVisibility(View.GONE);
         }
 
         if (position == list.size() - 1) {
@@ -222,6 +229,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = false;
+                    item.like_count-=1;
                     notifyDataSetChanged();
                 }
             }
@@ -244,6 +252,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
+                    item.like_count+=1;
                     notifyDataSetChanged();
                 } else {
                     ToastUtils.showError(response.meta.message);
@@ -288,6 +297,8 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         ImageView ivCover;
         @BindView(R.id.ibtn_favorite)
         ImageButton ibtnFavorite;
+        @BindView(R.id.tv_zan_num)
+        TextView tvZanNum;
         @BindView(R.id.ibtn_comment)
         ImageButton ibtnComment;
         @BindView(R.id.ibtn_share)

@@ -29,7 +29,6 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(50)
                 .build();
     }
 

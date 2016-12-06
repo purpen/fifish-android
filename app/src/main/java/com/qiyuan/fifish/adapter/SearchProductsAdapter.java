@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.BottomSheetView;
+import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -28,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
+import static android.R.attr.tag;
 
 /**
  * @author lilin
@@ -54,7 +58,7 @@ public class SearchProductsAdapter extends BaseAdapter<SearchProductsBean.DataBe
         } else {
             videoHolder = (VideoHolder) convertView.getTag();
         }
-        switch (item.kind) {
+        switch (item.stuff.kind) {
             case TYPE_VIDEO:
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
@@ -74,12 +78,26 @@ public class SearchProductsAdapter extends BaseAdapter<SearchProductsBean.DataBe
         }
         imageLoader.displayImage(item.stuff.user.avatar.large, videoHolder.riv);
         videoHolder.tvName.setText(item.stuff.user.username);
-        videoHolder.tvZanNum.setText(item.stuff.like_count + "次赞");
-        if (item.stuff.user.summary != null) {
+        if (item.stuff.is_love) {
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_support);
+        } else {
+            videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
+        }
+        if (item.stuff.like_count>0){
+            videoHolder.tvZanNum.setVisibility(View.VISIBLE);
+            videoHolder.tvZanNum.setText(String.valueOf(item.stuff.like_count));
+        }else {
+            videoHolder.tvZanNum.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(item.stuff.address)&&!TextUtils.equals("null",item.stuff.address)) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
-            videoHolder.tvDesc.setText(item.stuff.user.summary.toString());
+            videoHolder.tvDesc.setText(item.stuff.address);
         } else {
             videoHolder.tvDesc.setVisibility(View.INVISIBLE);
+        }
+        videoHolder.labelView.clear();
+        for (SearchProductsBean.DataBean.StuffBean.TagBean tag:item.stuff.tags) {
+            videoHolder.labelView.addLabel("#" + tag.name);
         }
         videoHolder.tvTxt.setText(item.content);
         if (position == list.size() - 1) {
@@ -271,7 +289,8 @@ public class SearchProductsAdapter extends BaseAdapter<SearchProductsBean.DataBe
         TextView tvTime;
         @BindView(R.id.view_line)
         View viewLine;
-
+        @BindView(R.id.label_view)
+        AutoLabelUI labelView;
         public VideoHolder(View view) {
             ButterKnife.bind(this, view);
         }
