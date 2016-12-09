@@ -20,6 +20,7 @@
     <string name="forget_password">忘记密码?</string>
     <string name="add_video_des">添加视频说明</string>
     <string name="add_pic_des">添加图片说明</string>
+    <string name="used_times">使用次数:</string>
     <string name="search">搜索</string>
     <string name="search_user">搜索用户</string>
     <string name="login">登录</string>
@@ -50,6 +51,7 @@
     <string name="tips_no_content">暂无数据</string>
     <string name="feedback">用户反馈</string>
     <string name="about_us">关于飞行鱼</string>
+    <string name="title_tag">标签</string>
     <string name="title_label">添加标签</string>
     <string name="feed_back">意见反馈</string>
     <string name="complete">完成</string>
@@ -92,6 +94,9 @@
     <string name="publish_success">发布成功！</string>
     <string name="publish_content_length">发布内容需大于5个长度</string>
     <string name="password_null">请输入密码</string>
+    <string name="video_products">视频</string>
+    <string name="picture_products">图片</string>
+    <string name="user">用户</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

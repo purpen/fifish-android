@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiyuan.fifish">
-
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -118,6 +117,10 @@
         <activity
             android:name=".ui.activity.EditUserSignatureActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.activity.TagActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".album.ImageSelectActivity"
             android:screenOrientation="portrait" />
@@ -144,8 +147,6 @@
         <activity android:name="com.album.OptionPhotoActivity" />
         <activity android:name="com.album.ShowPhotoActivity" />
         <activity android:name="com.album.FilterMirrorActivity" />
-
-
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -171,14 +172,16 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--end tencent -->
+        <!-- end tencent -->
 
-        <!--start facebook-->
+
+        <!-- start facebook -->
         <activity
             android:name="com.umeng.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <provider
             android:name="com.umeng.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider487692214752558"
@@ -187,14 +190,15 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="facebook_app_id" />
-        <!--end facebook-->
+        <!-- end facebook -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="583c0abe734be431770010b7"/>
-
+            android:value="583c0abe734be431770010b7" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng"/>
+            android:value="Umeng" />
+
+
     </application>
 
 </manifest>

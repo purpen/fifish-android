@@ -438,4 +438,19 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 根据标签搜索内容
+     * @param page
+     * @param tag
+     * @param customCallBack
+     */
+    public static void getResultByTagName(String page, String tag, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"tags/"+tag;
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("name",tag);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

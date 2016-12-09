@@ -90,9 +90,11 @@ public class ScrollableView extends RelativeLayout {
             imageView = new ImageView(context);
             imageView.setLayoutParams(vlp);
             if (i==currentItem){
-                imageView.setImageResource(R.drawable.shape_oval_sel);
+//                imageView.setImageResource(R.drawable.shape_oval_sel);
+                imageView.setImageResource(R.drawable.indicator_rect_sel);
             }else {
-                imageView.setImageResource(R.drawable.shape_oval_unsel);
+//                imageView.setImageResource(R.drawable.shape_oval_unsel);
+                imageView.setImageResource(R.drawable.indicator_rect_unsel);
             }
             imageViews.add(imageView);
             ll.addView(imageView, llp);
@@ -112,9 +114,9 @@ public class ScrollableView extends RelativeLayout {
 //            LogUtil.e("setCurFocus", position + "");
             for (int i = 0; i < size; i++) {
                 if (i == position) {
-                    imageViews.get(i).setImageResource(R.drawable.shape_oval_sel);
+                    imageViews.get(i).setImageResource(R.drawable.indicator_rect_sel);
                 } else {
-                    imageViews.get(i).setImageResource(R.drawable.shape_oval_unsel);
+                    imageViews.get(i).setImageResource(R.drawable.indicator_rect_unsel);
                 }
             }
         }

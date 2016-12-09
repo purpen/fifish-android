@@ -80,7 +80,7 @@ public class HotTagRecycleViewAdapter extends RecyclerView.Adapter<HotTagRecycle
             });
         }
         ImageLoader.getInstance().displayImage(item.cover.file.thumb, holder.iv, options);
-        holder.tvTag.setText(item.display_name);
+        holder.tvTag.setText(item.name);
         holder.tvNum.setText(String.format("%s人参与",position));
     }
 

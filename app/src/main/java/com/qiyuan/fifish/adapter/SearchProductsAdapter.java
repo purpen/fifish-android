@@ -1,6 +1,7 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import com.qiyuan.fifish.bean.SearchProductsBean;
 import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.TagActivity;
 import com.qiyuan.fifish.ui.view.BottomSheetView;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
+import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -117,6 +120,17 @@ public class SearchProductsAdapter extends BaseAdapter<SearchProductsBean.DataBe
         setClickListener(videoHolder.ibtnShare, item);
         setClickListener(videoHolder.ibtnMore, item);
         setClickListener(videoHolder.btnFocus, item);
+        videoHolder.labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
+            @Override
+            public void onClickLabel(Label labelClicked) {
+                Intent intent = new Intent(activity, TagActivity.class);
+                String txt = labelClicked.getText().substring(1);
+                if (!TextUtils.isEmpty(txt)) {
+                    intent.putExtra(TagActivity.class.getSimpleName(), txt);
+                    activity.startActivity(intent);
+                }
+            }
+        });
         return convertView;
     }
 

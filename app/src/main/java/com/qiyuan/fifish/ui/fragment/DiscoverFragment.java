@@ -1,9 +1,11 @@
 package com.qiyuan.fifish.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.TagActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.RecycleViewDivider;
 import com.qiyuan.fifish.ui.view.ScrollableView;
@@ -61,6 +64,7 @@ public class DiscoverFragment extends BaseFragment {
     private ViewPagerAdapter viewPagerAdapter;
     private HotTagRecycleViewAdapter hotTagRecycleViewAdapter;
     private HotUserRecycleViewAdapter hotUserRecycleViewAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setFragmentLayout(R.layout.fragment_discover);
@@ -82,7 +86,7 @@ public class DiscoverFragment extends BaseFragment {
         tagList = new ArrayList<>();
         userList = new ArrayList<>();
         pullLv.getRefreshableView().addHeaderView(headView);
-        dialog=new WaitingDialog(activity);
+        dialog = new WaitingDialog(activity);
 //        ArrayList<Integer> list = new ArrayList<>();
 //        list.add(R.mipmap.guide0);
 //        list.add(R.mipmap.guide1);
@@ -108,7 +112,7 @@ public class DiscoverFragment extends BaseFragment {
 
     @Override
     protected void installListener() {
-        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
+//        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
         pullLv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -135,7 +139,7 @@ public class DiscoverFragment extends BaseFragment {
 
     @Override
     protected void requestNet() {
-        if (!isLoadMore&&!activity.isFinishing()&& dialog != null) dialog.show();
+        if (!isLoadMore && !activity.isFinishing() && dialog != null) dialog.show();
         RequestService.getBanners("1", "6", "app_discover_slide", new CustomCallBack() {
 
             @Override
@@ -143,7 +147,7 @@ public class DiscoverFragment extends BaseFragment {
                 BannersBean bannersBean = JsonUtil.fromJson(result, BannersBean.class);
                 if (bannersBean.meta.status_code == Constants.HTTP_OK) {
                     bannerList.clear();
-                    LogUtil.e("bannerList.size=="+bannerList.size());
+                    LogUtil.e("bannerList.size==" + bannerList.size());
                     for (BannersBean.DataEntity dataEntity : bannersBean.data) {
                         bannerList.add(dataEntity.cover.file.large);
                     }
@@ -173,16 +177,30 @@ public class DiscoverFragment extends BaseFragment {
                 if (tagsBean.meta.status_code == Constants.HTTP_OK) {
                     tagList.clear();
                     tagList.addAll(tagsBean.data);
-                    if (hotTagRecycleViewAdapter==null){
+                    if (hotTagRecycleViewAdapter == null) {
                         LinearLayoutManager manager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                         recyclerViewTag.setHasFixedSize(true);
                         recyclerViewTag.setLayoutManager(manager);
                         recyclerViewTag.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST, R.drawable.divider_10dp));
                         hotTagRecycleViewAdapter = new HotTagRecycleViewAdapter(activity, tagList);
                         recyclerViewTag.setAdapter(hotTagRecycleViewAdapter);
-                    }else {
+                    } else {
                         hotTagRecycleViewAdapter.notifyDataSetChanged();
                     }
+
+                    hotTagRecycleViewAdapter.setOnItemClickListener(new HotTagRecycleViewAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Intent intent = new Intent(activity, TagActivity.class);
+                            intent.putExtra(TagActivity.class.getSimpleName(),tagList.get(position).name);
+                            activity.startActivity(intent);
+                        }
+
+                        @Override
+                        public void onItemLongClick(View view, int position) {
+
+                        }
+                    });
                 }
             }
 
@@ -200,14 +218,14 @@ public class DiscoverFragment extends BaseFragment {
                 if (hotUserBean.meta.status_code == Constants.HTTP_OK) {
                     userList.clear();
                     userList.addAll(hotUserBean.data);
-                    if (hotUserRecycleViewAdapter==null){
+                    if (hotUserRecycleViewAdapter == null) {
                         LinearLayoutManager manager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                         recyclerViewUser.setHasFixedSize(true);
                         recyclerViewUser.setLayoutManager(manager);
                         recyclerViewUser.addItemDecoration(new RecycleViewDivider(activity, RecycleViewDivider.HORIZONTAL_LIST, R.drawable.divider_10dp));
                         hotUserRecycleViewAdapter = new HotUserRecycleViewAdapter(activity, userList);
                         recyclerViewUser.setAdapter(hotUserRecycleViewAdapter);
-                    }else {
+                    } else {
                         hotUserRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }
@@ -222,11 +240,11 @@ public class DiscoverFragment extends BaseFragment {
         getProducts();
     }
 
-    private void getProducts(){
+    private void getProducts() {
         RequestService.getProducts(String.valueOf(curPage), Constants.PAGE_SIZE, null, null, "0", new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                if (!activity.isFinishing()&&dialog.isShowing()) dialog.dismiss();
+                if (!activity.isFinishing() && dialog.isShowing()) dialog.dismiss();
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     List<ProductsBean.DataEntity> list = productsBean.data;
@@ -237,7 +255,7 @@ public class DiscoverFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                if (activity.isFinishing()&& dialog.isShowing()) dialog.dismiss();
+                if (activity.isFinishing() && dialog.isShowing()) dialog.dismiss();
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
             }
@@ -246,7 +264,7 @@ public class DiscoverFragment extends BaseFragment {
 
     @Override
     protected void refreshUI(List list) {
-        if (pullLv!=null) pullLv.onRefreshComplete();
+        if (pullLv != null) pullLv.onRefreshComplete();
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);

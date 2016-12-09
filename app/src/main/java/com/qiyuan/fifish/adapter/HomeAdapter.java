@@ -22,6 +22,7 @@ import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
 import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
 import com.qiyuan.fifish.ui.activity.SearchActivity;
+import com.qiyuan.fifish.ui.activity.TagActivity;
 import com.qiyuan.fifish.ui.fragment.ShareDialogFragment;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
@@ -80,7 +81,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         }
         imageLoader.displayImage(item.user.avatar.large, videoHolder.riv, options);
         videoHolder.tvName.setText(item.user.username);
-        if (!TextUtils.isEmpty(item.address)&&!TextUtils.equals("null",item.address)) {
+        if (!TextUtils.isEmpty(item.address) && !TextUtils.equals("null", item.address)) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
             videoHolder.tvDesc.setText(item.address);
         } else {
@@ -97,10 +98,10 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
             videoHolder.ibtnFavorite.setImageResource(R.mipmap.icon_unsupport);
         }
 
-        if (item.like_count>0){
+        if (item.like_count > 0) {
             videoHolder.tvZanNum.setVisibility(View.VISIBLE);
             videoHolder.tvZanNum.setText(String.valueOf(item.like_count));
-        }else {
+        } else {
             videoHolder.tvZanNum.setVisibility(View.GONE);
         }
 
@@ -117,10 +118,10 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         videoHolder.labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
             @Override
             public void onClickLabel(Label labelClicked) {
-                Intent intent = new Intent(activity, SearchActivity.class);
+                Intent intent = new Intent(activity, TagActivity.class);
                 String txt = labelClicked.getText().substring(1);
                 if (!TextUtils.isEmpty(txt)) {
-                    intent.putExtra(SearchActivity.class.getSimpleName(), txt);
+                    intent.putExtra(TagActivity.class.getSimpleName(), txt);
                     activity.startActivity(intent);
                 }
             }
@@ -229,7 +230,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = false;
-                    item.like_count-=1;
+                    item.like_count -= 1;
                     notifyDataSetChanged();
                 }
             }
@@ -252,7 +253,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
-                    item.like_count+=1;
+                    item.like_count += 1;
                     notifyDataSetChanged();
                 } else {
                     ToastUtils.showError(response.meta.message);

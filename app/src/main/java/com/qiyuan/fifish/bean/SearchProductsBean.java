@@ -96,7 +96,18 @@ public class SearchProductsBean {
                 public String id;
                 public String name;
                 public String display_name;
+                public String total_count;
+                public CoverEntity cover;
             }
+
+            public static class CoverEntity{
+                public FileBean file;
+            }
+
+            public static class FileBean{
+                public String thumb;
+            }
+
             public static class UserBean {
                 /**
                  * id : 1
