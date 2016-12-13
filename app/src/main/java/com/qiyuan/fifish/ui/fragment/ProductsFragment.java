@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.ui.fragment;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.ProductsAdapter;
+import com.qiyuan.fifish.adapter.ProductsGridAdapter;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
@@ -24,22 +25,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author lilin
  *         created at 2016/8/8 11:22
  */
-public class ProductsFragment extends ScrollTabHolderFragment {
+public class ProductsFragment extends ScrollTabHolderFragment implements View.OnClickListener{
+    TextView tvCount;
     @BindView(R.id.listView)
     ListView listView;
+    @BindView(R.id.gridListView)
+    ListView gridListView;
     private ArrayList<ProductsBean.DataEntity> mList;
     private ProductsAdapter adapter;
+    private ProductsGridAdapter gridAdapter;
     public static final String POSITION = "position";
     public static final String ID = "id";
     private int mPosition;
     private String id;
     private int curPage = 1;
-
+    private boolean showList=true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -51,7 +57,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.setFragmentLayout(R.layout.fragment_list);
+        super.setFragmentLayout(R.layout.fragment_my_products);
         super.onCreateView(inflater, container, savedInstanceState);
         return view;
     }
@@ -68,8 +74,16 @@ public class ProductsFragment extends ScrollTabHolderFragment {
     @Override
     protected void initViews() {
         View placeHolderView = Util.inflateView(activity,R.layout.view_header_placeholder, null);
+        ButterKnife.findById(placeHolderView,R.id.rl).setVisibility(View.VISIBLE);
+        tvCount = ButterKnife.findById(placeHolderView, R.id.tv_count);
+        ButterKnife.findById(placeHolderView, R.id.ibtn).setOnClickListener(this);
         listView.addHeaderView(placeHolderView);
+        gridListView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
+        adapter=new ProductsAdapter(mList,activity,UserProfile.getUserId());
+        gridAdapter=new ProductsGridAdapter(mList,activity,UserProfile.getUserId());
+        listView.setAdapter(adapter);
+        gridListView.setAdapter(gridAdapter);
     }
     private int lastVisibleItem = 0;
 
@@ -96,6 +110,28 @@ public class ProductsFragment extends ScrollTabHolderFragment {
     @Override
     protected void installListener() {
         listView.setOnScrollListener(new OnScroll());
+        gridListView.setOnScrollListener(new OnScroll());
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_count:
+                if (showList){
+                    showList=false;
+                    tvCount.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.show_grid,0);
+                    listView.setVisibility(View.GONE);
+                    gridListView.setVisibility(View.VISIBLE);
+                }else {
+                    showList=true;
+                    tvCount.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.show_list,0);
+                    gridListView.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -127,6 +163,7 @@ public class ProductsFragment extends ScrollTabHolderFragment {
             return;
         }
         listView.setSelectionFromTop(1, scrollHeight);
+        listView.setSelectionFromTop(1,scrollHeight);
     }
 
     @Override
@@ -139,12 +176,21 @@ public class ProductsFragment extends ScrollTabHolderFragment {
         if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);
+        //列表
         if (adapter == null) {
             adapter = new ProductsAdapter(mList,activity, UserProfile.getUserId());
             listView.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
         }
+        //网格
+        if (gridAdapter == null) {
+            gridAdapter = new ProductsGridAdapter(mList,activity, UserProfile.getUserId());
+            listView.setAdapter(gridAdapter);
+        } else {
+            gridAdapter.notifyDataSetChanged();
+        }
+
     }
 
 }

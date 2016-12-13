@@ -45,6 +45,7 @@
     <dimen name="dp278">278dp</dimen>
     <dimen name="dp280">280dp</dimen>
     <dimen name="dp300">300dp</dimen>
+    <dimen name="dp310">310dp</dimen>
     <dimen name="dp350">350dp</dimen>
     <dimen name="sp8">8sp</dimen>
     <dimen name="sp10">10sp</dimen>

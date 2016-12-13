@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:paddingTop="@dimen/dp280" />
+<FrameLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/dp310"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:background="@color/color_eee"
+        android:id="@+id/rl"
+        android:layout_gravity="bottom"
+        android:layout_height="@dimen/dp30"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dp16"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/dp30"
+            android:layout_width="match_parent"
+            android:textColor="@color/color_999"
+            android:gravity="center_vertical"
+            />
+
+        <ImageButton
+            android:id="@+id/ibtn"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:paddingRight="@dimen/dp16"
+            android:src="@mipmap/show_list" />
+    </RelativeLayout>
+</FrameLayout>

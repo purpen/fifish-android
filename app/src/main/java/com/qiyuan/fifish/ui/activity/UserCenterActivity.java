@@ -13,6 +13,7 @@ import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -87,7 +88,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     TextView tvFocus;
     @BindView(R.id.tv_fans)
     TextView tvFans;
-    private LoginUserInfo user;
     private List<Uri> mSelected;
     private String userId;
     private static final int REQUEST_CODE_PICK_IMAGE = 100;
@@ -137,7 +137,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         tvProductsNum.setTextColor(color_2187ff);
         tvProducts.setTextColor(color_2187ff);
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
-        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp280);
+        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp310);
         mMinHeaderTranslation = -mMinHeaderHeight;
         fragments[0] = ProductsFragment.newInstance(0, userId);
         fragments[1] = FocusFragment.newInstance(1, userId);
@@ -253,26 +253,28 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         }
         SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
         ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
-        currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+        if (position==0){
+            currentHolder.adjustScroll((int) (mHeader.getHeight()+getResources().getDimensionPixelSize(R.dimen.dp30) + mHeader.getTranslationY()));
+        }else {
+            currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+        }
     }
 
     @Override
     protected void refreshUI() {
         if (userInfo == null) return;
         ImageLoader.getInstance().displayImage(userInfo.data.avatar.large,riv);
-        ImageLoader.getInstance().displayImage("bg", ivBg);
+//        ImageLoader.getInstance().displayImage("bg", ivBg);
         tvName.setText(userInfo.data.username);
-//        tvAddress.setText(userInfo.data.zone);
-        tvAddress.setText("北京朝阳");
+        tvAddress.setText(userInfo.data.zone);
         tvFocusNum.setText(userInfo.data.follow_count);
         tvFansNum.setText(userInfo.data.fans_count);
+//        tvCount.setText(userInfo.data.stuff_count+getResources().getString(R.string.products_num));
         tvProductsNum.setText(userInfo.data.stuff_count);
-        if (userInfo.data.summary != null) {
-            if (!TextUtils.isEmpty(userInfo.data.summary.toString())) {
-                tvSummary.setText(userInfo.data.summary.toString());
-            }
+        if (TextUtils.isEmpty(userInfo.data.summary)&&TextUtils.equals("null",userInfo.data.summary)) {
+            tvSummary.setVisibility(View.GONE);
         } else {
-            tvSummary.setText("人生是场大设计!");
+            tvSummary.setText(userInfo.data.summary);
         }
     }
 
@@ -300,7 +302,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
             public void onClick(View view) {
                 if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
                 flag = EditUserInfoActivity.class.getSimpleName();
-                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换头像"));
+                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar,getResources().getString(R.string.update_header_picture)));
             }
         });
 
@@ -357,9 +359,9 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
                 PopupWindowUtil.dismiss();
                 break;
             case R.id.rl:
-                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
-                flag = UserCenterActivity.class.getSimpleName();
-                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换背景封面"));
+//                if (!TextUtils.equals(UserProfile.getUserId(),userId)) return;
+//                flag = UserCenterActivity.class.getSimpleName();
+//                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar, "更换背景封面"));
                 break;
 //            case R.id.iv_right:
 //                startActivity(new Intent(activity, EditUserInfoActivity.class));

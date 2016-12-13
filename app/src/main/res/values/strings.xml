@@ -21,6 +21,7 @@
     <string name="add_video_des">添加视频说明</string>
     <string name="add_pic_des">添加图片说明</string>
     <string name="used_times">使用次数:</string>
+    <string name="update_header_picture">更换头像</string>
     <string name="search">搜索</string>
     <string name="search_user">搜索用户</string>
     <string name="login">登录</string>
@@ -41,6 +42,7 @@
     <string name="init_equals_new_password">原密码和新密码不能相同</string>
     <string name="input_reply_content">请输入回复内容</string>
     <string name="products">作品</string>
+    <string name="products_num">个作品</string>
     <string name="focus">关注</string>
     <string name="focused">已关注</string>
     <string name="fans">粉丝</string>
