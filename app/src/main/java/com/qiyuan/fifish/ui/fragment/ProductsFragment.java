@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +33,8 @@ import butterknife.ButterKnife;
  *         created at 2016/8/8 11:22
  */
 public class ProductsFragment extends ScrollTabHolderFragment implements View.OnClickListener{
-    TextView tvCount;
+    private TextView tvCount;
+    private ImageButton ibtnToggle;
     @BindView(R.id.listView)
     ListView listView;
     @BindView(R.id.gridListView)
@@ -76,7 +78,7 @@ public class ProductsFragment extends ScrollTabHolderFragment implements View.On
         View placeHolderView = Util.inflateView(activity,R.layout.view_header_placeholder, null);
         ButterKnife.findById(placeHolderView,R.id.rl).setVisibility(View.VISIBLE);
         tvCount = ButterKnife.findById(placeHolderView, R.id.tv_count);
-        ButterKnife.findById(placeHolderView, R.id.ibtn).setOnClickListener(this);
+        ibtnToggle = ButterKnife.findById(placeHolderView, R.id.ibtn_toggle);
         listView.addHeaderView(placeHolderView);
         gridListView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
@@ -109,6 +111,7 @@ public class ProductsFragment extends ScrollTabHolderFragment implements View.On
 
     @Override
     protected void installListener() {
+        ibtnToggle.setOnClickListener(this);
         listView.setOnScrollListener(new OnScroll());
         gridListView.setOnScrollListener(new OnScroll());
     }
@@ -116,15 +119,15 @@ public class ProductsFragment extends ScrollTabHolderFragment implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_count:
+            case R.id.ibtn_toggle:
                 if (showList){
                     showList=false;
-                    tvCount.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.show_grid,0);
+                    ibtnToggle.setImageResource(R.mipmap.show_grid);
                     listView.setVisibility(View.GONE);
                     gridListView.setVisibility(View.VISIBLE);
                 }else {
                     showList=true;
-                    tvCount.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.show_list,0);
+                    ibtnToggle.setImageResource(R.mipmap.show_list);
                     gridListView.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
                 }
@@ -142,6 +145,7 @@ public class ProductsFragment extends ScrollTabHolderFragment implements View.On
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
                 ProductsBean productsBean = JsonUtil.fromJson(result, ProductsBean.class);
+                tvCount.setText(productsBean.meta.pagination.total+getString(R.string.products_num));
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     List<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);

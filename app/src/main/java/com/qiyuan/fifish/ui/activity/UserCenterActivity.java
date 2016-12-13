@@ -2,6 +2,7 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -139,6 +140,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
         mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp310);
         mMinHeaderTranslation = -mMinHeaderHeight;
+        Bundle bundle = new Bundle();
         fragments[0] = ProductsFragment.newInstance(0, userId);
         fragments[1] = FocusFragment.newInstance(1, userId);
         fragments[2] = FansFragment.newInstance(2, userId);

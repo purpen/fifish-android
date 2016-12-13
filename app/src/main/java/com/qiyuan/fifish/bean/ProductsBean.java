@@ -39,6 +39,11 @@ public class ProductsBean implements Serializable{
     public static class MetaEntity {
         public String message;
         public int status_code;
+        public Pagination pagination;
+    }
+
+    public static class Pagination{
+        public String total;
     }
 
     public static class DataEntity implements Serializable{

@@ -21,10 +21,11 @@
             android:layout_width="match_parent"
             android:textColor="@color/color_999"
             android:gravity="center_vertical"
+            android:textSize="@dimen/sp12"
             />
 
         <ImageButton
-            android:id="@+id/ibtn"
+            android:id="@+id/ibtn_toggle"
             android:background="@null"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
