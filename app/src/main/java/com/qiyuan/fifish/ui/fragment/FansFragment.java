@@ -15,6 +15,7 @@ import com.qiyuan.fifish.adapter.FansAdapter;
 import com.qiyuan.fifish.bean.FocusBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
@@ -36,6 +37,7 @@ public class FansFragment extends ScrollTabHolderFragment {
     private FansAdapter adapter;
     private int mPosition;
     private String id;
+    private WaitingDialog dialog;
     private int curPage=1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class FansFragment extends ScrollTabHolderFragment {
     protected void initViews() {
         View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
         listView.addHeaderView(placeHolderView);
+        dialog=new WaitingDialog(activity);
         mList = new ArrayList<>();
 //        for (int i = 1; i <= 50; i++) {
 //            mList.add(i + ". item - currnet page: " + (0 + 1));
@@ -76,6 +79,16 @@ public class FansFragment extends ScrollTabHolderFragment {
 //        super.onActivityCreated(savedInstanceState);
 //        listView.setAdapter(adapter);
 //    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            requestData();
+            mList.clear();
+        }
+    }
 
     private int lastVisibleItem = 0;
 
@@ -89,7 +102,8 @@ public class FansFragment extends ScrollTabHolderFragment {
                 Log.e("mListView.getCount()-1", "底部");
 //                mList.addAll(mList);
 //                adapter.notifyDataSetChanged();
-                refreshUI(mList);
+                requestData();
+//                refreshUI(mList);
             }
         }
 
@@ -107,25 +121,30 @@ public class FansFragment extends ScrollTabHolderFragment {
         listView.setOnScrollListener(new OnScroll());
     }
 
-    @Override
-    protected void requestNet() {
+    protected void requestData() {
         if (TextUtils.isEmpty(id)) return;
         RequestService.getFans(id, new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.show();
+            }
             @Override
             public void onSuccess(String result) {
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
                     List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
-                    return;
                 }
-                ToastUtils.showError(focusBean.meta.message);
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
+            }
+            @Override
+            public void onFinished() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.dismiss();
             }
         });
     }

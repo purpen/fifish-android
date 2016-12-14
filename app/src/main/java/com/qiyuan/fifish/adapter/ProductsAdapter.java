@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
@@ -41,6 +42,7 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> implem
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        viewHolder.tvUploadTime.setText(item.created_at);
         switch (item.kind){
             case "1":
                 viewHolder.videoView.setVisibility(View.GONE);
@@ -70,6 +72,8 @@ public class ProductsAdapter extends BaseAdapter<ProductsBean.DataEntity> implem
     }
 
     static class ViewHolder {
+        @BindView(R.id.tv_upload_time)
+        TextView tvUploadTime;
         @BindView(R.id.iv)
         ImageView iv;
         @BindView(R.id.videoView)

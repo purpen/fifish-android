@@ -2,8 +2,24 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/color_2187ff" />
-            <corners android:radius="@dimen/dp30" />
+            <solid android:color="@color/color_2288ff" />
+            <corners android:radius="@dimen/dp24" />
+
+        </shape>
+    </item>
+    <!-- 主体背景颜色值 -->
+    <item
+        android:bottom="@dimen/dp1"
+        android:right="@dimen/dp1"
+        android:top="@dimen/dp1"
+        android:left="@dimen/dp1">
+        <shape>
+            <!--<gradient android:startColor="#eb6b00" android:centerColor="#ef8000"
+                android:endColor="#f49500" android:type="linear" android:angle="90"
+                android:centerX="0.5" android:centerY="0.5" />-->
+            <solid android:color="@android:color/white" />
+            <!-- 应该是圆角 -->
+            <corners android:radius="@dimen/dp24" />
         </shape>
     </item>
 </layer-list>

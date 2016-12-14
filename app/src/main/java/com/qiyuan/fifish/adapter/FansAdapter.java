@@ -15,7 +15,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.FocusBean;
+import com.qiyuan.fifish.bean.SuccessBean;
+import com.qiyuan.fifish.bean.UserProfile;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.List;
@@ -62,9 +69,17 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
         convertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, activity.getResources().getDimensionPixelSize(R.dimen.dp55)));
         imageLoader.displayImage(item.user.avatar.small, holder.riv,options);
         holder.tv_name.setText(item.user.username);
-        if (!TextUtils.isEmpty(item.user.summary)&&!TextUtils.equals(item.follower.summary,"null")){
+        if (!TextUtils.isEmpty(item.follower.summary)&&!TextUtils.equals(item.follower.summary,"null")){
             holder.tv_desc.setText(item.follower.summary);
         }
+
+        if (item.is_follow) {
+            setFocusBtnStyle(holder.btn, R.dimen.dp8, R.string.focused, R.mipmap.focused, R.color.color_2288ff, R.drawable.shape_focus);
+        } else {
+            setFocusBtnStyle(holder.btn, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
+        }
+
+        setClickListener(holder.btn, item);
 //        if (item.follows.is_expert == 1) {
 //            holder.riv_auth.setVisibility(View.VISIBLE);
 //        } else {
@@ -107,40 +122,98 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
         return convertView;
     }
 
+    private void setClickListener(Button btn, final FocusBean.DataBean item) {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (item.is_follow) { //做取消关注
+                    setFocusBtnStyle((Button) view, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
+                    cancelFocus(item,view);
+                } else {
+                    setFocusBtnStyle((Button) view, R.dimen.dp8, R.string.focused, R.mipmap.focused, R.color.color_2288ff, R.drawable.shape_focus);
+                    doFocus(item,view);
+                }
+            }
+        });
+    }
+
+    private void setFocusBtnStyle(Button bt_focus, int dimensionPixelSize, int focus, int unfocus_pic, int color, int drawable) {
+        dimensionPixelSize = activity.getResources().getDimensionPixelSize(dimensionPixelSize);
+        bt_focus.setPadding(dimensionPixelSize, 0, dimensionPixelSize, 0);
+        bt_focus.setText(focus);
+        bt_focus.setTextColor(activity.getResources().getColor(color));
+        bt_focus.setBackgroundResource(drawable);
+        bt_focus.setCompoundDrawablesWithIntrinsicBounds(unfocus_pic, 0, 0, 0);
+    }
+
+    //取消关注
+    private void cancelFocus(final FocusBean.DataBean item, final View view) {
+        if (TextUtils.equals(UserProfile.getUserId(),userId)) { //在自己的个人中心
+            RequestService.cancelFocus(item.follower.id, new CustomCallBack() {
+                @Override
+                public void onStarted() {
+                    view.setEnabled(false);
+                }
+
+                @Override
+                public void onSuccess(String result) {
+                    SuccessBean successBean = JsonUtil.fromJson(result, SuccessBean.class);
+                    if (successBean.meta.status_code== Constants.HTTP_OK){
+                        item.is_follow=false;
+                        notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    ex.printStackTrace();
+                    ToastUtils.showError(R.string.request_error);
+                }
+
+                @Override
+                public void onFinished() {
+                    view.setEnabled(true);
+                }
+            });
+        } else {
+//            dealOthersCancelFocus(item, view);
+        }
+    }
+
+
     //关注粉丝操作
-//    private void doFocus(final FocusFans item, final View view) {
-//        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) {
-//            ClientDiscoverAPI.focusOperate(item.follows.user_id + "", new RequestCallBack<String>() {
-//                @Override
-//                public void onSuccess(ResponseInfo<String> responseInfo) {
-//                    view_link_help.setEnabled(true);
-//                    PopupWindowUtil.dismiss();
-//                    if (responseInfo == null) return;
-//                    if (TextUtils.isEmpty(responseInfo.result)) return;
-//                    HttpResponse response = JsonUtil.fromJson(responseInfo.result, HttpResponse.class);
-//                    if (response.isSuccess()) {
-//                        item.type = TYPE2;
-//                        notifyDataSetChanged();
-////                        Util.makeToast(response.getMessage());
-//                        return;
-//                    }
-//                    ToastUtils.showError(response.getMessage());
-////                    svProgressHUD.showErrorWithStatus(response.getMessage());
-//
-//                }
-//
-//                @Override
-//                public void onFailure(HttpException e, String s) {
-//                    view_link_help.setEnabled(true);
-//                    PopupWindowUtil.dismiss();
-//                    ToastUtils.showError("网络异常，请确认网络畅通");
-////                    svProgressHUD.showErrorWithStatus("网络异常，请确认网络畅通");
-//                }
-//            });
-//        } else {
+    private void doFocus(final FocusBean.DataBean item, final View view) {
+        if (TextUtils.equals(UserProfile.getUserId(),userId)) { //在自己的个人中心
+            RequestService.doFocus(item.follower.id, new CustomCallBack() {
+                @Override
+                public void onStarted() {
+                    view.setEnabled(false);
+                }
+
+                @Override
+                public void onSuccess(String result) {
+                    SuccessBean successBean = JsonUtil.fromJson(result, SuccessBean.class);
+                    if (successBean.meta.status_code== Constants.HTTP_OK){
+                        item.is_follow=true;
+                        notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    ex.printStackTrace();
+                    ToastUtils.showError(R.string.request_error);
+                }
+
+                @Override
+                public void onFinished() {
+                    view.setEnabled(true);
+                }
+            });
+        } else {
 //            dealOthersFocus(item, view);
-//        }
-//    }
+        }
+    }
 
 
 //    private void showFocusFansConfirmView(FocusFans item, String tips) {

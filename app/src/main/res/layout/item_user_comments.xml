@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp60"
+    android:layout_height="@dimen/dp64"
     android:paddingLeft="@dimen/dp16"
-    android:paddingRight="@dimen/dp16"
-    android:paddingTop="@dimen/dp5"
-    android:paddingBottom="@dimen/dp5"
+    android:background="@android:color/white"
     android:descendantFocusability="blocksDescendants"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
         android:id="@+id/riv"
-        android:layout_width="@dimen/dp40"
-        android:layout_height="@dimen/dp40"
+        android:layout_width="@dimen/dp32"
+        android:layout_height="@dimen/dp32"
         android:src="@mipmap/default_cover"
         app:riv_corner_radius="@dimen/dp100"
         android:layout_centerVertical="true"
@@ -81,5 +79,11 @@
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         android:visibility="gone"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp05"
+        android:background="@color/color_eee"
+        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>

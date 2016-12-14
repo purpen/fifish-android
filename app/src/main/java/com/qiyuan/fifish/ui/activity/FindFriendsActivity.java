@@ -137,7 +137,7 @@ public class FindFriendsActivity extends BaseActivity<Friends> implements View.O
     }
 
     @Override
-    protected void refreshUI(ArrayList<Friends> list) {
+    protected void refreshUI(List<Friends> list) {
         if (list == null) return;
         if (list.size() == 0) {
             boolean isLoadMore = false;

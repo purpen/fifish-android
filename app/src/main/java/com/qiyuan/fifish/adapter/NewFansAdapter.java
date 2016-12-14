@@ -1,10 +1,11 @@
 package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,10 +24,10 @@ import butterknife.ButterKnife;
  * @author lilin
  *         created at 2016/5/4 19:24
  */
-public class FavoriteProductsAdapter extends BaseAdapter<SupportedProductsBean.DataBean> {
+public class NewFansAdapter extends BaseAdapter<SupportedProductsBean.DataBean> {
     private ImageLoader imageLoader;
 
-    public FavoriteProductsAdapter(List list, Activity activity) {
+    public NewFansAdapter(List list, Activity activity) {
         super(list, activity);
         this.imageLoader = ImageLoader.getInstance();
     }
@@ -46,15 +47,12 @@ public class FavoriteProductsAdapter extends BaseAdapter<SupportedProductsBean.D
 
         imageLoader.displayImage(item.sender.avatar.small, holder.riv, options);
         holder.tvTop.setText(item.sender.username);
-        if (item.stuff.kind==1){
-            holder.tvTopRight.setText(activity.getString(R.string.support_your)+activity.getString(R.string.picture_products));
-        }else if (item.stuff.kind==2){
-            holder.tvTopRight.setText(activity.getString(R.string.support_your)+activity.getString(R.string.video_products));
+        if (!TextUtils.isEmpty(item.sender.summary)&&!TextUtils.equals("null",item.sender.summary)){
+            holder.tvBottom.setText(item.sender.summary);
+            holder.tvBottom.setTextColor(activity.getResources().getColor(R.color.color_999));
         }
-        holder.tvBottom.setText(item.created_at);
-        holder.tvBottom.setTextColor(activity.getResources().getColor(R.color.color_999));
-        holder.imageView.setVisibility(View.VISIBLE);
-        imageLoader.displayImage(item.stuff.cover.file.thumb,holder.imageView, options);
+        holder.btnFocus.setVisibility(View.VISIBLE);
+        setClickListener(item,holder.btnFocus);
 //        if (item.is_unread) {
 //            holder.dot.setVisibility(View.VISIBLE);
 //        } else {
@@ -72,6 +70,12 @@ public class FavoriteProductsAdapter extends BaseAdapter<SupportedProductsBean.D
         return convertView;
     }
 
+
+    //关注操作
+    private void setClickListener(SupportedProductsBean.DataBean item, Button btnFocus) {
+        // TODO
+    }
+
     static class ViewHolder {
         @BindView(R.id.riv)
         RoundedImageView riv;
@@ -83,6 +87,8 @@ public class FavoriteProductsAdapter extends BaseAdapter<SupportedProductsBean.D
         TextView tvBottom;
         @BindView(R.id.imageView)
         ImageView imageView;
+        @BindView(R.id.btn_focus)
+        Button btnFocus;
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }

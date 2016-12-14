@@ -207,7 +207,7 @@ public class RequestService {
     public static void doFocus(String id, CustomCallBack callBack) {
         String url = Constants.BASE_URL+"user/"+id+"/follow";
         RequestParams params = new RequestParams(url);
-        params.addBodyParameter("token", SPUtil.read(Constants.TOKEN));
+        addToken(params);
         Callback.Cancelable cancelable = x.http().post(params, callBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
@@ -453,4 +453,30 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().get(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 获取作品详情
+     * @param id
+     * @param customCallBack
+     */
+    public static void getProductsDetail(String id, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"stuffs/"+id;
+        RequestParams params = new RequestParams(url);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+    /**
+     * 获取用户作品被点赞列表
+     * @param customCallBack
+     */
+    public static void getSupportedProducts(CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/gotLikes";
+        RequestParams params = new RequestParams(url);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+
 }

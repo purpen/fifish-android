@@ -11,6 +11,8 @@
     <string name="new_password">新密码</string>
     <string name="confirm_update">确认修改</string>
     <string name="get_code">获取验证码</string>
+    <string name="support_your">赞了你的</string>
+    <string name="new_fans">新的粉丝</string>
     <string name="title_forget_password">忘记密码</string>
     <string name="job">职业</string>
     <string name="area">地区</string>

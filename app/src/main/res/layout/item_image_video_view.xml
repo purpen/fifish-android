@@ -3,6 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_upload_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp16"
+        android:textSize="@dimen/sp12"
+        android:textColor="@color/color_999"
+        />
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"

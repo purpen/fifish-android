@@ -15,6 +15,7 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.SearchProductsBean;
 import com.qiyuan.fifish.bean.SupportProductsBean;
+import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.TagActivity;
@@ -54,7 +55,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         Integer type = Integer.valueOf(item.kind);
         VideoHolder videoHolder;
         if (convertView == null) {
-            convertView = Util.inflateView(activity,R.layout.item_dicover_products, null);
+            convertView = Util.inflateView(activity, R.layout.item_dicover_products, null);
             videoHolder = new VideoHolder(convertView);
             convertView.setTag(videoHolder);
         } else {
@@ -65,28 +66,29 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 videoHolder.videoView.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                if (item.cover!=null){
-                    videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,"");
-                    ImageLoader.getInstance().displayImage(item.cover.file.large,videoHolder.videoView.thumbImageView,options);
+                if (item.cover != null) {
+                    videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+                    ImageLoader.getInstance().displayImage(item.cover.file.large, videoHolder.videoView.thumbImageView, options);
                 }
                 break;
             case TYPE_IMAGE:
                 videoHolder.videoView.setVisibility(View.GONE);
                 videoHolder.ivCover.setVisibility(View.VISIBLE);
-                if (item.cover!=null) imageLoader.displayImage(item.cover.file.large, videoHolder.ivCover, options);
+                if (item.cover != null)
+                    imageLoader.displayImage(item.cover.file.large, videoHolder.ivCover, options);
                 break;
             default:
                 break;
         }
-        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv,options);
+        imageLoader.displayImage(item.user.avatar.large, videoHolder.riv, options);
         videoHolder.tvName.setText(item.user.username);
-        if (item.like_count>0){
+        if (item.like_count > 0) {
             videoHolder.tvZanNum.setVisibility(View.VISIBLE);
             videoHolder.tvZanNum.setText(String.valueOf(item.like_count));
-        }else {
+        } else {
             videoHolder.tvZanNum.setVisibility(View.GONE);
         }
-        if (!TextUtils.isEmpty(item.address)&&!TextUtils.equals("null",item.address)) {
+        if (!TextUtils.isEmpty(item.address) && !TextUtils.equals("null", item.address)) {
             videoHolder.tvDesc.setVisibility(View.VISIBLE);
             videoHolder.tvDesc.setText(item.address);
         } else {
@@ -94,7 +96,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         }
 
         videoHolder.labelView.clear();
-        for (ProductsBean.DataEntity.TagsEntity tag:item.tags) {
+        for (ProductsBean.DataEntity.TagsEntity tag : item.tags) {
             videoHolder.labelView.addLabel("#" + tag.name);
         }
         videoHolder.tvTxt.setText(item.content);
@@ -110,10 +112,15 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         }
         videoHolder.tvCommentNum.setText(String.format("所有%s条评论", item.comment_count));
         videoHolder.tvTime.setText(item.created_at);
-        if (item.is_follow){
-            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp8, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
-        }else {
-            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
+        if (TextUtils.equals(item.user.id, UserProfile.getUserId())) {
+            videoHolder.btnFocus.setVisibility(View.GONE);
+        } else {
+            videoHolder.btnFocus.setVisibility(View.VISIBLE);
+        }
+        if (item.is_follow) {
+            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp8, R.string.focused, R.mipmap.focused, R.color.color_2288ff, R.drawable.shape_focus);
+        } else {
+            setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
         }
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
@@ -161,11 +168,11 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                         break;
                     case R.id.btn_focus:
                         if (item.is_follow) { //做取消关注
-                            setFocusBtnStyle((Button) view, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_2187ff, R.drawable.shape_unfocus);
-                            cancelFocus(view,item);
+                            setFocusBtnStyle((Button) view, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
+                            cancelFocus(view, item);
                         } else {
-                            setFocusBtnStyle((Button) view, R.dimen.dp8, R.string.focused, R.mipmap.focused, android.R.color.white, R.drawable.shape_focus);
-                            doFocus(view,item);
+                            setFocusBtnStyle((Button) view, R.dimen.dp8, R.string.focused, R.mipmap.focused, R.color.color_2288ff, R.drawable.shape_focus);
+                            doFocus(view, item);
                         }
                         break;
                     default:
@@ -181,7 +188,12 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);
-                item.is_follow=true;
+                item.is_follow = true;
+                for (ProductsBean.DataEntity dataEntity : list) {
+                    if (TextUtils.equals(item.user_id, dataEntity.user_id)) {
+                        dataEntity.is_follow = true;
+                    }
+                }
                 notifyDataSetChanged();
             }
 
@@ -200,10 +212,13 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
             @Override
             public void onSuccess(String result) {
                 view.setEnabled(true);
-//                if (response.meta.status_code == Constants.HTTP_OK) {
-                    item.is_follow = false;
-                    notifyDataSetChanged();
-//                }
+                item.is_follow = false;
+                for (ProductsBean.DataEntity dataEntity : list) {
+                    if (TextUtils.equals(item.user_id, dataEntity.user_id)) {
+                        dataEntity.is_follow = false;
+                    }
+                }
+                notifyDataSetChanged();
             }
 
             @Override
@@ -215,7 +230,6 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         });
     }
 
-    
 
     private void cancelSupport(final View view, final ProductsBean.DataEntity item) {
         view.setEnabled(false);
@@ -226,7 +240,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = false;
-                    item.like_count-=1;
+                    item.like_count -= 1;
                     notifyDataSetChanged();
                 }
             }
@@ -249,7 +263,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 SupportProductsBean response = JsonUtil.fromJson(result, SupportProductsBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
                     item.is_love = true;
-                    item.like_count+=1;
+                    item.like_count += 1;
                     notifyDataSetChanged();
                 }
             }
@@ -264,7 +278,7 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
     }
 
     private void setFocusBtnStyle(Button bt_focus, int dimensionPixelSize, int focus, int unfocus_pic, int color, int drawable) {
-        dimensionPixelSize=activity.getResources().getDimensionPixelSize(dimensionPixelSize);
+        dimensionPixelSize = activity.getResources().getDimensionPixelSize(dimensionPixelSize);
         bt_focus.setPadding(dimensionPixelSize, 0, dimensionPixelSize, 0);
         bt_focus.setText(focus);
         bt_focus.setTextColor(activity.getResources().getColor(color));

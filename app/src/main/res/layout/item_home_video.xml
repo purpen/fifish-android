@@ -196,7 +196,6 @@
                 android:lineSpacingMultiplier="1.5"
                 android:textSize="@dimen/sp12"
                 android:paddingBottom="@dimen/dp10"
-                android:maxLines="3"
                 android:ellipsize="end"
                 android:paddingTop="@dimen/dp10"
                 android:textColor="@color/color_333"

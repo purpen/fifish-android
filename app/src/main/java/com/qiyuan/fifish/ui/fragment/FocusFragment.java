@@ -15,6 +15,7 @@ import com.qiyuan.fifish.adapter.FocusAdapter;
 import com.qiyuan.fifish.bean.FocusBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
@@ -39,7 +40,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
     private int mPosition;
     private String id;
     private int curPage = 1;
-
+    private WaitingDialog dialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -57,6 +58,15 @@ public class FocusFragment extends ScrollTabHolderFragment {
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            requestData();
+            mList.clear();
+        }
+    }
+
     public static FocusFragment newInstance(int position, String id) {
         FocusFragment f = new FocusFragment();
         Bundle b = new Bundle();
@@ -68,6 +78,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
 
     @Override
     protected void initViews() {
+        dialog=new WaitingDialog(activity);
         View placeHolderView = Util.inflateView(R.layout.view_header_placeholder, null);
         listView.addHeaderView(placeHolderView);
         mList = new ArrayList<>();
@@ -82,10 +93,14 @@ public class FocusFragment extends ScrollTabHolderFragment {
 //        listView.setOnScrollListener(new OnScroll());
 //    }
 
-    @Override
-    protected void requestNet() {
+    protected void requestData() {
         if (TextUtils.isEmpty(id)) return;
         RequestService.getFocus(id, new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.show();
+            }
+
             @Override
             public void onSuccess(String result) {
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
@@ -101,6 +116,11 @@ public class FocusFragment extends ScrollTabHolderFragment {
             public void onError(Throwable ex, boolean isOnCallback) {
                 ex.printStackTrace();
                 ToastUtils.showError(R.string.request_error);
+            }
+
+            @Override
+            public void onFinished() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.dismiss();
             }
         });
     }
@@ -118,6 +138,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
 //                mList.addAll(mList);
 //                adapter.notifyDataSetChanged();
 //                refreshUI(mList);
+                requestData();
             }
         }
 

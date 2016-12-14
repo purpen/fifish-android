@@ -13,6 +13,7 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -160,11 +161,11 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     }
 
-    protected void refreshUI(ArrayList<T> list) {
+    protected void refreshUI(List<T> list) {
 
     }
 
-    protected void refreshUI(ArrayList<T> list, ArrayList<T> list1) {
+    protected void refreshUI(List<T> list,List<T> list1) {
 
     }
 }

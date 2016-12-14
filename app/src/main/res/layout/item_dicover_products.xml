@@ -67,12 +67,10 @@
             android:id="@+id/btn_focus"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/dp70"
-            android:layout_height="@dimen/dp30"
+            android:layout_height="@dimen/dp24"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textSize="@dimen/sp12"
-            android:text="@string/focus"
-            android:textColor="@color/color_333"
             />
     </RelativeLayout>
 

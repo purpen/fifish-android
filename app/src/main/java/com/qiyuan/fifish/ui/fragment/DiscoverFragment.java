@@ -249,7 +249,6 @@ public class DiscoverFragment extends BaseFragment {
                 if (productsBean.meta.status_code == Constants.HTTP_OK) {
                     List<ProductsBean.DataEntity> list = productsBean.data;
                     refreshUI(list);
-                    return;
                 }
             }
 

@@ -45,7 +45,7 @@ public class FocusBean {
         public int follow_id;
         public FollowerBean follower;
         public boolean is_follow;
-
+        public boolean is_focus=true;
         public static class UserBean {
             /**
              * id : 2
@@ -56,7 +56,7 @@ public class FocusBean {
              * avatar : {"small":"http://s3.qysea.com/img/avatar!smx50.png","large":"http://s3.qysea.com/img/avatar!lgx180.png"}
              */
 
-            public int id;
+            public String id;
             public String username;
             public String summary;
             public int first_login;
@@ -84,7 +84,7 @@ public class FocusBean {
              * avatar : {"small":"http://oe5tkubcj.bkt.clouddn.com/avatar/161116/f92348fd14b76dbf1e5fd0a3ce43ecd9.jpg!smx50","large":"http://oe5tkubcj.bkt.clouddn.com/avatar/161116/f92348fd14b76dbf1e5fd0a3ce43ecd9.jpg!lgx180"}
              */
 
-            public int id;
+            public String id;
             public String username;
             public String summary;
             public int first_login;

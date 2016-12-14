@@ -3,16 +3,27 @@ package com.qiyuan.fifish.ui.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import butterknife.BindView;
+
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FansAdapter;
+import com.qiyuan.fifish.bean.CommentsBean;
 import com.qiyuan.fifish.bean.FocusBean;
 import com.qiyuan.fifish.bean.UserProfile;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import static com.qiyuan.fifish.util.Constants.USER_ID;
 
 /**
  * @author lilin
@@ -21,17 +32,18 @@ import java.util.List;
 public class NewFansActivity extends BaseActivity {
     @BindView(R.id.custom_head)
     CustomHeadView custom_head;
-    @BindView(R.id.lv)
-    ListView lv;
+    @BindView(R.id.pull_lv)
+    PullToRefreshListView pullLv;
+    @BindView(R.id.ll_empty_view)
+    LinearLayout llEmptyView;
     private int curPage = 1;
     private int unread_count;
-    private List<FocusBean.DataBean> list;
-    private static final String pageSize = "9999";
+    private List<FocusBean.DataBean> mList;
     private WaitingDialog dialog;
     private FansAdapter adapter;
 
     public NewFansActivity() {
-        super(R.layout.activity_new_fans);
+        super(R.layout.activity_list);
     }
 
     @Override
@@ -44,74 +56,84 @@ public class NewFansActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        custom_head.setHeadCenterTxtShow(true, "新的粉丝");
+        custom_head.setHeadCenterTxtShow(true,R.string.new_fans);
         dialog = new WaitingDialog(this);
-//        WindowUtils.chenjin(this);
+        mList=new ArrayList<>();
+        adapter=new FansAdapter(mList,activity,UserProfile.getUserId());
+        pullLv.setAdapter(adapter);
+        pullLv.setEmptyView(llEmptyView);
     }
 
     @Override
     protected void installListener() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(activity, CommentListActivity.class);
-//                intent.putExtra("target_id", list.get(i).target_id);
-//                intent.putExtra("target_user_id", list.get(i).getUser().get_id());
+                if (i<1) return;
+                FocusBean.DataBean item = adapter.getItem(i - 1);
+                Intent intent = new Intent(activity, UserCenterActivity.class);
+                intent.putExtra(USER_ID,item.user.id);
+//              、  intent.putExtra("target_user_id", list.get(i).getUser().get_id());
 //                intent.putExtra("type", 12 + "");
 //                intent.putExtra(UserCommentsActivity.class.getSimpleName(), list.get(i).getUser().getNickname());
 //                intent.putExtra("reply_id", list.get(i).get_id());
 //                intent.putExtra("reply_user_id", list.get(i).getUser().get_id());
-//                startActivity(intent);
+                startActivity(intent);
+            }
+        });
+
+        pullLv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                requestNet();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
             }
         });
     }
 
     @Override
     protected void requestNet() {
-//        ClientDiscoverAPI.mycommentsList(String.valueOf(curPage), pageSize, null, LoginInfo.getUserId() + "", COMMENT_TYPE, new RequestCallBack<String>() {
-//            @Override
-//            public void onStart() {
-//                if (!activity.isFinishing() && dialog != null) dialog.show();
-//            }
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (!activity.isFinishing() && dialog != null) dialog.dismiss();
-//                    }
-//                }, DataConstants.DIALOG_DELAY);
-//                if (responseInfo == null) return;
-//                if (TextUtils.isEmpty(responseInfo.result)) return;
-//                LogUtil.e(TAG, responseInfo.result);
-//                CommentsBean commentsBean = JsonUtil.fromJson(responseInfo.result, CommentsBean.class);
-//                if (commentsBean.isSuccess()) {
-//                    if (commentsBean.getData() == null) return;
-//                    list = commentsBean.getData().getRows();
-//                    refreshUI();
-//                } else {
-//                    ToastUtils.showError(commentsBean.getMessage());
-////                    dialog.showErrorWithStatus(commentsBean.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                dialog.dismiss();
-//                ToastUtils.showError("网络异常，请确认网络畅通");
-////                dialog.showErrorWithStatus("网络异常，请确认网络畅通");
-//            }
-//        });
+        RequestService.getFans(UserProfile.getUserId(), new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if(dialog!=null&&!activity.isFinishing()) dialog.show();
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                if (pullLv!=null) pullLv.onRefreshComplete();
+                FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
+                if (focusBean.meta.status_code == Constants.HTTP_OK) {
+                    List<FocusBean.DataBean> list = focusBean.data;
+                    refreshUI(list);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                super.onError(ex, isOnCallback);
+            }
+
+            @Override
+            public void onFinished() {
+                if(dialog!=null&&!activity.isFinishing()) dialog.dismiss();
+            }
+        });
     }
 
     @Override
-    protected void refreshUI() {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
         curPage++;
+        if(mList.size()>0) mList.clear();
+        mList.addAll(list);
         if (adapter == null) {
-            adapter = new FansAdapter(list, activity, UserProfile.getUserId());
-            lv.setAdapter(adapter);
+            adapter = new FansAdapter(mList, activity, UserProfile.getUserId());
+            pullLv.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();
         }

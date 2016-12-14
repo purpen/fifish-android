@@ -24,6 +24,7 @@ import com.qiyuan.fifish.bean.LoginUserInfo;
 import com.qiyuan.fifish.bean.PostCommentBean;
 import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.ProductsCommentBean;
+import com.qiyuan.fifish.bean.ProductsDetailBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -37,6 +38,7 @@ import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +80,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
     private View videoContainer;
     private String reply_user_id;
     private String parent_id;
-
+    private String id;
     public CommentsDetailActivity() {
         super(R.layout.activity_comment_detail);
     }
@@ -88,6 +90,11 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         Intent intent = getIntent();
         if (intent.hasExtra(TAG)) {
             products = (ProductsBean.DataEntity) intent.getSerializableExtra(TAG);
+            this.id=products.id;
+        }
+
+        if (intent.hasExtra("id")){
+            id=intent.getStringExtra("id");
         }
     }
 
@@ -96,12 +103,6 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         custom_head.setHeadCenterTxtShow(true, R.string.title_comment);
         dialog = new WaitingDialog(this);
         mList = new ArrayList<>();
-        initHeadView();
-        pullLv.setMode(PullToRefreshBase.Mode.DISABLED);
-        pullLv.setAdapter(adapter);
-    }
-
-    private void initHeadView() {
         View view = Util.inflateView(R.layout.item_home_video, null);
         pullLv.getRefreshableView().addHeaderView(view);
         riv = ButterKnife.findById(view, R.id.riv);
@@ -118,10 +119,58 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
         ibtnMore = ButterKnife.findById(view, R.id.ibtn_more);
         tvContent = ButterKnife.findById(view, R.id.tv_content);
         ButterKnife.findById(view, R.id.view_line).setVisibility(View.GONE);
+        pullLv.setMode(PullToRefreshBase.Mode.DISABLED);
+        pullLv.setAdapter(adapter);
+        if(products!=null){
+            initHeadView();
+        }else {
+            if (TextUtils.isEmpty(id)) return;
+            RequestService.getProductsDetail(id,new CustomCallBack(){
+                @Override
+                public void onSuccess(String result) {
+                    ProductsDetailBean productsDetailBean = JsonUtil.fromJson(result, ProductsDetailBean.class);
+                    if (productsDetailBean.meta.status_code==Constants.HTTP_OK){
+                        initHeadView(productsDetailBean);
+                        return;
+                    }
+                    ToastUtils.showError(R.string.request_error);
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    ex.printStackTrace();
+                    ToastUtils.showError(R.string.request_error);
+                }
+            });
+        }
+    }
+
+    private void initHeadView(ProductsDetailBean productsDetailBean) {
+        if (productsDetailBean==null) return;
+        ImageLoader.getInstance().displayImage(productsDetailBean.data.user.avatar.large, riv, options);
+        tvName.setText(productsDetailBean.data.user.username);
+        if (!TextUtils.isEmpty(productsDetailBean.data.user.summary)&&!TextUtils.equals("null",productsDetailBean.data.user.summary)) {
+            tvDesc.setText(productsDetailBean.data.user.summary);
+        }
+        tvTime.setText(productsDetailBean.data.created_at);
+        if (TextUtils.equals(Constants.TYPE_IMAGE, productsDetailBean.data.kind)) {
+            videoContainer.setVisibility(View.GONE);
+            ivCover.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(productsDetailBean.data.cover.file.large, ivCover, options);
+        } else if (TextUtils.equals(Constants.TYPE_VIDEO, productsDetailBean.data.kind)) {
+            videoContainer.setVisibility(View.VISIBLE);
+            ivCover.setVisibility(View.GONE);
+            videoView.setUp(productsDetailBean.data.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+            videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            tvVideoTime.setText(Util.second2Hour((int) productsDetailBean.data.cover.duration));
+            ImageLoader.getInstance().displayImage(productsDetailBean.data.cover.file.large, videoView.thumbImageView, options);
+        }
+        tvContent.setText(productsDetailBean.data.content);
+    }
+
+    private void initHeadView() {
         ImageLoader.getInstance().displayImage(products.user.avatar.large, riv, options);
         tvName.setText(products.user.username);
-//        parent_id = UserProfile.getUserId();
-//        reply_user_id=products.id;          //默认用户回复作品
         if (!TextUtils.isEmpty(products.user.summary)&&!TextUtils.equals("null",products.user.summary)) {
             tvDesc.setText(products.user.summary);
         }
@@ -154,11 +203,11 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (mList.size() == 0) return;
+                if (i<2) return;
                 ProductsCommentBean.DataBean item = adapter.getItem(i - 2);
                 String prefix = String.format(activity.getResources().getString(R.string.reply_to) + ":%s ", item.user.username);
                 et.setHint(prefix);
                 reply_user_id=item.user.id; //点击后为我回复这个用户
-//                parent_id=LoginUserInfo.getUserId();
             }
         });
     }
@@ -178,18 +227,17 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
                     ToastUtils.showInfo(R.string.input_reply_content);
                     return;
                 }
-//                if (TextUtils.isEmpty(reply_user_id)) return;
-//
-//                if (TextUtils.isEmpty(parent_id)) return;
 
-                RequestService.postComment(content,products.id,reply_user_id,parent_id,new CustomCallBack(){
+                RequestService.postComment(content,id,reply_user_id,parent_id,new CustomCallBack(){
                     @Override
                     public void onSuccess(String result) {
                         PostCommentBean postCommentBean = JsonUtil.fromJson(result, PostCommentBean.class);
                         if (postCommentBean.meta.status_code==Constants.HTTP_OK){
-                            //刷新界面
+                            et.getText().clear();
+                            requestNet();
                             return;
                         }
+
                         if (postCommentBean.meta.errors!=null){
                             if (postCommentBean.meta.errors.content!=null&&postCommentBean.meta.errors.content.size()>0)
                             ToastUtils.showInfo(postCommentBean.meta.errors.content.get(0));
@@ -198,7 +246,8 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
 
                     @Override
                     public void onError(Throwable ex, boolean isOnCallback) {
-                        super.onError(ex, isOnCallback);
+                        ex.printStackTrace();
+                        ToastUtils.showError(R.string.request_error);
                     }
                 });
                 break;
@@ -287,8 +336,8 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void requestNet() {
-        if (products == null) return;
-        RequestService.getProductsComments(products.id, new CustomCallBack() {
+        if(TextUtils.isEmpty(id)) return;
+        RequestService.getProductsComments(id, new CustomCallBack() {
             @Override
             public void onStarted() {
                 if (!activity.isFinishing() && dialog != null) dialog.show();
@@ -299,7 +348,7 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
                 if (!activity.isFinishing() && dialog != null) dialog.dismiss();
                 ProductsCommentBean response = JsonUtil.fromJson(result, ProductsCommentBean.class);
                 if (response.meta.status_code == Constants.HTTP_OK) {
-                    ArrayList<ProductsCommentBean.DataBean> list = response.data;
+                    List<ProductsCommentBean.DataBean> list = response.data;
                     refreshUI(list);
                 }
             }
@@ -314,8 +363,9 @@ public class CommentsDetailActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    protected void refreshUI(ArrayList list) {
+    protected void refreshUI(List list) {
         if (list == null || list.size() == 0) return;
+        if (mList.size()>0) mList.clear();
         mList.addAll(list);
         if (adapter == null) {
             adapter = new CommentDetailAdapter(mList, activity, products);

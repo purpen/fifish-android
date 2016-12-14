@@ -66,13 +66,13 @@
         android:id="@+id/btn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="@dimen/dp70"
-        android:layout_height="@dimen/dp30"
+        android:layout_height="@dimen/dp24"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp16"
         android:background="@drawable/shape_unfocus"
         android:text="关注"
-        android:textColor="@color/color_0895f7"
+        android:textColor="@color/color_2288ff"
         android:textSize="@dimen/sp12" />
     <View
         android:layout_width="match_parent"
