@@ -107,7 +107,7 @@ public class SupportPhotoFragment extends BaseFragment {
         RequestService.getSupportProducts("1", new CustomCallBack() {
             @Override
             public void onStarted() {
-                if (dialog != null && !activity.isFinishing()) dialog.show();
+                if (!isLoadMore&&dialog != null && !activity.isFinishing()) dialog.show();
             }
 
             @Override

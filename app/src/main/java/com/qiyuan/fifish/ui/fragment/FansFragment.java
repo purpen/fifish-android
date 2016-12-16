@@ -21,6 +21,8 @@ import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
+import org.xutils.common.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +132,7 @@ public class FansFragment extends ScrollTabHolderFragment {
             }
             @Override
             public void onSuccess(String result) {
+                LogUtil.e(result);
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
                     List<FocusBean.DataBean> list = focusBean.data;

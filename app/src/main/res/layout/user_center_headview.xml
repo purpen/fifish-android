@@ -18,8 +18,8 @@
         android:background="@drawable/jianbian_top_bottom"
         android:orientation="vertical">
         <RelativeLayout
-            android:layout_width="@dimen/dp80"
-            android:layout_height="@dimen/dp80"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50"
             android:layout_gravity="center_horizontal">
 
             <com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView
@@ -55,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/app_name"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp12" />
 
@@ -64,8 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
-                android:text="@string/app_name"
+                android:drawableLeft="@mipmap/location_white"
                 android:textColor="@android:color/white"
+                android:drawablePadding="@dimen/dp4"
                 android:textSize="@dimen/sp10" />
 
             <TextView
@@ -73,7 +73,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
-                android:text="@string/app_name"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp12" />
 

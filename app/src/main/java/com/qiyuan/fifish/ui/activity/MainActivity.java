@@ -6,16 +6,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.bean.MessageCountBean;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.fragment.DeviceFragment;
 import com.qiyuan.fifish.ui.fragment.DiscoverFragment;
 import com.qiyuan.fifish.ui.fragment.HomeFragment;
 import com.qiyuan.fifish.ui.fragment.MediaFragment;
 import com.qiyuan.fifish.ui.fragment.MineFragment;
+import com.qiyuan.fifish.ui.view.BadgeView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 
 import org.xutils.common.util.LogUtil;
 
@@ -34,7 +44,10 @@ public class MainActivity extends BaseActivity {
     FrameLayout mContentLayout;
     @BindView(R.id.main_nav)
     RadioGroup mainNav;
-//    private int checkedId = R.id.ll_nav0;
+//    @BindView(R.id.ll_nav4)
+//    RadioButton llNav4;
+    @BindView(R.id.tv_tip_num)
+    BadgeView tvTipNum;
     private FragmentManager fm;
     private ArrayList<Fragment> fragments;
     private Fragment showFragment;
@@ -57,16 +70,16 @@ public class MainActivity extends BaseActivity {
         if (TextUtils.equals(HomeFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(HomeFragment.class);
             mainNav.check(R.id.ll_nav0);
-        } else if(TextUtils.equals(MediaFragment.class.getSimpleName(), which)){
+        } else if (TextUtils.equals(MediaFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(MediaFragment.class);
             mainNav.check(R.id.ll_nav1);
-        }else if (TextUtils.equals(DeviceFragment.class.getSimpleName(), which)) {
+        } else if (TextUtils.equals(DeviceFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(DeviceFragment.class);
             mainNav.check(R.id.ll_nav2);
         } else if (TextUtils.equals(DiscoverFragment.class.getSimpleName(), which)) {
             switchFragmentandImg(DiscoverFragment.class);
             mainNav.check(R.id.ll_nav3);
-        }else {
+        } else {
             switchFragmentandImg(MineFragment.class);
             mainNav.check(R.id.ll_nav4);
         }
@@ -102,7 +115,7 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.ll_nav0:
-                        LogUtil.e((R.id.ll_nav0==i)+"");
+                        LogUtil.e((R.id.ll_nav0 == i) + "");
                         which = HomeFragment.class.getSimpleName();
 //                        radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
@@ -133,7 +146,7 @@ public class MainActivity extends BaseActivity {
 //                            radioGroup.check(checkedId);
 //                            which = MineFragment.class.getSimpleName();
                             Intent intent = new Intent(activity, LoginActivity.class);
-                            intent.putExtra(MineFragment.class.getSimpleName(),MineFragment.class.getSimpleName());
+                            intent.putExtra(MineFragment.class.getSimpleName(), MineFragment.class.getSimpleName());
                             startActivity(new Intent(activity, LoginActivity.class));
                         }
                         break;
@@ -272,5 +285,37 @@ public class MainActivity extends BaseActivity {
         ObjectAnimator.ofFloat(mainNav, "translationY", 0)
                 .setDuration(300)
                 .start();
+    }
+
+    @Override
+    protected void requestNet() {
+        RequestService.getAlertCount(new CustomCallBack() {
+            @Override
+            public void onSuccess(String result) {
+                MessageCountBean messageCountBean = JsonUtil.fromJson(result, MessageCountBean.class);
+                if (messageCountBean.meta.status_code == Constants.HTTP_OK) {
+//                    BadgeView badgeView = new BadgeView(activity);
+//                    badgeView.setTargetView(llNav4);
+//                    badgeView.setBadgeGravity(Gravity.CENTER_HORIZONTAL);
+//                    badgeView.setBadgeMargin(15,5,0,0);
+                    setTipsNum(messageCountBean.data.alert_comment_count+messageCountBean.data.alert_fans_count+messageCountBean.data.alert_like_count);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    public void setTipsNum(int count) {
+        if (count > 0) {
+            tvTipNum.setVisibility(View.VISIBLE);
+            tvTipNum.setBackground(15, getResources().getColor(R.color.color_ff0000));
+            tvTipNum.setBadgeCount(count);
+        } else {
+            tvTipNum.setVisibility(View.GONE);
+        }
     }
 }

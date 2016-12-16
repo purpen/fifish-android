@@ -74,7 +74,6 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-//        pullLv.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
         pullLv.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {

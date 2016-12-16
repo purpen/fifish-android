@@ -123,9 +123,4 @@ public class SupportProductsActivity extends BaseActivity {
             }
         });
     }
-
-    @Override
-    protected void requestNet() {
-
-    }
 }

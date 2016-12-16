@@ -2,65 +2,81 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    >
+    android:background="@android:color/white">
+
     <FrameLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_above="@+id/rl_box" />
 
-    <RadioGroup
-        android:id="@+id/main_nav"
+    <RelativeLayout
+        android:id="@+id/rl_box"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp60"
-        android:layout_alignParentBottom="true"
-        android:background="@mipmap/nav_bg"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/ll_nav0"
-            style="@style/MainButtonStyle"
-            android:button="@null"
-            android:text="@string/home"
-            android:drawableTop="@drawable/selector_main_nav0"
-            android:textColor="@drawable/selector_main_nav_color"
-            android:checked="true"
-            />
-        <RadioButton
-            android:id="@+id/ll_nav1"
-            style="@style/MainButtonStyle"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_main_nav1"
-            android:text="@string/media"
-            android:textColor="@drawable/selector_main_nav_color"
-            />
+        android:layout_alignParentBottom="true">
 
-        <RadioButton
-            android:id="@+id/ll_nav2"
-            style="@style/MainButtonStyle"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_main_nav2"
-            android:text="@string/device"
-            android:textColor="@drawable/selector_main_nav_color"
-            />
+        <RadioGroup
+            android:id="@+id/main_nav"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp60"
+            android:background="@mipmap/nav_bg"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/ll_nav3"
-            style="@style/MainButtonStyle"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_main_nav3"
-            android:text="@string/discover"
-            android:textColor="@drawable/selector_main_nav_color"
-            />
+            <RadioButton
+                android:id="@+id/ll_nav0"
+                style="@style/MainButtonStyle"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/selector_main_nav0"
+                android:text="@string/home"
+                android:textColor="@drawable/selector_main_nav_color" />
 
+            <RadioButton
+                android:id="@+id/ll_nav1"
+                style="@style/MainButtonStyle"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main_nav1"
+                android:text="@string/media"
+                android:textColor="@drawable/selector_main_nav_color" />
 
-        <RadioButton
-            android:id="@+id/ll_nav4"
-            style="@style/MainButtonStyle"
-            android:button="@null"
-            android:drawableTop="@drawable/selector_main_nav4"
-            android:textColor="@drawable/selector_main_nav_color"
-            android:text="@string/me"
-            />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/ll_nav2"
+                style="@style/MainButtonStyle"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main_nav2"
+                android:text="@string/device"
+                android:textColor="@drawable/selector_main_nav_color" />
+
+            <RadioButton
+                android:id="@+id/ll_nav3"
+                style="@style/MainButtonStyle"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main_nav3"
+                android:text="@string/discover"
+                android:textColor="@drawable/selector_main_nav_color" />
+
+            <RadioButton
+                android:id="@+id/ll_nav4"
+                style="@style/MainButtonStyle"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main_nav4"
+                android:text="@string/me"
+                android:textColor="@drawable/selector_main_nav_color" />
+        </RadioGroup>
+
+        <com.qiyuan.fifish.ui.view.BadgeView
+            android:id="@+id/tv_tip_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp13"
+            android:visibility="gone" />
+    </RelativeLayout>
+
 </RelativeLayout>

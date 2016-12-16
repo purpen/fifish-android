@@ -14,6 +14,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.UserCommentsAdapter;
 import com.qiyuan.fifish.bean.CommentsBean;
+import com.qiyuan.fifish.bean.SuccessBean;
 import com.qiyuan.fifish.bean.UserCommentsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -22,6 +23,9 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+
+import org.json.JSONObject;
+import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +132,22 @@ public class UserCommentsActivity extends BaseActivity {
             public void onFinished() {
                 if (dialog != null && !activity.isFinishing()) dialog.dismiss();
             }
+        });
+
+        RequestService.resetAlertCount("comment",new CustomCallBack(){
+            @Override
+            public void onSuccess(String result) {
+                SuccessBean successBean = JsonUtil.fromJson(result, SuccessBean.class);
+                if (successBean.meta.status_code==Constants.HTTP_OK){
+                    LogUtil.e("message reset success");
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
         });
     }
 

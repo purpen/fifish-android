@@ -11,6 +11,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.FavoriteProductsAdapter;
 import com.qiyuan.fifish.bean.CommentsBean;
+import com.qiyuan.fifish.bean.SuccessBean;
 import com.qiyuan.fifish.bean.SupportedProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -126,6 +127,22 @@ public class FavoriteProductsActivity extends BaseActivity {
             public void onFinished() {
                 if (dialog != null && !activity.isFinishing()) dialog.dismiss();
             }
+        });
+
+        RequestService.resetAlertCount("like",new CustomCallBack(){
+            @Override
+            public void onSuccess(String result) {
+                SuccessBean successBean = JsonUtil.fromJson(result, SuccessBean.class);
+                if (successBean.meta.status_code==Constants.HTTP_OK){
+                    LogUtil.e("message reset success");
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
         });
     }
 

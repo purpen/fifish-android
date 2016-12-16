@@ -129,6 +129,10 @@ public class BadgeView extends TextView {
         setText(String.valueOf(count));
     }
 
+    public void setBadgeCount(String count){
+        setText(count);
+    }
+
     public Integer getBadgeCount() {
         if (getText() == null) {
             return null;

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    >
     <com.qiyuan.fifish.ui.view.CustomHeadView
         android:id="@+id/custom_head"
         android:layout_width="match_parent"
@@ -15,7 +17,11 @@
         android:layout_height="@dimen/dp45"
         style="@style/MyCustomTabLayout"
         />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp05"
+        android:background="@color/color_eee"
+        />
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

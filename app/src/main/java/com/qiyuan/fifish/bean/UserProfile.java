@@ -83,7 +83,7 @@ public class UserProfile implements Serializable {
         public String fans_count;
         public String stuff_count;
         public String like_count;
-        public String alert_total_count;
+        public int alert_total_count;
         /**
          * small : http://s3.qysea.com/img/avatar!smx50.png
          * large : http://s3.qysea.com/img/avatar!lgx180.png

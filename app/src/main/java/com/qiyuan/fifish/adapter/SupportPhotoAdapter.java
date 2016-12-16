@@ -38,6 +38,7 @@ public class SupportPhotoAdapter extends BaseAdapter<SupportPhotoBean.DataEntity
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.height=width/3;
         convertView.setLayoutParams(params);
+        convertView.setPadding(0,activity.getResources().getDimensionPixelSize(R.dimen.dp5),0,0);
         ImageLoader.getInstance().displayImage(item.likeable.cover.file.large, holder.iv, options);
         return convertView;
     }

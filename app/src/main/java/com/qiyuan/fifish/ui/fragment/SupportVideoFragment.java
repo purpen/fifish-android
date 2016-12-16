@@ -12,8 +12,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.adapter.SupportVideoAdapter;
+import com.qiyuan.fifish.bean.SupportPhotoBean;
 import com.qiyuan.fifish.bean.SupportVideoBean;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.WaitingDialog;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,20 +103,35 @@ public class SupportVideoFragment extends BaseFragment {
 
     @Override
     protected void requestNet() {
+        RequestService.getSupportProducts("2", new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (!isLoadMore && dialog != null && !activity.isFinishing()) dialog.show();
+            }
 
+            @Override
+            public void onSuccess(String result) {
+                if (pullLv != null) pullLv.onRefreshComplete();
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                SupportPhotoBean response = JsonUtil.fromJson(result, SupportPhotoBean.class);
+                if (response.meta.status_code == Constants.HTTP_OK) {
+                    List<SupportPhotoBean.DataEntity> data = response.data;
+                    refreshUI(data);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+                ToastUtils.showError(R.string.request_error);
+                ex.printStackTrace();
+            }
+        });
     }
 
     @Override
     protected void refreshUI(List list) {
-        if (list == null) return;
-        if (list.size() == 0) {
-            if (mList.size() > 0) {
-//                ToastUtils.showInfo("没有更多数据哦");
-            } else {
-//                ToastUtils.showInfo("您还没有订阅的情境");
-            }
-            return;
-        }
+        if (list == null || list.size() == 0) return;
         curPage++;
         mList.addAll(list);
         if (adapter == null) {

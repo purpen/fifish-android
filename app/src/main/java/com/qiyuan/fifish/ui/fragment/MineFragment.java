@@ -3,6 +3,7 @@ package com.qiyuan.fifish.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.FeedbackActivity;
 import com.qiyuan.fifish.ui.activity.FindFriendsActivity;
+import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.ui.activity.MessageActivity;
 import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
 import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
@@ -38,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineFragment extends BaseFragment {
-//    @BindView(R.id.custom_head)
+    //    @BindView(R.id.custom_head)
 //    CustomHeadView customHead;
     @BindView(R.id.rl)
     RelativeLayout rl;
@@ -65,6 +67,7 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.tv_fans_num)
     TextView tvFansNum;
     private UserProfile userInfo;
+    private boolean isReload;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,34 +105,26 @@ public class MineFragment extends BaseFragment {
 //                startActivity(new Intent(activity, SystemSettingsActivity.class));
 //            }
 //        });
-
-
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
+    public void onResume() {
+        super.onResume();
+        if (isReload){
             requestNet();
         }
     }
-
 
     @Override
     protected void requestNet() {
         RequestService.getUserProfile(new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
-                LogUtil.e("个人中心" + result);
-                if (TextUtils.isEmpty(result)) return;
-                try {
-                    userInfo = JsonUtil.fromJson(result, UserProfile.class);
-                    if (userInfo.meta.status_code == Constants.HTTP_OK) {
-                        refreshUI();
-                        return;
-                    }
-                } catch (JsonSyntaxException e) {
-                    e.printStackTrace();
+                userInfo = JsonUtil.fromJson(result, UserProfile.class);
+                if (userInfo.meta.status_code == Constants.HTTP_OK) {
+                    isReload=true;
+                    refreshUI();
+                    return;
                 }
             }
 
@@ -147,9 +142,9 @@ public class MineFragment extends BaseFragment {
         if (userInfo == null || userInfo.data == null) return;
         ImageLoader.getInstance().displayImage(userInfo.data.avatar.large, riv, options);
         userName.setText(userInfo.data.username);
-        if (TextUtils.isEmpty(userInfo.data.zone)){
+        if (TextUtils.isEmpty(userInfo.data.zone)) {
             tvLocation.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             tvLocation.setVisibility(View.VISIBLE);
             tvLocation.setText(userInfo.data.zone);
         }
@@ -161,9 +156,11 @@ public class MineFragment extends BaseFragment {
             tvSummary.setText(userInfo.data.summary);
         }
         tvProductsNum.setText(userInfo.data.stuff_count);
+        itemMessage.setTipsNum(userInfo.data.alert_total_count);
+        ((MainActivity)activity).setTipsNum(userInfo.data.alert_total_count);
     }
 
-    @OnClick({R.id.btn1, R.id.btn,R.id.item_settings, R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
+    @OnClick({R.id.btn1, R.id.btn, R.id.item_settings, R.id.rl, R.id.item_message, R.id.item_support, R.id.item_feed_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn1:

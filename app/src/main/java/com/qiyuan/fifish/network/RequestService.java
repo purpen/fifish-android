@@ -478,5 +478,29 @@ public class RequestService {
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
 
+    /**
+     * 获得消息提示数量
+     * @param customCallBack
+     */
+    public static void getAlertCount(CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/alertCount";
+        RequestParams params = new RequestParams(url);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().get(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 
+    /**
+     * 重置消息数量
+     * @param type
+     * @param customCallBack
+     */
+    public static void resetAlertCount(String type, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/resetCount";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("key",type);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

@@ -33,10 +33,7 @@ import java.util.List;
  */
 public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View.OnClickListener {
     private ImageLoader imageLoader;
-    private static final int TYPE1 = 1; //单向关注
-    private static final int TYPE2 = 2; //互向关注
     public static final int NOT_LOVE = 0; //别人的粉丝列表和LoginInfo.getUserId()的关系
-    public static final int LOVE = 1;
     private String userId;
     public FansAdapter(List<FocusBean.DataBean> list, Activity activity, String userId) {
         super(list, activity);
@@ -78,47 +75,7 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
         } else {
             setFocusBtnStyle(holder.btn, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
         }
-
         setClickListener(holder.btn, item);
-//        if (item.follows.is_expert == 1) {
-//            holder.riv_auth.setVisibility(View.VISIBLE);
-//        } else {
-//            holder.riv_auth.setVisibility(View.GONE);
-//        }
-//        if (!TextUtils.isEmpty(item.follows.expert_label) && !TextUtils.isEmpty(item.follows.expert_info)) {
-//            holder.tv_desc.setText(String.format("%s | %s", item.follows.expert_label, item.follows.expert_info));
-//        } else {
-//            holder.tv_desc.setText(item.follows.summary);
-//        }
-//        if (TextUtils.equals(LoginUserInfo.getUserId(),userId)) { //是自己
-//            switch (item.type) {
-//                case TYPE1:  //仅当粉丝关注我
-//                    holder.btn.setText("关注");
-//                    holder.btn.setTextColor(activity.getResources().getColor(R.color.color_333));
-//                    holder.btn.setBackgroundResource(R.drawable.shape_unfocus);
-//                    holder.btn.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-////                            showFocusFansConfirmView(item, "开始关注");
-//                            doFocus(item, view);
-//                        }
-//                    });
-//                    break;
-//                case TYPE2: //互粉
-//                    holder.btn.setText("已关注");
-//                    holder.btn.setTextColor(activity.getResources().getColor(android.R.color.white));
-//                    holder.btn.setBackgroundResource(R.drawable.shape_focus);
-//                    holder.btn.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            showFocusFansConfirmView(item, "停止关注");
-//                        }
-//                    });
-//                    break;
-//            }
-//        } else { //处理别人的粉丝
-//            dealOthersFoucsFansStyle(item, holder);
-//        }
         return convertView;
     }
 
@@ -149,7 +106,7 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
     //取消关注
     private void cancelFocus(final FocusBean.DataBean item, final View view) {
         if (TextUtils.equals(UserProfile.getUserId(),userId)) { //在自己的个人中心
-            RequestService.cancelFocus(item.follower.id, new CustomCallBack() {
+            RequestService.cancelFocus(item.user.id, new CustomCallBack() {
                 @Override
                 public void onStarted() {
                     view.setEnabled(false);
@@ -184,7 +141,7 @@ public class FansAdapter extends BaseAdapter<FocusBean.DataBean> implements View
     //关注粉丝操作
     private void doFocus(final FocusBean.DataBean item, final View view) {
         if (TextUtils.equals(UserProfile.getUserId(),userId)) { //在自己的个人中心
-            RequestService.doFocus(item.follower.id, new CustomCallBack() {
+            RequestService.doFocus(item.user.id, new CustomCallBack() {
                 @Override
                 public void onStarted() {
                     view.setEnabled(false);
