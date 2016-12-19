@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiyuan.fifish">
+
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -18,14 +19,21 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".application.AppApplication"
@@ -72,9 +80,9 @@
         <activity
             android:name=".ui.activity.PublishPictureActivity"
             android:screenOrientation="portrait" />
-        <activity
+        <!--<activity
             android:name=".ui.activity.MapSearchAddressActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
         <activity
             android:name=".ui.activity.FavoriteProductsActivity"
             android:screenOrientation="portrait" />
@@ -118,11 +126,15 @@
             android:name=".ui.activity.EditUserSignatureActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.TagActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.TagActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".album.ImageSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PoiKeywordSearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.FindFriendsActivity"
@@ -198,7 +210,12 @@
             android:name="UMENG_CHANNEL"
             android:value="Umeng" />
 
+        <!--高德地图key-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="86543ac3c1cab4a6758afd856cb06bda" />
 
+        <service android:name="com.amap.api.location.APSService" />
     </application>
 
 </manifest>

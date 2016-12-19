@@ -49,12 +49,14 @@
             android:layout_toLeftOf="@id/delete_label"
             android:background="@null"
             android:gravity="center_vertical"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:paddingLeft="@dimen/dp16"
             android:paddingRight="@dimen/dp16"
             android:maxLines="1"
+            android:hint="@string/input_tag"
+            android:textColorHint="@color/color_999"
             android:textColor="#212121"
-            android:textSize="12sp" />
+            android:textSize="@dimen/sp12" />
 
         <View
             android:layout_width="match_parent"

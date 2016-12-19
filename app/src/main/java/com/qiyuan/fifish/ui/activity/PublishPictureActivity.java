@@ -72,7 +72,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     @BindView(R.id.label_view)
     AutoLabelUI labelView;
     private String content;
-    private String address;
+    private String address="";
     private ArrayList<String> tags;
     private String token;
     private String uploadUrl;
@@ -279,8 +279,9 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         for (Label label : labels) {
             tags.add(label.getText().substring(1));
         }
+        address=tvAddAddress.getText().toString();
         LogUtil.e("Tags==" + tags.toArray(new String[tags.size()])[0]);
-        RequestService.addNewProducts(content, asset_id, "", "", String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
+        RequestService.addNewProducts(content, asset_id, "",address, String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
@@ -309,7 +310,7 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
                 startActivityForResult(new Intent(activity, AddLabelActivity.class), Constants.REQUEST_LABEL);
                 break;
             case R.id.tv_add_address:
-                startActivityForResult(new Intent(activity, MapSearchAddressActivity.class), Constants.REQUEST_ADDRESS);
+                startActivityForResult(new Intent(activity, PoiKeywordSearchActivity.class), Constants.REQUEST_ADDRESS);
                 break;
             default:
                 break;
@@ -378,6 +379,10 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
+            case Constants.REQUEST_ADDRESS:
+                String address = data.getStringExtra(PoiKeywordSearchActivity.class.getSimpleName());
+                tvAddAddress.setText(address);
+                break;
             case Constants.REQUEST_LABEL:
                 String searchTag = data.getStringExtra(SuggestionAdapter.class.getSimpleName());
                 if (!TextUtils.isEmpty(searchTag)) {

@@ -15,17 +15,37 @@ android {
             jniLibs.srcDir "src/main/libs"
         }
     }
+    signingConfigs {
+        release {//发布版签名配置
+            storeFile file("/Users/lilin/AndroidStudioProjects/fifish-android/app/fifish.jks")//密钥文件taihuoniao798路径
+            storePassword "taihuoniao798"//密钥文件密码
+            keyAlias "Fifish"//key别名
+            keyPassword "taihuoniao798"//key密码
+        }
+    }
+    lintOptions {
+        abortOnError false//lint时候终止错误上报,防止编译的时候莫名的失败
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
     //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.google.code.gson:gson:2.7'
@@ -37,15 +57,8 @@ dependencies {
     compile 'com.android.support:design:25.0.1'
     compile 'org.xutils:xutils:3.3.36'
     compile 'fm.jiecao:jiecaovideoplayer:4.6.5'
-    compile 'com.squareup.picasso:picasso:2.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(':library')
-    compile files('src/main/libs/baidumapapi_base_v3_7_1.jar')
-    compile files('src/main/libs/baidumapapi_cloud_v3_7_1.jar')
-    compile files('src/main/libs/baidumapapi_map_v3_7_1.jar')
-    compile files('src/main/libs/baidumapapi_radar_v3_7_1.jar')
-    compile files('src/main/libs/baidumapapi_search_v3_7_1.jar')
-    compile files('src/main/libs/baidumapapi_util_v3_7_1.jar')
-    compile files('src/main/libs/locSDK_6.23.jar')
     compile project(':Gpu_Image')
     compile files('src/main/libs/SocialSDK_facebook.jar')
     compile files('src/main/libs/SocialSDK_instagram.jar')
@@ -55,4 +68,7 @@ dependencies {
     compile files('src/main/libs/umeng_social_api.jar')
     compile files('src/main/libs/umeng_social_net.jar')
     compile files('src/main/libs/umeng_social_shareview.jar')
+    compile files('src/main/libs/Amap_2DMap_V2.9.2_20161026.jar')
+    compile files('src/main/libs/AMap_Location_V2.4.1_20160414.jar')
+    compile files('src/main/libs/AMap_Search_V3.6.1_20161122.jar')
 }

@@ -21,7 +21,7 @@ public class Constants {
     public static final String STUFFS_STORE_URL= Constants.BASE_URL+"stuffs/store";
 
     public static final int REQUEST_LABEL = 10;
-    public static final int REQUEST_ADDRESS = 10;
+    public static final int REQUEST_ADDRESS = 100;
 
     public static final int HTTP_OK = 200;
     public static final int HTTP_ACCOUNT_ALREADY_EXIST = 422;
@@ -29,6 +29,8 @@ public class Constants {
 
     public static final int BANNER_INTERVAL = 4000;
     public static final int GUIDE_INTERVAL = 2000;
+    public static final int LOCATION_SERVICE_INTERVAL = 60000;
+
     public static final String CHARSET = "UTF-8";
     public static  final String PAGE_SIZE = "8";
     public static final String PAGE_TAG = "PAGE_TAG";

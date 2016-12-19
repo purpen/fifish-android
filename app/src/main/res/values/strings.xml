@@ -40,11 +40,14 @@
     <string name="input_new_password">请填写新密码</string>
     <string name="update_password_success">密码已修改</string>
     <string name="input_confirm_password">请确认新密码</string>
+    <string name="input_keyword">请输入关键字</string>
     <string name="confirm_not_equal_new_password">新密码和确认密码不相同</string>
     <string name="init_equals_new_password">原密码和新密码不能相同</string>
     <string name="input_reply_content">请输入回复内容</string>
     <string name="products">作品</string>
     <string name="products_num">个作品</string>
+    <string name="title_add_location">添加位置</string>
+    <string name="input_tag">请输入标签</string>
     <string name="focus">关注</string>
     <string name="focused">已关注</string>
     <string name="fans">粉丝</string>
