@@ -34,6 +34,7 @@ import com.qiyuan.fifish.ui.activity.PublishPictureActivity;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.util.GPUImageFilterTools;
 import com.qiyuan.fifish.util.ToastUtils;
+import com.qiyuan.fifish.util.Util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -110,7 +111,7 @@ private Bitmap rawBitmap=null;
         });
 
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mGpuImage.getLayoutParams();
-        lp.height = AppApplication.getInstance().getScreenWidth();
+        lp.height = Util.getScreenWidth();
         mGpuImage.setLayoutParams(lp);
 //        mGpuImage.setImage(new File(mImageBean.path));
         Uri urii = mImageBean.path.startsWith("file:") ? Uri.parse(mImageBean.path) : Uri.parse("file://" + mImageBean.path);

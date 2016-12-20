@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.qiyuan.fifish">
-
+    package="com.qiyuan.fifish"
+    >
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -34,6 +34,15 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- Required -->
+    <permission
+        android:name="com.qiyuan.fifish.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required -->
+    <uses-permission android:name="com.qiyuan.fifish.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".application.AppApplication"
@@ -67,6 +76,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MessageActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.UserCommentsActivity"
@@ -216,6 +226,21 @@
             android:value="86543ac3c1cab4a6758afd856cb06bda" />
 
         <service android:name="com.amap.api.location.APSService" />
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.qiyuan.fifish.reciever.CustomReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.qiyuan.fifish" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

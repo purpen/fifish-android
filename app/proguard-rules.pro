@@ -299,3 +299,13 @@ public static final ** CREATOR;
 -keep class com.autonavi.**{*;}
 ################高德地图
 
+#############极光推送
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+###########
+

@@ -2,6 +2,8 @@ package com.qiyuan.fifish.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonSyntaxException;
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.application.AppApplication;
 import com.qiyuan.fifish.bean.LoginBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
@@ -28,10 +31,15 @@ import com.qiyuan.fifish.util.Util;
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class LoginFragment extends BaseFragment {
+    private static final int MSG_SET_ALIAS = 10;
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.et_password)
@@ -42,7 +50,7 @@ public class LoginFragment extends BaseFragment {
     Button btnLogin;
     private String userName;
     private String userPsw;
-
+    private String userId;
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,11 +121,14 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 if (TextUtils.isEmpty(result)) return;
-                LogUtil.e("获取登录信息"+result);
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
+
                     if (userInfo.meta.status_code== Constants.HTTP_OK){
+                        if (JPushInterface.isPushStopped(AppApplication.getInstance())) JPushInterface.resumePush(AppApplication.getInstance());
                         SPUtil.write(Constants.LOGIN_INFO,result);
+                        userId = userInfo.data.id;
+                        JPushInterface.setAlias(activity.getApplicationContext(),userId,mTagAliasCallback);
                         Intent intent = new Intent(activity, MainActivity.class);
                         intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
                         startActivity(intent);
@@ -155,4 +166,47 @@ public class LoginFragment extends BaseFragment {
 
         return true;
     }
+
+    private final TagAliasCallback mTagAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int i, String s, Set<String> set) {
+            String logs;
+            switch (i) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    LogUtil.e(logs);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    LogUtil.e(logs);
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS,userId), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + i;
+                    LogUtil.e(logs);
+            }
+        }
+    };
+
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(AppApplication.getInstance(),
+                            (String) msg.obj,
+                            null,
+                            mTagAliasCallback);
+                    break;
+                default:
+                    LogUtil.i("Unhandled msg - " + msg.what);
+            }
+        }
+    };
+
 }

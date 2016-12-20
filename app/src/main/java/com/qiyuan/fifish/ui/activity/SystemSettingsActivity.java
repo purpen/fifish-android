@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.application.AppApplication;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.fragment.HomeFragment;
@@ -20,6 +21,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author lilin
@@ -126,6 +128,10 @@ public class SystemSettingsActivity extends BaseActivity{
                 ToastUtils.showError(R.string.request_error);
             }
         });
+
+        if (!JPushInterface.isPushStopped(AppApplication.getInstance())){
+            JPushInterface.stopPush(AppApplication.getInstance());
+        }
         SPUtil.remove(Constants.LOGIN_INFO);
         Intent intent=new Intent(activity,MainActivity.class);
         intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());

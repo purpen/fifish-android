@@ -14,6 +14,16 @@ android {
             jni.srcDirs=[]
             jniLibs.srcDir "src/main/libs"
         }
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.qiyuan.fifish",
+                JPUSH_APPKEY : "d5fd66f4c503b47e633a8d66", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     signingConfigs {
         release {//发布版签名配置
@@ -71,4 +81,6 @@ dependencies {
     compile files('src/main/libs/Amap_2DMap_V2.9.2_20161026.jar')
     compile files('src/main/libs/AMap_Location_V2.4.1_20160414.jar')
     compile files('src/main/libs/AMap_Search_V3.6.1_20161122.jar')
+    compile 'cn.jiguang.sdk:jpush:3.0.0'
+    compile 'cn.jiguang.sdk:jcore:1.0.0'
 }
