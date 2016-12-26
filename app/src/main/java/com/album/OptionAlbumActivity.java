@@ -32,9 +32,9 @@ import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static com.qiyuan.fifish.util.Constants.REQUEST_READ_EXTERNAL_STORAGE;
 
 public class OptionAlbumActivity extends AppCompatActivity {
-    public static final int REQUEST_READ_EXTERNAL_STORAGE = 100;
     public static final String TAG = "OptionAlbumActivity";
     private CustomHeadView mHeadView;
     // loaders

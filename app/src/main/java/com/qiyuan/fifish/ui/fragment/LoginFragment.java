@@ -39,7 +39,6 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
 public class LoginFragment extends BaseFragment {
-    private static final int MSG_SET_ALIAS = 10;
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.et_password)
@@ -88,14 +87,12 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 LogUtil.e("登录"+result);
-                if (TextUtils.isEmpty(result)) return;
                 LoginBean loginBean = JsonUtil.fromJson(result, LoginBean.class);
                 if (loginBean.meta.status_code== Constants.HTTP_OK){
                     SPUtil.write(Constants.TOKEN,loginBean.data.token);
                     getUserProfile();
                     return;
                 }
-                ToastUtils.showError(loginBean.meta.message);
             }
 
             @Override
@@ -181,7 +178,7 @@ public class LoginFragment extends BaseFragment {
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
                     LogUtil.e(logs);
                     // 延迟 60 秒来调用 Handler 设置别名
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS,userId), 1000 * 60);
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(Constants.MSG_SET_ALIAS,userId), 1000 * 60);
                     break;
                 default:
                     logs = "Failed with errorCode = " + i;
@@ -196,7 +193,7 @@ public class LoginFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case MSG_SET_ALIAS:
+                case Constants.MSG_SET_ALIAS:
                     // 调用 JPush 接口来设置别名。
                     JPushInterface.setAliasAndTags(AppApplication.getInstance(),
                             (String) msg.obj,

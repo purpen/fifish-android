@@ -43,5 +43,7 @@ public class Constants {
     public static final String INFO_TYPE = "infoType";
     public static final String INFO_ID = "infoId";
     public static final String NOTIFICATION_RECEIVED_MESSAGE = "8";
+    public static final int REQUEST_READ_EXTERNAL_STORAGE = 100;
+    public static final int MSG_SET_ALIAS = 10;
 
 }

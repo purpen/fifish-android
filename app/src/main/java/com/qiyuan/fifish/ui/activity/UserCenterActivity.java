@@ -2,6 +2,7 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -10,6 +11,7 @@ import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -134,6 +136,9 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
 
     @Override
     protected void initViews() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         color_2187ff=getResources().getColor(R.color.color_2187ff);
         tvProductsNum.setTextColor(color_2187ff);
         tvProducts.setTextColor(color_2187ff);

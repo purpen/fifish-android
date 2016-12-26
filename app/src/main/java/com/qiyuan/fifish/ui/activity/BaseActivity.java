@@ -3,14 +3,17 @@ package com.qiyuan.fifish.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.application.AppApplication;
+import com.umeng.socialize.UmengTool;
 
 import java.util.ArrayList;
 import java.util.List;

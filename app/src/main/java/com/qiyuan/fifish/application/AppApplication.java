@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UmengTool;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -43,13 +44,19 @@ public class AppApplication extends Application {
         super.onCreate();
         application = this;
         x.Ext.init(this);
-        x.Ext.setDebug(true);
         initImageLoader(getApplicationContext());
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
+        PlatformConfig.setWeixin("wx5d74f772a28a33a4", "f3fdb3d58250d0444924076b168ba492");
+        PlatformConfig.setSinaWeibo("3236371468", "79aa38f5e760446d9fe28c92976322ed");
+        PlatformConfig.setQQZone("1105852250","DN1d2vLr9mmedHIc");
         UMShareAPI.get(this);
-        Config.REDIRECT_URL = "您新浪后台的回调地址";
+        Config.REDIRECT_URL = "http://sns.whalecloud.com/sina2/callback";
         Config.DEBUG=true;
+        Config.isJumptoAppStore = true;
+        Config.isUmengQQ=true;
+        Config.isUmengSina=true;
+        Config.isUmengWx=true;
+        Config.dialogSwitch = false;
+        x.Ext.setDebug(true);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
     }

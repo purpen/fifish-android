@@ -503,4 +503,26 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 三方登录
+     * @param uid
+     * @param accessToken
+     * @param name
+     * @param icon
+     * @param gender
+     * @param customCallBack
+     */
+    public static void doThirdLogin(String uid, String accessToken, String name, String icon, String gender, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"oauth/wechat";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("uid",uid);
+        params.addQueryStringParameter("accessToken",accessToken);
+        params.addQueryStringParameter("name",name);
+        params.addQueryStringParameter("icon",icon);
+        params.addQueryStringParameter("gender",gender);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

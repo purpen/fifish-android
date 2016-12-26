@@ -31,12 +31,14 @@
     <string name="password">账户密码</string>
     <string name="quick_login">快速登录</string>
     <string name="register_now">立即注册</string>
-    <string name="no_account">还没有账号?立即注册</string>
-    <string name="has_account">已有账号?立即登录</string>
+    <string name="no_account">还没有账号?&#160;&#160;&#160;&#160;立即注册</string>
+    <string name="has_account">已有账号?&#160;&#160;&#160;&#160;立即登录</string>
+    <string name="third_login_error">登录失败</string>
     <string name="input_init_password">请填写原密码</string>
     <string name="init_password">原密码</string>
     <string name="system_settings">设置</string>
     <string name="conform_new_password">确认新密码</string>
+    <string name="cancel_login">您取消了登录</string>
     <string name="input_new_password">请填写新密码</string>
     <string name="update_password_success">密码已修改</string>
     <string name="input_confirm_password">请确认新密码</string>
@@ -105,6 +107,7 @@
     <string name="video_products">视频</string>
     <string name="picture_products">图片</string>
     <string name="user">用户</string>
+    <string name="facebook_app_id">322451778141956</string>
     <string-array name="user_gender">
         <item>男</item>
         <item>女</item>

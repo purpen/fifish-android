@@ -2,17 +2,16 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.bean.MessageCountBean;
+import com.qiyuan.fifish.Manifest;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
@@ -25,8 +24,6 @@ import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.view.BadgeView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
-import com.qiyuan.fifish.util.ToastUtils;
-
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
@@ -97,6 +94,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            String[] mPermissionList = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.CALL_PHONE,android.Manifest.permission.READ_LOGS,android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.SET_DEBUG_APP,android.Manifest.permission.SYSTEM_ALERT_WINDOW,android.Manifest.permission.GET_ACCOUNTS,android.Manifest.permission.WRITE_APN_SETTINGS};
+            requestPermissions(mPermissionList,123);
+        }
         if (fragments == null) {
             fragments = new ArrayList<>();
         }

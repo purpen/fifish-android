@@ -12,6 +12,7 @@
     <color name="color_transparent">#00000000</color>
     <color name="transparent20">#33000000</color>
     <color name="transparent30">#4d000000</color>
+    <color name="transparent60">#99000000</color>
     <color name="transparent80">#cc000000</color>
     <color name="white_transparent80">#ccffffff</color>
     <color name="white_transparent20">#33ffffff</color>

@@ -2,6 +2,7 @@ package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,10 +22,9 @@ import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
-import com.qiyuan.fifish.ui.activity.PublishVideoActivity;
-import com.qiyuan.fifish.ui.activity.SearchActivity;
+import com.qiyuan.fifish.ui.activity.ShareDialogActivity;
 import com.qiyuan.fifish.ui.activity.TagActivity;
-import com.qiyuan.fifish.ui.fragment.ShareDialogFragment;
+import com.qiyuan.fifish.ui.fragment.ShowImageFragment;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
 import com.qiyuan.fifish.ui.view.roundImageView.RoundedImageView;
@@ -115,6 +116,14 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);
         setClickListener(videoHolder.ibtnMore, item);
+        videoHolder.ivCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString(ShowImageFragment.class.getSimpleName(),item.cover.file.srcfile);
+                ShowImageFragment.newInstance(bundle).show(activity.getFragmentManager(),ShowImageFragment.class.getSimpleName());
+            }
+        });
         videoHolder.labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
             @Override
             public void onClickLabel(Label labelClicked) {
@@ -147,8 +156,11 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                         activity.startActivity(intent);
                         break;
                     case R.id.ibtn_share:
-                        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance();
-                        dialogFragment.show(activity.getFragmentManager(), ShareDialogFragment.class.getSimpleName());
+                        Intent intent1 = new Intent(activity, ShareDialogActivity.class);
+                        intent1.putExtra(ShareDialogActivity.class.getSimpleName(),item);
+                        activity.startActivity(intent1);
+//                        ShowImageFragment dialogFragment = ShowImageFragment.newInstance();
+//                        dialogFragment.show(activity.getFragmentManager(), ShowImageFragment.class.getSimpleName());
                         break;
                     case R.id.ibtn_more:
                         final BottomSheetDialog dialog = new BottomSheetDialog(activity);

@@ -290,13 +290,29 @@ public static final ** CREATOR;
 #搜索
 -keep   class com.amap.api.services.**{*;}
 
-#2D地图
--keep class com.amap.api.maps2d.**{*;}
--keep class com.amap.api.mapcore2d.**{*;}
+#3D 地图
+    -keep   class com.amap.api.maps.**{*;}
+    -keep   class com.autonavi.amap.mapcore.*{*;}
+    -keep   class com.amap.api.trace.**{*;}
 
-#导航
--keep class com.amap.api.navi.**{*;}
--keep class com.autonavi.**{*;}
+#    定位
+    -keep class com.amap.api.location.**{*;}
+    -keep class com.amap.api.fence.**{*;}
+    -keep class com.autonavi.aps.amapapi.model.**{*;}
+
+#    搜索
+    -keep   class com.amap.api.services.**{*;}
+
+#    2D地图
+    -keep class com.amap.api.maps2d.**{*;}
+    -keep class com.amap.api.mapcore2d.**{*;}
+
+ #   导航
+    -keep class com.amap.api.navi.**{*;}
+    -keep class com.autonavi.**{*;}
+    -dontwarn com.amap.api.**
+    -dontwarn com.a.a.**
+    -dontwarn com.autonavi.**
 ################高德地图
 
 #############极光推送
