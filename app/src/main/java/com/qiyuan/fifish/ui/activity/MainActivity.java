@@ -10,8 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import com.bean.MessageCountBean;
-import com.qiyuan.fifish.Manifest;
+import com.qiyuan.fifish.bean.MessageCountBean;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -97,6 +97,12 @@ public class MainActivity extends BaseActivity {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             String[] mPermissionList = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.CALL_PHONE,android.Manifest.permission.READ_LOGS,android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.SET_DEBUG_APP,android.Manifest.permission.SYSTEM_ALERT_WINDOW,android.Manifest.permission.GET_ACCOUNTS,android.Manifest.permission.WRITE_APN_SETTINGS};
             requestPermissions(mPermissionList,123);
+        }
+
+        if (UserProfile.isUserLogin() && JPushInterface.isPushStopped(getApplicationContext())){
+            JPushInterface.resumePush(getApplicationContext());
+        }else {//没登录关闭推送
+            JPushInterface.stopPush(getApplicationContext());
         }
         if (fragments == null) {
             fragments = new ArrayList<>();

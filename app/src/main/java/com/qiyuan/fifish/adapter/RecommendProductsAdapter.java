@@ -2,6 +2,7 @@ package com.qiyuan.fifish.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,10 @@ import com.qiyuan.fifish.bean.SupportProductsBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
+import com.qiyuan.fifish.ui.activity.ShareDialogActivity;
 import com.qiyuan.fifish.ui.activity.TagActivity;
+import com.qiyuan.fifish.ui.fragment.ShowImageFragment;
 import com.qiyuan.fifish.ui.view.BottomSheetView;
 import com.qiyuan.fifish.ui.view.labelview.AutoLabelUI;
 import com.qiyuan.fifish.ui.view.labelview.Label;
@@ -122,6 +126,14 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
         } else {
             setFocusBtnStyle(videoHolder.btnFocus, R.dimen.dp15, R.string.focus, R.mipmap.unfocus, R.color.color_7f8fa2, R.drawable.shape_unfocus);
         }
+        videoHolder.ivCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString(ShowImageFragment.class.getSimpleName(),item.cover.file.srcfile);
+                ShowImageFragment.newInstance(bundle).show(activity.getFragmentManager(),ShowImageFragment.class.getSimpleName());
+            }
+        });
         setClickListener(videoHolder.ibtnFavorite, item);
         setClickListener(videoHolder.ibtnComment, item);
         setClickListener(videoHolder.ibtnShare, item);
@@ -154,9 +166,14 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                         }
                         break;
                     case R.id.ibtn_comment:
+                        final Intent intent = new Intent(activity, CommentsDetailActivity.class);
+                        intent.putExtra(CommentsDetailActivity.class.getSimpleName(), item);
+                        activity.startActivity(intent);
                         break;
                     case R.id.ibtn_share:
-
+                        Intent intent1 = new Intent(activity, ShareDialogActivity.class);
+                        intent1.putExtra(ShareDialogActivity.class.getSimpleName(),item);
+                        activity.startActivity(intent1);
                         break;
                     case R.id.ibtn_more:
                         ArrayList<String> strings = new ArrayList<>();

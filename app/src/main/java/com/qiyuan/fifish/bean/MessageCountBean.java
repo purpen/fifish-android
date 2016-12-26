@@ -1,4 +1,4 @@
-package com.bean;
+package com.qiyuan.fifish.bean;
 
 /**
  * Created by lilin on 2016/12/15.

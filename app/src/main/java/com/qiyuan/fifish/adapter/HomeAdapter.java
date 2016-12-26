@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.adapter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;

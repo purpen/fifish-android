@@ -42,7 +42,6 @@ public class ViewPagerAdapter<T> extends RecyclingPagerAdapter {
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(100)
                 .build();
     }
 
@@ -67,7 +66,7 @@ public class ViewPagerAdapter<T> extends RecyclingPagerAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = holder.imageView = new ImageView(activity);
-            holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

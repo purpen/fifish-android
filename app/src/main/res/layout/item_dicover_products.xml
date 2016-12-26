@@ -85,7 +85,7 @@
         android:id="@+id/iv_cover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp210"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:visibility="gone"
         />
     <LinearLayout
@@ -186,6 +186,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_alignBottom="@+id/tv_txt"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -198,6 +199,7 @@
                 android:text="@string/app_name"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/sp10"
+                android:visibility="gone"
                 />
             <TextView
                 android:id="@+id/tv_time"
@@ -207,6 +209,7 @@
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/sp10"
                 android:layout_alignParentRight="true"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <com.qiyuan.fifish.ui.view.labelview.AutoLabelUI

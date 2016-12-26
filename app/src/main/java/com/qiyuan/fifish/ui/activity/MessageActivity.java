@@ -6,7 +6,7 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import com.bean.MessageCountBean;
+import com.qiyuan.fifish.bean.MessageCountBean;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -42,6 +42,7 @@ public class MessageActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        isReload=true;
         requestNet();
     }
 
@@ -82,7 +83,7 @@ public class MessageActivity extends BaseActivity {
         RequestService.getAlertCount(new CustomCallBack() {
             @Override
             public void onStarted() {
-                if (dialog != null && !activity.isFinishing()) dialog.show();
+                if (dialog != null && !activity.isFinishing() &&!isReload) dialog.show();
             }
 
             @Override
