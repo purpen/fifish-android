@@ -71,12 +71,12 @@ public class UserProfile implements Serializable {
     }
 
 
-    public static class DataEntity {
+    public static class DataEntity implements Serializable{
         public String id;
         public String account;
         public String username;
         public String job;
-        public String sex;
+        public int sex;
         public String zone;
         public String summary;
         public String follow_count;
@@ -93,13 +93,13 @@ public class UserProfile implements Serializable {
         public boolean first_login;
         public boolean following;
 
-        public static class AvatarEntity {
+        public static class AvatarEntity implements Serializable{
             public String small;
             public String large;
         }
     }
 
-    public static class MetaEntity {
+    public static class MetaEntity implements Serializable{
         public String message;
         public int status_code;
     }

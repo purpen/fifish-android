@@ -1,12 +1,10 @@
 package com.qiyuan.fifish.ui.activity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.QNBean;
@@ -21,11 +19,8 @@ import com.qiyuan.fifish.util.FileUtil;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
-
 import org.xutils.common.util.LogUtil;
-
 import java.io.File;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -145,15 +140,16 @@ public class ImageCropActivity extends BaseActivity {
      */
     private void uploadUserAvatar(final Bitmap bitmap) {
         if (bitmap == null) return;
-        File avatar = Util.saveBitmapToFile(bitmap);
-        getQNUrlToken("User",avatar);
+//        File avatar = Util.saveBitmapToFile(bitmap);
+        getQNUrlToken("User",bitmap);
     }
 
     /**
       * @param type
-     * @param file
+     * @param bitmap
      */
-    private void getQNUrlToken(String type, final File file) {
+    private void getQNUrlToken(String type, final Bitmap bitmap) {
+        final File avatar = Util.saveBitmapToFile(bitmap);
         if (dialog != null && !activity.isFinishing()) dialog.show();
         setViewEnable(false);
         RequestService.getAvatarToken(new CustomCallBack(){
@@ -161,7 +157,7 @@ public class ImageCropActivity extends BaseActivity {
             public void onSuccess(String result) {
                 QNBean response = JsonUtil.fromJson(result, QNBean.class);
                 if (response.meta.status_code==Constants.HTTP_OK){
-                    RequestService.upLoadFile(file,response.data.token,response.data.upload_url, new CustomCallBack() {
+                    RequestService.upLoadFile(avatar,response.data.token,response.data.upload_url, new CustomCallBack() {
                         @Override
                         public void onSuccess(String result) {
                             LogUtil.e(result);
@@ -169,10 +165,10 @@ public class ImageCropActivity extends BaseActivity {
                             if (dialog != null && !activity.isFinishing()) dialog.dismiss();
                             UploadImgVideoBean response = JsonUtil.fromJson(result, UploadImgVideoBean.class);
                             if (TextUtils.equals(response.ret,"success")) {
-                                ToastUtils.showSuccess("上传成功");
-//                                if (listener != null) {
-//                                    listener.onClipComplete(bitmap);
-//                                }
+                                ToastUtils.showSuccess(R.string.update_success);
+                                if (listener != null) {
+                                    listener.onClipComplete(bitmap);
+                                }
                                 finish();
                                 return;
                             }

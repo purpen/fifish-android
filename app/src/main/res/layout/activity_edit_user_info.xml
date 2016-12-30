@@ -14,7 +14,7 @@
         android:id="@+id/custom_user_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp10" />
+        android:layout_marginTop="@dimen/dp5" />
 
     <com.qiyuan.fifish.ui.view.CustomItemLayout
         android:id="@+id/custom_nick_name"
@@ -25,18 +25,19 @@
         android:id="@+id/custom_auth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         />
     <com.qiyuan.fifish.ui.view.CustomItemLayout
         android:id="@+id/custom_signature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp5"
         />
 
     <com.qiyuan.fifish.ui.view.CustomItemLayout
         android:id="@+id/custom_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp10"
         />
 
    <com.qiyuan.fifish.ui.view.CustomItemLayout
@@ -50,11 +51,13 @@
         android:id="@+id/custom_user_birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         />
     <com.qiyuan.fifish.ui.view.CustomItemLayout
         android:id="@+id/custom_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp10"
+        android:visibility="gone"
         />
 </LinearLayout>

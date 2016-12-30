@@ -46,6 +46,7 @@
     <string name="confirm_not_equal_new_password">新密码和确认密码不相同</string>
     <string name="init_equals_new_password">原密码和新密码不能相同</string>
     <string name="input_reply_content">请输入回复内容</string>
+    <string name="update_success">更新成功</string>
     <string name="products">作品</string>
     <string name="products_num">个作品</string>
     <string name="title_add_location">添加位置</string>
@@ -86,6 +87,7 @@
     <string name="select_a_province">请选择省份</string>
     <string name="cancel">取消</string>
     <string name="title_modify_nickname">修改昵称</string>
+    <string name="update_avatar">上传头像</string>
     <string name="look_more">更多</string>
     <string name="hot_tags">热门标签</string>
     <string name="hot_user">热门用户</string>
@@ -109,9 +111,9 @@
     <string name="user">用户</string>
     <string name="facebook_app_id">322451778141956</string>
     <string-array name="user_gender">
+        <item>保密</item>
         <item>男</item>
         <item>女</item>
-        <item>保密</item>
     </string-array>
     <string-array name="share_way">
         <item>微信</item>

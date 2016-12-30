@@ -20,12 +20,14 @@
         android:textColor="@color/color_333"
         android:text="个性标签"
         android:textSize="@dimen/sp14"
+        android:visibility="gone"
         />
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp40"
         android:background="@android:color/white"
+        android:visibility="gone"
         >
         <TextView
             android:id="@+id/tv_tag"
@@ -47,9 +49,9 @@
             android:layout_marginLeft="@dimen/dp16"
             android:layout_centerVertical="true"
             android:textSize="@dimen/sp12"
+            android:visibility="gone"
             />
         <ImageButton
-            android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -65,14 +67,18 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp05"
-        android:background="@color/color_ddd" />
+        android:background="@color/color_ddd"
+        android:visibility="gone"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:paddingLeft="@dimen/dp16"
         android:paddingRight="@dimen/dp16"
-        android:paddingTop="@dimen/dp16">
+        android:paddingTop="@dimen/dp16"
+        android:visibility="gone"
+        >
         <com.qiyuan.fifish.ui.view.labelview.AutoLabelUI
             android:id="@+id/label_view"
             android:layout_width="match_parent"
@@ -92,18 +98,34 @@
         android:textColor="@color/color_333"
         android:text="个性签名"
         android:textSize="@dimen/sp14"
+        android:visibility="gone"
         />
-    <EditText
-        android:id="@+id/et_nickname"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp16"
-        android:hint="输入15个字以内的个性签名"
-        android:gravity="left|top"
-        android:textColorHint="@color/color_999"
-        android:textSize="@dimen/sp12"
-        android:textColor="@color/color_333"
-        android:maxLength="15"
-        android:background="@android:color/white"
-        />
+        android:layout_height="@dimen/dp45"
+        android:layout_marginTop="@dimen/dp5"
+        >
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            android:paddingLeft="@dimen/dp16"
+            android:hint="输入15个字以内的个性签名"
+            android:textColorHint="@color/color_999"
+            android:textSize="@dimen/sp12"
+            android:textColor="@color/color_333"
+            android:maxLength="15"
+            android:background="@android:color/white"
+            />
+        <ImageButton
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:src="@mipmap/x"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/dp16"
+            />
+    </RelativeLayout>
 </LinearLayout>

@@ -1,5 +1,4 @@
 package com.qiyuan.fifish.ui.activity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,14 +14,19 @@ import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.album.ImageLoaderEngine;
 import com.qiyuan.fifish.album.Picker;
 import com.qiyuan.fifish.album.PicturePickerUtils;
-import com.qiyuan.fifish.bean.LoginUserInfo;
+import com.qiyuan.fifish.bean.SuccessBean;
+import com.qiyuan.fifish.bean.UserProfile;
+import com.qiyuan.fifish.network.CustomCallBack;
+import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.view.*;
 import com.qiyuan.fifish.ui.view.wheelview.StringWheelAdapter;
 import com.qiyuan.fifish.ui.view.wheelview.WheelView;
+import com.qiyuan.fifish.util.Constants;
+import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.PopupWindowUtil;
 import com.qiyuan.fifish.util.ProvinceUtil;
+import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -39,8 +43,8 @@ public class EditUserInfoActivity extends BaseActivity {
     @BindView(R.id.custom_nick_name)
     CustomItemLayout custom_nick_name;
     @BindView(R.id.custom_signature)
-
     CustomItemLayout custom_signature;
+
     @BindView(R.id.custom_area)
     CustomItemLayout custom_area;
 
@@ -54,7 +58,7 @@ public class EditUserInfoActivity extends BaseActivity {
 
     @BindView(R.id.custom_auth)
     CustomItemLayout custom_auth;
-    private LoginUserInfo user;
+    private UserProfile user;
 
     private Bitmap bitmap;
     private static final int REQUEST_CODE_PICK_IMAGE = 100;
@@ -67,9 +71,9 @@ public class EditUserInfoActivity extends BaseActivity {
     private static final int WOMAN = 2;
     private String key;
     private String value;
-    public static boolean isSubmitAddress=false;
+    public static boolean isSubmitAddress = false;
     private WaitingDialog dialog;
-
+    private String[] genderArr;
     public EditUserInfoActivity() {
         super(R.layout.activity_edit_user_info);
     }
@@ -77,38 +81,39 @@ public class EditUserInfoActivity extends BaseActivity {
     @Override
     protected void initViews() {
         head_view.setHeadCenterTxtShow(true, R.string.personal_data);
-        dialog=new WaitingDialog(this);
+        genderArr = getResources().getStringArray(R.array.user_gender);
+        dialog = new WaitingDialog(this);
         custom_user_avatar.setUserAvatar(null);
         custom_user_avatar.setTVStyle(0, R.string.user_avatar, R.color.color_333);
         custom_nick_name.setTVStyle(0, R.string.nick_name, R.color.color_333);
         custom_signature.setTVStyle(0, R.string.user_signature, R.color.color_333);
-        custom_signature.setTvArrowLeftStyle(true, R.string.input_signature);
+//        custom_signature.setTvArrowLeftStyle(true, R.string.input_signature);
         custom_user_sex.setTVStyle(0, R.string.user_sex, R.color.color_333);
         custom_user_sex.setTvArrowLeftStyle(true, R.string.select_gender);
-        custom_user_birthday.setTVStyle(0, R.string.user_birthday, R.color.color_333);
-        custom_user_birthday.setTvArrowLeftStyle(true, R.string.select_birth);
+//        custom_user_birthday.setTVStyle(0, R.string.user_birthday, R.color.color_333);
+//        custom_user_birthday.setTvArrowLeftStyle(true, R.string.select_birth);
         custom_area.setTVStyle(0, R.string.user_area, R.color.color_333);
         custom_area.setTvArrowLeftStyle(true, R.string.select_city);
-        custom_code.setTVStyle(0, R.string.user_code, R.color.color_333);
-        custom_code.setIvArrowLeftShow(true);
-        custom_auth.setTVStyle(0, R.string.user_auth, R.color.color_333);
+//        custom_code.setTVStyle(0, R.string.user_code, R.color.color_333);
+//        custom_code.setIvArrowLeftShow(true);
+//        custom_auth.setTVStyle(0, R.string.user_auth, R.color.color_333);
     }
 
-    @OnClick({R.id.custom_nick_name, R.id.custom_user_avatar,R.id.custom_area,R.id.custom_signature, R.id.custom_auth, R.id.custom_user_sex, R.id.custom_user_birthday, R.id.custom_code})
+    @OnClick({R.id.custom_nick_name, R.id.custom_user_avatar, R.id.custom_area, R.id.custom_signature, R.id.custom_auth, R.id.custom_user_sex, R.id.custom_user_birthday, R.id.custom_code})
     void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.custom_user_avatar:
-                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar,"上传头像"));
+                PopupWindowUtil.show(activity, initPopView(R.layout.popup_upload_avatar,getString(R.string.update_avatar)));
                 break;
             case R.id.custom_nick_name:
                 intent = new Intent(activity, EditUserNameActivity.class);
-                intent.putExtra(LoginUserInfo.class.getSimpleName(),user);
+                intent.putExtra(UserProfile.class.getSimpleName(), user);
                 startActivityForResult(intent, REQUEST_NICK_NAME);
                 break;
             case R.id.custom_signature:
                 intent = new Intent(activity, EditUserSignatureActivity.class);
-                intent.putExtra(LoginUserInfo.class.getSimpleName(),user);
+                intent.putExtra(UserProfile.class.getSimpleName(), user);
                 startActivityForResult(intent, REQUEST_SIGNATURE);
                 break;
             case R.id.custom_area:
@@ -146,8 +151,8 @@ public class EditUserInfoActivity extends BaseActivity {
         wv_province.setAdapter(new StringWheelAdapter(list));
         wv_province.setVisibleItems(5);
         tv_title.setText(resId);
-        setClickListener(tv_cancel_select, resId,wv_province, list);
-        setClickListener(tv_confirm_select, resId,wv_province, list);
+        setClickListener(tv_cancel_select, resId, wv_province, list);
+        setClickListener(tv_confirm_select, resId, wv_province, list);
         return view;
     }
 
@@ -156,18 +161,18 @@ public class EditUserInfoActivity extends BaseActivity {
         View tv_cancel_select = view.findViewById(R.id.tv_cancel_select);
         View tv_confirm_select = view.findViewById(R.id.tv_confirm_select);
         TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
-        CustomAddressSelectView addressView = (CustomAddressSelectView)view.findViewById(R.id.custom_address_select);
+        CustomAddressSelectView addressView = (CustomAddressSelectView) view.findViewById(R.id.custom_address_select);
 //        wv_province.setAdapter(new StringWheelAdapter(list));
 //        wv_province.setVisibleItems(5);
         tv_title.setText(resId);
-        setClickListener(tv_cancel_select,addressView);
-        setClickListener(tv_confirm_select,addressView);
+        setClickListener(tv_cancel_select, addressView);
+        setClickListener(tv_confirm_select, addressView);
         return view;
     }
 
     private View initPopView(int layout, String title) {
         View view = Util.inflateView(activity, layout, null);
-        ((TextView)view.findViewById(R.id.tv_title)).setText(title);
+        ((TextView) view.findViewById(R.id.tv_title)).setText(title);
         View iv_take_photo = view.findViewById(R.id.tv_take_photo);
         View iv_take_album = view.findViewById(R.id.tv_album);
         View iv_close = view.findViewById(R.id.tv_cancel);
@@ -196,46 +201,35 @@ public class EditUserInfoActivity extends BaseActivity {
             }
         }
     };
+
     @Override
     protected void requestNet() {
         ProvinceUtil.init();
-//        ClientDiscoverAPI.getMineInfo(LoginInfo.getUserId()+"",new RequestCallBack<String>() {
-//            @Override
-//            public void onStart() {
-//                if (!activity.isFinishing()&&dialog!=null) dialog.show();
-//            }
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                if (!activity.isFinishing()&&dialog!=null) dialog.dismiss();
-//                LogUtil.e("result", responseInfo.result);
-//                if (responseInfo == null) {
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(responseInfo.result)) {
-//                    return;
-//                }
-//
-//                try {
-//                    user = JsonUtil.fromJson(responseInfo.result, new TypeToken<HttpResponse<Friends>>() {
-//                    });
-//                } catch (JsonSyntaxException e) {
-//                    LogUtil.e(TAG, e.getLocalizedMessage());
-//                    if (!activity.isFinishing()&&dialog!=null)
-//                        ToastUtils.showError("对不起，数据异常");
-////                        dialog.showErrorWithStatus("对不起,数据异常");
-//                }
-//                refreshUI();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                if (!activity.isFinishing()&&dialog!=null) dialog.dismiss();
-//                if (TextUtils.isEmpty(s)) return;
-//                LogUtil.e(TAG, s);
-//                ToastUtils.showError("对不起，网路请求失败");
-//            }
-//        });
+        RequestService.getUserProfile(new CustomCallBack() {
+            @Override
+            public void onStarted() {
+                if (dialog != null && !activity.isFinishing()) dialog.show();
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                user= JsonUtil.fromJson(result, UserProfile.class);
+                if (user.meta.status_code == Constants.HTTP_OK) {
+                    refreshUI();
+                    return;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onFinished() {
+                if (dialog != null && !activity.isFinishing()) dialog.dismiss();
+            }
+        });
     }
 
     private View initPopView(int layout, int resId) {
@@ -252,6 +246,7 @@ public class EditUserInfoActivity extends BaseActivity {
 
     /**
      * 确认选择地址
+     *
      * @param view
      * @param casv
      */
@@ -261,17 +256,17 @@ public class EditUserInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.tv_confirm_select:
-                        isSubmitAddress=true;
-                        String addr=casv.getAddress();
+                        isSubmitAddress = true;
+                        String addr = casv.getAddress();
 //                        LogUtil.e(TAG,addr.split("\\s")[0]);
 //                        LogUtil.e(TAG,addr.split("\\s")[1]);
-                        if (TextUtils.isEmpty(addr)){
+                        if (TextUtils.isEmpty(addr)) {
                             return;
                         }
-                        key=ProvinceUtil.getProvinceIdByName(addr.split("\\s")[0])+"";
-                        value=ProvinceUtil.getCityIdByName(addr.split("\\s")[1])+"";
+                        key = "zone";
+                        value = ProvinceUtil.getCityIdByName(addr.split("\\s")[1]) + "";
                         submitData();
-                        custom_area.setTvArrowLeftStyle(true,addr, R.color.color_333);
+                        custom_area.setTvArrowLeftStyle(true, addr, R.color.color_333);
                     case R.id.tv_cancel_select:
                     default:
                         PopupWindowUtil.dismiss();
@@ -288,7 +283,7 @@ public class EditUserInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.tv_confirm_select:
-                        isSubmitAddress=false;
+                        isSubmitAddress = false;
                         key = "birthday";
                         value = cbsv.getBithday();
                         submitData();
@@ -313,18 +308,18 @@ public class EditUserInfoActivity extends BaseActivity {
                     case R.id.tv_confirm_select:
                         switch (id) {
                             case R.string.select_gender:
-                                isSubmitAddress=false;
+                                isSubmitAddress = false;
                                 String sex = list.get(wheelView.getCurrentItem());
                                 key = "sex";
-                                if (TextUtils.equals("保密",sex)) {
+                                if (TextUtils.equals(genderArr[0], sex)) {
                                     value = String.valueOf(SECRET);
-                                } else if (TextUtils.equals("男", sex)) {
+                                } else if (TextUtils.equals(genderArr[1], sex)) {
                                     value = String.valueOf(MAN);
                                 } else {
                                     value = String.valueOf(WOMAN);
                                 }
                                 submitData();
-                                custom_user_sex.setTvArrowLeftStyle(true,sex, R.color.color_333);
+                                custom_user_sex.setTvArrowLeftStyle(true, sex, R.color.color_333);
                                 break;
                         }
                         PopupWindowUtil.dismiss();
@@ -338,37 +333,31 @@ public class EditUserInfoActivity extends BaseActivity {
     }
 
     protected void submitData() {
-//        ClientDiscoverAPI.updateUserInfo(key,value, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                if (responseInfo==null){
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(responseInfo.result)){
-//                    return;
-//                }
-//
-//                HttpResponse<Friends> response = JsonUtil.json2Bean(responseInfo.result,new TypeToken<HttpResponse<Friends>>(){});
-//                if (response.isSuccess()){
-//                    user = response.getData();
-//                    ToastUtils.showSuccess(response.getMessage());
-////                    dialog.showSuccessWithStatus(response.getMessage());
-//                    return;
-//                }
-//
-//                ToastUtils.showError(response.getMessage());
-////                dialog.showErrorWithStatus(response.getMessage());
-//
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                ToastUtils.showError("网络异常，请确认网络畅通");
-////                dialog.showErrorWithStatus("网络异常，请确认网络畅通");
-//            }
-//        });
+        RequestService.updateUserInfo(key,value,new CustomCallBack(){
+            @Override
+            public void onStarted() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.show();
+            }
 
+            @Override
+            public void onSuccess(String result) {
+                SuccessBean successBean = JsonUtil.fromJson(result, SuccessBean.class);
+                if (successBean.meta.status_code== Constants.HTTP_OK){
+                    ToastUtils.showSuccess(R.string.update_success);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ex.printStackTrace();
+                ToastUtils.showError(R.string.request_error);
+            }
+
+            @Override
+            public void onFinished() {
+                if (dialog!=null&&!activity.isFinishing()) dialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -378,14 +367,14 @@ public class EditUserInfoActivity extends BaseActivity {
     @Override
     protected void refreshUI() {
         if (user != null) {
-            if (!TextUtils.isEmpty(user.medium_avatar_url)) {
-                ImageLoader.getInstance().displayImage(user.medium_avatar_url,custom_user_avatar.getAvatarIV());
+            if (!TextUtils.isEmpty(user.data.avatar.small) &&!TextUtils.equals("null",user.data.avatar.small)) {
+                ImageLoader.getInstance().displayImage(user.data.avatar.small,custom_user_avatar.getAvatarIV());
             }
 //            custom_user_name.setTvArrowLeftStyle(true, userLogin.user_name, R.color.color_333);
 //            custom_user_name.sertTVRightTxt(userLogin.user_name);
 //            custom_user_name.setRightMoreImgStyle(false);
-            if (!TextUtils.isEmpty(user.nickname)) {
-                custom_nick_name.setTvArrowLeftStyle(true, user.nickname, R.color.color_333);
+            if (!TextUtils.isEmpty(user.data.username)) {
+                custom_nick_name.setTvArrowLeftStyle(true, user.data.username, R.color.color_333);
             }
 
 //            if (TextUtils.isEmpty(user.expert_info)){
@@ -396,11 +385,11 @@ public class EditUserInfoActivity extends BaseActivity {
 
             setLabelSignatrue();
 
-            if (user.areas.size()>0) {
-                custom_area.setTvArrowLeftStyle(true, String.format("%s %s",user.areas.get(0),user.areas.get(1)), R.color.color_333);
+            if (!TextUtils.isEmpty(user.data.zone) && !TextUtils.equals("null",user.data.zone)) {
+                custom_area.setTvArrowLeftStyle(true,user.data.zone, R.color.color_333);
             }
 
-            switch (user.sex) {
+            switch (user.data.sex) {
                 case SECRET:
                     custom_user_sex.setTvArrowLeftStyle(true, "保密", R.color.color_333);
                     break;
@@ -412,23 +401,17 @@ public class EditUserInfoActivity extends BaseActivity {
                     break;
             }
 
-            if (!TextUtils.isEmpty(user.birthday)) {
-                custom_user_birthday.setTvArrowLeftStyle(true, user.birthday, R.color.color_333);
-            }
+//            if (!TextUtils.isEmpty(user.birthday)) {
+//                custom_user_birthday.setTvArrowLeftStyle(true, user.birthday, R.color.color_333);
+//            }
 
         }
     }
 
-    private void setLabelSignatrue(){
-//        if (TextUtils.isEmpty(user.label) && !TextUtils.isEmpty(user.summary)){
-//            custom_signature.setTvArrowLeftStyle(true, user.summary, R.color.color_333);
-//        }else if (!TextUtils.isEmpty(user.label)&& TextUtils.isEmpty(user.summary)){
-//            custom_signature.setTvArrowLeftStyle(true, user.label, R.color.color_333);
-//        }else if (!TextUtils.isEmpty(user.label)&&!TextUtils.isEmpty(user.summary)){
-//            String str= String.format("%s | %s",user.label,user.summary);
-//            LogUtil.e("setLabelSignatrue",str);
-//            custom_signature.setTvArrowLeftStyle(true,str, R.color.color_333);
-//        }
+    private void setLabelSignatrue() {
+        if (!TextUtils.isEmpty(user.data.summary) && !TextUtils.equals("null",user.data.summary)){
+            custom_signature.setTvArrowLeftStyle(true, user.data.summary, R.color.color_333);
+        }
     }
 
     @Override
@@ -437,18 +420,18 @@ public class EditUserInfoActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_NICK_NAME:
-                    user=(LoginUserInfo) data.getSerializableExtra(LoginUserInfo.class.getSimpleName());
-                    custom_nick_name.setTvArrowLeftStyle(true,user.nickname,R.color.color_333);
+                    user = (UserProfile) data.getSerializableExtra(UserProfile.class.getSimpleName());
+                    custom_nick_name.setTvArrowLeftStyle(true, user.data.username, R.color.color_333);
                     break;
                 case REQUEST_SIGNATURE:
-                    user=(LoginUserInfo)data.getSerializableExtra(LoginUserInfo.class.getSimpleName());
+                    user = (UserProfile) data.getSerializableExtra(UserProfile.class.getSimpleName());
 //                    custom_signature.setTvArrowLeftStyle(true,user.summary,R.color.color_333);
                     setLabelSignatrue();
                     break;
                 case REQUEST_CODE_PICK_IMAGE:
                     List<Uri> mSelected = PicturePickerUtils.obtainResult(data);
                     if (mSelected == null) return;
-                    if (mSelected.size()==0) return;
+                    if (mSelected.size() == 0) return;
                     toCropActivity(mSelected.get(0));
 //                    Uri uri = data.getData();
 //                    if (uri != null) {
@@ -494,19 +477,19 @@ public class EditUserInfoActivity extends BaseActivity {
         ImageCropActivity.setOnClipCompleteListener(new ImageCropActivity.OnClipCompleteListener() {
             @Override
             public void onClipComplete(Bitmap bitmap) {
-                EditUserInfoActivity.this.bitmap=bitmap;
+                EditUserInfoActivity.this.bitmap = bitmap;
                 custom_user_avatar.getAvatarIV().setImageBitmap(bitmap);
             }
         });
         Intent intent = new Intent(activity, ImageCropActivity.class);
         intent.putExtra(ImageCropActivity.class.getSimpleName(), uri);
-        intent.putExtra(ImageCropActivity.class.getName(),TAG);
+        intent.putExtra(ImageCropActivity.class.getName(), TAG);
         startActivity(intent);
     }
 
     @Override
     protected void onDestroy() {
-        if (bitmap!=null) bitmap.recycle();
+        if (bitmap != null) bitmap.recycle();
         super.onDestroy();
     }
 }

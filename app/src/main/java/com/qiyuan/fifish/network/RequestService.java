@@ -525,4 +525,34 @@ public class RequestService {
         Callback.Cancelable cancelable = x.http().post(params,customCallBack);
         RequestManager.getInstance().add(MD5.md5(url), cancelable);
     }
+
+    /**
+     * 设置个性签名
+     * @param summary
+     * @param customCallBack
+     */
+    public static void updateSignature(String summary, CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/updateSign";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter("summary",summary);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
+
+
+    /**
+     * 更新用户信息
+     * @param key
+     * @param value
+     * @param customCallBack
+     */
+    public static void updateUserInfo(String key,String value,CustomCallBack customCallBack) {
+        String url=Constants.BASE_URL+"me/settings";
+        RequestParams params = new RequestParams(url);
+        params.addQueryStringParameter(key,value);
+        addToken(params);
+        Callback.Cancelable cancelable = x.http().post(params,customCallBack);
+        RequestManager.getInstance().add(MD5.md5(url), cancelable);
+    }
 }

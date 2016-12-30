@@ -24,12 +24,12 @@
             android:textColorHint="@color/color_999"
             android:textSize="@dimen/sp14"
             android:textColor="@color/color_333"
-            android:singleLine="true"
+            android:maxLines="1"
             android:maxLength="20"
             android:background="@android:color/white"
             />
         <ImageButton
-            android:id="@+id/ibtn"
+            android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
