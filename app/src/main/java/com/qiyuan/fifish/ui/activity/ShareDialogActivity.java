@@ -62,7 +62,6 @@ public class ShareDialogActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.gravity = Gravity.BOTTOM;
