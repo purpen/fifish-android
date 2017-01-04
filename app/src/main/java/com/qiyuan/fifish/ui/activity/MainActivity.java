@@ -2,6 +2,7 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,11 +57,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        if (intent.hasExtra(HomeFragment.class.getSimpleName())) {
+        super.onNewIntent(intent);
+        if (intent.hasExtra(TAG)) {
+            which = intent.getStringExtra(TAG);
+        }else {
             which = HomeFragment.class.getSimpleName();
         }
         which2Switch();
-        super.onNewIntent(intent);
     }
 
     private void which2Switch() {
@@ -82,14 +85,14 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void getIntentData() {
-        Intent intent = getIntent();
-        if (intent.hasExtra(HomeFragment.class.getSimpleName())) {
-            which = HomeFragment.class.getSimpleName();
-        }
-
-    }
+//    @Override
+//    protected void getIntentData() {
+//        Intent intent = getIntent();
+//        if (intent.hasExtra(MainActivity.class.getSimpleName())) {
+//            which = HomeFragment.class.getSimpleName();
+//        }
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,8 +153,8 @@ public class MainActivity extends BaseActivity {
                         } else {
                             radioGroup.check(checkId);
                             Intent intent = new Intent(activity, LoginActivity.class);
-                            intent.putExtra(MineFragment.class.getSimpleName(), MineFragment.class.getSimpleName());
-                            startActivity(new Intent(activity, LoginActivity.class));
+                            intent.putExtra(TAG, MineFragment.class.getSimpleName());
+                            startActivity(intent);
                         }
                         break;
                 }
@@ -230,6 +233,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (fragments != null) {
             int size = fragments.size();
             for (int i = 0; i < size; i++) {
@@ -239,11 +243,11 @@ public class MainActivity extends BaseActivity {
         if (showFragment != null) {
             outState.putSerializable(MainActivity.class.getSimpleName(), showFragment.getClass());
         }
-        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         if (fragments != null) {
             int size = fragments.size();
             for (int i = 0; i < size; i++) {
@@ -253,7 +257,6 @@ public class MainActivity extends BaseActivity {
         if (showFragment != null) {
             savedInstanceState.putSerializable(MainActivity.class.getSimpleName(), showFragment.getClass());
         }
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     public Fragment getVisibleFragment() {

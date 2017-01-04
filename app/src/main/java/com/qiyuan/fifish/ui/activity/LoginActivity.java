@@ -3,6 +3,7 @@ package com.qiyuan.fifish.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -69,8 +70,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void getIntentData() {
         Intent intent = getIntent();
-        if (intent.hasExtra(MineFragment.class.getSimpleName())){
-            page = MineFragment.class.getSimpleName();
+        if (intent.hasExtra(MainActivity.class.getSimpleName())){
+            page = intent.getStringExtra(MainActivity.class.getSimpleName());
         }
     }
 
@@ -81,7 +82,9 @@ public class LoginActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        Fragment[] fragments={LoginFragment.newInstance(),RegisterFragment.newInstance()};
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG,page);
+        Fragment[] fragments={LoginFragment.newInstance(bundle),RegisterFragment.newInstance()};
         LoginRegsiterViewPagerAdapter adapter = new LoginRegsiterViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
         viewPager.setPagingEnabled(false);
@@ -215,15 +218,16 @@ public class LoginActivity extends BaseActivity {
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-
                     if (userInfo.meta.status_code== Constants.HTTP_OK){
                         if (JPushInterface.isPushStopped(AppApplication.getInstance())) JPushInterface.resumePush(AppApplication.getInstance());
                         SPUtil.write(Constants.LOGIN_INFO,result);
                         userId = userInfo.data.id;
                         JPushInterface.setAlias(activity.getApplicationContext(),userId,mTagAliasCallback);
                         Intent intent = new Intent(activity, MainActivity.class);
-                        intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
+                        if (TextUtils.isEmpty(page)) page = HomeFragment.class.getSimpleName();
+                        intent.putExtra(MainActivity.class.getSimpleName(),page);
                         startActivity(intent);
+                        finish();
                         return;
                     }
                 }catch (JsonSyntaxException e){

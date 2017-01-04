@@ -21,6 +21,7 @@ import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
 import com.qiyuan.fifish.ui.activity.ForgetPasswordActivity;
+import com.qiyuan.fifish.ui.activity.LoginActivity;
 import com.qiyuan.fifish.ui.activity.MainActivity;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
@@ -50,6 +51,14 @@ public class LoginFragment extends BaseFragment {
     private String userName;
     private String userPsw;
     private String userId;
+    private String page;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        page= bundle.getString(LoginActivity.class.getSimpleName());
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,8 +67,9 @@ public class LoginFragment extends BaseFragment {
         return view;
     }
 
-    public static LoginFragment newInstance() {
+    public static LoginFragment newInstance(Bundle bundle) {
         LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -93,6 +103,7 @@ public class LoginFragment extends BaseFragment {
                     getUserProfile();
                     return;
                 }
+                ToastUtils.showError(loginBean.meta.message);
             }
 
             @Override
@@ -120,15 +131,16 @@ public class LoginFragment extends BaseFragment {
                 if (TextUtils.isEmpty(result)) return;
                 try {
                     UserProfile userInfo = JsonUtil.fromJson(result, UserProfile.class);
-
                     if (userInfo.meta.status_code== Constants.HTTP_OK){
                         if (JPushInterface.isPushStopped(AppApplication.getInstance())) JPushInterface.resumePush(AppApplication.getInstance());
                         SPUtil.write(Constants.LOGIN_INFO,result);
                         userId = userInfo.data.id;
                         JPushInterface.setAlias(activity.getApplicationContext(),userId,mTagAliasCallback);
                         Intent intent = new Intent(activity, MainActivity.class);
-                        intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
+                        if (TextUtils.isEmpty(page)) page = HomeFragment.class.getSimpleName();
+                        intent.putExtra(MainActivity.class.getSimpleName(),page);
                         startActivity(intent);
+                        activity.finish();
                         return;
                     }
                 }catch (JsonSyntaxException e){

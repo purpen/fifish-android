@@ -133,9 +133,7 @@ public class SystemSettingsActivity extends BaseActivity{
             JPushInterface.stopPush(AppApplication.getInstance());
         }
         SPUtil.remove(Constants.LOGIN_INFO);
-        Intent intent=new Intent(activity,MainActivity.class);
-        intent.putExtra(HomeFragment.class.getSimpleName(),HomeFragment.class.getSimpleName());
-        startActivity(intent);
+        startActivity(new Intent(activity,MainActivity.class));
         finish();
     }
 
