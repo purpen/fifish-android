@@ -49,11 +49,11 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<SimpleTextAdapter.Vi
 
     @Override
     public void onBindViewHolder(final SimpleTextAdapter.ViewHolder holder, int position) {
-        if(TextUtils.equals(activity.getResources().getStringArray(R.array.dialog_bottom)[0],list.get(position))){
-            holder.mTextView.setTextColor(activity.getResources().getColor(R.color.color_ff0000));
-        }else {
-            holder.mTextView.setTextColor(activity.getResources().getColor(R.color.color_333));
-        }
+//        if(TextUtils.equals(activity.getResources().getStringArray(R.array.dialog_bottom)[0],list.get(position))){
+//            holder.mTextView.setTextColor(activity.getResources().getColor(R.color.color_ff0000));
+//        }else {
+//            holder.mTextView.setTextColor(activity.getResources().getColor(R.color.color_333));
+//        }
         holder.mTextView.setText(list.get(position));
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

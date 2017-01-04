@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
     private ArrayList<Fragment> fragments;
     private Fragment showFragment;
     private String which = HomeFragment.class.getSimpleName();
-
+    private int checkId = R.id.ll_nav0;
     public MainActivity() {
         super(R.layout.activity_main);
     }
@@ -122,36 +122,33 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.ll_nav0:
+                        checkId=i;
                         LogUtil.e((R.id.ll_nav0 == i) + "");
                         which = HomeFragment.class.getSimpleName();
-//                        radioGroup.check(i);
                         switchFragmentandImg(HomeFragment.class);
-//                        startActivity(new Intent(activity,UserCenterActivity.class));
                         break;
                     case R.id.ll_nav1:
-//                        radioGroup.check(i);
+                        checkId =i;
                         which = MediaFragment.class.getSimpleName();
                         switchFragmentandImg(MediaFragment.class);
-//                        switchFragmentandImg(DeviceFragment2.class);
                         break;
                     case R.id.ll_nav2:
+                        checkId =i;
                         which = DeviceFragment.class.getSimpleName();
-//                        radioGroup.check(i);
                         switchFragmentandImg(DeviceFragment.class);
                         break;
                     case R.id.ll_nav3:
+                        checkId =i;
                         which = DiscoverFragment.class.getSimpleName();
-//                        radioGroup.check(i);
                         switchFragmentandImg(DiscoverFragment.class);
                         break;
                     case R.id.ll_nav4:
                         if (UserProfile.isUserLogin()) {
+                            checkId = i;
                             which = MineFragment.class.getSimpleName();
-//                            radioGroup.check(i);
                             switchFragmentandImg(MineFragment.class);
                         } else {
-//                            radioGroup.check(checkedId);
-//                            which = MineFragment.class.getSimpleName();
+                            radioGroup.check(checkId);
                             Intent intent = new Intent(activity, LoginActivity.class);
                             intent.putExtra(MineFragment.class.getSimpleName(), MineFragment.class.getSimpleName());
                             startActivity(new Intent(activity, LoginActivity.class));

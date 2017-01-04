@@ -3,6 +3,9 @@ package com.qiyuan.fifish.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +36,7 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.qiyuan.fifish.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -150,6 +154,14 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                 }
             }
         });
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(activity, CommentsDetailActivity.class);
+//                intent.putExtra(CommentsDetailActivity.class.getSimpleName(),item);
+//                activity.startActivity(intent);
+//            }
+//        });
         return convertView;
     }
 
@@ -176,12 +188,68 @@ public class RecommendProductsAdapter extends BaseAdapter<ProductsBean.DataEntit
                         activity.startActivity(intent1);
                         break;
                     case R.id.ibtn_more:
-                        ArrayList<String> strings = new ArrayList<>();
-                        strings.add("google");
-                        strings.add("google");
-                        strings.add("google");
-                        strings.add("google");
-                        BottomSheetView.show(activity, new SimpleTextAdapter(activity, strings), BottomSheetView.LINEAR_LAYOUT);
+                        final BottomSheetDialog dialog = new BottomSheetDialog(activity);
+                        View bottomView = Util.inflateView(R.layout.view_bottom_list, null);
+                        bottomView.findViewById(R.id.tv_title).setVisibility(View.GONE);
+                        RecyclerView recyclerView = (RecyclerView) bottomView.findViewById(R.id.bottom_sheet_recycler_view);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                        String[] stringArray = activity.getResources().getStringArray(R.array.dialog_bottom);
+                        SimpleTextAdapter adapter = new SimpleTextAdapter(activity, Arrays.asList(stringArray));
+                        recyclerView.setAdapter(adapter);
+                        adapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                switch (position) {
+                                    case 0: //举报
+                                        final BottomSheetDialog dialogReport = new BottomSheetDialog(activity);
+                                        View bottomView = Util.inflateView(R.layout.view_bottom_list, null);
+                                        bottomView.findViewById(R.id.tv_title).setVisibility(View.GONE);
+                                        RecyclerView recyclerView = (RecyclerView) bottomView.findViewById(R.id.bottom_sheet_recycler_view);
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                                        String[] stringArray = activity.getResources().getStringArray(R.array.dialog_report);
+                                        SimpleTextAdapter textAdapter = new SimpleTextAdapter(activity, Arrays.asList(stringArray));
+                                        recyclerView.setAdapter(textAdapter);
+                                        textAdapter.setOnItemClickListener(new SimpleTextAdapter.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(View view, int position) {
+                                                switch (position) {
+                                                    case 0:
+                                                        //TODO
+                                                        break;
+                                                    case 1:
+
+                                                        break;
+                                                    case 2:
+                                                        dialogReport.dismiss();
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onItemLongClick(View view, int position) {
+
+                                            }
+                                        });
+                                        dialogReport.setContentView(bottomView);
+                                        dialogReport.show();
+                                        break;
+                                    case 1: //取消
+                                        dialog.dismiss();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onItemLongClick(View view, int position) {
+
+                            }
+                        });
+                        dialog.setContentView(bottomView);
+                        dialog.show();
                         break;
                     case R.id.btn_focus:
                         if (item.is_follow) { //做取消关注

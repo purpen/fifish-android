@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -26,6 +27,7 @@ import com.qiyuan.fifish.bean.ProductsBean;
 import com.qiyuan.fifish.bean.TagsBean;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
+import com.qiyuan.fifish.ui.activity.CommentsDetailActivity;
 import com.qiyuan.fifish.ui.activity.TagActivity;
 import com.qiyuan.fifish.ui.view.CustomHeadView;
 import com.qiyuan.fifish.ui.view.RecycleViewDivider;
@@ -125,6 +127,17 @@ public class DiscoverFragment extends BaseFragment {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 
+            }
+        });
+
+        pullLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i<2) return;
+                ProductsBean.DataEntity item = adapter.getItem(i-2);
+                Intent intent=new Intent(activity, CommentsDetailActivity.class);
+                intent.putExtra(CommentsDetailActivity.class.getSimpleName(),item);
+                startActivity(intent);
             }
         });
 
