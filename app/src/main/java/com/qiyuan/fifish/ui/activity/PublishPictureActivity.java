@@ -38,6 +38,8 @@ import com.qiyuan.fifish.util.ToastUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMVideo;
 
 import org.xutils.common.util.LogUtil;
 
@@ -72,13 +74,14 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     @BindView(R.id.label_view)
     AutoLabelUI labelView;
     private String content;
-    private String address="";
+    private String address = "";
     private ArrayList<String> tags;
     private String token;
     private String uploadUrl;
     private ProductsBean.DataEntity item;
     private Image selectImg;
-    private int[] images = {R.mipmap.share_wechat, R.mipmap.share_sina, R.mipmap.share_qq, R.mipmap.share_facebook, R.mipmap.share_instgram};
+    private int[] images = {R.mipmap.wechat_84, R.mipmap.sina_84, R.mipmap.qq_84, R.mipmap.facebook_84, R.mipmap.instagram_84};
+    private SHARE_MEDIA platform;
 
     public PublishPictureActivity() {
         super(R.layout.activity_share_picture);
@@ -279,9 +282,9 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
         for (Label label : labels) {
             tags.add(label.getText().substring(1));
         }
-        address=tvAddAddress.getText().toString();
+        address = tvAddAddress.getText().toString();
         LogUtil.e("Tags==" + tags.toArray(new String[tags.size()])[0]);
-        RequestService.addNewProducts(content, asset_id, "",address, String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
+        RequestService.addNewProducts(content, asset_id, "", address, String.valueOf(lat), String.valueOf(lng), "2", tags.toArray(new String[tags.size()]), new CustomCallBack() {
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
@@ -320,25 +323,25 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
     @Override
     public void onItemClick(View view, int position) {
         switch (position) {
-            case 0://wechat
-                share(SHARE_MEDIA.WEIXIN,"测试");
+            case 0:
+                platform = SHARE_MEDIA.WEIXIN;
                 break;
-            case 1: //sina
-                share(SHARE_MEDIA.SINA,"测试");
+            case 1:
+                platform = SHARE_MEDIA.SINA;
                 break;
-            case 2: //qq
-                share(SHARE_MEDIA.QQ,"测试");
+            case 2:
+                platform = SHARE_MEDIA.QQ;
                 break;
-            case 3: //facebook
-                share(SHARE_MEDIA.FACEBOOK,"测试");
+            case 3:
+                platform = SHARE_MEDIA.FACEBOOK;
                 break;
-            case 4: //tumblr
-                break;
-            case 5://whatapp
+            case 4:
+                platform = SHARE_MEDIA.INSTAGRAM;
                 break;
             default:
                 break;
         }
+        share();
     }
 
     @Override
@@ -346,31 +349,42 @@ public class PublishPictureActivity extends BaseActivity implements ShareAdapter
 
     }
 
-    private void share(SHARE_MEDIA platform,String content){
-        new ShareAction(activity).setPlatform(platform)
-                .withText(content)
-                .setCallback(umShareListener)
-                .share();
+    private void share() {
+        if (platform == null || selectImg == null) return;
+        if (selectImg.isVideo) { //只支持网络视频分享
+            UMVideo video = new UMVideo(item.cover.file.srcfile);
+            video.setTitle(getString(R.string.app_name));//视频的标题
+            video.setThumb(new UMImage(activity, item.cover.file.large)); //视频封面
+            video.setDescription(item.content);//视频的描述
+            new ShareAction(activity).setPlatform(platform).withMedia(video)
+                    .setCallback(umShareListener)
+                    .share();
+        } else {
+            UMImage image = new UMImage(activity,new File(selectImg.path));//网络图片
+            new ShareAction(activity).setPlatform(platform).withMedia(image)
+                    .setCallback(umShareListener)
+                    .share();
+        }
     }
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Log.d("plat","platform"+platform);
-            Toast.makeText(activity, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            Log.e("plat", "platform" + platform);
+            ToastUtils.showInfo(platform + " 分享成功啦");
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(activity,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-            if(t!=null){
-                Log.d("throw","throw:"+t.getMessage());
+            ToastUtils.showInfo(platform + " 分享失败啦");
+            if (t != null) {
+                Log.e("throw", "throw:" + t.getMessage());
             }
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(activity,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            ToastUtils.showInfo(platform + " 分享取消了");
         }
     };
 

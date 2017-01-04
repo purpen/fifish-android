@@ -121,7 +121,6 @@ public class ShareDialogActivity extends BaseActivity {
                     share();
                 }
             }
-
             @Override
             public void onItemLongClick(View view, int position) {
 

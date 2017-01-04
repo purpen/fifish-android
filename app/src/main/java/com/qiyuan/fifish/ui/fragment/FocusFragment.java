@@ -41,6 +41,7 @@ public class FocusFragment extends ScrollTabHolderFragment {
     private String id;
     private int curPage = 1;
     private WaitingDialog dialog;
+    private boolean isLoadMore = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -61,9 +62,8 @@ public class FocusFragment extends ScrollTabHolderFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser && !isLoadMore){
             requestData();
-            mList.clear();
         }
     }
 
@@ -98,13 +98,14 @@ public class FocusFragment extends ScrollTabHolderFragment {
         RequestService.getFocus(id, new CustomCallBack() {
             @Override
             public void onStarted() {
-                if (dialog!=null&&!activity.isFinishing()) dialog.show();
+                if (dialog!=null&&!activity.isFinishing() &&!isLoadMore) dialog.show();
             }
 
             @Override
             public void onSuccess(String result) {
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
+                    isLoadMore =true;
                     List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
                     return;

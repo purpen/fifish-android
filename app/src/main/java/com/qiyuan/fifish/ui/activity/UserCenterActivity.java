@@ -100,7 +100,6 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
     private String flag;
     private int mMinHeaderHeight;
     private int mHeaderHeight;
-    private int mMinHeaderTranslation;
     private UserCenterViewPagerAdapter mPagerAdapter;
     private Fragment[] fragments = new Fragment[3];
     private UserProfile userInfo;
@@ -144,8 +143,7 @@ public class UserCenterActivity extends BaseActivity implements ScrollTabHolder,
         tvProducts.setTextColor(color_2187ff);
         mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp225);
         mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.dp310);
-        mMinHeaderTranslation = -mMinHeaderHeight;
-        Bundle bundle = new Bundle();
+//        Bundle bundle = new Bundle();
         fragments[0] = ProductsFragment.newInstance(0, userId);
         fragments[1] = FocusFragment.newInstance(1, userId);
         fragments[2] = FansFragment.newInstance(2, userId);

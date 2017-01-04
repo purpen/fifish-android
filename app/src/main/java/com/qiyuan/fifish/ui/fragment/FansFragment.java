@@ -41,6 +41,7 @@ public class FansFragment extends ScrollTabHolderFragment {
     private String id;
     private WaitingDialog dialog;
     private int curPage=1;
+    private boolean isLoadMore = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -86,9 +87,8 @@ public class FansFragment extends ScrollTabHolderFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser && !isLoadMore){
             requestData();
-            mList.clear();
         }
     }
 
@@ -128,13 +128,14 @@ public class FansFragment extends ScrollTabHolderFragment {
         RequestService.getFans(id, new CustomCallBack() {
             @Override
             public void onStarted() {
-                if (dialog!=null&&!activity.isFinishing()) dialog.show();
+                if (dialog!=null&&!activity.isFinishing() && !isLoadMore) dialog.show();
             }
             @Override
             public void onSuccess(String result) {
                 LogUtil.e(result);
                 FocusBean focusBean = JsonUtil.fromJson(result, FocusBean.class);
                 if (focusBean.meta.status_code == Constants.HTTP_OK) {
+                    isLoadMore =true;
                     List<FocusBean.DataBean> list = focusBean.data;
                     refreshUI(list);
                 }
