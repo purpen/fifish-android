@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.adapter;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiyuan.fifish.R;
 import com.qiyuan.fifish.bean.ProductsBean;
@@ -116,9 +118,9 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
         videoHolder.ivCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putString(ShowImageFragment.class.getSimpleName(),item.cover.file.srcfile);
-                ShowImageFragment.newInstance(bundle).show(activity.getFragmentManager(),ShowImageFragment.class.getSimpleName());
+                Bundle bundle = new Bundle();
+                bundle.putString(ShowImageFragment.class.getSimpleName(), item.cover.file.srcfile);
+                ShowImageFragment.newInstance(bundle).show(activity.getFragmentManager(), ShowImageFragment.class.getSimpleName());
             }
         });
         videoHolder.labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
@@ -154,7 +156,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
                         break;
                     case R.id.ibtn_share:
                         Intent intent1 = new Intent(activity, ShareDialogActivity.class);
-                        intent1.putExtra(ShareDialogActivity.class.getSimpleName(),item);
+                        intent1.putExtra(ShareDialogActivity.class.getSimpleName(), item);
                         activity.startActivity(intent1);
 //                        ShowImageFragment dialogFragment = ShowImageFragment.newInstance();
 //                        dialogFragment.show(activity.getFragmentManager(), ShowImageFragment.class.getSimpleName());
