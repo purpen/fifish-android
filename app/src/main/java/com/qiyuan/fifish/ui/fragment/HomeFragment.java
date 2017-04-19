@@ -1,4 +1,5 @@
 package com.qiyuan.fifish.ui.fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.qiyuan.fifish.R;
@@ -21,9 +23,13 @@ import com.qiyuan.fifish.ui.view.WaitingDialog;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
 import com.qiyuan.fifish.util.ToastUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.custom_head)
     CustomHeadView customHead;
@@ -137,5 +143,11 @@ public class HomeFragment extends BaseFragment {
         } else {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

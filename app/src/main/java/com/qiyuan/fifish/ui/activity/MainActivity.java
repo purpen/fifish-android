@@ -2,7 +2,6 @@ package com.qiyuan.fifish.ui.activity;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import com.qiyuan.fifish.bean.MessageCountBean;
+
 import com.qiyuan.fifish.R;
+import com.qiyuan.fifish.bean.MessageCountBean;
 import com.qiyuan.fifish.bean.UserProfile;
 import com.qiyuan.fifish.network.CustomCallBack;
 import com.qiyuan.fifish.network.RequestService;
@@ -24,13 +24,15 @@ import com.qiyuan.fifish.ui.fragment.MineFragment;
 import com.qiyuan.fifish.ui.view.BadgeView;
 import com.qiyuan.fifish.util.Constants;
 import com.qiyuan.fifish.util.JsonUtil;
+
 import org.xutils.common.util.LogUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import cn.jpush.android.api.JPushInterface;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerManager;
 
 
 /**
@@ -260,7 +262,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public Fragment getVisibleFragment() {
-        List<Fragment> fragments = fm.getFragments();
+        if (null==fragments) return null;
         for (Fragment fragment : fragments) {
             if (fragment != null && fragment.isVisible())
                 return fragment;
@@ -324,5 +326,21 @@ public class MainActivity extends BaseActivity {
         } else {
             tvTipNum.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayerManager.getSecondFloor() != null) {
+            JCVideoPlayer.backPress();
+        }else {
+            super.onBackPressed();
+        }
+
     }
 }

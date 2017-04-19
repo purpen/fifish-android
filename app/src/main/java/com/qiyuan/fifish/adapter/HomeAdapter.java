@@ -55,7 +55,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LogUtil.e("position==" + position);
+
         final ProductsBean.DataEntity item = list.get(position);
         VideoHolder videoHolder;
         if (convertView == null) {
@@ -73,6 +73,7 @@ public class HomeAdapter extends BaseAdapter<ProductsBean.DataEntity> {
             } else if (TextUtils.equals(Constants.TYPE_VIDEO, item.cover.kind)) {
                 videoHolder.videoContainer.setVisibility(View.VISIBLE);
                 videoHolder.ivCover.setVisibility(View.GONE);
+                LogUtil.e("item.cover.file.srcfile==" + item.cover.file.srcfile);
                 videoHolder.videoView.setUp(item.cover.file.srcfile, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
                 videoHolder.videoView.thumbImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 videoHolder.tvVideoTime.setText(Util.second2Hour((int) item.cover.duration));
